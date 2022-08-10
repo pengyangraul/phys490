@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.16">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Numbers and Errors</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="week2_files/libs/clipboard/clipboard.min.js"></script>
+<script src="week2_files/libs/quarto-html/quarto.js"></script>
+<script src="week2_files/libs/quarto-html/popper.min.js"></script>
+<script src="week2_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="week2_files/libs/quarto-html/anchor.min.js"></script>
+<link href="week2_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="week2_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="week2_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="week2_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="week2_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation">Motivation</a></li>
+  <li><a href="#errors" id="toc-errors" class="nav-link" data-scroll-target="#errors">Errors</a>
+  <ul class="collapse">
+  <li><a href="#absolute-and-relative-error" id="toc-absolute-and-relative-error" class="nav-link" data-scroll-target="#absolute-and-relative-error">Absolute and Relative Error</a></li>
+  <li><a href="#error-propagation" id="toc-error-propagation" class="nav-link" data-scroll-target="#error-propagation">Error Propagation</a></li>
+  </ul></li>
+  <li><a href="#representing-real-numbers" id="toc-representing-real-numbers" class="nav-link" data-scroll-target="#representing-real-numbers">Representing Real Numbers</a>
+  <ul class="collapse">
+  <li><a href="#basics" id="toc-basics" class="nav-link" data-scroll-target="#basics">Basics</a></li>
+  <li><a href="#revisiting-subtraction" id="toc-revisiting-subtraction" class="nav-link" data-scroll-target="#revisiting-subtraction">Revisiting Subtraction</a></li>
+  <li><a href="#comparing-floats" id="toc-comparing-floats" class="nav-link" data-scroll-target="#comparing-floats">Comparing Floats</a></li>
+  </ul></li>
+  <li><a href="#naive-vs-manipulated-expressions" id="toc-naive-vs-manipulated-expressions" class="nav-link" data-scroll-target="#naive-vs-manipulated-expressions">Naive vs Manipulated Expressions</a></li>
+  <li><a href="#computing-the-exponential-function" id="toc-computing-the-exponential-function" class="nav-link" data-scroll-target="#computing-the-exponential-function">Computing the Exponential Function</a></li>
+  <li><a href="#an-even-worse-case-recursion" id="toc-an-even-worse-case-recursion" class="nav-link" data-scroll-target="#an-even-worse-case-recursion">An Even Worse Case: Recursion</a></li>
+  <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework">Homework</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Numbers and Errors</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="motivation" class="level2">
+<h2 class="anchored" data-anchor-id="motivation">Motivation</h2>
+<p>Numbers have doubt to be very important in physics: : both experimental measurements and theoretical calculations produce specific numbers. One also estimates the experimental or theoretical uncertainty associated with these values.</p>
+<p>Experimentally, when we measure some quantities, we will only record the measurement results as numbers with finite lengh of digits. This length of digits is not only restricted by the finite precision of the measurement, but also by the finite amount of storage we have. For example, if we write down these numbers on paper, the longer digits we keep, the more space on paper we need. Likewise, if we store these data on a computer, only a finite number of digits can be stored in the finite storage in the computer.</p>
+<p>Because of this, when we use computer to help us perform calculations and simulations, we have to keep in mind that we always make approximations to some (maybe unknown) true values. We have to make sure that such errors should not affect the underlying physics we want to explore.</p>
+</section>
+<section id="errors" class="level2">
+<h2 class="anchored" data-anchor-id="errors">Errors</h2>
+<p>In this section you will systematically learn the <em>errors</em> you may encounter. We will first introduce some terminologies.</p>
+<p>We shall use <em>accuracy</em> to describe the match of a value with the (possibly unknown) true value. On the other hand, we use <em>precision</em> to denote how many digits we can use in a mathematical operation, no matter whether these digits are correct or not.</p>
+<p>An inaccurate result arises when we have an error, which can due to a variety of reasons, and the <em>limited precision</em> is just one of them.</p>
+<p>Besides the “human error” and measurement uncertainty, there are two typical types of errors in numerical computing:</p>
+<ul>
+<li><strong>Approximation errors</strong>. Example: when are trying to approximate the exponential <span class="math inline">\(e^x\)</span> by the its Taylor series</li>
+</ul>
+<p><span class="math display">\[
+y = \sum_{n=0}^{n_{max}}\frac{x^n}{n!},
+\]</span></p>
+<p>we are limiting the sum to terms up to <span class="math inline">\(n_{max}\)</span>. Thus, the value of <span class="math inline">\(y\)</span> for a given <span class="math inline">\(x\)</span> may depend on <span class="math inline">\(n_{max}\)</span>.</p>
+<ul>
+<li><strong>Roundoff errors</strong>. These are also known as <em>rounding errors</em>. This type of error appears every time a calculation is carried out using floating-point numbers, as they don’t have infinite precision. For example, using real numbers, we have <span class="math inline">\((\sqrt{2})^2 - 2 = 0\)</span>. However, one can check in python</li>
+</ul>
+<div class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> sqrt</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sqrt(<span class="dv">2</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">-</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>4.440892098500626e-16</code></pre>
+</div>
+</div>
+<section id="absolute-and-relative-error" class="level3">
+<h3 class="anchored" data-anchor-id="absolute-and-relative-error">Absolute and Relative Error</h3>
+<p>We will first introduce some basic concepts. Let’s say we want to study a quantity with exact value <span class="math inline">\(x\)</span>. If <span class="math inline">\(\tilde{x}\)</span> is an approximate value for it, then we can define <em>absolute error</em> as <span class="math inline">\(\Delta x = \tilde{x} - x\)</span>.</p>
+<p>We are interested in defining an <em>error bound</em> of the form <span class="math inline">\(|\Delta x| \leq \epsilon\)</span> where we hope that <span class="math inline">\(\epsilon\)</span> is “small”. This means that even though we don’t know the exact value of <span class="math inline">\(x\)</span>, we do know it could be at most <span class="math inline">\(\tilde{x} + \epsilon\)</span> and at least <span class="math inline">\(\tilde{x} - \epsilon\)</span>.</p>
+<p>Sometimes, the absolute error is not enough. For example, if we have <span class="math inline">\(x = 1000000000.0\)</span>, <span class="math inline">\(\tilde{x} = 999999999.0\)</span>, which corresponds to an absolute error <span class="math inline">\(\Delta x = -1\)</span>. Obviously, we should not say <span class="math inline">\(\Delta x\)</span> is small. On the other hand, we do feel that <span class="math inline">\(x\)</span> and <span class="math inline">\(\tilde{x}\)</span> are close enough.</p>
+<p>This is resolved by introducing a new definition, the <em>relative error</em>, defined as</p>
+<p><span class="math display">\[
+\delta x = \frac{\Delta x}{x} = \frac{\tilde{x} - x}{x},
+\]</span></p>
+<p>which is just the absolute error divided by the exact value. We can also define a <em>bound for the relative error</em>, <span class="math inline">\(|\delta x|\leq \epsilon\)</span>. Now the phrase <span class="math inline">\(\epsilon\)</span> is small unambiguous, as it doesn’t depend on whether or not <span class="math inline">\(x\)</span> is large. Sometimes, when defining the relative error, we can also use <span class="math inline">\(\tilde{x}\)</span> instead of <span class="math inline">\(x\)</span> in the denominator, since the exact value may be unknown.</p>
+</section>
+<section id="error-propagation" class="level3">
+<h3 class="anchored" data-anchor-id="error-propagation">Error Propagation</h3>
+<p>Now, we will explore what happens when we put together the error bounds for two numbers <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> to produce an error bound for a third number <span class="math inline">\(x\)</span>, which is obtained from <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> via addition, subtraction, multiplication and division.</p>
+<section id="addition-and-subtraction" class="level4">
+<h4 class="anchored" data-anchor-id="addition-and-subtraction">Addition and Subtraction</h4>
+<p>Let <span class="math inline">\(\tilde{a}, \tilde{b}\)</span> be the approximate values for <span class="math inline">\(a, b\)</span>. We can write <span class="math inline">\(\tilde{a} = a+\Delta a\)</span>, <span class="math inline">\(\tilde{b}= b+\Delta b\)</span>. Thes, we have</p>
+<p><span class="math display">\[
+\Delta x = \tilde{x} - x = (a+\Delta a \pm (b + \Delta b)) - (a \pm b) = \Delta a \pm \Delta b.
+\]</span></p>
+<p>Thus,</p>
+<p><span class="math display">\[
+|\Delta x|  = |\Delta a \pm \Delta b| \leq |\Delta a|  + |\Delta b|.
+\]</span></p>
+<p>This leads to the conclusion that <em>in addition and subtraction adding together the bounds for the absolute errorsin the two numbers gi ves us the bound for the absolute error in the result</em>.</p>
+</section>
+<section id="catastrophic-cancellation" class="level4">
+<h4 class="anchored" data-anchor-id="catastrophic-cancellation">Catastrophic Cancellation</h4>
+<p>Let us examine the special case: <span class="math inline">\(a\simeq b\)</span>. Let us work out the subtraction case <span class="math inline">\(x = a - b\)</span>. The relative error of <span class="math inline">\(x\)</span> is bounded as</p>
+<p><span class="math display">\[
+|\delta x | = \left|\frac{\Delta x }{x} \right| \leq \frac{|\Delta a | + |\Delta b|}{|a - b|}.
+\]</span></p>
+<p>As <span class="math inline">\(\Delta a = a\delta a\)</span>, <span class="math inline">\(\Delta b = b\delta b = a \frac{b}{a}\delta b\)</span>, the above condition becomes</p>
+<p><span class="math display">\[
+|\delta x|\leq (|\delta a| + \frac{|b|}{|a|}|\delta b|)\frac{|a|}{|a - b|}.
+\]</span></p>
+<p>Since <span class="math inline">\(a\simeq b\)</span>, we have that <span class="math inline">\(|a-b| \ll |a|\)</span>, which implies that <span class="math inline">\(\frac{|a|}{|a - b|} \gg 1\)</span>. On the other hand, we have <span class="math inline">\(\frac{|b|}{|a|}\simeq 1\)</span>, and thus on the right hand side of the above inequality, the relative error bound of <span class="math inline">\(x\)</span> is <span class="math inline">\((|\delta a|+ |\delta b|)\)</span> multiplied by a very large factor, namely the relative error is greatly manified.</p>
+<p><strong>Example</strong>: Consider two numbers <span class="math inline">\(a= 1.251\)</span> and <span class="math inline">\(b=1.239\)</span>. We approximate them as 1.25 and 1.24, respectively. The reiative error for these approximations are <span class="math inline">\(\delta a = -0.0008\)</span> and <span class="math inline">\(\delta b = 0.0008\)</span>. Consider <span class="math inline">\(x = a - b = 0.012\)</span>. If we use the approximate values, we get <span class="math inline">\(\tilde{x} = 0.01\)</span>, and the relative error is <span class="math inline">\(\delta x = -0.002/0.012 = -0.167\)</span>. We see that <span class="math inline">\(|\delta x| \gg |\delta a|, |\delta b|\)</span>.</p>
+</section>
+<section id="multiplication-or-division" class="level4">
+<h4 class="anchored" data-anchor-id="multiplication-or-division">Multiplication or Division</h4>
+<p>Let <span class="math inline">\(x = ab\)</span>, and <span class="math inline">\(\tilde{x} = \tilde{a}\tilde{b}\)</span>. Using the definitions, we have <span class="math inline">\(\tilde{a}= a(a+\delta a)\)</span>, <span class="math inline">\(\tilde{b} = b(1+\delta b)\)</span>. These give</p>
+<p><span class="math display">\[
+\delta x = \frac{\tilde{x} - x}{x} = \frac{\tilde{a}\tilde{b} - ab}{ab}
+= \frac{a(1+\delta a)b(1+\delta b) - ab}{ab} = \delta a + \delta b,
+\]</span></p>
+<p>where in the last equality we dropped the term <span class="math inline">\(\delta a \delta b\)</span> since it is product of two error terms. To derive an error bound, we take the absolute value and obtain</p>
+<p><span class="math display">\[
+|\delta x | \leq |\delta a| + |\delta b|.
+\]</span></p>
+</section>
+<section id="general-error-propagation-functions-of-one-variable" class="level4">
+<h4 class="anchored" data-anchor-id="general-error-propagation-functions-of-one-variable">General Error Propagation: Functions of One Variable</h4>
+<p>Consider <span class="math inline">\(y = f(x)\)</span>. We can calculate</p>
+<p><span class="math display">\[
+\begin{align*}
+\Delta y &amp;= f(\tilde{x}) - f(x) = f(x + \Delta x) - f(x) \\
+&amp; \simeq \frac{d f(x)}{dx} (\tilde{x} - x),
+\end{align*}
+\]</span></p>
+<p>where we have dropped higher order terms of <span class="math inline">\(\Delta x\)</span>. For the relative error, we have</p>
+<p><span class="math display">\[
+\delta y = \frac{x}{f(x)} \frac{d f(x)}{dx} \delta x.
+\]</span></p>
+</section>
+<section id="general-error-propagation-functions-of-many-variables" class="level4">
+<h4 class="anchored" data-anchor-id="general-error-propagation-functions-of-many-variables">General Error Propagation: Functions of Many Variables</h4>
+<p>Consider a function of multiple variables, <span class="math inline">\(y = f(x_0, x_1, \dots, x_{n-1})\)</span>. One can show that</p>
+<p><span class="math display">\[
+\Delta y = \sum_{i = 0}^{n-1} \frac{\partial f}{\partial x_i} \Delta x_i.
+\]</span></p>
+<p>For relative errors, we have</p>
+<p><span class="math display">\[
+\delta y = \sum_{i = 0}^{n-1} \frac{x_i}{f(x_0,\dots,x_{n-1})} \frac{\partial f}{\partial x_i} \delta x_i.
+\]</span></p>
+</section>
+</section>
+</section>
+<section id="representing-real-numbers" class="level2">
+<h2 class="anchored" data-anchor-id="representing-real-numbers">Representing Real Numbers</h2>
+<p>In the following we will be focusing on the roundoff errors, which is due to finite-digit float number representation on a computer.</p>
+<section id="basics" class="level3">
+<h3 class="anchored" data-anchor-id="basics">Basics</h3>
+<p>Computers use electrical circuits, which communicate using signals. The simplest such signals are <em>on</em> and <em>off</em>. These wo possibilities are known as <em>binary digit</em> or <em>bit</em>, represented by 0 or 1. All types of numbers are stored in binary form, as collections of 0s and 1s.</p>
+<p>In Python, integers actually have unlimited precision, so we won’t have to worry about them. We will be focusing on the real numbers, which are stored using the <em>floating-point representation</em> in computers, with the general form</p>
+<p><span class="math display">\[
+\pm \mathrm{mantissa} \times 10^{\mathrm{exponent}}.
+\]</span></p>
+<p>For example, one can represent the speed of light in vaccumm as <span class="math inline">\(+2.99792458 \times 10^8 \mathrm{m/s}\)</span>.</p>
+<p>Computer only store a finite number of bits, so cannot store exactly all possible real numbers. In other words, there are only finitely many exact representations/<em>machine numbers</em>, which fall into two categories: <em>normal</em> and <em>subnormal</em> numbers. There are three ways of losing precision, as shown in <a href="#fig-float-number">Figure&nbsp;1</a>: <em>underflow</em> for very small numbers, <em>overflow</em> for very large (in absolute value) numbers, and <em>rounding</em> for decimal numbers whose value falls between two exactly representable numbers.</p>
+<div id="fig-float-number" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="float_number.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure 1: Illustration of exactly representable floating-point numbers</figcaption><p></p>
+</figure>
+</div>
+<p>Python uses <em>double-precision floating point numbers</em>, also known as <em>doubles</em>, whose storage uses 64 bits in total. Doubles can represent</p>
+<p><span class="math display">\[
+\pm 4.9 \times 10^{-324} \leftrightarrow \pm 1.8 \times 10^{308}.
+\]</span></p>
+<p>The number of significant digits (precision) is 15 or 16 decimal digits for doubles.</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Overflow</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>large <span class="op">=</span> <span class="fl">2.</span><span class="op">**</span><span class="dv">1021</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    large <span class="op">*=</span> <span class="dv">2</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i,large)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0 4.49423283715579e+307
+1 8.98846567431158e+307
+2 inf</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rounding</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>small <span class="op">=</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span><span class="op">**</span><span class="dv">50</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    small <span class="op">/=</span> <span class="dv">2</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i, <span class="dv">1</span><span class="op">+</span>small, small)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0 1.0000000000000004 4.440892098500626e-16
+1 1.0000000000000002 2.220446049250313e-16
+2 1.0 1.1102230246251565e-16</code></pre>
+</div>
+</div>
+</section>
+<section id="revisiting-subtraction" class="level3">
+<h3 class="anchored" data-anchor-id="revisiting-subtraction">Revisiting Subtraction</h3>
+<p>We know that</p>
+<p><span class="math display">\[
+\begin{align*}
+&amp;1.2345678912345678912−1.2345678900000000000\\
+&amp;= 0.0000000012345678912 \\
+&amp;= 1.2345678912 \times 10^{-9}
+\end{align*}
+\]</span></p>
+<p>Let us in the following do it in Python.</p>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a> <span class="fl">1.2345678912345678912</span> <span class="op">-</span> <span class="fl">1.2345678900000000000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>1.234568003383174e-09</code></pre>
+</div>
+</div>
+<p>We see that the last few digits do not match the exact result. This is because of finite precision of the floating number storage (only up to 16 digits).</p>
+</section>
+<section id="comparing-floats" class="level3">
+<h3 class="anchored" data-anchor-id="comparing-floats">Comparing Floats</h3>
+<p>Only machine numbers are represented exactly, and other numbers are rounded to the nearest machine number. THus, we should never compare floating-point variables <span class="math inline">\(\tilde{x}\)</span> and <span class="math inline">\(\tilde{y}\)</span> for equality. See the following example.</p>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>xt <span class="op">=</span> <span class="fl">0.1</span> <span class="op">+</span> <span class="fl">0.2</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>yt <span class="op">=</span> <span class="fl">0.3</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(xt <span class="op">==</span> yt)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(xt, yt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>False
+0.30000000000000004 0.3</code></pre>
+</div>
+</div>
+<p>The proper way should be to evaluate <code>abs(xt - yt)</code>, where <code>abs()</code> denotes the absolute value. As long as this value is small, we can say <code>xt</code> and <code>yt</code> should be the same.</p>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">abs</span>(xt <span class="op">-</span> yt))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">abs</span>(xt <span class="op">-</span> yt)<span class="op">&lt;</span><span class="fl">1e-12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>5.551115123125783e-17
+True</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#######################################</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># More examples</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#######################################</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># First example</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="fl">0.7</span> <span class="op">+</span> <span class="fl">0.1</span> <span class="op">+</span> <span class="fl">0.3</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="fl">0.7</span> <span class="op">+</span> (<span class="fl">0.1</span> <span class="op">+</span> <span class="fl">0.3</span>))</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'===================================='</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Second example</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>xt <span class="op">=</span> <span class="fl">1.e20</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>yt <span class="op">=</span> <span class="op">-</span><span class="fl">1.e20</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>zt <span class="op">=</span> <span class="fl">1.</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(xt <span class="op">+</span> yt <span class="op">+</span> zt)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(xt <span class="op">+</span> (yt <span class="op">+</span> zt))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1.0999999999999999
+1.1
+====================================
+1.0
+0.0</code></pre>
+</div>
+</div>
+<p>In the above second example, if we first add up <code>xt</code> and <code>yt</code>, they cancel to 0 and then we simply get 1. On the other hand, if we first add <code>yt</code> and <code>zt</code>, we won’t get the small contribution of <code>zt</code> to the large value <code>yt</code>, and thus we will have “yt + zt = yt”. That’s why we at last get 0.</p>
+</section>
+</section>
+<section id="naive-vs-manipulated-expressions" class="level2">
+<h2 class="anchored" data-anchor-id="naive-vs-manipulated-expressions">Naive vs Manipulated Expressions</h2>
+<p>We will now show how easy it is to lose accuracy if one is not careful, and how straightforward it is to carry out an anlytical manipulation that avoids the problem.</p>
+<p>The task at hand is to evaluate</p>
+<p><span class="math display">\[
+f(x) = \frac{1}{\sqrt{x^2 + 1} - x}
+\]</span></p>
+<p>at large values of <span class="math inline">\(x\)</span>.</p>
+<p>We will use the following list comprehension code.</p>
+<div class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> sqrt</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> naiveval(x):</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">1</span><span class="op">/</span>(sqrt(x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">1</span>) <span class="op">-</span> x)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>xs <span class="op">=</span> [<span class="dv">10</span><span class="op">**</span>i <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4</span>,<span class="dv">8</span>)] </span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>ys <span class="op">=</span> [naiveval(x) <span class="cf">for</span> x <span class="kw">in</span> xs] </span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x, y <span class="kw">in</span> <span class="bu">zip</span>(xs, ys):</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x, y)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(naiveval(<span class="fl">1e8</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>10000 19999.99977764674
+100000 200000.22333140278
+1000000 1999984.77112922
+10000000 19884107.85185185</code></pre>
+</div>
+<div class="cell-output cell-output-error">
+<pre><code>ZeroDivisionError: float division by zero</code></pre>
+</div>
+</div>
+<p>The answer appears to be getting increasingly worse as the x is increased. If you test <span class="math inline">\(x = 10^8\)</span>, you even get an error <code>ZeroDivisionError</code>, because <span class="math inline">\(\sqrt{x^2 +1}\simeq x\)</span> when <span class="math inline">\(x\)</span> is large. We are having an issue of subtracting two large but nearly identical numbers.</p>
+<p>An easy way to avoid this issue is to manipulate the original expression</p>
+<p><span class="math display">\[
+f(x) = \frac{\sqrt{x^2 +1 } + x}{(\sqrt{x^2 +1} - x)(\sqrt{x^2 +1} +x)} = \sqrt{x^2 +1} + x.
+\]</span></p>
+<p>This expression has no issue of large number subtraction. When <span class="math inline">\(x\gg 1\)</span>, essentially we have <span class="math inline">\(\sqrt{x^2 +1} +x \simeq 2x\)</span>. In the following code, you see the result is very robust on any values of <span class="math inline">\(x\)</span>.</p>
+<div class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> sqrt</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> neweval(x):</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> sqrt(x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">1</span>) <span class="op">+</span> x</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>xs <span class="op">=</span> [<span class="dv">10</span><span class="op">**</span>i <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4</span>,<span class="dv">8</span>)] </span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>ys <span class="op">=</span> [neweval(x) <span class="cf">for</span> x <span class="kw">in</span> xs] </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x, y <span class="kw">in</span> <span class="bu">zip</span>(xs, ys):</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x, y)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(neweval(<span class="fl">1e8</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>10000 20000.000050000002
+100000 200000.00000499998
+1000000 2000000.0000005001
+10000000 20000000.000000052
+200000000.0</code></pre>
+</div>
+</div>
+</section>
+<section id="computing-the-exponential-function" class="level2">
+<h2 class="anchored" data-anchor-id="computing-the-exponential-function">Computing the Exponential Function</h2>
+<p>We want to compute the exponential function (assuming we have no access to the math library), by using the Taylor series:</p>
+<p><span class="math display">\[
+e^x = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \cdots.
+\]</span></p>
+<p>We shall approximate this expansion by keeping only the terms up to <span class="math inline">\(n_{max}\)</span>:</p>
+<p><span class="math display">\[
+e^x \simeq \sum_{n=0}^{n_{max}} \frac{x^n}{n!}.
+\]</span></p>
+<p>A naive implementation by directly computing the powers of <span class="math inline">\(x\)</span> divided by the increasingly large factorial suffers from two problems:</p>
+<ol type="a">
+<li>calculating the power and the factorial is costly</li>
+<li>both <span class="math inline">\(x^n\)</span> and <span class="math inline">\(n!\)</span> can become very large numbers (potentially overflowing) even though their ratio can be quite small</li>
+</ol>
+<p>Alternatively, we notice that the <span class="math inline">\(n\)</span>-th term and <span class="math inline">\((n-1)\)</span>-th term are related:</p>
+<p><span class="math display">\[
+\frac{x^n}{n!} = \frac{x}{n}\frac{x^{n-1}}{(n-1)!}.
+\]</span></p>
+<p>Thus, we can get the new term by multiplying the old term by <span class="math inline">\(x/n\)</span>. We see that if <span class="math inline">\(x&gt;n\)</span>, the magnitude of the term grows.</p>
+<p>How should we determine the value of <span class="math inline">\(n_{nmax}\)</span>, namely when should we stop without going to the next term? We will terminate the loop when it is determined that adding the <span class="math inline">\(n\)</span>-th term to the running total doesn’t change the sum. See the following code.</p>
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> exp</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compexp(x):</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    oldsum, newsum, term <span class="op">=</span> <span class="fl">0.</span>, <span class="fl">1.</span>, <span class="fl">1.</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> newsum <span class="op">!=</span> oldsum:</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        oldsum <span class="op">=</span> newsum</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>        n <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>        term <span class="op">*=</span> x<span class="op">/</span>n</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>        newsum <span class="op">+=</span> term</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(n, newsum, term)</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> newsum</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> (<span class="fl">0.1</span>, <span class="fl">20.</span>, <span class="op">-</span><span class="fl">20.</span>):</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"x, library exp(x):"</span>, x, exp(x))</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    val <span class="op">=</span> compexp(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>x, library exp(x): 0.1 1.1051709180756477
+1 1.1 0.1
+2 1.105 0.005000000000000001
+3 1.1051666666666666 0.0001666666666666667
+4 1.1051708333333332 4.166666666666668e-06
+5 1.1051709166666666 8.333333333333335e-08
+6 1.1051709180555553 1.3888888888888892e-09
+7 1.1051709180753966 1.9841269841269846e-11
+8 1.1051709180756446 2.480158730158731e-13
+9 1.1051709180756473 2.75573192239859e-15
+10 1.1051709180756473 2.75573192239859e-17
+x, library exp(x): 20.0 485165195.4097903
+1 21.0 20.0
+2 221.0 200.0
+3 1554.3333333333335 1333.3333333333335
+4 8221.000000000002 6666.666666666668
+5 34887.66666666667 26666.66666666667
+6 123776.55555555558 88888.8888888889
+7 377744.8095238096 253968.25396825402
+8 1012665.4444444446 634920.634920635
+9 2423600.1887125224 1410934.744268078
+10 5245469.677248678 2821869.488536156
+11 10376141.474587142 5130671.797338465
+12 18927261.136817917 8551119.662230777
+13 32082829.84794219 13155568.711124273
+14 50876499.435262576 18793669.58732039
+15 75934725.55168976 25058226.116427187
+16 107257508.19722374 31322782.645533983
+17 144107840.72138137 36850332.52415763
+18 185052654.63711208 40944813.9157307
+19 228152458.75893387 43099804.12182178
+20 271252262.88075566 43099804.12182178
+21 312299695.3777288 41047432.49697313
+22 349615543.10224986 37315847.724521026
+23 382064106.3409638 32448563.238713935
+24 409104575.7065587 27040469.365594946
+25 430736951.1990347 21632375.492475957
+26 447377240.0394008 16640288.840366121
+27 459703379.9211535 12326139.881752681
+28 468507765.5509768 8804385.629823344
+29 474579755.64051014 6071990.089533341
+30 478627749.0335324 4047993.393022227
+31 481239357.6741919 2611608.6406595013
+32 482871613.0746041 1632255.4004121884
+33 483860858.7718236 989245.6972195081
+34 484442768.00548214 581909.2336585342
+35 484775287.5675727 332519.562090591
+36 484960020.65762305 184733.09005032835
+37 485059876.3819746 99855.72435152884
+38 485112432.0263701 52555.644395541494
+39 485139383.63888067 26951.612510534098
+40 485152859.44513595 13475.806255267049
+41 485159433.0091629 6573.564026959536
+42 485162563.27774715 3130.2685842664455
+43 485164019.21662354 1455.938876402998
+44 485164681.0070219 661.7903983649991
+45 485164975.13608783 294.1290659399996
+46 485165103.0182904 127.88220258260851
+47 485165157.43624896 54.41795854579086
+48 485165180.11039835 22.674149394079524
+49 485165189.3651532 9.254754854726336
+50 485165193.0670551 3.701901941890535
+51 485165194.51878136 1.4517262517217784
+52 485165195.0771376 0.5583562506622225
+53 485165195.28783804 0.2107004719480085
+54 485165195.36587524 0.07803721183259574
+55 485165195.3942524 0.028377167939125723
+56 485165195.4043871 0.010134702835402045
+57 485165195.4079431 0.0035560360825972084
+58 485165195.4091694 0.0012262193388266236
+59 485165195.40958506 0.0004156675724836012
+60 485165195.40972364 0.00013855585749453372
+61 485165195.40976906 4.542814999820777e-05
+62 485165195.4097837 1.4654241934905732e-05
+63 485165195.40978837 4.65214029679547e-06
+64 485165195.4097898 1.4537938427485845e-06
+65 485165195.4097903 4.4732118238417985e-07
+66 485165195.4097904 1.3555187344975148e-07
+67 485165195.40979046 4.046324580589596e-08
+68 485165195.40979046 1.1900954648792928e-08
+x, library exp(x): -20.0 2.061153622438558e-09
+1 -19.0 -20.0
+2 181.0 200.0
+3 -1152.3333333333335 -1333.3333333333335
+4 5514.333333333334 6666.666666666668
+5 -21152.333333333336 -26666.66666666667
+6 67736.55555555556 88888.8888888889
+7 -186231.69841269846 -253968.25396825402
+8 448688.93650793657 634920.634920635
+9 -962245.8077601413 -1410934.744268078
+10 1859623.6807760145 2821869.488536156
+11 -3271048.116562451 -5130671.797338465
+12 5280071.545668326 8551119.662230777
+13 -7875497.165455947 -13155568.711124273
+14 10918172.421864444 18793669.58732039
+15 -14140053.694562742 -25058226.116427187
+16 17182728.95097124 31322782.645533983
+17 -19667603.57318639 -36850332.52415763
+18 21277210.34254431 40944813.9157307
+19 -21822593.779277474 -43099804.12182178
+20 21277210.34254431 43099804.12182178
+21 -19770222.154428817 -41047432.49697313
+22 17545625.57009221 37315847.724521026
+23 -14902937.668621726 -32448563.238713935
+24 12137531.69697322 27040469.365594946
+25 -9494843.795502737 -21632375.492475957
+26 7145445.044863384 16640288.840366121
+27 -5180694.836889297 -12326139.881752681
+28 3623690.792934047 8804385.629823344
+29 -2448299.296599294 -6071990.089533341
+30 1599694.096422933 4047993.393022227
+31 -1011914.5442365683 -2611608.6406595013
+32 620340.8561756201 1632255.4004121884
+33 -368904.841043888 -989245.6972195081
+34 213004.39261464623 581909.2336585342
+35 -119515.16947594477 -332519.562090591
+36 65217.92057438358 184733.09005032835
+37 -34637.803777145265 -99855.72435152884
+38 17917.84061839623 52555.644395541494
+39 -9033.77189213787 -26951.612510534098
+40 4442.03436312918 13475.806255267049
+41 -2131.529663830356 -6573.564026959536
+42 998.7389204360893 3130.2685842664455
+43 -457.19995596690865 -1455.938876402998
+44 204.59044239809043 661.7903983649991
+45 -89.53862354190915 -294.1290659399996
+46 38.34357904069937 127.88220258260851
+47 -16.074379505091493 -54.41795854579086
+48 6.599769888988032 22.674149394079524
+49 -2.6549849657383042 -9.254754854726336
+50 1.0469169761522306 3.701901941890535
+51 -0.4048092755695478 -1.4517262517217784
+52 0.15354697509267468 0.5583562506622225
+53 -0.05715349685533383 -0.2107004719480085
+54 0.020883714977261908 0.07803721183259574
+55 -0.007493452961863815 -0.028377167939125723
+56 0.0026412498735382296 0.010134702835402045
+57 -0.0009147862090589788 -0.0035560360825972084
+58 0.00031143312976764483 0.0012262193388266236
+59 -0.00010423444271595637 -0.0004156675724836012
+60 3.432141477857734e-05 0.00013855585749453372
+61 -1.1106735219630428e-05 -4.542814999820777e-05
+62 3.5475067152753046e-06 1.4654241934905732e-05
+63 -1.1046335815201656e-06 -4.65214029679547e-06
+64 3.491602612284189e-07 1.4537938427485845e-06
+65 -9.816092115576097e-08 -4.4732118238417985e-07
+66 3.73909522939905e-08 1.3555187344975148e-07
+67 -3.0722935119054536e-09 -4.046324580589596e-08
+68 8.828661136887475e-09 1.1900954648792928e-08
+69 5.379109064773582e-09 -3.449552072113892e-09
+70 6.364695371091837e-09 9.855863063182549e-10
+71 6.0870654256500746e-09 -2.7762994544176197e-10
+72 6.164184854939453e-09 7.711942928937833e-11
+73 6.1430562441752395e-09 -2.112861076421324e-11
+74 6.148766679516919e-09 5.710435341679254e-12
+75 6.147243896759137e-09 -1.5227827577811344e-12
+76 6.147644629063816e-09 4.007323046792459e-13
+77 6.147540542750912e-09 -1.0408631290370022e-13
+78 6.147567231549093e-09 2.668879818043595e-14
+79 6.147560474891326e-09 -6.756657767198975e-15
+80 6.147562164055767e-09 1.6891644417997438e-15
+81 6.147561746978127e-09 -4.17077639950554e-16
+82 6.147561848704381e-09 1.0172625364647659e-16
+83 6.147561824192031e-09 -2.4512350276259418e-17
+84 6.147561830028305e-09 5.836273875299861e-18
+85 6.147561828655064e-09 -1.3732409118352614e-18
+86 6.147561828974423e-09 3.1935835158959566e-19
+87 6.147561828901007e-09 -7.341571300910245e-20
+88 6.147561828917692e-09 1.6685389320250557e-20
+89 6.147561828913943e-09 -3.749525689943945e-21
+90 6.147561828914776e-09 8.332279310986544e-22
+91 6.147561828914593e-09 -1.8312701782388008e-22
+92 6.147561828914633e-09 3.9810221266060887e-23
+93 6.147561828914624e-09 -8.56133790667976e-24
+94 6.147561828914626e-09 1.8215612567403748e-24
+95 6.147561828914626e-09 -3.8348658036639467e-25</code></pre>
+</div>
+</div>
+<ul>
+<li><p>We see that when <span class="math inline">\(x\)</span> is small (<span class="math inline">\(x=0.1\)</span>), the terms in the sum becomes smaller and smaller. The convergence was reached with only 10 loops.</p></li>
+<li><p>For <span class="math inline">\(x=20\)</span>, it requires significantly more loops to reach convergence. Comparing our final answer and the <code>math</code> library <code>exp()</code> function, we find agreement in 15 decimal digits.</p></li>
+<li><p>For <span class="math inline">\(x = -20\)</span>, our result and the one from <code>exp()</code> function only match in order of magnitude, but there is no decimal digits agreeing.</p></li>
+</ul>
+<p>The problem in the case <span class="math inline">\(x=-20\)</span> is that each term is accurate only up to 16 digits, namely the relative error is <span class="math inline">\(10^{-16}\)</span>. The largest term in this case is of order <span class="math inline">\(10^8\)</span>, which means the absolute error for the result will be at least <span class="math inline">\(10^8 \times 10^{-16} = 10^{-8}\)</span>. Since the final result is of order <span class="math inline">\(10^{-9}\)</span>, which means we will have <span class="math inline">\(10\%\)</span> relative error and thus the result should not be trusted. For the <span class="math inline">\(x=20\)</span> case, the absolute error is still <span class="math inline">\(10^{-8}\)</span> but the final result is of order <span class="math inline">\(10^8\)</span>, thus the relative error is only <span class="math inline">\(10^{-16}\)</span>.</p>
+<p>To avoid this issue for negative <span class="math inline">\(x\)</span>, we can actually manipulate the expression, by writing</p>
+<p><span class="math display">\[
+e^{-x} = 1/e^x.
+\]</span></p>
+<p>Taking inverse will not change the number of significant digits and thus we won’t lose accuracy.</p>
+</section>
+<section id="an-even-worse-case-recursion" class="level2">
+<h2 class="anchored" data-anchor-id="an-even-worse-case-recursion">An Even Worse Case: Recursion</h2>
+<p>Here, we will examine the problem of recursion, where even a tiny error in the starting expression can be multiplied by the factorial of a large numbe. The task is to evaluate the integral of the form</p>
+<p><span class="math display">\[
+f(n)= \int_0^1 x^n e^{-x} dx.
+\]</span></p>
+<p>We can use integration by parts, to manipulate the above expression</p>
+<p><span class="math display">\[
+\begin{align*}
+f(n) &amp;= -\int_0^1 x^n d(e^{-x}) = -e^{-1} + n\int_0^1 x^{n-1}e^{-x}\\
+&amp;= nf(n-1)-e^{-1}.
+\end{align*}
+\]</span></p>
+<p>Particularly, we have <span class="math inline">\(f(0)=1-e^{-1}\)</span>. We can implement the above recursion relation.</p>
+<div class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> exp</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> forward(nmax<span class="op">=</span><span class="dv">22</span>):</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    oldint <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> exp(<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,nmax):</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(n<span class="op">-</span><span class="dv">1</span>, oldint)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        newint <span class="op">=</span> n<span class="op">*</span>oldint <span class="op">-</span> exp(<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>        oldint <span class="op">=</span> newint</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"n = 20 answer is 0.0183504676972562"</span>)</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"n, f[n]"</span>)</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>forward()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>n = 20 answer is 0.0183504676972562
+n, f[n]
+0 0.6321205588285577
+1 0.26424111765711533
+2 0.16060279414278833
+3 0.11392894125692266
+4 0.08783632385624829
+5 0.07130217810979911
+6 0.059933627487352314
+7 0.05165595124002387
+8 0.045368168748748605
+9 0.04043407756729511
+10 0.03646133450150879
+11 0.033195238345154365
+12 0.03046341897041005
+13 0.028145005443888316
+14 0.026150635042994086
+15 0.024380084473468955
+16 0.022201910404060943
+17 0.009553035697593693
+18 -0.19592479861475587
+19 -4.090450614851804
+20 -82.17689173820752</code></pre>
+</div>
+</div>
+<p>As one can see, our result has a large error. This is because our evaluation contains <span class="math inline">\(n f(n-1)\)</span>. It means any errors in <span class="math inline">\(f(n-1)\)</span> are magnified by a factor <span class="math inline">\(n\)</span>, which can be large.</p>
+<p>The process we followed in the code above, starting at <span class="math inline">\(n=0\)</span> and building up to a finite <span class="math inline">\(n\)</span>, is called <em>forward recursion</em>. This can be solved by a simple trick, using <em>backward recursion</em>. We can write</p>
+<p><span class="math display">\[
+f(n-1)  = \frac{f(n)+e^{-1}}{n}.
+\]</span></p>
+<p>See the following code.</p>
+<div class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> exp</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> backward(nmax<span class="op">=</span><span class="dv">31</span>):</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    oldint <span class="op">=</span> <span class="fl">0.01</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> n <span class="kw">in</span> <span class="bu">reversed</span>(<span class="bu">range</span>(<span class="dv">20</span>,nmax)):</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(n, oldint)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>        newint <span class="op">=</span> (oldint <span class="op">+</span> exp(<span class="op">-</span><span class="dv">1</span>))<span class="op">/</span>n</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>        oldint <span class="op">=</span> newint</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"n = 20 answer is 0.0183504676972562"</span>)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"n, f[n]"</span>)</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>backward()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>n = 20 answer is 0.0183504676972562
+n, f[n]
+30 0.01
+29 0.012595981372381411
+28 0.013119842156683579
+27 0.013607117261718784
+26 0.014129131793820781
+25 0.01469263742174089
+24 0.015302883143727328
+23 0.015965930179798738
+22 0.016688929189184395
+21 0.01748038047093758
+20 0.018350467697256186</code></pre>
+</div>
+</div>
+</section>
+<section id="homework" class="level2">
+<h2 class="anchored" data-anchor-id="homework">Homework</h2>
+<ol type="1">
+<li>Show that the relative error bound for division <span class="math inline">\(x = a/b\)</span> is also</li>
+</ol>
+<p><span class="math display">\[
+|\delta x|\leq |\delta a | + |\delta b|
+\]</span></p>
+<ol start="2" type="1">
+<li>Take the standard quadratic equation:</li>
+</ol>
+<p><span class="math display">\[
+ax^2 + bx + c = 0.
+\]</span></p>
+<p>The formula for the solutions of this equation is very well known:</p>
+<p><span id="eq-quadratic-formula"><span class="math display">\[
+x_\pm = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}.
+\tag{1}\]</span></span></p>
+<p>Take <span class="math inline">\(b&gt;0\)</span> for concreteness. It is easy to see that when <span class="math inline">\(b^2 \gg ac\)</span>, we don’t get a catastrophic cancellation when evaluating <span class="math inline">\(b^2 - 4ac\)</span>. Furthermore, <span class="math inline">\(\sqrt{b^2 - 4ac} \simeq b\)</span>. This means that <span class="math inline">\(x_+\)</span> will involve catastrophic cancellation in the numerator.</p>
+<p>We will employ an analytical trick in order to help us preserve significant figures. Observe that the product of the two roots obeys the relation:</p>
+<p><span id="eq-xpxm"><span class="math display">\[
+x_+ x_- = \frac{c}{a}.
+\tag{2}\]</span></span></p>
+<p>Now, we should use <a href="#eq-quadratic-formula">Equation&nbsp;1</a> to calculate <span class="math inline">\(x_-\)</span>. Then, we should use <a href="#eq-xpxm">Equation&nbsp;2</a> to calculate <span class="math inline">\(x_+\)</span>, via division only.</p>
+<p>Please write a Python code that evalutes and prints out (a). <span class="math inline">\(x_-\)</span>, (b). <span class="math inline">\(x_+\)</span> using the “bad” formula, and (c). <span class="math inline">\(x_+\)</span> using the “good” formula. Take <span class="math inline">\(a=1\)</span>, <span class="math inline">\(c=1\)</span>, <span class="math inline">\(b = 10^8\)</span>.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    toggleBodyColorMode(window.document.querySelector("link#quarto-bootstrap"));
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

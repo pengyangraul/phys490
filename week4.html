@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Derivatives II</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="week4_files/libs/clipboard/clipboard.min.js"></script>
+<script src="week4_files/libs/quarto-html/quarto.js"></script>
+<script src="week4_files/libs/quarto-html/popper.min.js"></script>
+<script src="week4_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="week4_files/libs/quarto-html/anchor.min.js"></script>
+<link href="week4_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="week4_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="week4_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="week4_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="week4_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#richardson-extrapolation" id="toc-richardson-extrapolation" class="nav-link active" data-scroll-target="#richardson-extrapolation"> <span class="header-section-number">1</span> Richardson Extrapolation</a>
+  <ul class="collapse">
+  <li><a href="#general-formulation" id="toc-general-formulation" class="nav-link" data-scroll-target="#general-formulation"> <span class="header-section-number">1.1</span> General Formulation</a></li>
+  <li><a href="#finite-differences" id="toc-finite-differences" class="nav-link" data-scroll-target="#finite-differences"> <span class="header-section-number">1.2</span> Finite Differences</a>
+  <ul class="collapse">
+  <li><a href="#forward-difference" id="toc-forward-difference" class="nav-link" data-scroll-target="#forward-difference">Forward Difference</a></li>
+  <li><a href="#central-difference" id="toc-central-difference" class="nav-link" data-scroll-target="#central-difference">Central Difference</a></li>
+  <li><a href="#numerical-results" id="toc-numerical-results" class="nav-link" data-scroll-target="#numerical-results">Numerical results</a></li>
+  </ul></li>
+  <li><a href="#project-local-kinetic-energy-in-quantum-mechanics" id="toc-project-local-kinetic-energy-in-quantum-mechanics" class="nav-link" data-scroll-target="#project-local-kinetic-energy-in-quantum-mechanics"> <span class="header-section-number">1.3</span> Project: Local Kinetic Energy in Quantum Mechanics</a>
+  <ul class="collapse">
+  <li><a href="#single-particle-wave-functions-in-one-dimension" id="toc-single-particle-wave-functions-in-one-dimension" class="nav-link" data-scroll-target="#single-particle-wave-functions-in-one-dimension">Single-particle wave functions in one dimension</a></li>
+  <li><a href="#evaluate-kinetic-energy" id="toc-evaluate-kinetic-energy" class="nav-link" data-scroll-target="#evaluate-kinetic-energy">Evaluate kinetic energy</a></li>
+  </ul></li>
+  <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework"> <span class="header-section-number">1.4</span> Homework</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Derivatives II</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="richardson-extrapolation" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Richardson Extrapolation</h1>
+<p>We now turn to a nice technique, called <em>Richardson extrapolation</em>, which can be used to improve accuracy of a numerical algorithm. Here we apply it to finite-difference formulas, but its applicability is much wider.</p>
+<section id="general-formulation" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="general-formulation"><span class="header-section-number">1.1</span> General Formulation</h2>
+<p>Assume your task is to evaluate the quantity <span class="math inline">\(G\)</span>. Let’s say that <span class="math inline">\(G\)</span> is the exact answer of the calculation that you are currently trying to carry out approximately. Your pproximate answer <span class="math inline">\(g(h)\)</span> depends on a parameter <span class="math inline">\(h\)</span>, which is typically an increment, or step size. We write</p>
+<p><span class="math display">\[
+G=g(h)+\mathcal{E}_{app}(h).
+\]</span></p>
+<p>Note that we neglect the roundoff error because this procedure only reduces the approximation error.</p>
+<p>We will now make the (pretty widely applicable) assumption that the error term can be written as a sum of powers of <span class="math inline">\(h\)</span>:</p>
+<p><span id="eq-error-expansion"><span class="math display">\[
+G = g(h) + Ah^p + Bh^{p+q} + Ch^{p+2q} + \cdots
+\tag{1}\]</span></span></p>
+<p>where <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, <span class="math inline">\(C\)</span> are constants, <span class="math inline">\(p\)</span> denotes the order of the leading error term and <span class="math inline">\(q\)</span> is the increment in the order for the error terms after that. The idea behind Richardson extrapolation is to apply <a href="#eq-error-expansion">Equation&nbsp;1</a> twice, once for a step size <span class="math inline">\(h\)</span> and once for a step size <span class="math inline">\(h/2\)</span>:</p>
+<p><span class="math display">\[
+\begin{gather*}
+G = g(h) + Ah^p + O(h^{p+q}) \\
+G = g(h/2) + A\left(\frac{h}{2}\right)^p + O(h^{p+q}).
+\end{gather*}
+\]</span></p>
+<p>Equating the two right hand sides gives us</p>
+<p><span class="math display">\[
+g(h) + Ah^p = g(h/2) + A\left(\frac{h}{2}\right)^p + O(h^{p+q}).
+\]</span></p>
+<p>We then have</p>
+<p><span class="math display">\[
+Ah^p  = \frac{2^p}{2^p - 1} \left[g(h/2) - g(h)\right] + O(h^{p+q}).
+\]</span></p>
+<p>Thus, we have</p>
+<p><span id="eq-extrapolate"><span class="math display">\[
+G = \frac{2^pg(h/2)-g(h)}{2^p - 1} + O(h^{p+q}).
+\tag{2}\]</span></span></p>
+<p>This is called an <em>extrapolated value</em>.</p>
+<p>To summarize, we started with a formula with a leading error <span class="math inline">\(O(h^p)\)</span>. We eliminate this error term by computing the function with the parameter <span class="math inline">\(h\)</span> and <span class="math inline">\(h/2\)</span>, and we are left with the error <span class="math inline">\(O(h^{p+q})\)</span>. We can proceed similarly, by making two calculations with leading error <span class="math inline">\(O(h^{p+q})\)</span> and then eliminate it again.</p>
+</section>
+<section id="finite-differences" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="finite-differences"><span class="header-section-number">1.2</span> Finite Differences</h2>
+<p>We now apply <a href="#eq-extrapolate">Equation&nbsp;2</a> to finite-difference formulas.</p>
+<section id="forward-difference" class="level3">
+<h3 class="anchored" data-anchor-id="forward-difference">Forward Difference</h3>
+<ul>
+<li>We will use our first forward-difference formula</li>
+</ul>
+<p><span class="math display">\[
+D_{fd}(h) = \frac{f(x+h) - f(x)}{h}.
+\]</span></p>
+<ul>
+<li>The leading error is <span class="math inline">\(O(h)\)</span>, meaning that <span class="math inline">\(p=1\)</span>.</li>
+<li>Richardson extrapolation will eliminate this error term, leaving us the <span class="math inline">\(O(h^2)\)</span> error</li>
+<li>Applying <a href="#eq-extrapolate">Equation&nbsp;2</a> for <span class="math inline">\(p=1\)</span>, gives</li>
+</ul>
+<p><span class="math display">\[
+\begin{align}
+R_{fd} &amp;= 2D_{fd}(h/2) - D_{fd}(h) + O(h^2) = 2\frac{f(x+\frac{h}{2}) - f(x)}{h/2} - \frac{f(x+h) - f(x)}{h} + O(h^2)  \\
+&amp; = \frac{4 f(x + \frac{h}{2}) - f(x+h) - 3f(x)}{h} + O(h^2).
+\end{align}
+\]</span></p>
+<ul>
+<li>This result is <em>identical</em> to the second forward-difference formula.</li>
+</ul>
+</section>
+<section id="central-difference" class="level3">
+<h3 class="anchored" data-anchor-id="central-difference">Central Difference</h3>
+<p>We now apply the Richardson extrapolation to the central-difference formula,</p>
+<p><span class="math display">\[
+D_{cd}(h) = \frac{f(x+h/2) - f(x - h/2)}{h}.
+\]</span></p>
+<ul>
+<li>The leading error is <span class="math inline">\(O(h^2)\)</span>, meaning <span class="math inline">\(p = 2\)</span>.</li>
+<li>Note that all error terms are of order <span class="math inline">\(O(h^{2n})\)</span> for <span class="math inline">\(n\in\mathbb{Z}\)</span>, this means <span class="math inline">\(q=2\)</span>.</li>
+<li>Richardson formula will eliminate the leading error <span class="math inline">\(O(h^2)\)</span>, giving rise to the next order of error <span class="math inline">\(O(h^4)\)</span>.</li>
+<li>Applying Richardson formula</li>
+</ul>
+<p><span class="math display">\[
+\begin{align}
+R_{cd} &amp;= \frac{4}{3}D_{cd}(h/2) - \frac{1}{3}D_{cd}(h) + O(h^4) \\
+&amp;= \frac{4}{3} \frac{f(x+h/4)- f(x-h/4)}{h/2} - \frac{1}{3}\frac{f(x+h/2)-f(x-h/2)}{h} + O(h^4) \\
+&amp;= \frac{8f(x+h/4) + f(x-h/2) - (x+h/2) -8f(x-h/4)}{3h} + O(h^4).
+\end{align}
+\]</span></p>
+<ul>
+<li>This is <em>identical</em> to the second central-difference formula.</li>
+</ul>
+</section>
+<section id="numerical-results" class="level3">
+<h3 class="anchored" data-anchor-id="numerical-results">Numerical results</h3>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> exp, sin, cos, log10</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> exp(sin(<span class="dv">2</span><span class="op">*</span>x))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fprime(x):</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">2</span><span class="op">*</span>exp(sin(<span class="dv">2</span><span class="op">*</span>x))<span class="op">*</span>cos(<span class="dv">2</span><span class="op">*</span>x)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calc_fd(f,x,h):</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    fd <span class="op">=</span> (f(x<span class="op">+</span>h) <span class="op">-</span> f(x))<span class="op">/</span>h</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fd</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calc_cd(f,x,h):</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    cd <span class="op">=</span> (f(x<span class="op">+</span>h<span class="op">/</span><span class="dv">2</span>) <span class="op">-</span> f(x<span class="op">-</span>h<span class="op">/</span><span class="dv">2</span>))<span class="op">/</span>h</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> cd</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    an <span class="op">=</span> fprime(x) <span class="co"># Analytical result</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    hs <span class="op">=</span> [<span class="dv">10</span><span class="op">**</span>(<span class="op">-</span>i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">7</span>)]</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    rowf <span class="op">=</span> <span class="st">"</span><span class="sc">{0:1.0e}</span><span class="st"> </span><span class="sc">{1:1.16f}</span><span class="st"> </span><span class="sc">{2:1.16f}</span><span class="st">"</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"h     abs. err. rich fd  abs. err. rich cd"</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> h <span class="kw">in</span> hs:</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        fdrich <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>calc_fd(f,x,h<span class="op">/</span><span class="dv">2</span>) <span class="op">-</span> calc_fd(f,x,h) <span class="co"># forward-difference Richardson</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        fd <span class="op">=</span> <span class="bu">abs</span>(fdrich<span class="op">-</span>an) </span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        cdrich <span class="op">=</span> (<span class="dv">4</span><span class="op">*</span>calc_cd(f,x,h<span class="op">/</span><span class="dv">2</span>) <span class="op">-</span> calc_cd(f,x,h))<span class="op">/</span><span class="dv">3</span> <span class="co"># -difference Richardson</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        cd <span class="op">=</span> <span class="bu">abs</span>(cdrich<span class="op">-</span>an)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(rowf.<span class="bu">format</span>(h,fd,cd))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>h     abs. err. rich fd  abs. err. rich cd
+1e-01 0.0259686059827384 0.0000098728370874
+1e-02 0.0002695720500006 0.0000000009897421
+1e-03 0.0000027005434182 0.0000000000011098
+1e-04 0.0000000270109117 0.0000000000043667
+1e-05 0.0000000003389138 0.0000000000280513
+1e-06 0.0000000006941852 0.0000000002500959</code></pre>
+</div>
+</div>
+<section id="forward-difference-results" class="level4">
+<h4 class="anchored" data-anchor-id="forward-difference-results">Forward-difference results</h4>
+<ul>
+<li>Every time we reduce <span class="math inline">\(h\)</span> by an orderr of magnitude, the absolute error is reduced by two orders of magnitude, consistent with <span class="math inline">\(O(h^4)\)</span></li>
+<li>This process reaches a minimum at <span class="math inline">\(h = 10^{-5}\)</span>, with absolute error <span class="math inline">\(3\times 10^{-10}\)</span>.</li>
+</ul>
+</section>
+<section id="central-difference-resutls" class="level4">
+<h4 class="anchored" data-anchor-id="central-difference-resutls">Central-difference resutls</h4>
+<ul>
+<li>The first time <span class="math inline">\(h\)</span> is reduced from <span class="math inline">\(10^{-1}\)</span> to <span class="math inline">\(10^{-2}\)</span>, the absolute error reduced by four orders of magnitude, consistent with error <span class="math inline">\(O(h^4)\)</span>.</li>
+<li>This cannot contiue indefinitely, and in the next step the error improves by three orders of magnitude reaching the minimum at <span class="math inline">\(h=10^{-3}\)</span>, with absolute error <span class="math inline">\(10^{-12}\)</span>.</li>
+<li>As <span class="math inline">\(h\)</span> is further reduced, roundoff error starts dominating, so the extrapolation is no longer reliable.</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="project-local-kinetic-energy-in-quantum-mechanics" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="project-local-kinetic-energy-in-quantum-mechanics"><span class="header-section-number">1.3</span> Project: Local Kinetic Energy in Quantum Mechanics</h2>
+<ul>
+<li>The kinetic energy in quantum mechanics involves second order derivatives (in position basis).</li>
+<li>In quantum mechanics, a particle is characterized by its <em>Hamiltonian</em> <span class="math inline">\(\hat{H} = \hat{T} + \hat{V}\)</span></li>
+<li><span class="math inline">\(\hat{T}\)</span> is the kinetic energy operator, <span class="math inline">\(\hat{V}\)</span> is the potential energy operator</li>
+<li>Given the Hamiltonian, the possible states the particle can have is determined by its wave functions <span class="math inline">\(\psi\)</span>, which satisfy the Schrödinger equation</li>
+</ul>
+<p><span class="math display">\[
+\hat{H}\psi = E\psi
+\]</span></p>
+<ul>
+<li><span class="math inline">\(E\)</span> is the eigenvalue.</li>
+</ul>
+<section id="single-particle-wave-functions-in-one-dimension" class="level3">
+<h3 class="anchored" data-anchor-id="single-particle-wave-functions-in-one-dimension">Single-particle wave functions in one dimension</h3>
+<section id="quantum-harmonic-oscillator" class="level4">
+<h4 class="anchored" data-anchor-id="quantum-harmonic-oscillator">Quantum Harmonic Oscillator</h4>
+<ul>
+<li>The Hamiltonian is</li>
+</ul>
+<p><span class="math display">\[
+\hat{H}  = -\frac{\hbar^2}{2m}\frac{d^2}{dx^2} + \frac{1}{2}m\omega^2 x^2
+\]</span></p>
+<ul>
+<li>The first term is the kinetic energy <span class="math inline">\(\hat{T} = \frac{\hat{p}^2}{2m}\)</span>, with momentum operator <span class="math inline">\(\hat{p} = -i\hbar\frac{d}{dx}\)</span>.</li>
+<li>The second term is the potential, corresponding to particle in a harmonic potential, where <span class="math inline">\(\omega\)</span> corresponding to the angular frequency of the oscillator.</li>
+<li>The Schrödinger equation is</li>
+</ul>
+<p><span class="math display">\[
+-\frac{\hbar^2}{2m}\frac{d^2 \psi(x)}{dx^2} + \frac{1}{2}m\omega^2 x^2\psi(x) = E\psi(x).
+\]</span></p>
+<ul>
+<li>The possible energy eigenvalues are</li>
+</ul>
+<p><span class="math display">\[
+E_n = (n + \frac{1}{2})\hbar \omega
+\]</span></p>
+<p>and the (normalized eigenfunctions)</p>
+<p><span class="math display">\[
+\psi_n(x)  = \frac{1}{\sqrt{2^n n!}} \left( \frac{m\omega}{\pi \hbar}\right)^{1/4} H_n\left(\sqrt{\frac{m\omega}{\hbar}}x\right)e^{-m\omega x^2/(2\hbar)}
+\]</span></p>
+<ul>
+<li>Both the eigenvalues and eigenfunctions are labeled by a discrete index <span class="math inline">\(n\)</span>: this goes to the heart of <em>quantization</em>.</li>
+<li>For a given <span class="math inline">\(n\)</span>, the harmonic-oscillator wave function is a Gaussian term and a <em>Hermite polynomial</em>, <span class="math inline">\(H_n(x)\)</span>.</li>
+<li>Hermite polynomial obey the <em>recurrence relation</em>:</li>
+</ul>
+<p><span id="eq-recurrence"><span class="math display">\[
+H_{j+1}(x) = 2xH_j(x) - 2jH_{j-1}(x).
+\tag{3}\]</span></span></p>
+<ul>
+<li>To calculate <span class="math inline">\(H_n(x)\)</span>, we start from <span class="math inline">\(H_0(x) = 1\)</span> and <span class="math inline">\(H_1(x) = 2x\)</span>, and apply <a href="#eq-recurrence">Equation&nbsp;3</a> for <span class="math inline">\(j = 1,2,\dots, n-1\)</span>.</li>
+<li>For derivatives, we have</li>
+</ul>
+<p><span class="math display">\[
+H_n'(x) = 2n H_{n-1}(x).
+\]</span></p>
+<p>In the following, we compute the Hermite polynomial numerically.</p>
+<div class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute Hermite polynomial of order n, and its first order derivative</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> hermite(n,x):</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        val2 <span class="op">=</span> np.ones_like(x)<span class="op">*</span><span class="fl">1.</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        dval2 <span class="op">=</span> np.zeros_like(x)<span class="op">*</span><span class="fl">0.</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> n <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        val2 <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>x</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        dval2 <span class="op">=</span> np.ones_like(x)<span class="op">*</span><span class="dv">2</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        val0 <span class="op">=</span> np.ones_like(x)<span class="op">*</span><span class="fl">1.</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        val1 <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>x</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        val2 <span class="op">=</span> <span class="fl">0.</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,n):</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>            val2 <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>x<span class="op">*</span>val1 <span class="op">-</span> <span class="dv">2</span><span class="op">*</span>j<span class="op">*</span>val0</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>            val0, val1 <span class="op">=</span> val1, val2</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        dval2 <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>n<span class="op">*</span>val0</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> val2, dval2</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">100</span>)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> nn <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    val2, dval2 <span class="op">=</span> hermite(nn,x)</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    plt.plot(x,val2,label<span class="op">=</span><span class="st">'n = '</span><span class="op">+</span><span class="bu">str</span>(nn))</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>plt.ylim([<span class="op">-</span><span class="dv">40</span>,<span class="dv">40</span>])</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="vs">r'$x$'</span>)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="vs">r'$H_n(x)$'</span>)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'First few Hermite polynomials'</span>)</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="week4_files/figure-html/cell-3-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="particle-in-a-periodic-box" class="level4">
+<h4 class="anchored" data-anchor-id="particle-in-a-periodic-box">Particle in a Periodic Box</h4>
+<ul>
+<li>We study a particle in a periodic box, goes from <span class="math inline">\(-L/2\)</span> to <span class="math inline">\(L/2\)</span> (of length <span class="math inline">\(L\)</span> and periodic).</li>
+<li>The Schödinger equation is</li>
+</ul>
+<p><span class="math display">\[
+-\frac{\hbar^2}{2m} \frac{d^2\psi(x)}{dx^2} = E\psi(x)
+\]</span></p>
+<ul>
+<li>The wave functions are plane waves</li>
+</ul>
+<p><span class="math display">\[
+\psi_k(x) = \frac{1}{\sqrt{L}}e^{ikx}.
+\]</span></p>
+<ul>
+<li>The prefactor is such that the wave function is normalized, namely <span class="math inline">\(\int_{-\infty}^\infty dx |\psi_k(x)|^2 = 1\)</span>.</li>
+<li>We have labeld the quantum number as the wave number <span class="math inline">\(k = p/\hbar\)</span>.</li>
+<li>The periodic condition defines the boundary condition <span class="math inline">\(\psi_k(x) = \psi_k(x+L)\)</span> for the wave function.</li>
+<li>This means <span class="math inline">\(\exp(ikx) = \exp(ik(x+L))\)</span>, implying <span class="math inline">\(\exp(ikL) = 1\)</span>, or</li>
+</ul>
+<p><span class="math display">\[
+k = \frac{2\pi n}{L}, \quad n \in \mathbb{Z}.
+\]</span></p>
+<ul>
+<li>The energy eigenvalue for the state with quantum number <span class="math inline">\(k\)</span> is</li>
+</ul>
+<p><span class="math display">\[
+E = \frac{\hbar^2k^2}{2m} = \frac{\hbar^2}{2m}\left(\frac{2\pi}{L}\right)^2 n^2.
+\]</span></p>
+</section>
+</section>
+<section id="evaluate-kinetic-energy" class="level3">
+<h3 class="anchored" data-anchor-id="evaluate-kinetic-energy">Evaluate kinetic energy</h3>
+<ul>
+<li>We define the local kinetic energy</li>
+</ul>
+<p><span class="math display">\[
+T_L = \frac{\hat{T}\psi}{\psi}
+\]</span></p>
+<ul>
+<li>In general, this quantity will depend on the position <span class="math inline">\(x\)</span>.</li>
+<li>For harmonic oscillator, we find</li>
+</ul>
+<p><span class="math display">\[
+T_L = (n + \frac{1}{2})\hbar \omega - \frac{1}{2}m\omega^2 x^2.
+\]</span></p>
+<ul>
+<li>For a particle in a periodic box, since there is no potential energy, the total energy will be the same as the kinetic energy.</li>
+<li>The kinetic energy involves second order derivative, with a prefactor <span class="math inline">\(-\frac{\hbar^2}{2m}\)</span>. We shall use</li>
+</ul>
+<p><span class="math display">\[
+\frac{d^2 \psi(x)}{d x^2} \simeq \frac{\psi(x + h) + \psi( x - h) - 2f(x)}{h^2}.
+\]</span></p>
+<ul>
+<li>See the following implementation, where we fix <span class="math inline">\(\hbar^2/m = 1\)</span> and <span class="math inline">\(m\omega/\hbar = 1\)</span>, which means we measure the energy in unit of <span class="math inline">\(\hbar \omega\)</span>.(At <span class="math inline">\(x=1\)</span>, <span class="math inline">\(m\omega^2 x^2=\hbar \omega\)</span>.</li>
+<li>At <span class="math inline">\(x = 1\)</span>, we have</li>
+</ul>
+<p><span class="math display">\[
+\frac{1}{2}m\omega^2 x^2 = \frac{1}{2} \hbar \omega.
+\]</span></p>
+<ul>
+<li>For quantum harmonic oscillator, we have</li>
+</ul>
+<p><span class="math display">\[
+T_L(x=1) = (n+\frac{1}{2})\hbar \omega.
+\]</span></p>
+<div class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> sqrt, pi, factorial</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> hermite(n,x):</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        val2 <span class="op">=</span> <span class="fl">1.</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        dval2 <span class="op">=</span> <span class="fl">0.</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> n <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        val2 <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>x</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        dval2 <span class="op">=</span> <span class="fl">2.</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        val0 <span class="op">=</span> <span class="fl">1.</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        val1 <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>x</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        val2 <span class="op">=</span> <span class="fl">0.</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,n):</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>            val2 <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>x<span class="op">*</span>val1 <span class="op">-</span> <span class="dv">2</span><span class="op">*</span>j<span class="op">*</span>val0</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>            val0, val1 <span class="op">=</span> val1, val2</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        dval2 <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>n<span class="op">*</span>val0</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> val2, dval2</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> psiqho(x,nametoval):</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> nametoval[<span class="st">"n"</span>]</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    m_omega_hbar <span class="op">=</span> nametoval[<span class="st">"m_omega_hbar"</span>]          <span class="co"># \frac{m \omega}{\hbar}</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    psival <span class="op">=</span>m_omega_hbar<span class="op">**</span><span class="fl">0.25</span><span class="op">*</span>np.exp(<span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>m_omega_hbar <span class="op">*</span> x<span class="op">**</span><span class="dv">2</span>) </span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    psival <span class="op">*=</span> hermite(n,sqrt(m_omega_hbar)<span class="op">*</span>x)[<span class="dv">0</span>]</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    psival <span class="op">/=</span> sqrt(<span class="dv">2</span><span class="op">**</span>n <span class="op">*</span> factorial(n) <span class="op">*</span> sqrt(pi))</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> psival</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> psibox(x,nametoval):</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> nametoval[<span class="st">"n"</span>]</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    boxl <span class="op">=</span> nametoval[<span class="st">"boxl"</span>]</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.exp(<span class="dv">2</span><span class="op">*</span>pi<span class="op">*</span>n<span class="op">*</span>x<span class="op">*</span><span class="ot">1j</span><span class="op">/</span>boxl)</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> kinetic(psi,x,nametoval,h<span class="op">=</span><span class="fl">0.005</span>):</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    hom <span class="op">=</span> <span class="fl">1.</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    psiold <span class="op">=</span> psi(x,nametoval)</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    psip <span class="op">=</span> psi(x<span class="op">+</span>h,nametoval)</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    psim <span class="op">=</span> psi(x<span class="op">-</span>h,nametoval)</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>    lapl <span class="op">=</span> (psip <span class="op">+</span> psim <span class="op">-</span> <span class="fl">2.</span><span class="op">*</span>psiold)<span class="op">/</span>h<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>    kin <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>hom<span class="op">*</span>lapl<span class="op">/</span>psiold</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> kin</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_kinetic():</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="fl">1.</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>    hs <span class="op">=</span> [<span class="dv">10</span><span class="op">**</span>(<span class="op">-</span>i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">6</span>)]</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>    nametoval <span class="op">=</span> {<span class="st">"n"</span>: <span class="dv">100</span>, <span class="st">"m_omega_hbar"</span>: <span class="fl">1.</span>}</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>    qhos <span class="op">=</span> [kinetic(psiqho,x,nametoval,h) <span class="cf">for</span> h <span class="kw">in</span> hs]</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>    nametoval <span class="op">=</span> {<span class="st">"n"</span>: <span class="op">-</span><span class="dv">2</span>, <span class="st">"boxl"</span>: <span class="dv">2</span><span class="op">*</span>pi}</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>    boxs <span class="op">=</span> [kinetic(psibox,x,nametoval,h) <span class="cf">for</span> h <span class="kw">in</span> hs]</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>    rowf <span class="op">=</span> <span class="st">"</span><span class="sc">{0:1.0e}</span><span class="st"> </span><span class="sc">{1:1.16f}</span><span class="st"> </span><span class="sc">{2:1.16f}</span><span class="st">"</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"h     qho                 box"</span>)</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> h,qho,box <span class="kw">in</span> <span class="bu">zip</span>(hs,qhos,boxs):</span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(rowf.<span class="bu">format</span>(h,qho,box))</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>    test_kinetic()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>h     qho                 box
+1e-01 83.7347487381334759 1.9933422158758423+0.0000000000000064j
+1e-02 99.8252144561287480 1.9999333342228847+0.0000000000009856j
+1e-03 99.9982508976935520 1.9999993333159836-0.0000000000516305j
+1e-04 99.9999829515395646 1.9999999988482300-0.0000000002804216j
+1e-05 99.9997983578354876 1.9999999227612257+0.0000011797609069j</code></pre>
+</div>
+</div>
+<ul>
+<li>For quantum harmonic oscillator, at <span class="math inline">\(n=100\)</span>, <span class="math inline">\(x=1\)</span>, the exact result should be <span class="math inline">\(100\)</span> in unit of <span class="math inline">\(\hbar \omega\)</span>.</li>
+<li>For a particle in a periodic box, we should get</li>
+</ul>
+<p><span class="math display">\[
+E_{n=2} = \frac{\hbar^2}{2m} (-2)^2 = 2.
+\]</span></p>
+<ul>
+<li>Upon reducing the discretization step size <span class="math inline">\(h\)</span>, the error first descreases and then increases.</li>
+</ul>
+</section>
+</section>
+<section id="homework" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="homework"><span class="header-section-number">1.4</span> Homework</h2>
+<ol type="1">
+<li><p>Produce a table of <span class="math inline">\(x_i\)</span> and <span class="math inline">\(e^{\sin(2x_i)}\)</span> values, where <span class="math inline">\(x_i\)</span> goes from 0 to 1.6 in steps of 0.08.</p>
+<ol type="a">
+<li><p>Plot the forward-difference and central-difference results (for the first derivative) given these values. (Hint: if you cannot produce a result for a specific <span class="math inline">\(x\)</span>, don’t.) Then, introduce a curve for the analytical derivative.</p></li>
+<li><p>Use Richardson extrapolation for the forward difference for points on a grid and add an extra set of points to the plot. You can use: <span class="math display">\[
+R_{fd} = 2D_{fd}(h) - D_{fd}(2h) + O(h^2)
+\]</span></p></li>
+</ol></li>
+</ol>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
