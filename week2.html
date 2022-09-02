@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.38">
+<meta name="generator" content="quarto-1.1.145">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,10 +11,15 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -53,7 +58,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -66,7 +71,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -100,15 +105,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <nav id="TOC" role="doc-toc">
+  <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"> <span class="header-section-number">1</span> Motivation</a></li>
-  <li><a href="#errors" id="toc-errors" class="nav-link" data-scroll-target="#errors"> <span class="header-section-number">2</span> Errors</a>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><span class="toc-section-number">1</span>  Motivation</a></li>
+  <li><a href="#errors" id="toc-errors" class="nav-link" data-scroll-target="#errors"><span class="toc-section-number">2</span>  Errors</a>
   <ul class="collapse">
-  <li><a href="#absolute-and-relative-error" id="toc-absolute-and-relative-error" class="nav-link" data-scroll-target="#absolute-and-relative-error"> <span class="header-section-number">2.1</span> Absolute and Relative Error</a></li>
-  <li><a href="#error-propagation" id="toc-error-propagation" class="nav-link" data-scroll-target="#error-propagation"> <span class="header-section-number">2.2</span> Error Propagation</a>
+  <li><a href="#absolute-and-relative-error" id="toc-absolute-and-relative-error" class="nav-link" data-scroll-target="#absolute-and-relative-error"><span class="toc-section-number">2.1</span>  Absolute and Relative Error</a></li>
+  <li><a href="#error-propagation" id="toc-error-propagation" class="nav-link" data-scroll-target="#error-propagation"><span class="toc-section-number">2.2</span>  Error Propagation</a>
   <ul class="collapse">
   <li><a href="#addition-and-subtraction" id="toc-addition-and-subtraction" class="nav-link" data-scroll-target="#addition-and-subtraction">Addition and Subtraction</a></li>
   <li><a href="#catastrophic-cancellation" id="toc-catastrophic-cancellation" class="nav-link" data-scroll-target="#catastrophic-cancellation">Catastrophic Cancellation</a></li>
@@ -117,16 +122,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#general-error-propagation-functions-of-many-variables" id="toc-general-error-propagation-functions-of-many-variables" class="nav-link" data-scroll-target="#general-error-propagation-functions-of-many-variables">General Error Propagation: Functions of Many Variables</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#representing-real-numbers" id="toc-representing-real-numbers" class="nav-link" data-scroll-target="#representing-real-numbers"> <span class="header-section-number">3</span> Representing Real Numbers</a>
+  <li><a href="#representing-real-numbers" id="toc-representing-real-numbers" class="nav-link" data-scroll-target="#representing-real-numbers"><span class="toc-section-number">3</span>  Representing Real Numbers</a>
   <ul class="collapse">
-  <li><a href="#basics" id="toc-basics" class="nav-link" data-scroll-target="#basics"> <span class="header-section-number">3.1</span> Basics</a></li>
-  <li><a href="#revisiting-subtraction" id="toc-revisiting-subtraction" class="nav-link" data-scroll-target="#revisiting-subtraction"> <span class="header-section-number">3.2</span> Revisiting Subtraction</a></li>
-  <li><a href="#comparing-floats" id="toc-comparing-floats" class="nav-link" data-scroll-target="#comparing-floats"> <span class="header-section-number">3.3</span> Comparing Floats</a></li>
+  <li><a href="#basics" id="toc-basics" class="nav-link" data-scroll-target="#basics"><span class="toc-section-number">3.1</span>  Basics</a></li>
+  <li><a href="#revisiting-subtraction" id="toc-revisiting-subtraction" class="nav-link" data-scroll-target="#revisiting-subtraction"><span class="toc-section-number">3.2</span>  Revisiting Subtraction</a></li>
+  <li><a href="#comparing-floats" id="toc-comparing-floats" class="nav-link" data-scroll-target="#comparing-floats"><span class="toc-section-number">3.3</span>  Comparing Floats</a></li>
   </ul></li>
-  <li><a href="#naive-vs-manipulated-expressions" id="toc-naive-vs-manipulated-expressions" class="nav-link" data-scroll-target="#naive-vs-manipulated-expressions"> <span class="header-section-number">4</span> Naive vs Manipulated Expressions</a></li>
-  <li><a href="#computing-the-exponential-function" id="toc-computing-the-exponential-function" class="nav-link" data-scroll-target="#computing-the-exponential-function"> <span class="header-section-number">5</span> Computing the Exponential Function</a></li>
-  <li><a href="#an-even-worse-case-recursion" id="toc-an-even-worse-case-recursion" class="nav-link" data-scroll-target="#an-even-worse-case-recursion"> <span class="header-section-number">6</span> An Even Worse Case: Recursion</a></li>
-  <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework"> <span class="header-section-number">7</span> Homework</a></li>
+  <li><a href="#naive-vs-manipulated-expressions" id="toc-naive-vs-manipulated-expressions" class="nav-link" data-scroll-target="#naive-vs-manipulated-expressions"><span class="toc-section-number">4</span>  Naive vs Manipulated Expressions</a></li>
+  <li><a href="#computing-the-exponential-function" id="toc-computing-the-exponential-function" class="nav-link" data-scroll-target="#computing-the-exponential-function"><span class="toc-section-number">5</span>  Computing the Exponential Function</a></li>
+  <li><a href="#an-even-worse-case-recursion" id="toc-an-even-worse-case-recursion" class="nav-link" data-scroll-target="#an-even-worse-case-recursion"><span class="toc-section-number">6</span>  An Even Worse Case: Recursion</a></li>
+  <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework"><span class="toc-section-number">7</span>  Homework</a></li>
   </ul>
 </nav>
 </div>
@@ -161,14 +166,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>An inaccurate result arises when we have an error, which can due to a variety of reasons, and the <em>limited precision</em> is just one of them.</p>
 <p>Besides the “human error” and measurement uncertainty, there are two typical types of errors in numerical computing:</p>
 <ul>
-<li><strong>Approximation errors</strong>. Example: when are trying to approximate the exponential <span class="math inline">\(e^x\)</span> by the its Taylor series</li>
-</ul>
-<p><span class="math display">\[
+<li><p><strong>Approximation errors</strong>. Example: when are trying to approximate the exponential <span class="math inline">\(e^x\)</span> by the its Taylor series <span class="math display">\[
 y = \sum_{n=0}^{n_{max}}\frac{x^n}{n!},
-\]</span></p>
-<p>we are limiting the sum to terms up to <span class="math inline">\(n_{max}\)</span>. Thus, the value of <span class="math inline">\(y\)</span> for a given <span class="math inline">\(x\)</span> may depend on <span class="math inline">\(n_{max}\)</span>.</p>
-<ul>
-<li><strong>Roundoff errors</strong>. These are also known as <em>rounding errors</em>. This type of error appears every time a calculation is carried out using floating-point numbers, as they don’t have infinite precision. For example, using real numbers, we have <span class="math inline">\((\sqrt{2})^2 - 2 = 0\)</span>. However, one can check in python</li>
+\]</span> we are limiting the sum to terms up to <span class="math inline">\(n_{max}\)</span>. Thus, the value of <span class="math inline">\(y\)</span> for a given <span class="math inline">\(x\)</span> may depend on <span class="math inline">\(n_{max}\)</span>.</p></li>
+<li><p><strong>Roundoff errors</strong>. These are also known as <em>rounding errors</em>. This type of error appears every time a calculation is carried out using floating-point numbers, as they don’t have infinite precision. For example, using real numbers, we have <span class="math inline">\((\sqrt{2})^2 - 2 = 0\)</span>. However, one can check in python</p></li>
 </ul>
 <div class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> sqrt</span>
@@ -182,74 +183,56 @@ y = \sum_{n=0}^{n_{max}}\frac{x^n}{n!},
 <p>We will first introduce some basic concepts. Let’s say we want to study a quantity with exact value <span class="math inline">\(x\)</span>. If <span class="math inline">\(\tilde{x}\)</span> is an approximate value for it, then we can define <em>absolute error</em> as <span class="math inline">\(\Delta x = \tilde{x} - x\)</span>.</p>
 <p>We are interested in defining an <em>error bound</em> of the form <span class="math inline">\(|\Delta x| \leq \epsilon\)</span> where we hope that <span class="math inline">\(\epsilon\)</span> is “small”. This means that even though we don’t know the exact value of <span class="math inline">\(x\)</span>, we do know it could be at most <span class="math inline">\(\tilde{x} + \epsilon\)</span> and at least <span class="math inline">\(\tilde{x} - \epsilon\)</span>.</p>
 <p>Sometimes, the absolute error is not enough. For example, if we have <span class="math inline">\(x = 1000000000.0\)</span>, <span class="math inline">\(\tilde{x} = 999999999.0\)</span>, which corresponds to an absolute error <span class="math inline">\(\Delta x = -1\)</span>. Obviously, we should not say <span class="math inline">\(\Delta x\)</span> is small. On the other hand, we do feel that <span class="math inline">\(x\)</span> and <span class="math inline">\(\tilde{x}\)</span> are close enough.</p>
-<p>This is resolved by introducing a new definition, the <em>relative error</em>, defined as</p>
-<p><span class="math display">\[
+<p>This is resolved by introducing a new definition, the <em>relative error</em>, defined as <span class="math display">\[
 \delta x = \frac{\Delta x}{x} = \frac{\tilde{x} - x}{x},
-\]</span></p>
-<p>which is just the absolute error divided by the exact value. We can also define a <em>bound for the relative error</em>, <span class="math inline">\(|\delta x|\leq \epsilon\)</span>. Now the phrase <span class="math inline">\(\epsilon\)</span> is small unambiguous, as it doesn’t depend on whether or not <span class="math inline">\(x\)</span> is large. Sometimes, when defining the relative error, we can also use <span class="math inline">\(\tilde{x}\)</span> instead of <span class="math inline">\(x\)</span> in the denominator, since the exact value may be unknown.</p>
+\]</span> which is just the absolute error divided by the exact value. We can also define a <em>bound for the relative error</em>, <span class="math inline">\(|\delta x|\leq \epsilon\)</span>. Now the phrase <span class="math inline">\(\epsilon\)</span> is small unambiguous, as it doesn’t depend on whether or not <span class="math inline">\(x\)</span> is large. Sometimes, when defining the relative error, we can also use <span class="math inline">\(\tilde{x}\)</span> instead of <span class="math inline">\(x\)</span> in the denominator, since the exact value may be unknown.</p>
 </section>
 <section id="error-propagation" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="error-propagation"><span class="header-section-number">2.2</span> Error Propagation</h2>
 <p>Now, we will explore what happens when we put together the error bounds for two numbers <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> to produce an error bound for a third number <span class="math inline">\(x\)</span>, which is obtained from <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> via addition, subtraction, multiplication and division.</p>
 <section id="addition-and-subtraction" class="level3">
 <h3 class="anchored" data-anchor-id="addition-and-subtraction">Addition and Subtraction</h3>
-<p>Let <span class="math inline">\(\tilde{a}, \tilde{b}\)</span> be the approximate values for <span class="math inline">\(a, b\)</span>. We can write <span class="math inline">\(\tilde{a} = a+\Delta a\)</span>, <span class="math inline">\(\tilde{b}= b+\Delta b\)</span>. Thes, we have</p>
-<p><span class="math display">\[
+<p>Let <span class="math inline">\(\tilde{a}, \tilde{b}\)</span> be the approximate values for <span class="math inline">\(a, b\)</span>. We can write <span class="math inline">\(\tilde{a} = a+\Delta a\)</span>, <span class="math inline">\(\tilde{b}= b+\Delta b\)</span>. Thes, we have <span class="math display">\[
 \Delta x = \tilde{x} - x = (a+\Delta a \pm (b + \Delta b)) - (a \pm b) = \Delta a \pm \Delta b.
-\]</span></p>
-<p>Thus,</p>
-<p><span class="math display">\[
+\]</span> Thus, <span class="math display">\[
 |\Delta x|  = |\Delta a \pm \Delta b| \leq |\Delta a|  + |\Delta b|.
 \]</span></p>
 <p>This leads to the conclusion that <em>in addition and subtraction adding together the bounds for the absolute errorsin the two numbers gi ves us the bound for the absolute error in the result</em>.</p>
 </section>
 <section id="catastrophic-cancellation" class="level3">
 <h3 class="anchored" data-anchor-id="catastrophic-cancellation">Catastrophic Cancellation</h3>
-<p>Let us examine the special case: <span class="math inline">\(a\simeq b\)</span>. Let us work out the subtraction case <span class="math inline">\(x = a - b\)</span>. The relative error of <span class="math inline">\(x\)</span> is bounded as</p>
-<p><span class="math display">\[
+<p>Let us examine the special case: <span class="math inline">\(a\simeq b\)</span>. Let us work out the subtraction case <span class="math inline">\(x = a - b\)</span>. The relative error of <span class="math inline">\(x\)</span> is bounded as <span class="math display">\[
 |\delta x | = \left|\frac{\Delta x }{x} \right| \leq \frac{|\Delta a | + |\Delta b|}{|a - b|}.
-\]</span></p>
-<p>As <span class="math inline">\(\Delta a = a\delta a\)</span>, <span class="math inline">\(\Delta b = b\delta b = a \frac{b}{a}\delta b\)</span>, the above condition becomes</p>
-<p><span class="math display">\[
+\]</span> As <span class="math inline">\(\Delta a = a\delta a\)</span>, <span class="math inline">\(\Delta b = b\delta b = a \frac{b}{a}\delta b\)</span>, the above condition becomes <span class="math display">\[
 |\delta x|\leq (|\delta a| + \frac{|b|}{|a|}|\delta b|)\frac{|a|}{|a - b|}.
-\]</span></p>
-<p>Since <span class="math inline">\(a\simeq b\)</span>, we have that <span class="math inline">\(|a-b| \ll |a|\)</span>, which implies that <span class="math inline">\(\frac{|a|}{|a - b|} \gg 1\)</span>. On the other hand, we have <span class="math inline">\(\frac{|b|}{|a|}\simeq 1\)</span>, and thus on the right hand side of the above inequality, the relative error bound of <span class="math inline">\(x\)</span> is <span class="math inline">\((|\delta a|+ |\delta b|)\)</span> multiplied by a very large factor, namely the relative error is greatly manified.</p>
+\]</span> Since <span class="math inline">\(a\simeq b\)</span>, we have that <span class="math inline">\(|a-b| \ll |a|\)</span>, which implies that <span class="math inline">\(\frac{|a|}{|a - b|} \gg 1\)</span>. On the other hand, we have <span class="math inline">\(\frac{|b|}{|a|}\simeq 1\)</span>, and thus on the right hand side of the above inequality, the relative error bound of <span class="math inline">\(x\)</span> is <span class="math inline">\((|\delta a|+ |\delta b|)\)</span> multiplied by a very large factor, namely the relative error is greatly manified.</p>
 <p><strong>Example</strong>: Consider two numbers <span class="math inline">\(a= 1.251\)</span> and <span class="math inline">\(b=1.239\)</span>. We approximate them as 1.25 and 1.24, respectively. The reiative error for these approximations are <span class="math inline">\(\delta a = -0.0008\)</span> and <span class="math inline">\(\delta b = 0.0008\)</span>. Consider <span class="math inline">\(x = a - b = 0.012\)</span>. If we use the approximate values, we get <span class="math inline">\(\tilde{x} = 0.01\)</span>, and the relative error is <span class="math inline">\(\delta x = -0.002/0.012 = -0.167\)</span>. We see that <span class="math inline">\(|\delta x| \gg |\delta a|, |\delta b|\)</span>.</p>
 </section>
 <section id="multiplication-or-division" class="level3">
 <h3 class="anchored" data-anchor-id="multiplication-or-division">Multiplication or Division</h3>
-<p>Let <span class="math inline">\(x = ab\)</span>, and <span class="math inline">\(\tilde{x} = \tilde{a}\tilde{b}\)</span>. Using the definitions, we have <span class="math inline">\(\tilde{a}= a(a+\delta a)\)</span>, <span class="math inline">\(\tilde{b} = b(1+\delta b)\)</span>. These give</p>
-<p><span class="math display">\[
+<p>Let <span class="math inline">\(x = ab\)</span>, and <span class="math inline">\(\tilde{x} = \tilde{a}\tilde{b}\)</span>. Using the definitions, we have <span class="math inline">\(\tilde{a}= a(a+\delta a)\)</span>, <span class="math inline">\(\tilde{b} = b(1+\delta b)\)</span>. These give <span class="math display">\[
 \delta x = \frac{\tilde{x} - x}{x} = \frac{\tilde{a}\tilde{b} - ab}{ab}
 = \frac{a(1+\delta a)b(1+\delta b) - ab}{ab} = \delta a + \delta b,
-\]</span></p>
-<p>where in the last equality we dropped the term <span class="math inline">\(\delta a \delta b\)</span> since it is product of two error terms. To derive an error bound, we take the absolute value and obtain</p>
-<p><span class="math display">\[
+\]</span> where in the last equality we dropped the term <span class="math inline">\(\delta a \delta b\)</span> since it is product of two error terms. To derive an error bound, we take the absolute value and obtain <span class="math display">\[
 |\delta x | \leq |\delta a| + |\delta b|.
 \]</span></p>
 </section>
 <section id="general-error-propagation-functions-of-one-variable" class="level3">
 <h3 class="anchored" data-anchor-id="general-error-propagation-functions-of-one-variable">General Error Propagation: Functions of One Variable</h3>
-<p>Consider <span class="math inline">\(y = f(x)\)</span>. We can calculate</p>
-<p><span class="math display">\[
+<p>Consider <span class="math inline">\(y = f(x)\)</span>. We can calculate <span class="math display">\[
 \begin{align*}
 \Delta y &amp;= f(\tilde{x}) - f(x) = f(x + \Delta x) - f(x) \\
 &amp; \simeq \frac{d f(x)}{dx} (\tilde{x} - x),
 \end{align*}
-\]</span></p>
-<p>where we have dropped higher order terms of <span class="math inline">\(\Delta x\)</span>. For the relative error, we have</p>
-<p><span class="math display">\[
+\]</span> where we have dropped higher order terms of <span class="math inline">\(\Delta x\)</span>. For the relative error, we have <span class="math display">\[
 \delta y = \frac{x}{f(x)} \frac{d f(x)}{dx} \delta x.
 \]</span></p>
 </section>
 <section id="general-error-propagation-functions-of-many-variables" class="level3">
 <h3 class="anchored" data-anchor-id="general-error-propagation-functions-of-many-variables">General Error Propagation: Functions of Many Variables</h3>
-<p>Consider a function of multiple variables, <span class="math inline">\(y = f(x_0, x_1, \dots, x_{n-1})\)</span>. One can show that</p>
-<p><span class="math display">\[
+<p>Consider a function of multiple variables, <span class="math inline">\(y = f(x_0, x_1, \dots, x_{n-1})\)</span>. One can show that <span class="math display">\[
 \Delta y = \sum_{i = 0}^{n-1} \frac{\partial f}{\partial x_i} \Delta x_i.
-\]</span></p>
-<p>For relative errors, we have</p>
-<p><span class="math display">\[
+\]</span> For relative errors, we have <span class="math display">\[
 \delta y = \sum_{i = 0}^{n-1} \frac{x_i}{f(x_0,\dots,x_{n-1})} \frac{\partial f}{\partial x_i} \delta x_i.
 \]</span></p>
 </section>
@@ -261,20 +244,17 @@ y = \sum_{n=0}^{n_{max}}\frac{x^n}{n!},
 <section id="basics" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="basics"><span class="header-section-number">3.1</span> Basics</h2>
 <p>Computers use electrical circuits, which communicate using signals. The simplest such signals are <em>on</em> and <em>off</em>. These wo possibilities are known as <em>binary digit</em> or <em>bit</em>, represented by 0 or 1. All types of numbers are stored in binary form, as collections of 0s and 1s.</p>
-<p>In Python, integers actually have unlimited precision, so we won’t have to worry about them. We will be focusing on the real numbers, which are stored using the <em>floating-point representation</em> in computers, with the general form</p>
-<p><span class="math display">\[
+<p>In Python, integers actually have unlimited precision, so we won’t have to worry about them. We will be focusing on the real numbers, which are stored using the <em>floating-point representation</em> in computers, with the general form <span class="math display">\[
 \pm \mathrm{mantissa} \times 10^{\mathrm{exponent}}.
-\]</span></p>
-<p>For example, one can represent the speed of light in vaccumm as <span class="math inline">\(+2.99792458 \times 10^8 \mathrm{m/s}\)</span>.</p>
+\]</span> For example, one can represent the speed of light in vaccumm as <span class="math inline">\(+2.99792458 \times 10^8 \mathrm{m/s}\)</span>.</p>
 <p>Computer only store a finite number of bits, so cannot store exactly all possible real numbers. In other words, there are only finitely many exact representations/<em>machine numbers</em>, which fall into two categories: <em>normal</em> and <em>subnormal</em> numbers. There are three ways of losing precision, as shown in <a href="#fig-float-number">Figure&nbsp;1</a>: <em>underflow</em> for very small numbers, <em>overflow</em> for very large (in absolute value) numbers, and <em>rounding</em> for decimal numbers whose value falls between two exactly representable numbers.</p>
 <div id="fig-float-number" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="float_number.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure 1: Illustration of exactly representable floating-point numbers</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: Illustration of exactly representable floating-point numbers</figcaption><p></p>
 </figure>
 </div>
-<p>Python uses <em>double-precision floating point numbers</em>, also known as <em>doubles</em>, whose storage uses 64 bits in total. Doubles can represent</p>
-<p><span class="math display">\[
+<p>Python uses <em>double-precision floating point numbers</em>, also known as <em>doubles</em>, whose storage uses 64 bits in total. Doubles can represent <span class="math display">\[
 \pm 4.9 \times 10^{-324} \leftrightarrow \pm 1.8 \times 10^{308}.
 \]</span></p>
 <p>The number of significant digits (precision) is 15 or 16 decimal digits for doubles.</p>
@@ -305,15 +285,13 @@ y = \sum_{n=0}^{n_{max}}\frac{x^n}{n!},
 </section>
 <section id="revisiting-subtraction" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="revisiting-subtraction"><span class="header-section-number">3.2</span> Revisiting Subtraction</h2>
-<p>We know that</p>
-<p><span class="math display">\[
+<p>We know that <span class="math display">\[
 \begin{align*}
 &amp;1.2345678912345678912−1.2345678900000000000\\
 &amp;= 0.0000000012345678912 \\
 &amp;= 1.2345678912 \times 10^{-9}
 \end{align*}
-\]</span></p>
-<p>Let us in the following do it in Python.</p>
+\]</span> Let us in the following do it in Python.</p>
 <div class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a> <span class="fl">1.2345678912345678912</span> <span class="op">-</span> <span class="fl">1.2345678900000000000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
@@ -324,7 +302,7 @@ y = \sum_{n=0}^{n_{max}}\frac{x^n}{n!},
 </section>
 <section id="comparing-floats" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="comparing-floats"><span class="header-section-number">3.3</span> Comparing Floats</h2>
-<p>Only machine numbers are represented exactly, and other numbers are rounded to the nearest machine number. THus, we should never compare floating-point variables <span class="math inline">\(\tilde{x}\)</span> and <span class="math inline">\(\tilde{y}\)</span> for equality. See the following example.</p>
+<p>Only machine numbers are represented exactly, and other numbers are rounded to the nearest machine number. Thus, we should never compare floating-point variables <span class="math inline">\(\tilde{x}\)</span> and <span class="math inline">\(\tilde{y}\)</span> for equality. See the following example.</p>
 <div class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>xt <span class="op">=</span> <span class="fl">0.1</span> <span class="op">+</span> <span class="fl">0.2</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>yt <span class="op">=</span> <span class="fl">0.3</span></span>
@@ -372,11 +350,9 @@ True</code></pre>
 <section id="naive-vs-manipulated-expressions" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Naive vs Manipulated Expressions</h1>
 <p>We will now show how easy it is to lose accuracy if one is not careful, and how straightforward it is to carry out an anlytical manipulation that avoids the problem.</p>
-<p>The task at hand is to evaluate</p>
-<p><span class="math display">\[
+<p>The task at hand is to evaluate <span class="math display">\[
 f(x) = \frac{1}{\sqrt{x^2 + 1} - x}
-\]</span></p>
-<p>at large values of <span class="math inline">\(x\)</span>.</p>
+\]</span> at large values of <span class="math inline">\(x\)</span>.</p>
 <p>We will use the following list comprehension code.</p>
 <div class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> sqrt</span>
@@ -401,11 +377,9 @@ f(x) = \frac{1}{\sqrt{x^2 + 1} - x}
 </div>
 </div>
 <p>The answer appears to be getting increasingly worse as the x is increased. If you test <span class="math inline">\(x = 10^8\)</span>, you even get an error <code>ZeroDivisionError</code>, because <span class="math inline">\(\sqrt{x^2 +1}\simeq x\)</span> when <span class="math inline">\(x\)</span> is large. We are having an issue of subtracting two large but nearly identical numbers.</p>
-<p>An easy way to avoid this issue is to manipulate the original expression</p>
-<p><span class="math display">\[
+<p>An easy way to avoid this issue is to manipulate the original expression <span class="math display">\[
 f(x) = \frac{\sqrt{x^2 +1 } + x}{(\sqrt{x^2 +1} - x)(\sqrt{x^2 +1} +x)} = \sqrt{x^2 +1} + x.
-\]</span></p>
-<p>This expression has no issue of large number subtraction. When <span class="math inline">\(x\gg 1\)</span>, essentially we have <span class="math inline">\(\sqrt{x^2 +1} +x \simeq 2x\)</span>. In the following code, you see the result is very robust on any values of <span class="math inline">\(x\)</span>.</p>
+\]</span> This expression has no issue of large number subtraction. When <span class="math inline">\(x\gg 1\)</span>, essentially we have <span class="math inline">\(\sqrt{x^2 +1} +x \simeq 2x\)</span>. In the following code, you see the result is very robust on any values of <span class="math inline">\(x\)</span>.</p>
 <div class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> sqrt</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -429,12 +403,9 @@ f(x) = \frac{\sqrt{x^2 +1 } + x}{(\sqrt{x^2 +1} - x)(\sqrt{x^2 +1} +x)} = \sqrt{
 </section>
 <section id="computing-the-exponential-function" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Computing the Exponential Function</h1>
-<p>We want to compute the exponential function (assuming we have no access to the math library), by using the Taylor series:</p>
-<p><span class="math display">\[
+<p>We want to compute the exponential function (assuming we have no access to the math library), by using the Taylor series: <span class="math display">\[
 e^x = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \cdots.
-\]</span></p>
-<p>We shall approximate this expansion by keeping only the terms up to <span class="math inline">\(n_{max}\)</span>:</p>
-<p><span class="math display">\[
+\]</span> We shall approximate this expansion by keeping only the terms up to <span class="math inline">\(n_{max}\)</span>: <span class="math display">\[
 e^x \simeq \sum_{n=0}^{n_{max}} \frac{x^n}{n!}.
 \]</span></p>
 <p>A naive implementation by directly computing the powers of <span class="math inline">\(x\)</span> divided by the increasingly large factorial suffers from two problems:</p>
@@ -442,11 +413,9 @@ e^x \simeq \sum_{n=0}^{n_{max}} \frac{x^n}{n!}.
 <li>calculating the power and the factorial is costly</li>
 <li>both <span class="math inline">\(x^n\)</span> and <span class="math inline">\(n!\)</span> can become very large numbers (potentially overflowing) even though their ratio can be quite small</li>
 </ol>
-<p>Alternatively, we notice that the <span class="math inline">\(n\)</span>-th term and <span class="math inline">\((n-1)\)</span>-th term are related:</p>
-<p><span class="math display">\[
+<p>Alternatively, we notice that the <span class="math inline">\(n\)</span>-th term and <span class="math inline">\((n-1)\)</span>-th term are related: <span class="math display">\[
 \frac{x^n}{n!} = \frac{x}{n}\frac{x^{n-1}}{(n-1)!}.
-\]</span></p>
-<p>Thus, we can get the new term by multiplying the old term by <span class="math inline">\(x/n\)</span>. We see that if <span class="math inline">\(x&gt;n\)</span>, the magnitude of the term grows.</p>
+\]</span> Thus, we can get the new term by multiplying the old term by <span class="math inline">\(x/n\)</span>. We see that if <span class="math inline">\(x&gt;n\)</span>, the magnitude of the term grows.</p>
 <p>How should we determine the value of <span class="math inline">\(n_{nmax}\)</span>, namely when should we stop without going to the next term? We will terminate the loop when it is determined that adding the <span class="math inline">\(n\)</span>-th term to the running total doesn’t change the sum. See the following code.</p>
 <div class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> exp</span>
@@ -650,26 +619,21 @@ x, library exp(x): -20.0 2.061153622438558e-09
 <li><p>For <span class="math inline">\(x = -20\)</span>, our result and the one from <code>exp()</code> function only match in order of magnitude, but there is no decimal digits agreeing.</p></li>
 </ul>
 <p>The problem in the case <span class="math inline">\(x=-20\)</span> is that each term is accurate only up to 16 digits, namely the relative error is <span class="math inline">\(10^{-16}\)</span>. The largest term in this case is of order <span class="math inline">\(10^8\)</span>, which means the absolute error for the result will be at least <span class="math inline">\(10^8 \times 10^{-16} = 10^{-8}\)</span>. Since the final result is of order <span class="math inline">\(10^{-9}\)</span>, which means we will have <span class="math inline">\(10\%\)</span> relative error and thus the result should not be trusted. For the <span class="math inline">\(x=20\)</span> case, the absolute error is still <span class="math inline">\(10^{-8}\)</span> but the final result is of order <span class="math inline">\(10^8\)</span>, thus the relative error is only <span class="math inline">\(10^{-16}\)</span>.</p>
-<p>To avoid this issue for negative <span class="math inline">\(x\)</span>, we can actually manipulate the expression, by writing</p>
-<p><span class="math display">\[
+<p>To avoid this issue for negative <span class="math inline">\(x\)</span>, we can actually manipulate the expression, by writing <span class="math display">\[
 e^{-x} = 1/e^x.
-\]</span></p>
-<p>Taking inverse will not change the number of significant digits and thus we won’t lose accuracy.</p>
+\]</span> Taking inverse will not change the number of significant digits and thus we won’t lose accuracy.</p>
 </section>
 <section id="an-even-worse-case-recursion" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> An Even Worse Case: Recursion</h1>
-<p>Here, we will examine the problem of recursion, where even a tiny error in the starting expression can be multiplied by the factorial of a large numbe. The task is to evaluate the integral of the form</p>
-<p><span class="math display">\[
+<p>Here, we will examine the problem of recursion, where even a tiny error in the starting expression can be multiplied by the factorial of a large numbe. The task is to evaluate the integral of the form <span class="math display">\[
 f(n)= \int_0^1 x^n e^{-x} dx.
 \]</span></p>
-<p>We can use integration by parts, to manipulate the above expression</p>
-<p><span class="math display">\[
+<p>We can use integration by parts, to manipulate the above expression <span class="math display">\[
 \begin{align*}
 f(n) &amp;= -\int_0^1 x^n d(e^{-x}) = -e^{-1} + n\int_0^1 x^{n-1}e^{-x}\\
 &amp;= nf(n-1)-e^{-1}.
 \end{align*}
-\]</span></p>
-<p>Particularly, we have <span class="math inline">\(f(0)=1-e^{-1}\)</span>. We can implement the above recursion relation.</p>
+\]</span> Particularly, we have <span class="math inline">\(f(0)=1-e^{-1}\)</span>. We can implement the above recursion relation.</p>
 <div class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> exp</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -710,11 +674,9 @@ n, f[n]
 </div>
 </div>
 <p>As one can see, our result has a large error. This is because our evaluation contains <span class="math inline">\(n f(n-1)\)</span>. It means any errors in <span class="math inline">\(f(n-1)\)</span> are magnified by a factor <span class="math inline">\(n\)</span>, which can be large.</p>
-<p>The process we followed in the code above, starting at <span class="math inline">\(n=0\)</span> and building up to a finite <span class="math inline">\(n\)</span>, is called <em>forward recursion</em>. This can be solved by a simple trick, using <em>backward recursion</em>. We can write</p>
-<p><span class="math display">\[
+<p>The process we followed in the code above, starting at <span class="math inline">\(n=0\)</span> and building up to a finite <span class="math inline">\(n\)</span>, is called <em>forward recursion</em>. This can be solved by a simple trick, using <em>backward recursion</em>. We can write <span class="math display">\[
 f(n-1)  = \frac{f(n)+e^{-1}}{n}.
-\]</span></p>
-<p>See the following code.</p>
+\]</span> See the following code.</p>
 <div class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> exp</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -748,24 +710,16 @@ n, f[n]
 <section id="homework" class="level1" data-number="7">
 <h1 data-number="7"><span class="header-section-number">7</span> Homework</h1>
 <ol type="1">
-<li>Show that the relative error bound for division <span class="math inline">\(x = a/b\)</span> is also</li>
-</ol>
-<p><span class="math display">\[
+<li>Show that the relative error bound for division <span class="math inline">\(x = a/b\)</span> is also <span class="math display">\[
 |\delta x|\leq |\delta a | + |\delta b|
-\]</span></p>
-<ol start="2" type="1">
-<li>Take the standard quadratic equation:</li>
-</ol>
-<p><span class="math display">\[
+\]</span></li>
+<li>Take the standard quadratic equation: <span class="math display">\[
 ax^2 + bx + c = 0.
-\]</span></p>
-<p>The formula for the solutions of this equation is very well known:</p>
-<p><span id="eq-quadratic-formula"><span class="math display">\[
+\]</span> The formula for the solutions of this equation is very well known: <span id="eq-quadratic-formula"><span class="math display">\[
 x_\pm = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}.
-\tag{1}\]</span></span></p>
-<p>Take <span class="math inline">\(b&gt;0\)</span> for concreteness. It is easy to see that when <span class="math inline">\(b^2 \gg ac\)</span>, we don’t get a catastrophic cancellation when evaluating <span class="math inline">\(b^2 - 4ac\)</span>. Furthermore, <span class="math inline">\(\sqrt{b^2 - 4ac} \simeq b\)</span>. This means that <span class="math inline">\(x_+\)</span> will involve catastrophic cancellation in the numerator.</p>
-<p>We will employ an analytical trick in order to help us preserve significant figures. Observe that the product of the two roots obeys the relation:</p>
-<p><span id="eq-xpxm"><span class="math display">\[
+\tag{1}\]</span></span> Take <span class="math inline">\(b&gt;0\)</span> for concreteness. It is easy to see that when <span class="math inline">\(b^2 \gg ac\)</span>, we don’t get a catastrophic cancellation when evaluating <span class="math inline">\(b^2 - 4ac\)</span>. Furthermore, <span class="math inline">\(\sqrt{b^2 - 4ac} \simeq b\)</span>. This means that <span class="math inline">\(x_+\)</span> will involve catastrophic cancellation in the numerator.</li>
+</ol>
+<p>We will employ an analytical trick in order to help us preserve significant figures. Observe that the product of the two roots obeys the relation: <span id="eq-xpxm"><span class="math display">\[
 x_+ x_- = \frac{c}{a}.
 \tag{2}\]</span></span></p>
 <p>Now, we should use <a href="#eq-quadratic-formula">Equation&nbsp;1</a> to calculate <span class="math inline">\(x_-\)</span>. Then, we should use <a href="#eq-xpxm">Equation&nbsp;2</a> to calculate <span class="math inline">\(x_+\)</span>, via division only.</p>
@@ -843,7 +797,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.145">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Matrices I</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="week5_files/libs/clipboard/clipboard.min.js"></script>
+<script src="week5_files/libs/quarto-html/quarto.js"></script>
+<script src="week5_files/libs/quarto-html/popper.min.js"></script>
+<script src="week5_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="week5_files/libs/quarto-html/anchor.min.js"></script>
+<link href="week5_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="week5_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="week5_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="week5_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="week5_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><span class="toc-section-number">1</span>  Motivation</a>
+  <ul class="collapse">
+  <li><a href="#examples-from-physics" id="toc-examples-from-physics" class="nav-link" data-scroll-target="#examples-from-physics"><span class="toc-section-number">1.1</span>  Examples from Physics</a>
+  <ul class="collapse">
+  <li><a href="#rotations-in-two-dimensions" id="toc-rotations-in-two-dimensions" class="nav-link" data-scroll-target="#rotations-in-two-dimensions">Rotations in two dimensions</a></li>
+  <li><a href="#electrostatic-potentials" id="toc-electrostatic-potentials" class="nav-link" data-scroll-target="#electrostatic-potentials">Electrostatic potentials</a></li>
+  <li><a href="#principle-moments-of-inertia" id="toc-principle-moments-of-inertia" class="nav-link" data-scroll-target="#principle-moments-of-inertia">Principle moments of inertia</a></li>
+  </ul></li>
+  <li><a href="#the-problems-to-be-solved" id="toc-the-problems-to-be-solved" class="nav-link" data-scroll-target="#the-problems-to-be-solved"><span class="toc-section-number">1.2</span>  The problems to be solved</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Matrices I</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="motivation" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Motivation</h1>
+<p>Linear algebra pops up almost everywhere in physics, so the matrix-related techniques developed below will be used repeatedly in later lectures. As a result, we will spend lots of time on matrices. We will take the time to introduce several numerical techniques in detail.</p>
+<section id="examples-from-physics" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="examples-from-physics"><span class="header-section-number">1.1</span> Examples from Physics</h2>
+<p>We discuss some elementary examples from undergraduate physics.</p>
+<section id="rotations-in-two-dimensions" class="level3">
+<h3 class="anchored" data-anchor-id="rotations-in-two-dimensions">Rotations in two dimensions</h3>
+<p>Consider a two-dimensional Cartesian coordinate system. A point <span class="math inline">\(\boldsymbol{r} = (x,y)^T\)</span> can be rotated counter-clockwise through an angle <span class="math inline">\(\theta\)</span> about the origin, producing a new point <span class="math inline">\(\boldsymbol{r}' = (x',y')^T\)</span>. The two points’ coordinates are related as follows: <span class="math display">\[
+\begin{pmatrix}
+\cos\theta &amp; -\sin\theta \\
+\sin\theta &amp; \cos\theta
+\end{pmatrix}
+\begin{pmatrix}
+x \\
+y
+\end{pmatrix}
+=
+\begin{pmatrix}
+x' \\
+y'
+\end{pmatrix}
+\]</span> The <span class="math inline">\(2\times 2\)</span> matrix appearing here is an example of a <em>rotation matrix</em> in Euclidean space. If you know <span class="math inline">\(\boldsymbol{r}'\)</span> and wish to calculate <span class="math inline">\(\boldsymbol{r}\)</span>, you need to solve this system of two linear equations.</p>
+</section>
+<section id="electrostatic-potentials" class="level3">
+<h3 class="anchored" data-anchor-id="electrostatic-potentials">Electrostatic potentials</h3>
+<p>Assume you have <span class="math inline">\(n\)</span> electric charges <span class="math inline">\(q_j\)</span> (which are unknown) held at the positions <span class="math inline">\(\boldsymbol{R}_j\)</span> (which are known). Further assume that you have measured the electric potential <span class="math inline">\(\phi(r_i)\)</span> at the <span class="math inline">\(n\)</span> known positions <span class="math inline">\(\boldsymbol{r}_i\)</span>. From the definition of the potential (as well as the fact that the potential obeys the principle of superposition), we see that: <span class="math display">\[
+\phi(\boldsymbol{r}_i) = \sum_{j=0}^{n-1}\left(\frac{k q_j}{|\boldsymbol{r}_i - \boldsymbol{R}_j|}\right),
+\]</span> where <span class="math inline">\(i = 0,1,\dots,n-1\)</span>. If you assume you have four charges, the above relation turns into the following <span class="math inline">\(4\times 4\)</span> linear systems of equations: <span class="math display">\[
+\begin{pmatrix}
+k/|\boldsymbol{r}_0 - \boldsymbol{R}_0| &amp;k/|\boldsymbol{r}_0 - \boldsymbol{R}_1| &amp;k/|\boldsymbol{r}_0 - \boldsymbol{R}_2| &amp;k/|\boldsymbol{r}_0 - \boldsymbol{R}_3| \\
+k/|\boldsymbol{r}_1 - \boldsymbol{R}_0| &amp;k/|\boldsymbol{r}_1 - \boldsymbol{R}_1| &amp;k/|\boldsymbol{r}_1 - \boldsymbol{R}_2| &amp;k/|\boldsymbol{r}_1 - \boldsymbol{R}_3| \\
+k/|\boldsymbol{r}_2 - \boldsymbol{R}_0| &amp;k/|\boldsymbol{r}_2 - \boldsymbol{R}_1| &amp;k/|\boldsymbol{r}_2 - \boldsymbol{R}_2| &amp;k/|\boldsymbol{r}_2 - \boldsymbol{R}_3| \\
+k/|\boldsymbol{r}_3 - \boldsymbol{R}_0| &amp;k/|\boldsymbol{r}_3 - \boldsymbol{R}_1| &amp;k/|\boldsymbol{r}_3 - \boldsymbol{R}_2| &amp;k/|\boldsymbol{r}_3 - \boldsymbol{R}_3|
+\end{pmatrix}
+\begin{pmatrix}
+q_0 \\ q_1 \\ q_2 \\ q_3
+\end{pmatrix}
+=
+\begin{pmatrix}
+\phi(\boldsymbol{r}_0) \\ \phi(\boldsymbol{r}_1) \\ \phi(\boldsymbol{r}_2) \\ \phi(\boldsymbol{r}_3)
+\end{pmatrix}
+\]</span> which needs to be solved for the 4 unknowns <span class="math inline">\(q_0\)</span>, <span class="math inline">\(q_1\)</span>, <span class="math inline">\(q_2\)</span> and <span class="math inline">\(q_3\)</span>.</p>
+</section>
+<section id="principle-moments-of-inertia" class="level3">
+<h3 class="anchored" data-anchor-id="principle-moments-of-inertia">Principle moments of inertia</h3>
+<p>In study of the rotation of a rigid body about an arbitrary axis in three dimensions, you may have encountered the moment of inertia tensor: <span class="math display">\[
+I_{\alpha \beta} = \int \rho(\boldsymbol{r}) \left(\delta_{\alpha \beta}r^2 - \boldsymbol{r}_\alpha \boldsymbol{r}_\beta\right)d^3 r,
+\]</span> where <span class="math inline">\(\rho(r)\)</span> is the mass density, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> denote Cartesian components, and <span class="math inline">\(\delta_{\alpha \beta}\)</span> is the Kronecker delta.</p>
+<p>The moment of inertia tensor is represented by a <span class="math inline">\(3\times 3\)</span> matrix: <span class="math display">\[
+\boldsymbol{I} =
+\begin{pmatrix}
+I_{xx} &amp; I_{xy} &amp; I_{xz} \\
+I_{yx} &amp; I_{yy} &amp; I_{yz} \\
+I_{zx} &amp; I_{zy} &amp; I_{zz}.
+\end{pmatrix}
+\]</span> This is a symmetric matrix. It is possible to choose a coordinate system such that the off-diagonal elements vanish. This axes of this coordinate system are known as the <em>principal axes</em> for the body at the origin. Then the moment of inertian tensor is represented by a diagonal matrix, with diagonal elements <span class="math inline">\(I_0\)</span>, <span class="math inline">\(I_1\)</span>, and <span class="math inline">\(I_2\)</span>, known as the principal moments. This is an instance of the “eigenvalue problem”.</p>
+</section>
+</section>
+<section id="the-problems-to-be-solved" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="the-problems-to-be-solved"><span class="header-section-number">1.2</span> The problems to be solved</h2>
+<p>First, we look at the problem where we have <span class="math inline">\(n\)</span> unknowns <span class="math inline">\(x_i\)</span>, along with <span class="math inline">\(n\times n\)</span> coefficients <span class="math inline">\(A_{ij}\)</span> and <span class="math inline">\(n\)</span> constants <span class="math inline">\(b_i\)</span>: <span class="math display">\[
+\begin{pmatrix}
+A_{00} &amp; A_{01} &amp; \dots &amp; A_{0,n-1} \\
+A_{10} &amp; A_{11} &amp; \dots &amp; A_{1,n-1} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+A_{n-1,0} &amp; A_{n-1,1} &amp; \dots &amp; A_{n-1,n-1}
+\end{pmatrix}
+\begin{pmatrix}
+x_0 \\ x_1 \\ \vdots \\ x_{n-1}
+\end{pmatrix}
+=
+\begin{pmatrix}
+b_0 \\ b_1 \\ \vdots \\ b_{n-1}
+\end{pmatrix}
+\]</span> where we used a comma to separate two indices when this was necessary to avoid confusion. These are <span class="math inline">\(n\)</span> equations linear in <span class="math inline">\(n\)</span> unknowns.</p>
+<p>In compact matrix form, this problem is written as <span class="math display">\[
+\boldsymbol{A}\boldsymbol{x} = \boldsymbol{b},
+\]</span> where <span class="math inline">\(\boldsymbol{A}\)</span> is called the <em>coefficient matrix</em>. This is a problem that we will spend considerable time solving in this lecture. We will be doing this mainly by using the <em>augmented coefficient matrix</em> which places together the elements of <span class="math inline">\(\boldsymbol{A}\)</span> and <span class="math inline">\(\boldsymbol{b}\)</span>, i.e.: <span class="math display">\[
+(\boldsymbol{A}|\boldsymbol{b})= \left(
+\begin{matrix}
+A_{00} &amp; A_{01} &amp; \dots &amp; A_{0,n-1} \\
+A_{10} &amp; A_{11} &amp; \dots &amp; A_{1,n-1} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+A_{n-1,0} &amp; A_{n-1,1} &amp; \dots &amp; A_{n-1,n-1}
+\end{matrix}\right|
+\left.
+\begin{matrix}
+b_0 \\ b_1 \\ \vdots \\b_{n-1}
+\end{matrix}
+\right).
+\]</span> For now we assume the determinant of <span class="math inline">\(\boldsymbol{A}\)</span> satisfy <span class="math inline">\(|\boldsymbol{A}| \neq 0\)</span>.</p>
+<p>In a course on linear algebra you have seen examples of legitimate operations one can carry out while solving the system of linear equations. Such operations change the elements of <span class="math inline">\(\boldsymbol{A}\)</span> and <span class="math inline">\(\boldsymbol{b}\)</span>, but leave the solution vector <span class="math inline">\(\boldsymbol{x}\)</span> unchanged. More generally, we are allowed to carry the following elementary row operations: - <em>Scaling</em>: each row/equation may be multiplied by a constant (multiplies <span class="math inline">\(|\boldsymbol{A}|\)</span> by the same constant). - <em>Pivoting</em>: two rows/equations may be interchanged (changes sign of <span class="math inline">\(|\boldsymbol{A}|\)</span>). - <em>Elimination</em>: a row/equation may be replaced by a linear combination of that row/equation with any other row/equation (doesn’t change <span class="math inline">\(|\boldsymbol{A}|\)</span>).</p>
+<p>Keep in mind that these are operations that are carried out on the augmented coefficient matrix <span class="math inline">\((\boldsymbol{A}|\boldsymbol{b})\)</span>.</p>
+<p>Second, we wish to tackle the standard form of the matrix eigenvalue problem: <span id="eq-eigenvalue"><span class="math display">\[
+\boldsymbol{A}\boldsymbol{v} = \lambda \boldsymbol{v}.
+\tag{1}\]</span></span> Here, both <span class="math inline">\(\lambda\)</span> and the column vector <span class="math inline">\(\boldsymbol{v}\)</span> are unknown. This <span class="math inline">\(\lambda\)</span> is called an <em>eigenvalue</em> and <span class="math inline">\(\boldsymbol{v}\)</span> is called an <em>eigenvector</em>.</p>
+<p>Let’s sketch one possible approach to solve this problem. We can move everything to the left-hand side, we have <span class="math display">\[
+(\boldsymbol{A} - \lambda \boldsymbol{I})\boldsymbol{v} = \boldsymbol{0},
+\]</span> where <span class="math inline">\(\boldsymbol{I}\)</span> is the <span class="math inline">\(n\times n\)</span> identity matrix and <span class="math inline">\(\boldsymbol{0}\)</span> is an <span class="math inline">\(n\times 1\)</span> column vector made up of <span class="math inline">\(0\)</span>s. It is easy to see that we are faced with a system of <span class="math inline">\(n\)</span> linear equations: the coefficient matrix here is <span class="math inline">\(A - \lambda \boldsymbol{I}\)</span>.</p>
+<p>The trivial solution is <span class="math inline">\(\boldsymbol{v} = 0\)</span>. In order for a non-trivial solution to exist, we must have vanishing determinant <span class="math inline">\(|\boldsymbol{A} - \lambda \boldsymbol{I}| = 0\)</span>. In other words, the matrix <span class="math inline">\(\boldsymbol{A} - \lambda \boldsymbol{I}\)</span> is singular. Expanding the determinant gives us a polynomial equation, known as the <em>characteristic equation</em>: <span class="math display">\[
+(-1)^n\lambda^n + c_{n-1} \lambda^{n-1} + \cdots + c_1 \lambda + c_0 = 0.
+\]</span></p>
+<p>Thus, an $n n $ matrix has at most <span class="math inline">\(n\)</span> distinct eigenvalues, which are the roots of the characteristic polynomial. When a root occurs twice, we say that root has multiplicity <span class="math inline">\(2\)</span>. If a root occurs only once, in other words if it has multiplicity 1, we are dealing with a <em>simple</em> eigenvalue.</p>
+<p>Having calculated the eigenvalues, one way to evaluate the eigenvectors is simply by using <a href="#eq-eigenvalue">Equation&nbsp;1</a> again.</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
