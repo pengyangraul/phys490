@@ -356,7 +356,7 @@ f'(x) = 2\cos(2x)e^{\sin(2x)}.
 <section id="more-accurate-finite-differences" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="more-accurate-finite-differences"><span class="header-section-number">3.4</span> More Accurate Finite Differences</h2>
 <p>In the previous section, we have derived the forward and central finite difference approximations, which require two function evaluations.</p>
-<p>As you will show in your homework, one can produce the following approximation for the value of the derivative of <span class="math inline">\(f(x)\)</span> at x: <span class="math display">\[
+<p>As you will show in your homework, one can produce the following approximation for the value of the derivative of <span class="math inline">\(f(x)\)</span> at <span class="math inline">\(x\)</span>: <span class="math display">\[
 f'(x) = \frac{4f(x+\frac{h}{2}) - f(x+h) - 3f(x)}{h} + \frac{h^2}{12}f'''(x) + \cdots
 \]</span> known as the <em>second forward-difference approximation</em>. This gives an error <span class="math inline">\(O(h^2)\)</span>, at the cost of requiring three function evaluations: <span class="math inline">\(f(x)\)</span>, <span class="math inline">\(f(x+h/2)\)</span>, and <span class="math inline">\(f(x+h)\)</span>.</p>
 <p>You can also show that <span class="math display">\[
