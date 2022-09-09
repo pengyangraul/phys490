@@ -710,20 +710,20 @@ n, f[n]
 <section id="homework" class="level1" data-number="7">
 <h1 data-number="7"><span class="header-section-number">7</span> Homework</h1>
 <ol type="1">
-<li>Show that the relative error bound for division <span class="math inline">\(x = a/b\)</span> is also <span class="math display">\[
+<li><p>Show that the relative error bound for division <span class="math inline">\(x = a/b\)</span> is also <span class="math display">\[
 |\delta x|\leq |\delta a | + |\delta b|
-\]</span></li>
-<li>Take the standard quadratic equation: <span class="math display">\[
+\]</span></p></li>
+<li><p>Take the standard quadratic equation: <span class="math display">\[
 ax^2 + bx + c = 0.
 \]</span> The formula for the solutions of this equation is very well known: <span id="eq-quadratic-formula"><span class="math display">\[
 x_\pm = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}.
-\tag{1}\]</span></span> Take <span class="math inline">\(b&gt;0\)</span> for concreteness. It is easy to see that when <span class="math inline">\(b^2 \gg ac\)</span>, we don’t get a catastrophic cancellation when evaluating <span class="math inline">\(b^2 - 4ac\)</span>. Furthermore, <span class="math inline">\(\sqrt{b^2 - 4ac} \simeq b\)</span>. This means that <span class="math inline">\(x_+\)</span> will involve catastrophic cancellation in the numerator.</li>
-</ol>
+  \tag{1}\]</span></span> Take <span class="math inline">\(b&gt;0\)</span> for concreteness. It is easy to see that when <span class="math inline">\(b^2 \gg ac\)</span>, we don’t get a catastrophic cancellation when evaluating <span class="math inline">\(b^2 - 4ac\)</span>. Furthermore, <span class="math inline">\(\sqrt{b^2 - 4ac} \simeq b\)</span>. This means that <span class="math inline">\(x_+\)</span> will involve catastrophic cancellation in the numerator. <br></p>
 <p>We will employ an analytical trick in order to help us preserve significant figures. Observe that the product of the two roots obeys the relation: <span id="eq-xpxm"><span class="math display">\[
 x_+ x_- = \frac{c}{a}.
-\tag{2}\]</span></span></p>
+  \tag{2}\]</span></span></p>
 <p>Now, we should use <a href="#eq-quadratic-formula">Equation&nbsp;1</a> to calculate <span class="math inline">\(x_-\)</span>. Then, we should use <a href="#eq-xpxm">Equation&nbsp;2</a> to calculate <span class="math inline">\(x_+\)</span>, via division only.</p>
-<p>Please write a Python code that evalutes and prints out (a). <span class="math inline">\(x_-\)</span>, (b). <span class="math inline">\(x_+\)</span> using the “bad” formula, and (c). <span class="math inline">\(x_+\)</span> using the “good” formula. Take <span class="math inline">\(a=1\)</span>, <span class="math inline">\(c=1\)</span>, <span class="math inline">\(b = 10^8\)</span>.</p>
+<p>Please write a Python code that evalutes and prints out (a). <span class="math inline">\(x_-\)</span>, (b). <span class="math inline">\(x_+\)</span> using the “bad” formula, and (c). <span class="math inline">\(x_+\)</span> using the “good” formula. Take <span class="math inline">\(a=1\)</span>, <span class="math inline">\(c=1\)</span>, <span class="math inline">\(b = 10^8\)</span>.</p></li>
+</ol>
 </section>
 
 </main>
