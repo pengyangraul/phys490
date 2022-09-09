@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.145">
+<meta name="generator" content="quarto-1.1.189">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -97,7 +97,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link href="week3_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="week3_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
 
 </head>
 
@@ -164,25 +179,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 data-number="1.1" class="anchored" data-anchor-id="example-from-physics"><span class="header-section-number">1.1</span> Example from Physics</h2>
 <p>We use derivatives everywhere in physics, for example:</p>
 <ul>
-<li><p>In classical mechanics, the <em>velocity</em> of a single particle is: <span class="math display">\[
+<li><p>In classical mechanics, the <em>velocity</em> of a single particle is: <span class="math display">
 \boldsymbol{v} = \frac{d\boldsymbol{r}}{dt}
-\]</span> where <span class="math inline">\(\boldsymbol{r}\)</span> is the position of the particle in a given reference frame.</p></li>
-<li><p>In classical electromagnetism, the equation connecting the electric field <span class="math inline">\(\boldsymbol{E}\)</span> with the vector potential <span class="math inline">\(\boldsymbol{A}\)</span> and scalar potential <span class="math inline">\(\phi\)</span> is: <span class="math display">\[
+</span> where <span class="math inline">\boldsymbol{r}</span> is the position of the particle in a given reference frame.</p></li>
+<li><p>In classical electromagnetism, the equation connecting the electric field <span class="math inline">\boldsymbol{E}</span> with the vector potential <span class="math inline">\boldsymbol{A}</span> and scalar potential <span class="math inline">\phi</span> is: <span class="math display">
 \boldsymbol{E} = -\nabla \phi  - \frac{\partial A}{\partial t}.
-\]</span></p></li>
-<li><p>The Lagrangian density for the vibrations of a continuous rod can be expressed as <span class="math display">\[
+</span></p></li>
+<li><p>The Lagrangian density for the vibrations of a continuous rod can be expressed as <span class="math display">
 \mathcal{L}  = \frac{1}{2}\left[\frac{1}{c^2}
 \left(\frac{\partial \varphi}{\partial t}\right)^2
 -\left(\frac{\partial \varphi}{\partial x}\right)^2\right].
-\]</span> Here <span class="math inline">\(c\)</span> is the velocity of longitudinal elastic waves. The dynamical variable is <span class="math inline">\(\varphi(x,t)\)</span>. As you can see, the spatial and temporal derivatives of this quantity together make up the Lagrangian density.</p></li>
+</span> Here <span class="math inline">c</span> is the velocity of longitudinal elastic waves. The dynamical variable is <span class="math inline">\varphi(x,t)</span>. As you can see, the spatial and temporal derivatives of this quantity together make up the Lagrangian density.</p></li>
 </ul>
 </section>
 <section id="the-problem-to-be-solved" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="the-problem-to-be-solved"><span class="header-section-number">1.2</span> The Problem to be Solved</h2>
 <ul>
-<li>Generally, our task is to evaluate the derivative of <span class="math inline">\(f(x)\)</span> at a specific point, <span class="math inline">\(f'(x)\)</span>.</li>
-<li>If <span class="math inline">\(f'(x)\)</span> can be evaluated analytically, then this problem is trivial.</li>
-<li>However, in lots of cases, either <span class="math inline">\(f(x)\)</span> has a very complicated expression, or we only know the numerical values of <span class="math inline">\(f(x)\)</span> at a few points, namely, we have a table of the form <span class="math inline">\((x_i, f(x_i))\)</span> for <span class="math inline">\(i = 0, 1, \dots, n-1\)</span>.</li>
+<li>Generally, our task is to evaluate the derivative of <span class="math inline">f(x)</span> at a specific point, <span class="math inline">f'(x)</span>.</li>
+<li>If <span class="math inline">f'(x)</span> can be evaluated analytically, then this problem is trivial.</li>
+<li>However, in lots of cases, either <span class="math inline">f(x)</span> has a very complicated expression, or we only know the numerical values of <span class="math inline">f(x)</span> at a few points, namely, we have a table of the form <span class="math inline">(x_i, f(x_i))</span> for <span class="math inline">i = 0, 1, \dots, n-1</span>.</li>
 </ul>
 <p>We could approach this problem in a number of ways:</p>
 <ul>
@@ -194,33 +209,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="analytical-differentiation" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Analytical Differentiation</h1>
-<p>Derivatives are defined as <span class="math display">\[
+<p>Derivatives are defined as <span class="math display">
 \frac{d f(x)}{dx} = \lim_{h \to 0} \frac{f(x + h) - f(x)}{h}
-\]</span></p>
+</span></p>
 <p>You can calculate the analytical expressions by hand, based on the chain rulles etc. Alternatively, you can also use a <em>computer algebra system (CAS)</em>. There are commercial softwares: <code>Mathematica</code> and <code>Maple</code>. There are also free options. One such example is <code>Sage</code>, which is a mathematical software system with a “Python-like” syntax. In one of the problems, we focus on a much more lightweight solution, namely <code>SymPy</code> (actually included as part of <code>Sage</code>): this is a Python module (that can be used like any other Python module) to carry out symbolic manipulations using Python idioms whenever possible.</p>
 </section>
 <section id="finite-differences" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Finite Differences</h1>
-<p>Let us rewrite the definition of the derivative <span class="math display">\[
+<p>Let us rewrite the definition of the derivative <span class="math display">
 \left.\frac{d f(x)}{dx}\right|_{x=\tilde{x}} = \lim_{h \to 0} \frac{f(\tilde{x} + h) - f(\tilde{x})}{h}
-\]</span> where we are slightly changing our notation to show that this definition allows us to evaluate the derivative of <span class="math inline">\(f(x)\)</span> at point <span class="math inline">\(\tilde{x}\)</span>.</p>
-<p>Numerically, one can apply this formula without taking the limit, but take <span class="math inline">\(h\)</span> to be “small”. But there are many questions that emerge with this approach.</p>
+</span> where we are slightly changing our notation to show that this definition allows us to evaluate the derivative of <span class="math inline">f(x)</span> at point <span class="math inline">\tilde{x}</span>.</p>
+<p>Numerically, one can apply this formula without taking the limit, but take <span class="math inline">h</span> to be “small”. But there are many questions that emerge with this approach.</p>
 <ol type="1">
 <li><p>do we have any understanding of the errors ?</p></li>
 <li><p>do we know what “small” means ?</p></li>
-<li><p>do we realize that the smaller <span class="math inline">\(h\)</span> becomes, the smaller the numerator becomes? Namely, as <span class="math inline">\(h\)</span> becomes smaller and smaller, both numerator and denominator become smaller. Any errors appearing in the calculation of the numerator will then be magnified.</p></li>
+<li><p>do we realize that the smaller <span class="math inline">h</span> becomes, the smaller the numerator becomes? Namely, as <span class="math inline">h</span> becomes smaller and smaller, both numerator and denominator become smaller. Any errors appearing in the calculation of the numerator will then be magnified.</p></li>
 </ol>
 <section id="noncentral-difference-approximations" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="noncentral-difference-approximations"><span class="header-section-number">3.1</span> Noncentral-Difference Approximations</h2>
 <section id="forward-difference" class="level3">
 <h3 class="anchored" data-anchor-id="forward-difference">Forward Difference</h3>
-<p>Recall the Taylor expansion of <span class="math inline">\(f(x+h)\)</span> around <span class="math inline">\(x\)</span>: <span class="math display">\[
+<p>Recall the Taylor expansion of <span class="math inline">f(x+h)</span> around <span class="math inline">x</span>: <span class="math display">
 f(x+h) = f(x) + h f'(x) + \frac{h^2}{2}f''(x) + \frac{h^3}{3!}f'''(x) + \cdots,
-\]</span> which can be re-arranged into <span class="math display">\[
+</span> which can be re-arranged into <span class="math display">
 f'(x) = \frac{f(x+h) - f(x)}{h} - \frac{h}{2}f''(x) + \cdots.
-\]</span> This leads to <span class="math display">\[
+</span> This leads to <span class="math display">
 f'(x) =\frac{f(x+h) - f(x)}{h} + O(h),
-\]</span> known as the <em>(first) forward-difference approximation</em>, which has an error <span class="math inline">\(O(h)\)</span>. Graphically, this is just the slope of the line segment connecting <span class="math inline">\(f(x)\)</span> and <span class="math inline">\(f(x+h)\)</span>, see left of <a href="#fig-finite_difference">Figure&nbsp;1</a>.</p>
+</span> known as the <em>(first) forward-difference approximation</em>, which has an error <span class="math inline">O(h)</span>. Graphically, this is just the slope of the line segment connecting <span class="math inline">f(x)</span> and <span class="math inline">f(x+h)</span>, see left of <a href="#fig-finite_difference">Figure&nbsp;1</a>.</p>
 <div id="fig-finite_difference" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="finite_difference.png" class="img-fluid figure-img"></p>
@@ -230,71 +245,71 @@ f'(x) =\frac{f(x+h) - f(x)}{h} + O(h),
 </section>
 <section id="backward-difference" class="level3">
 <h3 class="anchored" data-anchor-id="backward-difference">Backward Difference</h3>
-<p>We can also perform a Taylor expansion of <span class="math inline">\(f(x-h)\)</span> near <span class="math inline">\(f(x)\)</span>. This will lead to <span class="math display">\[
+<p>We can also perform a Taylor expansion of <span class="math inline">f(x-h)</span> near <span class="math inline">f(x)</span>. This will lead to <span class="math display">
 f'(x) =\frac{f(x) - f(x-h)}{h} + O(h),
-\]</span> known as the <em>(first) backward-difference approximation</em>.</p>
+</span> known as the <em>(first) backward-difference approximation</em>.</p>
 </section>
 <section id="error-analysis-for-the-forward-difference" class="level3">
 <h3 class="anchored" data-anchor-id="error-analysis-for-the-forward-difference">Error Analysis for the Forward Difference</h3>
-<p>There are two errors involved in this problem (we use <span class="math inline">\(\mathcal{E}\)</span> to denote the magnitude of the absolute error):</p>
+<p>There are two errors involved in this problem (we use <span class="math inline">\mathcal{E}</span> to denote the magnitude of the absolute error):</p>
 <ol type="1">
-<li><p>the approximation error <span class="math inline">\(\mathcal{E}_{app}\)</span>, coming from the truncation of the Taylor series.</p></li>
-<li><p>the roundoff error <span class="math inline">\(\mathcal{E}_{ro}\)</span>, coming from the subtraction and division involved in the definition of the forward difference.</p></li>
+<li><p>the approximation error <span class="math inline">\mathcal{E}_{app}</span>, coming from the truncation of the Taylor series.</p></li>
+<li><p>the roundoff error <span class="math inline">\mathcal{E}_{ro}</span>, coming from the subtraction and division involved in the definition of the forward difference.</p></li>
 </ol>
-<p>Here, the approximation error is <span class="math inline">\(\mathcal{E}_{app} = \frac{h}{2} |f''(x)|\)</span>.</p>
-<p>Turning to <span class="math inline">\(\mathcal{E}_{ro}\)</span>, where we are interested in computing <span class="math inline">\([f(x+h)-f(x)]/h\)</span>. We focus on the numerator: we are subtracting two numbers that are very close to each other. The absolute error for the numerator is <span class="math inline">\(f(x)2\epsilon_m\)</span>, where we approximate <span class="math inline">\(f(x+h)\simeq f(x)\)</span> and we assume the relative error for each function is the machine error <span class="math inline">\(\epsilon_m = 2.2 \times 10^{-16}\)</span>. If we now ignore the error in the denominator, we can write <span class="math display">\[
+<p>Here, the approximation error is <span class="math inline">\mathcal{E}_{app} = \frac{h}{2} |f''(x)|</span>.</p>
+<p>Turning to <span class="math inline">\mathcal{E}_{ro}</span>, where we are interested in computing <span class="math inline">[f(x+h)-f(x)]/h</span>. We focus on the numerator: we are subtracting two numbers that are very close to each other. The absolute error for the numerator is <span class="math inline">f(x)2\epsilon_m</span>, where we approximate <span class="math inline">f(x+h)\simeq f(x)</span> and we assume the relative error for each function is the machine error <span class="math inline">\epsilon_m = 2.2 \times 10^{-16}</span>. If we now ignore the error in the denominator, we can write <span class="math display">
 \mathcal{E}_{ro} = \frac{2|f(x)|\epsilon_m}{h}.
-\]</span></p>
-<p>We can write the total absolute error <span id="eq-total-error"><span class="math display">\[
+</span></p>
+<p>We can write the total absolute error <span id="eq-total-error"><span class="math display">
 \mathcal{E} = \mathcal{E}_{app} + \mathcal{E}_{ro}
 = \frac{h}{2}|f''(x)| + \frac{2|f(x)|\epsilon_m}{h}.
-\tag{1}\]</span></span></p>
-<p>We see that <span class="math inline">\(\mathcal{E}_{app}\)</span> decreases as <span class="math inline">\(h\)</span> is decreased. On the other hand, <span class="math inline">\(\mathcal{E}_{ro}\)</span> increases as <span class="math inline">\(h\)</span> is decreased.</p>
-<p>To minimize the total error, take the derivative with respect to <span class="math inline">\(h\)</span> and then set it to zero, we find <span class="math display">\[
+\tag{1}</span></span></p>
+<p>We see that <span class="math inline">\mathcal{E}_{app}</span> decreases as <span class="math inline">h</span> is decreased. On the other hand, <span class="math inline">\mathcal{E}_{ro}</span> increases as <span class="math inline">h</span> is decreased.</p>
+<p>To minimize the total error, take the derivative with respect to <span class="math inline">h</span> and then set it to zero, we find <span class="math display">
 \frac{1}{2}|f''(x)| - \frac{2|f(x)|\epsilon_m}{h_{opt}^2} = 0.
-\]</span> This gives the optimal <span class="math inline">\(h = h_{opt}\)</span>, with <span id="eq-opt-cond"><span class="math display">\[
+</span> This gives the optimal <span class="math inline">h = h_{opt}</span>, with <span id="eq-opt-cond"><span class="math display">
 h_{opt} = \sqrt{ 4\epsilon_m \left|\frac{f(x)}{f''(x)} \right| }.
-\tag{2}\]</span></span></p>
-<p>By <a href="#eq-total-error">Equation&nbsp;1</a>, we have that the optimal (minimum) error is <span class="math display">\[
+\tag{2}</span></span></p>
+<p>By <a href="#eq-total-error">Equation&nbsp;1</a>, we have that the optimal (minimum) error is <span class="math display">
 \mathcal{E}_{opt} = \frac{h_{opt}}{2}|f''(x)| + \frac{2|f(x)|\epsilon_m}{h_opt} =
 h_{opt}|f''(x)|,
-\]</span> where in the second equality we have used <a href="#eq-opt-cond">Equation&nbsp;2</a>. This finally gives <span class="math display">\[
+</span> where in the second equality we have used <a href="#eq-opt-cond">Equation&nbsp;2</a>. This finally gives <span class="math display">
 \mathcal{E}_{opt} = \sqrt{4\epsilon_m|f(x) f''(x)|}.
-\]</span></p>
-<p>For concreteness, assuming that <span class="math inline">\(f(x)\)</span> and <span class="math inline">\(f''(x)\)</span> are of order 1, we can obtain that <span class="math inline">\(h_{opt} = \sqrt{4\epsilon_m} \simeq 3 \times 10^{-8}\)</span>, and <span class="math inline">\(\mathcal{E}_{opt} \simeq 3\times 10^{-8}\)</span>.</p>
-<p>Note that <span class="math inline">\(10^{-8}\)</span> error is not impressive. In analytical differentiation, the only error comes from function evaluation, which is a less important problem.</p>
+</span></p>
+<p>For concreteness, assuming that <span class="math inline">f(x)</span> and <span class="math inline">f''(x)</span> are of order 1, we can obtain that <span class="math inline">h_{opt} = \sqrt{4\epsilon_m} \simeq 3 \times 10^{-8}</span>, and <span class="math inline">\mathcal{E}_{opt} \simeq 3\times 10^{-8}</span>.</p>
+<p>Note that <span class="math inline">10^{-8}</span> error is not impressive. In analytical differentiation, the only error comes from function evaluation, which is a less important problem.</p>
 <p>Another remark here is that the error analysis is on well behaved functions. The point of function evaluations should be away from singularties.</p>
 </section>
 </section>
 <section id="central-difference-approximation" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="central-difference-approximation"><span class="header-section-number">3.2</span> Central-Difference Approximation</h2>
-<p>Consider Taylor expansion of <span class="math inline">\(f(x\pm\frac{h}{2})\)</span>: <span class="math display">\[
+<p>Consider Taylor expansion of <span class="math inline">f(x\pm\frac{h}{2})</span>: <span class="math display">
 f(x \pm \frac{h}{2}) = f(x) \pm \frac{h}{2}f'(x) + \frac{h^2}{8}f''(x) \pm
 \frac{h^3}{48} f'''(x) + \cdots.
-\]</span> If we evaluate <span class="math inline">\(f(x+\frac{h}{2}) - f(x - \frac{h}{2})\)</span>, we see that the <span class="math inline">\(f''(x)\)</span> term get cancelled out. In fact, all even order of derivatives cancel out. Thus, we have <span class="math display">\[
+</span> If we evaluate <span class="math inline">f(x+\frac{h}{2}) - f(x - \frac{h}{2})</span>, we see that the <span class="math inline">f''(x)</span> term get cancelled out. In fact, all even order of derivatives cancel out. Thus, we have <span class="math display">
 f'(x) = \frac{f(x + \frac{h}{2}) - f(x - \frac{h}{2})}{h} - \frac{h^2}{24}f'''(x)+ \cdots,
-\]</span> this leads to <span class="math display">\[
+</span> this leads to <span class="math display">
 f'(x) = \frac{f(x + \frac{h}{2}) - f(x - \frac{h}{2})}{h}  + O(h^2),
-\]</span> known as the <em>(first) central difference approximation</em>. Note that the error is of second order of the small number <span class="math inline">\(h\)</span>. This is graphically illustrated in <a href="#fig-finite_difference">Figure&nbsp;1</a>.</p>
-<p>There exists one (very common in practice) situation where a central-difference approximation is simply not usable: : if we have a set of <span class="math inline">\(n\)</span> discrete data points of the form <span class="math inline">\((x_i, f(x_i))\)</span> for <span class="math inline">\(i = 0,1,\dots,n-1\)</span>, we will not be able to use a central difference to approximate the derivative at <span class="math inline">\(x_0\)</span> or at <span class="math inline">\(x_{n-1}\)</span>. So at the boundary points we have to use forward/backward difference method.</p>
+</span> known as the <em>(first) central difference approximation</em>. Note that the error is of second order of the small number <span class="math inline">h</span>. This is graphically illustrated in <a href="#fig-finite_difference">Figure&nbsp;1</a>.</p>
+<p>There exists one (very common in practice) situation where a central-difference approximation is simply not usable: : if we have a set of <span class="math inline">n</span> discrete data points of the form <span class="math inline">(x_i, f(x_i))</span> for <span class="math inline">i = 0,1,\dots,n-1</span>, we will not be able to use a central difference to approximate the derivative at <span class="math inline">x_0</span> or at <span class="math inline">x_{n-1}</span>. So at the boundary points we have to use forward/backward difference method.</p>
 <section id="error-analysis-for-the-central-difference" class="level3">
 <h3 class="anchored" data-anchor-id="error-analysis-for-the-central-difference">Error Analysis for the Central Difference</h3>
-<p>Similar to the error analysis in the forward case, the total error (see homework problem) here is <span class="math display">\[
+<p>Similar to the error analysis in the forward case, the total error (see homework problem) here is <span class="math display">
 \mathcal{E} = \mathcal{E}_{app} + \mathcal{E}_{ro}
 = \frac{h^2}{24}|f'''(x)| + \frac{2|f(x)|\epsilon_m}{h}.
-\]</span></p>
-<p>You will also show that <span class="math display">\[
+</span></p>
+<p>You will also show that <span class="math display">
 h_{opt} = \left(24 \epsilon_m \left|\frac{f(x)}{f'''(x)}\right|\right)^{1/3},
-\]</span> and <span class="math display">\[
+</span> and <span class="math display">
 \mathcal{E}_{opt} = \left(\frac{9}{8}\epsilon_m^2[f(x)]^2\left|f'''(x)\right|\right)^{1/3}.
-\]</span> Taking <span class="math inline">\(f(x)\)</span> and <span class="math inline">\(f'''(x)\)</span> of order 1, we can estimate <span class="math inline">\(h_{opt} \simeq 2 \times 10^{-5}\)</span> and <span class="math inline">\(\mathcal{E}_{opt}\simeq 4 \times 10^{-11}\)</span>. We see the improvements compared with the errors in forward difference.</p>
+</span> Taking <span class="math inline">f(x)</span> and <span class="math inline">f'''(x)</span> of order 1, we can estimate <span class="math inline">h_{opt} \simeq 2 \times 10^{-5}</span> and <span class="math inline">\mathcal{E}_{opt}\simeq 4 \times 10^{-11}</span>. We see the improvements compared with the errors in forward difference.</p>
 </section>
 </section>
 <section id="implementation" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="implementation"><span class="header-section-number">3.3</span> Implementation</h2>
-<p>Let us work on a concrete function <span class="math inline">\(f(x) = e^{\sin(2x)}\)</span>. We can analytically compute its derivative <span class="math display">\[
+<p>Let us work on a concrete function <span class="math inline">f(x) = e^{\sin(2x)}</span>. We can analytically compute its derivative <span class="math display">
 f'(x) = 2\cos(2x)e^{\sin(2x)}.
-\]</span> The following program will compute the derivate of <span class="math inline">\(f(x)\)</span> at <span class="math inline">\(x = 0.5\)</span>, using finite difference.</p>
+</span> The following program will compute the derivate of <span class="math inline">f(x)</span> at <span class="math inline">x = 0.5</span>, using finite difference.</p>
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> exp, sin, cos, log10</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -339,7 +354,7 @@ f'(x) = 2\cos(2x)e^{\sin(2x)}.
 1e-11 0.0000332367747395 0.0000111721462455</code></pre>
 </div>
 </div>
-<p>We can plot the error as a function of <span class="math inline">\(h\)</span>, using <code>matplotlib</code>, with <code>plt.loglog(x,y)</code>, which plots the data in the log-log scale.</p>
+<p>We can plot the error as a function of <span class="math inline">h</span>, using <code>matplotlib</code>, with <code>plt.loglog(x,y)</code>, which plots the data in the log-log scale.</p>
 <div class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>plt.loglog(hs,fds,<span class="st">'o-'</span>,label<span class="op">=</span><span class="st">'forward diff.'</span>)</span>
@@ -356,80 +371,80 @@ f'(x) = 2\cos(2x)e^{\sin(2x)}.
 <section id="more-accurate-finite-differences" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="more-accurate-finite-differences"><span class="header-section-number">3.4</span> More Accurate Finite Differences</h2>
 <p>In the previous section, we have derived the forward and central finite difference approximations, which require two function evaluations.</p>
-<p>As you will show in your homework, one can produce the following approximation for the value of the derivative of <span class="math inline">\(f(x)\)</span> at <span class="math inline">\(x\)</span>: <span class="math display">\[
+<p>As you will show in your homework, one can produce the following approximation for the value of the derivative of <span class="math inline">f(x)</span> at <span class="math inline">x</span>: <span class="math display">
 f'(x) = \frac{4f(x+\frac{h}{2}) - f(x+h) - 3f(x)}{h} + \frac{h^2}{12}f'''(x) + \cdots
-\]</span> known as the <em>second forward-difference approximation</em>. This gives an error <span class="math inline">\(O(h^2)\)</span>, at the cost of requiring three function evaluations: <span class="math inline">\(f(x)\)</span>, <span class="math inline">\(f(x+h/2)\)</span>, and <span class="math inline">\(f(x+h)\)</span>.</p>
-<p>You can also show that <span class="math display">\[
+</span> known as the <em>second forward-difference approximation</em>. This gives an error <span class="math inline">O(h^2)</span>, at the cost of requiring three function evaluations: <span class="math inline">f(x)</span>, <span class="math inline">f(x+h/2)</span>, and <span class="math inline">f(x+h)</span>.</p>
+<p>You can also show that <span class="math display">
 f'(x) = \frac{27f(x+\frac{h}{2}) + f(x - \frac{3}{2}h) - 27 f(x-\frac{h}{2}) - f(x+\frac{3}{2}h)}{24h} + \frac{3}{640}h^4f^{(5)}(x) + \cdots,
-\]</span> known as the <em>second central-difference approximation</em>. This has an error of <span class="math inline">\(O(h^4)\)</span>, at the cost of requiring four function evaluations: <span class="math inline">\(f(x+3h/2)\)</span>, <span class="math inline">\(f(x+h/2)\)</span>, <span class="math inline">\(f(x-h/2)\)</span> and <span class="math inline">\(f(x - 3h/2)\)</span>.</p>
-<p>One observation is that the sum of coefficients in the finite-difference formula is zero: <span class="math inline">\(27 + 1 - 27 -1 = 0\)</span> in the above case.</p>
+</span> known as the <em>second central-difference approximation</em>. This has an error of <span class="math inline">O(h^4)</span>, at the cost of requiring four function evaluations: <span class="math inline">f(x+3h/2)</span>, <span class="math inline">f(x+h/2)</span>, <span class="math inline">f(x-h/2)</span> and <span class="math inline">f(x - 3h/2)</span>.</p>
+<p>One observation is that the sum of coefficients in the finite-difference formula is zero: <span class="math inline">27 + 1 - 27 -1 = 0</span> in the above case.</p>
 <p>This can be generalized by incorporating more points in order to obtain a better approximation.</p>
 </section>
 <section id="second-derivative" class="level2" data-number="3.5">
 <h2 data-number="3.5" class="anchored" data-anchor-id="second-derivative"><span class="header-section-number">3.5</span> Second Derivative</h2>
-<p>Second order derivatives are also very important in physics. We can compute it numerically once we have first derivatives, via, for example <span class="math display">\[
+<p>Second order derivatives are also very important in physics. We can compute it numerically once we have first derivatives, via, for example <span class="math display">
 f''(x)  = \frac{f'(x+\frac{h}{2}) - f'(x - \frac{h}{2})}{h} + O(h^2).
-\]</span></p>
-<p>This can also be derived by adding <span class="math inline">\(f(x+h/2)\)</span> and <span class="math inline">\(f(x - h/2)\)</span>, <span class="math display">\[
+</span></p>
+<p>This can also be derived by adding <span class="math inline">f(x+h/2)</span> and <span class="math inline">f(x - h/2)</span>, <span class="math display">
 f(x+h/2) + f(x - h/2) = 2f(x) + \frac{h^2}{4}f''(x) + \frac{h^4}{192}f^{(4)}(x)
 + \cdots .
-\]</span> This can be re-arranged into te form <span class="math display">\[
+</span> This can be re-arranged into te form <span class="math display">
 \begin{align*}
 f''(x) &amp;= 4\frac{f(x + h/2) +f(x-h/2) - 2f(x)}{h^2} - \frac{h^2}{48}f^{(4)}(x) + \cdots \\
 &amp;=4\frac{f(x + h/2) +f(x-h/2) - 2f(x)}{h^2} + O(h^2),
 \end{align*}
-\]</span> which is known as the <em>(first) central-difference approximation</em> to the second derivative.</p>
+</span> which is known as the <em>(first) central-difference approximation</em> to the second derivative.</p>
 <p>Higher order of derivatives can also be derived in a similar fashion based on Taylor expansion, although this is not too common in physics.</p>
 </section>
 <section id="points-on-a-grid" class="level2" data-number="3.6">
 <h2 data-number="3.6" class="anchored" data-anchor-id="points-on-a-grid"><span class="header-section-number">3.6</span> Points on a Grid</h2>
-<p>So far, we have assume that we can evaluate the function at any points of <span class="math inline">\(x\)</span>, in order to compute the derivatives. This does not happen sometimes in practice. Instead, in those cases we have access only to a set of <span class="math inline">\(n\)</span> discrete data points, <span class="math inline">\((x_i, f(x_i))\)</span> for <span class="math inline">\(i = 0,1,\dots, n-1\)</span>.</p>
+<p>So far, we have assume that we can evaluate the function at any points of <span class="math inline">x</span>, in order to compute the derivatives. This does not happen sometimes in practice. Instead, in those cases we have access only to a set of <span class="math inline">n</span> discrete data points, <span class="math inline">(x_i, f(x_i))</span> for <span class="math inline">i = 0,1,\dots, n-1</span>.</p>
 <section id="avoiding-error-creep" class="level3">
 <h3 class="anchored" data-anchor-id="avoiding-error-creep">Avoiding Error Creep</h3>
-<p>A very common use case is when the points <span class="math inline">\(x_i\)</span> are on an equally spaced grid (also known as a mesh), from <span class="math inline">\(a\)</span> to <span class="math inline">\(b\)</span>. The <span class="math inline">\(n\)</span> points are then given by the following relation: <span class="math display">\[
+<p>A very common use case is when the points <span class="math inline">x_i</span> are on an equally spaced grid (also known as a mesh), from <span class="math inline">a</span> to <span class="math inline">b</span>. The <span class="math inline">n</span> points are then given by the following relation: <span class="math display">
 x_i = a + ih,
-\]</span> where <span class="math inline">\(i = 0,\dots,n-1\)</span> and <span class="math display">\[
+</span> where <span class="math inline">i = 0,\dots,n-1</span> and <span class="math display">
 h = \frac{b - a}{n-1}.
-\]</span></p>
-<p>In python, you can store <span class="math inline">\(x_i\)</span> into a list <code>xs = [a + i*h for i in range(n)]</code>. Note that <code>range(n)</code> automatically ensures that <span class="math inline">\(i\)</span> goes from <span class="math inline">\(0\)</span> to <span class="math inline">\(n-1\)</span>.</p>
-<p>Someone may think to take an alternative approach by considering a running <code>x</code>, and update <code>x</code> via <code>x += h</code> every time. This has a drawback because when every time you update <span class="math inline">\(x\)</span>, you introduce an error in <span class="math inline">\(h\)</span> and the error will accumulate, which can be a problem when you have thousands of points. This issue is known as “<em>systematic creep</em>”. Instead, if you update the <code>x</code> via <code>x = a + i*h</code>, you can avoid systematic creep because every time <code>x</code> is obtained by two operations: multiplication and addition.</p>
+</span></p>
+<p>In python, you can store <span class="math inline">x_i</span> into a list <code>xs = [a + i*h for i in range(n)]</code>. Note that <code>range(n)</code> automatically ensures that <span class="math inline">i</span> goes from <span class="math inline">0</span> to <span class="math inline">n-1</span>.</p>
+<p>Someone may think to take an alternative approach by considering a running <code>x</code>, and update <code>x</code> via <code>x += h</code> every time. This has a drawback because when every time you update <span class="math inline">x</span>, you introduce an error in <span class="math inline">h</span> and the error will accumulate, which can be a problem when you have thousands of points. This issue is known as “<em>systematic creep</em>”. Instead, if you update the <code>x</code> via <code>x = a + i*h</code>, you can avoid systematic creep because every time <code>x</code> is obtained by two operations: multiplication and addition.</p>
 </section>
 <section id="finite-difference-formulas" class="level3">
 <h3 class="anchored" data-anchor-id="finite-difference-formulas">Finite-Difference Formulas</h3>
-<p>Now let us calculate the first derivative of <span class="math inline">\(f(x)\)</span> at the points <span class="math inline">\(x_i\)</span>. To be concrete, we have 101 points from 0 to 5. This leads to a step size of <span class="math inline">\(h = 0.05\)</span>: <span class="math inline">\(0, 0.05, 0.1, 0.15, \dots, 5.0\)</span>. For example, we are interested in <span class="math inline">\(f'(3.7)\)</span> but the neighboring values at our disposal are only <span class="math inline">\(f(3.65)\)</span>, <span class="math inline">\(f(3.7)\)</span>, and <span class="math inline">\(f(3.75)\)</span>.</p>
-<p>We can use the forward difference formula <span class="math display">\[
+<p>Now let us calculate the first derivative of <span class="math inline">f(x)</span> at the points <span class="math inline">x_i</span>. To be concrete, we have 101 points from 0 to 5. This leads to a step size of <span class="math inline">h = 0.05</span>: <span class="math inline">0, 0.05, 0.1, 0.15, \dots, 5.0</span>. For example, we are interested in <span class="math inline">f'(3.7)</span> but the neighboring values at our disposal are only <span class="math inline">f(3.65)</span>, <span class="math inline">f(3.7)</span>, and <span class="math inline">f(3.75)</span>.</p>
+<p>We can use the forward difference formula <span class="math display">
 f'(3.7) = \frac{f(3.75) - f(3.7)}{h} + O(h).
-\]</span></p>
-<p>However, things are not so simple for the case of of central-difference formula, which requires <span class="math inline">\(f(3.675)\)</span> and <span class="math inline">\(f(3.725)\)</span>.</p>
-<p>What we can do instead, is to double <span class="math inline">\(h\)</span>, by choosing <span class="math inline">\(h = 0.1\)</span>, then we only need <span class="math inline">\(f(3.65)\)</span>, and <span class="math inline">\(f(3.75)\)</span>, with the modified formula <span class="math display">\[
+</span></p>
+<p>However, things are not so simple for the case of of central-difference formula, which requires <span class="math inline">f(3.675)</span> and <span class="math inline">f(3.725)</span>.</p>
+<p>What we can do instead, is to double <span class="math inline">h</span>, by choosing <span class="math inline">h = 0.1</span>, then we only need <span class="math inline">f(3.65)</span>, and <span class="math inline">f(3.75)</span>, with the modified formula <span class="math display">
 f'(x) = \frac{f(x+h) - f(x-h)}{2h} + O(h^2).
-\]</span> With this “doubling” trick, one can also compute the second order derivative via <span class="math display">\[
+</span> With this “doubling” trick, one can also compute the second order derivative via <span class="math display">
 f''(x) = \frac{f(x+h) + f(x - h) - 2f(x)}{h^2} + O(h^2).
-\]</span></p>
-<p>The error for the first central-difference first derivative with <span class="math inline">\(h\to 2h\)</span> is then <span class="math display">\[
+</span></p>
+<p>The error for the first central-difference first derivative with <span class="math inline">h\to 2h</span> is then <span class="math display">
 \mathcal{E} = \mathcal{E}_{app} + \mathcal{E}_{ro} = \frac{h^2}{6}|f'''(x)| +
 \frac{|f(x)|\epsilon_m}{h}.
-\]</span> You can see that it still has an error <span class="math inline">\(O(h^2)\)</span>. It is safe to say central-difference is better than the forward-difference in most cases.</p>
+</span> You can see that it still has an error <span class="math inline">O(h^2)</span>. It is safe to say central-difference is better than the forward-difference in most cases.</p>
 </section>
 </section>
 </section>
 <section id="homework" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Homework</h1>
 <ol type="1">
-<li>Show that total error of the central-difference for the first derivative is <span class="math display">\[
+<li>Show that total error of the central-difference for the first derivative is <span class="math display">
 \mathcal{E} = \mathcal{E}_{app} + \mathcal{E}_{ro}
 = \frac{h^2}{24}|f'''(x)| + \frac{2|f(x)|\epsilon_m}{h}.
-\]</span> Please use the above results to show the optimal parameter is <span class="math display">\[
+</span> Please use the above results to show the optimal parameter is <span class="math display">
 h_{opt} = \left(24 \epsilon_m \left|\frac{f(x)}{f'''(x)}\right|\right)^{1/3},
-\]</span> which gives rise to the minimal error <span class="math display">\[
+</span> which gives rise to the minimal error <span class="math display">
 \mathcal{E}_{opt} = \left(\frac{9}{8}\epsilon_m^2[f(x)]^2\left|f'''(x)\right|\right)^{1/3}.
-\]</span></li>
-<li>Please derive the <em>second forward-difference approximation</em> <span class="math display">\[
+</span></li>
+<li>Please derive the <em>second forward-difference approximation</em> <span class="math display">
 f'(x) = \frac{4f(x+\frac{h}{2}) - f(x+h) - 3f(x)}{h} + \frac{h^2}{12}f'''(x) + \cdots .
-\]</span></li>
-<li>Please derive the <em>second central-difference approximation</em> <span class="math display">\[
+</span></li>
+<li>Please derive the <em>second central-difference approximation</em> <span class="math display">
 f'(x) = \frac{27f(x+\frac{h}{2}) + f(x - \frac{3}{2}h) - 27 f(x-\frac{h}{2}) - f(x+\frac{3}{2}h)}{24h} + \frac{3}{640}h^4f^{(5)}(x) + \cdots.
-\]</span></li>
+</span></li>
 </ol>
 </section>
 

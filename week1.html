@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.145">
+<meta name="generator" content="quarto-1.1.189">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -97,7 +97,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link href="week1_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="week1_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
 
 </head>
 
@@ -401,16 +416,16 @@ None</code></pre>
 <p>We shall use <code>matplotlib</code> to visualize a vector field, by drawing field lines for the electric field produced by several point charges.</p>
 <section id="electric-field-of-a-distribution-of-point-charges" class="level3">
 <h3 class="anchored" data-anchor-id="electric-field-of-a-distribution-of-point-charges">Electric Field of a Distribution of Point Charges</h3>
-<p>Let us recall the <em>Coulomb’s law</em>: the force on a test charge <span class="math inline">\(Q\)</span> located at point <span class="math inline">\(P\)</span> (at position <span class="math inline">\(\boldsymbol{r}\)</span>), coming from a single point charge <span class="math inline">\(q_0\)</span> located at <span class="math inline">\(\boldsymbol{r}_0\)</span> is given by: <span class="math display">\[
+<p>Let us recall the <em>Coulomb’s law</em>: the force on a test charge <span class="math inline">Q</span> located at point <span class="math inline">P</span> (at position <span class="math inline">\boldsymbol{r}</span>), coming from a single point charge <span class="math inline">q_0</span> located at <span class="math inline">\boldsymbol{r}_0</span> is given by: <span class="math display">
 \boldsymbol{F}_0 = k\frac{q_0 Q}{(\boldsymbol{r} - \boldsymbol{r}_0)^2} \frac{\boldsymbol{r} - \boldsymbol{r}_0}{|\boldsymbol{r} - \boldsymbol{r}_0|}
-\]</span> where the Coulomb constant <span class="math inline">\(k = 1/(4\pi \epsilon_0)\)</span> in SI units.</p>
-<p>The electric field <span class="math inline">\(\boldsymbol{E}_0\)</span> is the ratio of the force <span class="math inline">\(\boldsymbol{F}_0\)</span> with the test charge <span class="math inline">\(Q\)</span> in the limit <span class="math inline">\(Q\to 0\)</span>. In practice, this gives <span class="math display">\[
+</span> where the Coulomb constant <span class="math inline">k = 1/(4\pi \epsilon_0)</span> in SI units.</p>
+<p>The electric field <span class="math inline">\boldsymbol{E}_0</span> is the ratio of the force <span class="math inline">\boldsymbol{F}_0</span> with the test charge <span class="math inline">Q</span> in the limit <span class="math inline">Q\to 0</span>. In practice, this gives <span class="math display">
 \boldsymbol{E}_0(\boldsymbol{r}) = kq_0 \frac{\boldsymbol{r} - \boldsymbol{r}_0}{|\boldsymbol{r} - \boldsymbol{r}_0|^3}.
-\]</span></p>
-<p>If we have more than one point charge, we could apply the <em>principle of superposition</em>, by summing over the electric fields created by point charges <span class="math inline">\(q_0, q_1, \dots, q_{n-1}\)</span> <span id="eq-electric_field"><span class="math display">\[
+</span></p>
+<p>If we have more than one point charge, we could apply the <em>principle of superposition</em>, by summing over the electric fields created by point charges <span class="math inline">q_0, q_1, \dots, q_{n-1}</span> <span id="eq-electric_field"><span class="math display">
 \boldsymbol{E}(\boldsymbol{r}) = \sum_{i = 0}^{n-1} \boldsymbol{E}_i(\boldsymbol{r})
 = \sum_{i=0}^{n-1} kq_i \frac{\boldsymbol{r} - \boldsymbol{r}_0}{|\boldsymbol{r} - \boldsymbol{r}_0|^3}.
-\tag{1}\]</span></span></p>
+\tag{1}</span></span></p>
 <p>Note that the electric field is a vector quantity: at any point in space it has a magniude and a direction. One way of visualizing vector fields consists of drawing <em>field lines</em>,namely imaginary curves that help us keep track of the direction of the field. More specifically, the tangent of a field line at a given point gives us the direction of the electric field at that point. Field lines do not cross; they start at positive charges (“sources”) and end at negative charges (“sinks”).</p>
 </section>
 <section id="plotting-field-line" class="level3">
@@ -421,8 +436,8 @@ None</code></pre>
 <li>We need to plot field lines in such a way that we can physically interpret what is happening.</li>
 </ol>
 <p>We shall only consider the problem with only <strong>two</strong> point charges of equal magnitude and opposite sign. We restrict ourselves to two dimensions.</p>
-<p>Below is the python implementation, where we take the Coulomb constant <span class="math inline">\(k=1\)</span> for simplicity. We start by importing <code>numpy</code> and <code>matplotlib</code>. We also import the square root function.</p>
-<p>The function <code>makefield()</code> takes in two liss, <code>xs</code> and <code>ys</code>, corresponding to the coordinates at which we wish to evaluate field. We also need to store the <span class="math inline">\(\boldsymbol{r}_i\)</span> at which the point charges are located.</p>
+<p>Below is the python implementation, where we take the Coulomb constant <span class="math inline">k=1</span> for simplicity. We start by importing <code>numpy</code> and <code>matplotlib</code>. We also import the square root function.</p>
+<p>The function <code>makefield()</code> takes in two liss, <code>xs</code> and <code>ys</code>, corresponding to the coordinates at which we wish to evaluate field. We also need to store the <span class="math inline">\boldsymbol{r}_i</span> at which the point charges are located.</p>
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -650,7 +665,7 @@ Wall time: 3.01 ms</code></pre>
 [1 4 7]</code></pre>
 </div>
 </div>
-<p><strong>Reshape arrays</strong> Sometimes it is very useful to reshape numpy arrays. For example, we can reshape a <span class="math inline">\(3 \times 2\)</span> 2D array into a 1D array of length <span class="math inline">\(6\)</span>, and vice versa. See the following example.</p>
+<p><strong>Reshape arrays</strong> Sometimes it is very useful to reshape numpy arrays. For example, we can reshape a <span class="math inline">3 \times 2</span> 2D array into a 1D array of length <span class="math inline">6</span>, and vice versa. See the following example.</p>
 <div class="cell" data-execution_count="93">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>x1d <span class="op">=</span> np.array([[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>]])</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>x2d <span class="op">=</span> np.reshape(x1d,(<span class="dv">3</span>,<span class="dv">2</span>))</span>

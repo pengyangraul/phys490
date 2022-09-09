@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.145">
+<meta name="generator" content="quarto-1.1.189">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -34,7 +34,22 @@ ul.task-list li input[type="checkbox"] {
 <link href="week5_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="week5_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
 
 </head>
 
@@ -55,6 +70,14 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#principle-moments-of-inertia" id="toc-principle-moments-of-inertia" class="nav-link" data-scroll-target="#principle-moments-of-inertia">Principle moments of inertia</a></li>
   </ul></li>
   <li><a href="#the-problems-to-be-solved" id="toc-the-problems-to-be-solved" class="nav-link" data-scroll-target="#the-problems-to-be-solved"><span class="toc-section-number">1.2</span>  The problems to be solved</a></li>
+  </ul></li>
+  <li><a href="#error-analysis" id="toc-error-analysis" class="nav-link" data-scroll-target="#error-analysis"><span class="toc-section-number">2</span>  Error Analysis</a>
+  <ul class="collapse">
+  <li><a href="#from-a-posteriori-to-a-priori-estimates" id="toc-from-a-posteriori-to-a-priori-estimates" class="nav-link" data-scroll-target="#from-a-posteriori-to-a-priori-estimates"><span class="toc-section-number">2.1</span>  From <em>a posteriori</em> to <em>a priori</em> Estimates</a></li>
+  <li><a href="#magnitude-of-determinant" id="toc-magnitude-of-determinant" class="nav-link" data-scroll-target="#magnitude-of-determinant"><span class="toc-section-number">2.2</span>  Magnitude of Determinant?</a>
+  <ul class="collapse">
+  <li><a href="#example-1" id="toc-example-1" class="nav-link" data-scroll-target="#example-1">Example 1</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -85,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
 <p>We discuss some elementary examples from undergraduate physics.</p>
 <section id="rotations-in-two-dimensions" class="level3">
 <h3 class="anchored" data-anchor-id="rotations-in-two-dimensions">Rotations in two dimensions</h3>
-<p>Consider a two-dimensional Cartesian coordinate system. A point <span class="math inline">\(\boldsymbol{r} = (x,y)^T\)</span> can be rotated counter-clockwise through an angle <span class="math inline">\(\theta\)</span> about the origin, producing a new point <span class="math inline">\(\boldsymbol{r}' = (x',y')^T\)</span>. The two points’ coordinates are related as follows: <span class="math display">\[
+<p>Consider a two-dimensional Cartesian coordinate system. A point <span class="math inline">\boldsymbol{r} = (x,y)^T</span> can be rotated counter-clockwise through an angle <span class="math inline">\theta</span> about the origin, producing a new point <span class="math inline">\boldsymbol{r}' = (x',y')^T</span>. The two points’ coordinates are related as follows: <span class="math display">
 \begin{pmatrix}
 \cos\theta &amp; -\sin\theta \\
 \sin\theta &amp; \cos\theta
@@ -99,13 +122,13 @@ y
 x' \\
 y'
 \end{pmatrix}
-\]</span> The <span class="math inline">\(2\times 2\)</span> matrix appearing here is an example of a <em>rotation matrix</em> in Euclidean space. If you know <span class="math inline">\(\boldsymbol{r}'\)</span> and wish to calculate <span class="math inline">\(\boldsymbol{r}\)</span>, you need to solve this system of two linear equations.</p>
+</span> The <span class="math inline">2\times 2</span> matrix appearing here is an example of a <em>rotation matrix</em> in Euclidean space. If you know <span class="math inline">\boldsymbol{r}'</span> and wish to calculate <span class="math inline">\boldsymbol{r}</span>, you need to solve this system of two linear equations.</p>
 </section>
 <section id="electrostatic-potentials" class="level3">
 <h3 class="anchored" data-anchor-id="electrostatic-potentials">Electrostatic potentials</h3>
-<p>Assume you have <span class="math inline">\(n\)</span> electric charges <span class="math inline">\(q_j\)</span> (which are unknown) held at the positions <span class="math inline">\(\boldsymbol{R}_j\)</span> (which are known). Further assume that you have measured the electric potential <span class="math inline">\(\phi(r_i)\)</span> at the <span class="math inline">\(n\)</span> known positions <span class="math inline">\(\boldsymbol{r}_i\)</span>. From the definition of the potential (as well as the fact that the potential obeys the principle of superposition), we see that: <span class="math display">\[
+<p>Assume you have <span class="math inline">n</span> electric charges <span class="math inline">q_j</span> (which are unknown) held at the positions <span class="math inline">\boldsymbol{R}_j</span> (which are known). Further assume that you have measured the electric potential <span class="math inline">\phi(r_i)</span> at the <span class="math inline">n</span> known positions <span class="math inline">\boldsymbol{r}_i</span>. From the definition of the potential (as well as the fact that the potential obeys the principle of superposition), we see that: <span class="math display">
 \phi(\boldsymbol{r}_i) = \sum_{j=0}^{n-1}\left(\frac{k q_j}{|\boldsymbol{r}_i - \boldsymbol{R}_j|}\right),
-\]</span> where <span class="math inline">\(i = 0,1,\dots,n-1\)</span>. If you assume you have four charges, the above relation turns into the following <span class="math inline">\(4\times 4\)</span> linear systems of equations: <span class="math display">\[
+</span> where <span class="math inline">i = 0,1,\dots,n-1</span>. If you assume you have four charges, the above relation turns into the following <span class="math inline">4\times 4</span> linear systems of equations: <span class="math display">
 \begin{pmatrix}
 k/|\boldsymbol{r}_0 - \boldsymbol{R}_0| &amp;k/|\boldsymbol{r}_0 - \boldsymbol{R}_1| &amp;k/|\boldsymbol{r}_0 - \boldsymbol{R}_2| &amp;k/|\boldsymbol{r}_0 - \boldsymbol{R}_3| \\
 k/|\boldsymbol{r}_1 - \boldsymbol{R}_0| &amp;k/|\boldsymbol{r}_1 - \boldsymbol{R}_1| &amp;k/|\boldsymbol{r}_1 - \boldsymbol{R}_2| &amp;k/|\boldsymbol{r}_1 - \boldsymbol{R}_3| \\
@@ -119,26 +142,26 @@ q_0 \\ q_1 \\ q_2 \\ q_3
 \begin{pmatrix}
 \phi(\boldsymbol{r}_0) \\ \phi(\boldsymbol{r}_1) \\ \phi(\boldsymbol{r}_2) \\ \phi(\boldsymbol{r}_3)
 \end{pmatrix}
-\]</span> which needs to be solved for the 4 unknowns <span class="math inline">\(q_0\)</span>, <span class="math inline">\(q_1\)</span>, <span class="math inline">\(q_2\)</span> and <span class="math inline">\(q_3\)</span>.</p>
+</span> which needs to be solved for the 4 unknowns <span class="math inline">q_0</span>, <span class="math inline">q_1</span>, <span class="math inline">q_2</span> and <span class="math inline">q_3</span>.</p>
 </section>
 <section id="principle-moments-of-inertia" class="level3">
 <h3 class="anchored" data-anchor-id="principle-moments-of-inertia">Principle moments of inertia</h3>
-<p>In study of the rotation of a rigid body about an arbitrary axis in three dimensions, you may have encountered the moment of inertia tensor: <span class="math display">\[
+<p>In study of the rotation of a rigid body about an arbitrary axis in three dimensions, you may have encountered the moment of inertia tensor: <span class="math display">
 I_{\alpha \beta} = \int \rho(\boldsymbol{r}) \left(\delta_{\alpha \beta}r^2 - \boldsymbol{r}_\alpha \boldsymbol{r}_\beta\right)d^3 r,
-\]</span> where <span class="math inline">\(\rho(r)\)</span> is the mass density, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> denote Cartesian components, and <span class="math inline">\(\delta_{\alpha \beta}\)</span> is the Kronecker delta.</p>
-<p>The moment of inertia tensor is represented by a <span class="math inline">\(3\times 3\)</span> matrix: <span class="math display">\[
+</span> where <span class="math inline">\rho(r)</span> is the mass density, <span class="math inline">\alpha</span> and <span class="math inline">\beta</span> denote Cartesian components, and <span class="math inline">\delta_{\alpha \beta}</span> is the Kronecker delta.</p>
+<p>The moment of inertia tensor is represented by a <span class="math inline">3\times 3</span> matrix: <span class="math display">
 \boldsymbol{I} =
 \begin{pmatrix}
 I_{xx} &amp; I_{xy} &amp; I_{xz} \\
 I_{yx} &amp; I_{yy} &amp; I_{yz} \\
 I_{zx} &amp; I_{zy} &amp; I_{zz}.
 \end{pmatrix}
-\]</span> This is a symmetric matrix. It is possible to choose a coordinate system such that the off-diagonal elements vanish. This axes of this coordinate system are known as the <em>principal axes</em> for the body at the origin. Then the moment of inertian tensor is represented by a diagonal matrix, with diagonal elements <span class="math inline">\(I_0\)</span>, <span class="math inline">\(I_1\)</span>, and <span class="math inline">\(I_2\)</span>, known as the principal moments. This is an instance of the “eigenvalue problem”.</p>
+</span> This is a symmetric matrix. It is possible to choose a coordinate system such that the off-diagonal elements vanish. This axes of this coordinate system are known as the <em>principal axes</em> for the body at the origin. Then the moment of inertian tensor is represented by a diagonal matrix, with diagonal elements <span class="math inline">I_0</span>, <span class="math inline">I_1</span>, and <span class="math inline">I_2</span>, known as the principal moments. This is an instance of the “eigenvalue problem”.</p>
 </section>
 </section>
 <section id="the-problems-to-be-solved" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="the-problems-to-be-solved"><span class="header-section-number">1.2</span> The problems to be solved</h2>
-<p>First, we look at the problem where we have <span class="math inline">\(n\)</span> unknowns <span class="math inline">\(x_i\)</span>, along with <span class="math inline">\(n\times n\)</span> coefficients <span class="math inline">\(A_{ij}\)</span> and <span class="math inline">\(n\)</span> constants <span class="math inline">\(b_i\)</span>: <span class="math display">\[
+<p>First, we look at the problem where we have <span class="math inline">n</span> unknowns <span class="math inline">x_i</span>, along with <span class="math inline">n\times n</span> coefficients <span class="math inline">A_{ij}</span> and <span class="math inline">n</span> constants <span class="math inline">b_i</span>: <span class="math display">
 \begin{pmatrix}
 A_{00} &amp; A_{01} &amp; \dots &amp; A_{0,n-1} \\
 A_{10} &amp; A_{11} &amp; \dots &amp; A_{1,n-1} \\
@@ -152,10 +175,10 @@ x_0 \\ x_1 \\ \vdots \\ x_{n-1}
 \begin{pmatrix}
 b_0 \\ b_1 \\ \vdots \\ b_{n-1}
 \end{pmatrix}
-\]</span> where we used a comma to separate two indices when this was necessary to avoid confusion. These are <span class="math inline">\(n\)</span> equations linear in <span class="math inline">\(n\)</span> unknowns.</p>
-<p>In compact matrix form, this problem is written as <span class="math display">\[
+</span> where we used a comma to separate two indices when this was necessary to avoid confusion. These are <span class="math inline">n</span> equations linear in <span class="math inline">n</span> unknowns.</p>
+<p>In compact matrix form, this problem is written as <span class="math display">
 \boldsymbol{A}\boldsymbol{x} = \boldsymbol{b},
-\]</span> where <span class="math inline">\(\boldsymbol{A}\)</span> is called the <em>coefficient matrix</em>. This is a problem that we will spend considerable time solving in this lecture. We will be doing this mainly by using the <em>augmented coefficient matrix</em> which places together the elements of <span class="math inline">\(\boldsymbol{A}\)</span> and <span class="math inline">\(\boldsymbol{b}\)</span>, i.e.: <span class="math display">\[
+</span> where <span class="math inline">\boldsymbol{A}</span> is called the <em>coefficient matrix</em>. This is a problem that we will spend considerable time solving in this lecture. We will be doing this mainly by using the <em>augmented coefficient matrix</em> which places together the elements of <span class="math inline">\boldsymbol{A}</span> and <span class="math inline">\boldsymbol{b}</span>, i.e.: <span class="math display">
 (\boldsymbol{A}|\boldsymbol{b})= \left(
 \begin{matrix}
 A_{00} &amp; A_{01} &amp; \dots &amp; A_{0,n-1} \\
@@ -168,20 +191,75 @@ A_{n-1,0} &amp; A_{n-1,1} &amp; \dots &amp; A_{n-1,n-1}
 b_0 \\ b_1 \\ \vdots \\b_{n-1}
 \end{matrix}
 \right).
-\]</span> For now we assume the determinant of <span class="math inline">\(\boldsymbol{A}\)</span> satisfy <span class="math inline">\(|\boldsymbol{A}| \neq 0\)</span>.</p>
-<p>In a course on linear algebra you have seen examples of legitimate operations one can carry out while solving the system of linear equations. Such operations change the elements of <span class="math inline">\(\boldsymbol{A}\)</span> and <span class="math inline">\(\boldsymbol{b}\)</span>, but leave the solution vector <span class="math inline">\(\boldsymbol{x}\)</span> unchanged. More generally, we are allowed to carry the following elementary row operations: - <em>Scaling</em>: each row/equation may be multiplied by a constant (multiplies <span class="math inline">\(|\boldsymbol{A}|\)</span> by the same constant). - <em>Pivoting</em>: two rows/equations may be interchanged (changes sign of <span class="math inline">\(|\boldsymbol{A}|\)</span>). - <em>Elimination</em>: a row/equation may be replaced by a linear combination of that row/equation with any other row/equation (doesn’t change <span class="math inline">\(|\boldsymbol{A}|\)</span>).</p>
-<p>Keep in mind that these are operations that are carried out on the augmented coefficient matrix <span class="math inline">\((\boldsymbol{A}|\boldsymbol{b})\)</span>.</p>
-<p>Second, we wish to tackle the standard form of the matrix eigenvalue problem: <span id="eq-eigenvalue"><span class="math display">\[
+</span> For now we assume the determinant of <span class="math inline">\boldsymbol{A}</span> satisfy <span class="math inline">|\boldsymbol{A}| \neq 0</span>.</p>
+<p>In a course on linear algebra you have seen examples of legitimate operations one can carry out while solving the system of linear equations. Such operations change the elements of <span class="math inline">\boldsymbol{A}</span> and <span class="math inline">\boldsymbol{b}</span>, but leave the solution vector <span class="math inline">\boldsymbol{x}</span> unchanged. More generally, we are allowed to carry the following elementary row operations: - <em>Scaling</em>: each row/equation may be multiplied by a constant (multiplies <span class="math inline">|\boldsymbol{A}|</span> by the same constant). - <em>Pivoting</em>: two rows/equations may be interchanged (changes sign of <span class="math inline">|\boldsymbol{A}|</span>). - <em>Elimination</em>: a row/equation may be replaced by a linear combination of that row/equation with any other row/equation (doesn’t change <span class="math inline">|\boldsymbol{A}|</span>).</p>
+<p>Keep in mind that these are operations that are carried out on the augmented coefficient matrix <span class="math inline">(\boldsymbol{A}|\boldsymbol{b})</span>.</p>
+<p>Second, we wish to tackle the standard form of the matrix eigenvalue problem: <span id="eq-eigenvalue"><span class="math display">
 \boldsymbol{A}\boldsymbol{v} = \lambda \boldsymbol{v}.
-\tag{1}\]</span></span> Here, both <span class="math inline">\(\lambda\)</span> and the column vector <span class="math inline">\(\boldsymbol{v}\)</span> are unknown. This <span class="math inline">\(\lambda\)</span> is called an <em>eigenvalue</em> and <span class="math inline">\(\boldsymbol{v}\)</span> is called an <em>eigenvector</em>.</p>
-<p>Let’s sketch one possible approach to solve this problem. We can move everything to the left-hand side, we have <span class="math display">\[
+\tag{1}</span></span> Here, both <span class="math inline">\lambda</span> and the column vector <span class="math inline">\boldsymbol{v}</span> are unknown. This <span class="math inline">\lambda</span> is called an <em>eigenvalue</em> and <span class="math inline">\boldsymbol{v}</span> is called an <em>eigenvector</em>.</p>
+<p>Let’s sketch one possible approach to solve this problem. We can move everything to the left-hand side, we have <span class="math display">
 (\boldsymbol{A} - \lambda \boldsymbol{I})\boldsymbol{v} = \boldsymbol{0},
-\]</span> where <span class="math inline">\(\boldsymbol{I}\)</span> is the <span class="math inline">\(n\times n\)</span> identity matrix and <span class="math inline">\(\boldsymbol{0}\)</span> is an <span class="math inline">\(n\times 1\)</span> column vector made up of <span class="math inline">\(0\)</span>s. It is easy to see that we are faced with a system of <span class="math inline">\(n\)</span> linear equations: the coefficient matrix here is <span class="math inline">\(A - \lambda \boldsymbol{I}\)</span>.</p>
-<p>The trivial solution is <span class="math inline">\(\boldsymbol{v} = 0\)</span>. In order for a non-trivial solution to exist, we must have vanishing determinant <span class="math inline">\(|\boldsymbol{A} - \lambda \boldsymbol{I}| = 0\)</span>. In other words, the matrix <span class="math inline">\(\boldsymbol{A} - \lambda \boldsymbol{I}\)</span> is singular. Expanding the determinant gives us a polynomial equation, known as the <em>characteristic equation</em>: <span class="math display">\[
+</span> where <span class="math inline">\boldsymbol{I}</span> is the <span class="math inline">n\times n</span> identity matrix and <span class="math inline">\boldsymbol{0}</span> is an <span class="math inline">n\times 1</span> column vector made up of <span class="math inline">0</span>s. It is easy to see that we are faced with a system of <span class="math inline">n</span> linear equations: the coefficient matrix here is <span class="math inline">A - \lambda \boldsymbol{I}</span>.</p>
+<p>The trivial solution is <span class="math inline">\boldsymbol{v} = 0</span>. In order for a non-trivial solution to exist, we must have vanishing determinant <span class="math inline">|\boldsymbol{A} - \lambda \boldsymbol{I}| = 0</span>. In other words, the matrix <span class="math inline">\boldsymbol{A} - \lambda \boldsymbol{I}</span> is singular. Expanding the determinant gives us a polynomial equation, known as the <em>characteristic equation</em>: <span class="math display">
 (-1)^n\lambda^n + c_{n-1} \lambda^{n-1} + \cdots + c_1 \lambda + c_0 = 0.
-\]</span></p>
-<p>Thus, an $n n $ matrix has at most <span class="math inline">\(n\)</span> distinct eigenvalues, which are the roots of the characteristic polynomial. When a root occurs twice, we say that root has multiplicity <span class="math inline">\(2\)</span>. If a root occurs only once, in other words if it has multiplicity 1, we are dealing with a <em>simple</em> eigenvalue.</p>
-<p>Having calculated the eigenvalues, one way to evaluate the eigenvectors is simply by using <a href="#eq-eigenvalue">Equation&nbsp;1</a> again.</p>
+</span></p>
+<p>Thus, an $n n $ matrix has at most <span class="math inline">n</span> distinct eigenvalues, which are the roots of the characteristic polynomial. When a root occurs twice, we say that root has multiplicity <span class="math inline">2</span>. If a root occurs only once, in other words if it has multiplicity 1, we are dealing with a <em>simple</em> eigenvalue.</p>
+<p>Having calculated the eigenvalues, one way to evaluate the eigenvectors is simply by using <a href="#eq-eigenvalue">Equation&nbsp;1</a> again. - Specifically, for a given/known eigenvalue, <span class="math inline">\lambda_i</span>, one tries to solve the system of linear equations <span class="math inline">(\boldsymbol{A} - \lambda_i\boldsymbol{I})\boldsymbol{v}_i = 0</span> for <span class="math inline">\boldsymbol{v}_i</span>. - For each value <span class="math inline">\lambda_i</span>, we will not be able to determine unique values of <span class="math inline">\boldsymbol{v}_i</span>, so we will limit ourselves to computing the relative values of the components of <span class="math inline">\boldsymbol{v}_i</span>. - We will in the following use the notation <span class="math inline">(v_j)_0</span>, <span class="math inline">(v_j)_1</span> etc. to denote the <span class="math inline">n</span> elements of the column vector <span class="math inline">\boldsymbol{v}_j</span>.</p>
+</section>
+</section>
+<section id="error-analysis" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Error Analysis</h1>
+<p>We now turn to a discussion of practical error estimation in work with matrices. we will provide some general derivations and examples of when a problem is “well-conditioned”, typically by using matrix perturbation theory (i.e., by checking what happens if there are uncertainties in the input data).</p>
+<p>After some preliminary comments, examples, and definitions, we will investigate quantitatively how linear systems, eigenvalues, and eigenvectors depend on the input data. We will be examining in each case the simplest scenario but, hopefully, this will be enough to help you grasp the big picture.</p>
+<section id="from-a-posteriori-to-a-priori-estimates" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="from-a-posteriori-to-a-priori-estimates"><span class="header-section-number">2.1</span> From <em>a posteriori</em> to <em>a priori</em> Estimates</h2>
+<p>Let us look at a specific <span class="math inline">2\times 2</span> linear system, namely <span class="math inline">\boldsymbol{A}\boldsymbol{x} = \boldsymbol{b}</span> for the case where <span id="eq-linear_eq"><span class="math display">
+(\boldsymbol{A}|\boldsymbol{b}) = \left(
+\begin{matrix}
+0.2161 &amp; 0.1441 \\
+1.2969 &amp; 0.8648
+\end{matrix}\ \right|
+\left.
+\begin{matrix}
+0.1440 \\
+0.8642
+\end{matrix}
+\right).
+\tag{2}</span></span></p>
+<p>Simply put, there are two options on how to analyze errors:</p>
+<ol type="a">
+<li>an <em>a priori</em> analysis, in which case we try to see how easy/hard the problem is to solve before we begin solving it.</li>
+<li>an <em>a posteriori</em> analysis, where we have produced a solution, and attempt to see how good it is.</li>
+</ol>
+<p>Let us start with the latter option, an <em>a posteriori</em> approach. Say you are provided with the following approximate solution to the problem defined in <a href="#eq-linear_eq">Equation&nbsp;2</a>: <span id="eq-approximate_sol"><span class="math display">
+\tilde{\boldsymbol{x}}^T = (0.9911 \quad -0.4870).
+\tag{3}</span></span></p>
+<p>One way of testing how good a solution is, is to evaluate the residue vector: <span class="math display">
+\boldsymbol{r} = \boldsymbol{b} - \boldsymbol{A} \tilde{\boldsymbol{x}}.
+</span> Plugging in <a href="#eq-approximate_sol">Equation&nbsp;3</a>, we find the residue vector <span class="math display">
+\boldsymbol{r}^T = (-10^{-8} \quad 10^{-8})
+</span> which might naturally lead you to the conclusion that our approximate solution <span class="math inline">\tilde{\boldsymbol{x}}</span> is pretty good!</p>
+<p>However, here’s the thing: the exact solution to our problem is actually: <span class="math display">
+\boldsymbol{x}^T = (-2 \quad 2).
+</span> The approximate solution <span class="math inline">\tilde{\boldsymbol{x}}</span> doesn’t contain even a single correct significant figure!</p>
+<p>With the disclaimer that there’s much more that could be said at the a posteriori level, we now drop this line of attack and turn to an <em>a priori</em> analysis: could we have realized that solving the problem in <a href="#eq-linear_eq">Equation&nbsp;2</a> was difficult? How could we know that there’s something pathological about it?</p>
+</section>
+<section id="magnitude-of-determinant" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="magnitude-of-determinant"><span class="header-section-number">2.2</span> Magnitude of Determinant?</h2>
+<section id="example-1" class="level3">
+<h3 class="anchored" data-anchor-id="example-1">Example 1</h3>
+<p>In an attempt to see what is wrong with our previous example in <a href="#eq-linear_eq">Equation&nbsp;2</a>, we start to make small perturbation to the input data. Imagine we didn’t know the values of the coefficients in <span class="math inline">\boldsymbol{A}</span> all that precisely. Would anything change?</p>
+<p>Let us take <span class="math display">
+\Delta \boldsymbol{A} =
+\begin{pmatrix}
+0.0001 &amp; 0 \\
+0 &amp; 0
+\end{pmatrix}
+</span></p>
+<p>We want to study the effect of this perturbation on the solution, namely <span class="math display">
+(\boldsymbol{A} + \Delta \boldsymbol{A})(\boldsymbol{x} + \Delta \boldsymbol{x}) = \boldsymbol{b},
+</span> where <span class="math inline">\boldsymbol{b}</span> is kept fixed/unperturbed.</p>
+</section>
 </section>
 </section>
 
