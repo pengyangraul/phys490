@@ -140,6 +140,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#magnitude-of-determinant" id="toc-magnitude-of-determinant" class="nav-link" data-scroll-target="#magnitude-of-determinant"><span class="toc-section-number">2.2</span>  Magnitude of Determinant?</a>
   <ul class="collapse">
   <li><a href="#example-1" id="toc-example-1" class="nav-link" data-scroll-target="#example-1">Example 1</a></li>
+  <li><a href="#example-2" id="toc-example-2" class="nav-link" data-scroll-target="#example-2">Example 2</a></li>
+  <li><a href="#example-3" id="toc-example-3" class="nav-link" data-scroll-target="#example-3">Example 3</a></li>
+  </ul></li>
+  <li><a href="#norms-for-matrices-and-vectors" id="toc-norms-for-matrices-and-vectors" class="nav-link" data-scroll-target="#norms-for-matrices-and-vectors"><span class="toc-section-number">2.3</span>  Norms for Matrices and Vectors</a>
+  <ul class="collapse">
+  <li><a href="#example-4" id="toc-example-4" class="nav-link" data-scroll-target="#example-4">Example 4</a></li>
+  <li><a href="#definitions-and-properties-for-matrices" id="toc-definitions-and-properties-for-matrices" class="nav-link" data-scroll-target="#definitions-and-properties-for-matrices">Definitions and Properties for Matrices</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -331,10 +338,11 @@ b_0 \\ b_1 \\ \vdots \\b_{n-1}
 </span></p>
 <p>We want to study the effect of this perturbation on the solution, namely <span class="math display">
 (\boldsymbol{A} + \Delta \boldsymbol{A})(\boldsymbol{x} + \Delta \boldsymbol{x}) = \boldsymbol{b},
-</span> where <span class="math inline">\boldsymbol{b}</span> is kept fixed/unperturbed. For the specific case studied here, we find <span class="math display">
-(\boldsymbol{x} + \Delta \boldsymbol{x})^T  = ()
+</span> where <span class="math inline">\boldsymbol{b}</span> is kept fixed/unperturbed. For the specific case studied here, we find (using the following program) <span class="math display">
+(\boldsymbol{x} + \Delta \boldsymbol{x})^T  = (-2.31294091\times 10^{-4} \quad 0.99653059\times 10^{-1}).
 </span></p>
-<div class="cell" data-execution_count="8">
+<p>We see that this is not a “small” effect. Our perturbation amounted to changing only one element of <span class="math inline">\boldsymbol{A}</span> by less than <span class="math inline">0.1\%</span>, and had a dramatic impact on the solution to our problem.</p>
+<div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array([[<span class="fl">0.2161</span>, <span class="fl">0.1441</span>],[<span class="fl">1.2969</span>, <span class="fl">0.8648</span>]])</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>deltaA <span class="op">=</span> np.array([[<span class="fl">0.0001</span>, <span class="dv">0</span>],[<span class="dv">0</span>, <span class="dv">0</span>]])</span>
@@ -344,18 +352,138 @@ b_0 \\ b_1 \\ \vdots \\b_{n-1}
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>x_dx <span class="op">=</span> np.linalg.solve(A<span class="op">+</span>deltaA,b)</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_dx)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_dx)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"determinant of A is: "</span>, np.linalg.det(A))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[ 2. -2.]
-[-2.31294090e-04  9.99653059e-01]</code></pre>
+[-2.31294091e-04  9.99653059e-01]
+determinant of A is:  -9.999999998544968e-09</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x_dx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
-<pre><code>array([-2.31294090e-04,  9.99653059e-01])</code></pre>
+</section>
+<section id="example-2" class="level3">
+<h3 class="anchored" data-anchor-id="example-2">Example 2</h3>
+<p>Let us look at the following example <span class="math display">
+(\boldsymbol{A} | \boldsymbol{b}) =
+\left(
+    \begin{matrix}
+    1 &amp; 1 \\
+    1 &amp; 1.001
+    \end{matrix}\
+\right|
+\left.
+    \begin{matrix}
+    2 \\
+    2.001
+    \end{matrix}
+\right).
+</span> The exact solution is (from the following program) <span class="math display">
+\boldsymbol{x}^T = (1 \quad 1).
+</span> We can then add a perturbation <span class="math display">
+\Delta\boldsymbol{A} =
+\begin{pmatrix}
+0 &amp; 0 \\
+0 &amp; 0.001
+\end{pmatrix}.
+</span> Then, the perturbed solution is <span class="math display">
+(\boldsymbol{x} + \Delta\boldsymbol{x})^T = (1.5 \quad 0.5).
+</span></p>
+<p>Instead of adding a perturbation to <span class="math inline">\boldsymbol{A}</span>, one can also add a perturbation to <span class="math inline">\boldsymbol{b}</span>, with <span class="math display">
+\Delta \boldsymbol{b}^T = (0 \quad 0.001).
+</span> We find (in the following program) <span class="math display">
+(\boldsymbol{x} + \Delta \boldsymbol{x})^T = (0 \quad 2).
+</span></p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">1</span>],[<span class="dv">1</span>, <span class="fl">1.001</span>]])</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>deltaA <span class="op">=</span> np.array([[<span class="dv">0</span>, <span class="dv">0</span>],[<span class="dv">0</span>, <span class="fl">0.001</span>]])</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> np.array([<span class="dv">2</span>, <span class="fl">2.001</span>])</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>deltab <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="fl">0.001</span>])</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># we use np.linalg.solve(A,b) to solve the equation Ax = b.</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linalg.solve(A,b)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>x_dx <span class="op">=</span> np.linalg.solve(A<span class="op">+</span>deltaA,b)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>x_dx2 <span class="op">=</span> np.linalg.solve(A,b<span class="op">+</span>deltab)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_dx)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_dx2)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"determinant of A is: "</span>, np.linalg.det(A))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1. 1.]
+[1.5 0.5]
+[0. 2.]
+determinant of A is:  0.00099999999999989</code></pre>
 </div>
 </div>
+</section>
+<section id="example-3" class="level3">
+<h3 class="anchored" data-anchor-id="example-3">Example 3</h3>
+<p>There are also cases where small perturbations won’t lead to dramatic consequences in the solutions. See the following code.</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># A|b: 2   1 | 2</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#      1   2 | 7</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array([[<span class="dv">2</span>, <span class="dv">1</span>],[<span class="dv">1</span>, <span class="dv">2</span>]])</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> np.array([<span class="dv">2</span>,<span class="dv">7</span>])</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Delta A: 0    0</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#          0.01 0</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>deltaA <span class="op">=</span> np.array([[<span class="dv">0</span>, <span class="dv">0</span>],[<span class="fl">0.01</span>, <span class="dv">0</span>]])</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Delta b: 0.01</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#          0</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>deltab <span class="op">=</span> np.array([<span class="fl">0.01</span>, <span class="dv">0</span>])</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># we use np.linalg.solve(A,b) to solve the equation Ax = b.</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linalg.solve(A,b)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>x_dx <span class="op">=</span> np.linalg.solve(A<span class="op">+</span>deltaA,b)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>x_dx2 <span class="op">=</span> np.linalg.solve(A,b<span class="op">+</span>deltab)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_dx)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_dx2)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"determinant of A is: "</span>, np.linalg.det(A))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[-1.  4.]
+[-1.00334448  4.00668896]
+[-0.99333333  3.99666667]
+determinant of A is:  2.9999999999999996</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="norms-for-matrices-and-vectors" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="norms-for-matrices-and-vectors"><span class="header-section-number">2.3</span> Norms for Matrices and Vectors</h2>
+<section id="example-4" class="level3">
+<h3 class="anchored" data-anchor-id="example-4">Example 4</h3>
+<p>Consider the following question: what does “small determinant” mean? If the definition is “much less than 1”, then one might counter-argue: what about the following matrix: <span class="math display">
+\boldsymbol{A} =
+\begin{pmatrix}
+0.2 &amp; 0.1 \\
+0.1 &amp; 0.2
+\end{pmatrix},
+</span> which is just the matrix <span class="math inline">\boldsymbol{A}</span> in Example 3 multiplied by 0.1. This matrix has a determinant <span class="math inline">\det(\boldsymbol{A}) = 0.03</span>, which is certainly much less than <span class="math inline">1</span>. If you also multiply each element of <span class="math inline">\boldsymbol{b}</span> in the previsou example by <span class="math inline">0.1</span>, you should get the same answer. What’s more, this linear system of equations should be equally sensitive to perturbations.</p>
+<p>Thus, the value of the determinant should be compared with the magnitude of the relevant matrix elements.</p>
+</section>
+<section id="definitions-and-properties-for-matrices" class="level3">
+<h3 class="anchored" data-anchor-id="definitions-and-properties-for-matrices">Definitions and Properties for Matrices</h3>
+<p>Let us provide our intuitions with quantitative backing. We shall introduce the <em>matrix norm</em>, which measures the magnitude of <span class="math inline">\boldsymbol{A}</span>. There are several possible definitions of a norm, but we will employ two possibilities.</p>
+<ol type="1">
+<li><strong>Euclidean norm</strong>: <span class="math display">
+\|\boldsymbol{A} \|_E = \sqrt{\sum_{i=0}^{n-1}\sum_{j=0}^{n-1} |A_{ij}|^2},
+</span> which is sometimes also called the <em>Frobenius norm</em>.</li>
+<li><strong>Infinity norm</strong>: <span class="math display">
+\| \boldsymbol{A} \|_{\infty} = \max_{0\leq i \leq n-1} \sum_{j=0}^{n-1} |A_{ij}|,
+</span> which is also known as the <em>maximum row-sum norm</em>.</li>
+</ol>
+<p>Regardless of the specific norm definitions, all matrix norms for square matrices obey:</p>
+<ul>
+<li><span class="math inline">\|\boldsymbol{A} \| \geq 0</span></li>
+<li><span class="math inline">\| \boldsymbol{A} \| = 0</span> if and only if all <span class="math inline">A_{ij} = 0</span></li>
+<li><span class="math inline">\| k \boldsymbol{A} \| = |k| \|\boldsymbol{A}\|</span></li>
+</ul>
 </section>
 </section>
 </section>
