@@ -147,6 +147,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul class="collapse">
   <li><a href="#example-4" id="toc-example-4" class="nav-link" data-scroll-target="#example-4">Example 4</a></li>
   <li><a href="#definitions-and-properties-for-matrices" id="toc-definitions-and-properties-for-matrices" class="nav-link" data-scroll-target="#definitions-and-properties-for-matrices">Definitions and Properties for Matrices</a></li>
+  <li><a href="#definitions-for-vectors" id="toc-definitions-for-vectors" class="nav-link" data-scroll-target="#definitions-for-vectors">Definitions for Vectors</a></li>
+  </ul></li>
+  <li><a href="#condition-number-for-linear-systems" id="toc-condition-number-for-linear-systems" class="nav-link" data-scroll-target="#condition-number-for-linear-systems"><span class="toc-section-number">2.4</span>  Condition Number for Linear Systems</a>
+  <ul class="collapse">
+  <li><a href="#example-5" id="toc-example-5" class="nav-link" data-scroll-target="#example-5">Example 5</a></li>
+  <li><a href="#example-6" id="toc-example-6" class="nav-link" data-scroll-target="#example-6">Example 6</a></li>
+  <li><a href="#derivation" id="toc-derivation" class="nav-link" data-scroll-target="#derivation">Derivation</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -342,7 +350,7 @@ b_0 \\ b_1 \\ \vdots \\b_{n-1}
 (\boldsymbol{x} + \Delta \boldsymbol{x})^T  = (-2.31294091\times 10^{-4} \quad 0.99653059\times 10^{-1}).
 </span></p>
 <p>We see that this is not a “small” effect. Our perturbation amounted to changing only one element of <span class="math inline">\boldsymbol{A}</span> by less than <span class="math inline">0.1\%</span>, and had a dramatic impact on the solution to our problem.</p>
-<div class="cell" data-execution_count="6">
+<div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array([[<span class="fl">0.2161</span>, <span class="fl">0.1441</span>],[<span class="fl">1.2969</span>, <span class="fl">0.8648</span>]])</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>deltaA <span class="op">=</span> np.array([[<span class="fl">0.0001</span>, <span class="dv">0</span>],[<span class="dv">0</span>, <span class="dv">0</span>]])</span>
@@ -394,7 +402,7 @@ determinant of A is:  -9.999999998544968e-09</code></pre>
 </span> We find (in the following program) <span class="math display">
 (\boldsymbol{x} + \Delta \boldsymbol{x})^T = (0 \quad 2).
 </span></p>
-<div class="cell" data-execution_count="8">
+<div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">1</span>],[<span class="dv">1</span>, <span class="fl">1.001</span>]])</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>deltaA <span class="op">=</span> np.array([[<span class="dv">0</span>, <span class="dv">0</span>],[<span class="dv">0</span>, <span class="fl">0.001</span>]])</span>
@@ -483,6 +491,142 @@ determinant of A is:  2.9999999999999996</code></pre>
 <li><span class="math inline">\|\boldsymbol{A} \| \geq 0</span></li>
 <li><span class="math inline">\| \boldsymbol{A} \| = 0</span> if and only if all <span class="math inline">A_{ij} = 0</span></li>
 <li><span class="math inline">\| k \boldsymbol{A} \| = |k| \|\boldsymbol{A}\|</span></li>
+<li><span class="math inline">\| \boldsymbol{A} + \boldsymbol{B} \| \leq \| \boldsymbol{A} \| + \| \boldsymbol{B} \|</span></li>
+<li><span class="math inline">\| \boldsymbol{A B} \| \leq \|\boldsymbol{A}\|\|\boldsymbol{B}\|</span></li>
+</ul>
+<p>Now, we return to the question when the determinant is “small”. A reasonable definition would be <span class="math inline">|\det(\boldsymbol{A})| \ll \|\boldsymbol{A}\|</span>.</p>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>A1 <span class="op">=</span> np.array([[<span class="fl">0.2161</span>, <span class="fl">0.1441</span>],[<span class="fl">1.2969</span>, <span class="fl">0.8648</span>]])</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>A2 <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">1</span>],[<span class="dv">1</span>, <span class="fl">1.001</span>]])</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>A3 <span class="op">=</span> np.array([[<span class="dv">2</span>, <span class="dv">1</span>],[<span class="dv">1</span>, <span class="dv">2</span>]])</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>A4<span class="op">=</span> np.array([[<span class="fl">0.2</span>, <span class="fl">0.1</span>],[<span class="fl">0.1</span>, <span class="fl">0.2</span>]])</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>Alist <span class="op">=</span> [A1, A2, A3, A4]</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ii,A <span class="kw">in</span> <span class="bu">enumerate</span>(Alist):</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Example"</span>, ii<span class="op">+</span><span class="dv">1</span>, <span class="st">": det(A) ="</span>, np.linalg.det(A), <span class="st">", Euclidean norm ="</span>, np.linalg.norm(A))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Example 1 : det(A) = -9.999999998544968e-09 , Euclidean norm = 1.5802824652573981
+Example 2 : det(A) = 0.00099999999999989 , Euclidean norm = 2.000500187453128
+Example 3 : det(A) = 2.9999999999999996 , Euclidean norm = 3.1622776601683795
+Example 4 : det(A) = 0.03000000000000001 , Euclidean norm = 0.31622776601683794</code></pre>
+</div>
+</div>
+<p>These results seem to be consistent with what we had seen above:</p>
+<ul>
+<li>Examples 1 and 2 are near-singular, while Example 3 is not singular.</li>
+<li>For Example 4, this criterion claims that our matrix is not quite singular (though it’s getting there).</li>
+</ul>
+<p>Our introduction of the concept of the matrix norm seems to have served its purpose: a small determinant needs to be compared to the matrix norm, so Example 4 (despite having a small determinant) is not singular, given that its matrix elements are small, too.</p>
+</section>
+<section id="definitions-for-vectors" class="level3">
+<h3 class="anchored" data-anchor-id="definitions-for-vectors">Definitions for Vectors</h3>
+<p>Let us also introduce norms for vector norms: <span class="math display">
+\|\boldsymbol{x}\|_E = \sqrt{\sum_{i = 0}^{n-1} |x_i|^2}, \quad \|\boldsymbol{x} \|_{\infty} = \max_{0 \leq i \leq n-1} |x_i|.
+</span></p>
+</section>
+</section>
+<section id="condition-number-for-linear-systems" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="condition-number-for-linear-systems"><span class="header-section-number">2.4</span> Condition Number for Linear Systems</h2>
+<p>Unfortunately, our criterion <span class="math inline">|\det(\boldsymbol{A})|\ll \| \boldsymbol{A} \|</span> is flawed, though this appears in many textbooks. We will look at two examples.</p>
+<section id="example-5" class="level3">
+<h3 class="anchored" data-anchor-id="example-5">Example 5</h3>
+<p>We shall consider <span class="math display">
+\boldsymbol{A} =
+\begin{pmatrix}
+2 \times 10^{-10} &amp; 1 \times 10^{-10} \\
+1 \times 10^{-10} &amp; 2 \times 10^{-10}
+\end{pmatrix},
+</span> which is the matrix in Example 3 multiplied by <span class="math inline">10^{-10}</span>. Here, we have <span class="math inline">|\det(\boldsymbol{A})| = 3 \times 10^{-20}</span>, and <span class="math inline">\|\boldsymbol{A} \|_E \simeq 3.16 \times 10^{-10}</span>, so <span class="math inline">|\det(\boldsymbol{A})| \ll \|\boldsymbol{A} \|_E</span> holds.</p>
+<p>But isn’t this strange? Simply multiplying a set of equations with a small number cannot be enough to make the problem near-singular.</p>
+</section>
+<section id="example-6" class="level3">
+<h3 class="anchored" data-anchor-id="example-6">Example 6</h3>
+<p>Let us look at the following <span class="math inline">8 \times 8</span> problem: <span class="math display">
+\boldsymbol{A} =
+\begin{pmatrix*}[r]
+2 &amp; -2 &amp; -2 &amp; \cdots &amp; -2 \\
+0 &amp; 2 &amp; -2 &amp; \cdots &amp; -2 \\
+0 &amp; 0 &amp; 2 &amp; \cdots &amp; -2 \\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; 0 &amp; \cdots &amp; 2
+\end{pmatrix*}
+</span> The corresponding results are <span class="math inline">|\det(\boldsymbol{A})| = 256</span>, and <span class="math inline">\|\boldsymbol{A} \|_E = 12</span>, so <span class="math inline">|\det(\boldsymbol{A})| \gg \|\boldsymbol{A} \|_E</span> holds.</p>
+<p>Now, take a look at the following code.</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array([[<span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>],</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>              [<span class="dv">0</span>,  <span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>],</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>              [<span class="dv">0</span>,  <span class="dv">0</span>,  <span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>],</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>              [<span class="dv">0</span>,  <span class="dv">0</span>,  <span class="dv">0</span>,  <span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>],</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>              [<span class="dv">0</span>,  <span class="dv">0</span>,  <span class="dv">0</span>,  <span class="dv">0</span>,  <span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>],</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>              [<span class="dv">0</span>,  <span class="dv">0</span>,  <span class="dv">0</span>,  <span class="dv">0</span>,  <span class="dv">0</span>,  <span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>],</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>              [<span class="dv">0</span>,  <span class="dv">0</span>,  <span class="dv">0</span>,  <span class="dv">0</span>,  <span class="dv">0</span>,  <span class="dv">0</span>,  <span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>],</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>              [<span class="dv">0</span>,  <span class="dv">0</span>,  <span class="dv">0</span>,  <span class="dv">0</span>,  <span class="dv">0</span>,  <span class="dv">0</span>,  <span class="dv">0</span>,  <span class="dv">2</span>]])</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>deltaA <span class="op">=</span> np.zeros((<span class="dv">8</span>,<span class="dv">8</span>))</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>deltaA[<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>] <span class="op">=</span> <span class="op">-</span><span class="fl">0.01</span>  <span class="co"># bottom-left elememnt is -0.01</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Delta b: 0.01</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co">#          0</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>deltab <span class="op">=</span> np.array([<span class="fl">0.01</span>, <span class="dv">0</span>])</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co"># we use np.linalg.solve(A,b) to solve the equation Ax = b.</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linalg.solve(A,b)</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>x_dx <span class="op">=</span> np.linalg.solve(A<span class="op">+</span>deltaA,b)</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_dx)</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"determinant of A is: "</span>, np.linalg.det(A))</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"norm of A is: "</span>, np.linalg.norm(A))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[-21.  -11.   -5.   -3.   -1.   -1.    0.   -0.5]
+[-30.88235294 -15.94117647  -7.47058824  -4.23529412  -1.61764706
+  -1.30882353  -0.15441176  -0.65441176]
+determinant of A is:  255.99999999999994
+norm of A is:  12.0</code></pre>
+</div>
+</div>
+</section>
+<section id="derivation" class="level3">
+<h3 class="anchored" data-anchor-id="derivation">Derivation</h3>
+<p>In the present subsection, we will carry out an informal derivation that will point us toward a quantitative measure of ill-conditioning. This measure of the sensitivity of our problem to small changes in its elements will be called the condition number.</p>
+<p>Let us start with the unperturbed problem <span class="math display">
+\boldsymbol{A}\boldsymbol{x} = \boldsymbol{b}
+</span> and the perturbed one <span class="math display">
+(\boldsymbol{A} + \Delta \boldsymbol{A})(\boldsymbol{x} + \Delta \boldsymbol{x}) = \boldsymbol{b}.
+</span></p>
+<p>Combining the above two equations, we have <span class="math display">
+\boldsymbol{A}\Delta \boldsymbol{x} = -\Delta \boldsymbol{A}(\boldsymbol{x} + \Delta \boldsymbol{x}).
+</span> Assuming <span class="math inline">\boldsymbol{A}</span> is nonsingular (so you can invert it), we get <span class="math display">
+\Delta \boldsymbol{x} = -\boldsymbol{A}^{-1}\Delta \boldsymbol{A} (\boldsymbol{x} + \Delta \boldsymbol{x}).
+</span> Now, we take the norm on both sides, we obtain <span class="math display">
+\| \Delta \boldsymbol{x}\| = \| \boldsymbol{A}^{-1}\Delta \boldsymbol{A} (\boldsymbol{x} + \Delta \boldsymbol{x})\|
+\leq \| \boldsymbol{A}^{-1} \| \| \Delta \boldsymbol{A} \| \| \boldsymbol{x}+ \Delta \boldsymbol{x} \|.
+</span></p>
+<p>This means <span class="math display">
+\frac{\| \Delta \boldsymbol{x} \|}{\|\boldsymbol{x} + \Delta \boldsymbol{x} \|}
+\leq \| \boldsymbol{A}^{-1} \| \|\Delta \boldsymbol{A} \| =
+\| \boldsymbol{A}\|\| \boldsymbol{A}^{-1} \| \frac{\|\Delta \boldsymbol{A} \|}{\| \boldsymbol{A}\|}.
+</span></p>
+<p>In other words, if you know an error bound on <span class="math inline">\|\Delta \boldsymbol{A} \|/ \|\boldsymbol{A} \|</span> then translates to an error bound on <span class="math inline">\|\Delta \boldsymbol{x}\|/\|\boldsymbol{x}\| \simeq \|\Delta \boldsymbol{x}\|/\|\boldsymbol{x} + \Delta \boldsymbol{x}\|</span>.</p>
+<p>This leads to the introduction of the <em>condition number</em>: <span class="math display">
+\kappa(\boldsymbol{A}) = \| \boldsymbol{A}\|\| \boldsymbol{A}^{-1} \|,
+</span> which determines if a small perturbation gets amplified when solving for <span class="math inline">\boldsymbol{x}</span> or not.</p>
+<p>A large condition number leads to an amplification of a small perturbation: we say we are dealing with an <em>ill-conditioned</em> problem. If the condition number is of order unity, then a small perturbation is not amplified, so we are dealing with a <em>well-conditioned</em> problem.</p>
+</section>
+<section id="examples" class="level3">
+<h3 class="anchored" data-anchor-id="examples">Examples</h3>
+<ul>
+<li>Example 1: <span class="math inline">\kappa(\boldsymbol{A}) = 249729267.388</span>, ill-conditioned.</li>
+<li>Example 2: <span class="math inline">\kappa(\boldsymbol{A}) = 4002.001</span>, ill-conditioned.</li>
+<li>Example 3: <span class="math inline">\kappa(\boldsymbol{A}) = 3.33</span>, well-conditioned</li>
+<li>Example 4: <span class="math inline">\kappa(\boldsymbol{A}) = 3.33</span>, well-conditioned</li>
+<li>Example 5: <span class="math inline">\kappa(\boldsymbol{A}) = 3.33</span>, well-conditioned</li>
+<li>Example 6: <span class="math inline">\kappa(\boldsymbol{A}) = 512.18</span>, ill-conditioned</li>
 </ul>
 </section>
 </section>
