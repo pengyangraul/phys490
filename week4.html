@@ -213,8 +213,8 @@ R_{fd} &amp;= 2D_{fd}(h/2) - D_{fd}(h) + O(h^2) = 2\frac{f(x+\frac{h}{2}) - f(x)
 D_{cd}(h) = \frac{f(x+h/2) - f(x - h/2)}{h}.
 </span> - The leading error is <span class="math inline">O(h^2)</span>, meaning <span class="math inline">p = 2</span>. - Note that all error terms are of order <span class="math inline">O(h^{2n})</span> for <span class="math inline">n\in\mathbb{Z}</span>, this means <span class="math inline">q=2</span>. - Richardson formula will eliminate the leading error <span class="math inline">O(h^2)</span>, giving rise to the next order of error <span class="math inline">O(h^4)</span>. - Applying Richardson formula <span class="math display">
 \begin{align}
-R_{cd} &amp;= \frac{4}{3}D_{cd}(h/2) - \frac{1}{3}D_{cd}(h) + O(h^4) \\
-&amp;= \frac{4}{3} \frac{f(x+h/4)- f(x-h/4)}{h/2} - \frac{1}{3}\frac{f(x+h/2)-f(x-h/2)}{h} + O(h^4) \\
+R_{cd} &amp;= \frac{4}{3}D_{cd}(h/2) - \frac{1}{3}D_{cd}(h) + O(h^4) \nonumber \\
+&amp;= \frac{4}{3} \frac{f(x+h/4)- f(x-h/4)}{h/2} - \frac{1}{3}\frac{f(x+h/2)-f(x-h/2)}{h} + O(h^4) \nonumber \\
 &amp;= \frac{8f(x+h/4) + f(x-h/2) - (x+h/2) -8f(x-h/4)}{3h} + O(h^4).
 \end{align}
 </span> - This is <em>identical</em> to the second central-difference formula.</p>
@@ -263,14 +263,14 @@ R_{cd} &amp;= \frac{4}{3}D_{cd}(h/2) - \frac{1}{3}D_{cd}(h) + O(h^4) \\
 <section id="forward-difference-results" class="level4">
 <h4 class="anchored" data-anchor-id="forward-difference-results">Forward-difference results</h4>
 <ul>
-<li>Every time we reduce <span class="math inline">h</span> by an orderr of magnitude, the absolute error is reduced by two orders of magnitude, consistent with <span class="math inline">O(h^4)</span></li>
+<li>Every time we reduce <span class="math inline">h</span> by an orderr of magnitude, the absolute error is reduced by two orders of magnitude, consistent with <span class="math inline">O(h^2)</span></li>
 <li>This process reaches a minimum at <span class="math inline">h = 10^{-5}</span>, with absolute error <span class="math inline">3\times 10^{-10}</span>.</li>
 </ul>
 </section>
 <section id="central-difference-resutls" class="level4">
 <h4 class="anchored" data-anchor-id="central-difference-resutls">Central-difference resutls</h4>
 <ul>
-<li>The first time <span class="math inline">h</span> is reduced from <span class="math inline">10^{-1}</span> to <span class="math inline">10^{-2}</span>, the absolute error reduced by four orders of magnitude, consistent with error <span class="math inline">O(h^2)</span>.</li>
+<li>The first time <span class="math inline">h</span> is reduced from <span class="math inline">10^{-1}</span> to <span class="math inline">10^{-2}</span>, the absolute error reduced by four orders of magnitude, consistent with error <span class="math inline">O(h^4)</span>.</li>
 <li>This cannot contiue indefinitely, and in the next step the error improves by three orders of magnitude reaching the minimum at <span class="math inline">h=10^{-3}</span>, with absolute error <span class="math inline">10^{-12}</span>.</li>
 <li>As <span class="math inline">h</span> is further reduced, roundoff error starts dominating, so the extrapolation is no longer reliable.</li>
 </ul>
