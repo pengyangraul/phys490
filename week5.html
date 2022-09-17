@@ -156,7 +156,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#derivation" id="toc-derivation" class="nav-link" data-scroll-target="#derivation">Derivation</a></li>
   <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
   </ul></li>
+  <li><a href="#condition-number-for-simple-eigenvalues" id="toc-condition-number-for-simple-eigenvalues" class="nav-link" data-scroll-target="#condition-number-for-simple-eigenvalues"><span class="toc-section-number">2.5</span>  Condition Number for Simple Eigenvalues</a>
+  <ul class="collapse">
+  <li><a href="#example-7" id="toc-example-7" class="nav-link" data-scroll-target="#example-7">Example 7</a></li>
+  <li><a href="#example-8" id="toc-example-8" class="nav-link" data-scroll-target="#example-8">Example 8</a></li>
+  <li><a href="#derivation-1" id="toc-derivation-1" class="nav-link" data-scroll-target="#derivation-1">Derivation</a></li>
+  <li><a href="#remarks" id="toc-remarks" class="nav-link" data-scroll-target="#remarks">Remarks</a></li>
   </ul></li>
+  <li><a href="#sensitivity-of-eigenvectors" id="toc-sensitivity-of-eigenvectors" class="nav-link" data-scroll-target="#sensitivity-of-eigenvectors"><span class="toc-section-number">2.6</span>  Sensitivity of eigenvectors</a>
+  <ul class="collapse">
+  <li><a href="#derivation-2" id="toc-derivation-2" class="nav-link" data-scroll-target="#derivation-2">Derivation</a></li>
+  <li><a href="#example-9" id="toc-example-9" class="nav-link" data-scroll-target="#example-9">Example 9</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework"><span class="toc-section-number">3</span>  Homework</a></li>
   </ul>
 </nav>
 </div>
@@ -630,6 +643,221 @@ norm of A is:  12.0</code></pre>
 </ul>
 </section>
 </section>
+<section id="condition-number-for-simple-eigenvalues" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="condition-number-for-simple-eigenvalues"><span class="header-section-number">2.5</span> Condition Number for Simple Eigenvalues</h2>
+<p>Having studied the sensitivity of a linear system to small perturbations, the natural place to go from there is to carry out an analogous study for the eigenvalue problem. For now, let us focus on the effect of the perturbations on the evaluation of the eigenvalues, <span class="math inline">\lambda</span>.</p>
+<section id="example-7" class="level3">
+<h3 class="anchored" data-anchor-id="example-7">Example 7</h3>
+<p>Take <span class="math display">
+\boldsymbol{A} =
+\begin{pmatrix}
+4 &amp; 3 &amp; 2 &amp; 1 \\
+3 &amp; 3 &amp; 2 &amp; 1 \\
+0 &amp; 2 &amp; 2 &amp; 1 \\
+0 &amp; 0 &amp; 1 &amp; 1
+\end{pmatrix}.
+</span> You can evaluate its eigenvalues using the following python code, with <code>np.linalg.eigvals()</code>.</p>
+<p>We now add a perturbation 0.01 to the top right element. It is easy to see that the smaller the eigenvalue, the bigger the impact of the small perturbation.</p>
+<p>You may be thinking that this specific matrix may have a large condition number <span class="math inline">\kappa(\boldsymbol{A})</span>, which is indeed large as <span class="math inline">\kappa(\boldsymbol{A})\simeq 126.744</span>.</p>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array([[<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>],[<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>],[<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>],[<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>]],dtype<span class="op">=</span>np.float64)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Eigenvalues of A:'</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.sort(np.linalg.eigvals(A)))</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'======================'</span>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Condition number of A:'</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.linalg.norm(A)<span class="op">*</span>np.linalg.norm(np.linalg.inv(A)))</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'======================'</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">0</span>,<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> A[<span class="dv">0</span>,<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span>  <span class="fl">0.01</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Eigenvalues of A + dA:'</span>)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.sort(np.linalg.eigvals(A)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Eigenvalues of A:
+[0.13674761 0.48387934 2.06663092 7.31274213]
+======================
+Condition number of A:
+126.74383614203887
+======================
+Eigenvalues of A + dA:
+[0.12477715 0.49937427 2.06287308 7.3129755 ]</code></pre>
+</div>
+</div>
+</section>
+<section id="example-8" class="level3">
+<h3 class="anchored" data-anchor-id="example-8">Example 8</h3>
+<p>Let look at another example with a smaller condition number. However, its eigenvalues are more sensitive to perturbations. In the following code.</p>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array([[<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>              [<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">0</span>],</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>              [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>],</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>              [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>]],dtype<span class="op">=</span>np.float64)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Eigenvalues of A:'</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.sort(np.linalg.eigvals(A)))</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'======================'</span>)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Condition number of A:'</span>)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.linalg.norm(A)<span class="op">*</span>np.linalg.norm(np.linalg.inv(A)))</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'======================'</span>)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Perturb the bottom left one</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>A[<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>] <span class="op">=</span> A[<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>] <span class="op">+</span>  <span class="fl">0.005</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Eigenvalues of A + dA:'</span>)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.sort(np.linalg.eigvals(A)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Eigenvalues of A:
+[1. 2. 3. 4.]
+======================
+Condition number of A:
+40.129477943277564
+======================
+Eigenvalues of A + dA:
+[0.95115768 2.18205744 2.81794256 4.04884232]</code></pre>
+</div>
+</div>
+</section>
+<section id="derivation-1" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-1">Derivation</h3>
+<p>We saw that some matrices have eigenvalues that are sensitive to small perturbations, whereas others do not. In the present subsection, we will carry out an informal derivation that will point us toward a quantitative measure of conditioning eigenvalues (this is not <span class="math inline">\kappa(\boldsymbol{A})</span>). This quantitative measure of the sensitivity of our problem to small changes in the input matrix elements will be called the <em>condition number for simple eigenvalues</em>; “simple” means we don’t have repeated eigenvalues.</p>
+<p>Let us start with the unperturbed problem <span id="eq-unperturbed"><span class="math display">
+\boldsymbol{A}\boldsymbol{v}_i = \lambda_i \boldsymbol{v}_i,
+\tag{4}</span></span> and the perturbed problem <span id="eq-perturbed"><span class="math display">
+(\boldsymbol{A} + \Delta\boldsymbol{A})(\boldsymbol{v}_i + \Delta \boldsymbol{v}_i) = (\lambda_i + \Delta \lambda_i)( \boldsymbol{v}_i + \Delta \boldsymbol{v}_i).
+\tag{5}</span></span></p>
+<p>We do not assume <span class="math inline">\boldsymbol{A}</span> is symmetric, so the “eigenvectors” should actually be called <em>right eigenvectors</em>. We can also introduce the <em>left eigenvectors</em> as follows <span class="math display">
+\boldsymbol{u}_i^T \boldsymbol{A} = \lambda_i\boldsymbol{u}_i^T.
+</span> Note that more generally we should take the hermitian conjugate/conjugate-transpose <span class="math inline">\dagger</span>, but this is not important here as <span class="math inline">\boldsymbol{A}</span> is real.</p>
+<p>Notice that the left eigenvectors of <span class="math inline">\boldsymbol{A}</span> are actually right eigenvectors of <span class="math inline">\boldsymbol{A}^T</span>, namely <span class="math display">
+\boldsymbol{A}^T\boldsymbol{u}_i = \lambda_i \boldsymbol{u}_i.
+</span> In fact, <span class="math inline">\boldsymbol{A}^T</span> and <span class="math inline">\boldsymbol{A}</span> have the same eigenvalues. In other words, left and right eigenvectors have the same eigenvalues (homework).</p>
+<p>Now, combining <a href="#eq-unperturbed">Equation&nbsp;4</a> and <a href="#eq-perturbed">Equation&nbsp;5</a>, and dropping terms of second order in <span class="math inline">\Delta</span>, we obtain <span class="math display">
+\boldsymbol{A}\Delta \boldsymbol{v}_i + \Delta \boldsymbol{A} \boldsymbol{v}_i
+=
+\lambda_i \Delta \boldsymbol{v}_i + \Delta \lambda_i \boldsymbol{v}_i.
+</span></p>
+<p>Multiplying the last equation with <span class="math inline">\boldsymbol{u}_i^T</span> on the left, we obtain <span class="math display">
+\boldsymbol{u}_i^T \boldsymbol{A} \Delta \boldsymbol{v}_i
++ \boldsymbol{u}_i^T \Delta \boldsymbol{A} \boldsymbol{v}_i
+=
+\lambda_i \boldsymbol{u}_i^T \Delta \boldsymbol{v}_i
++ \Delta \lambda_i \boldsymbol{u}_i^T \boldsymbol{v}_i.
+</span></p>
+<p>The first term on the LHS and the first term on the RHS cancel, which gives rise to <span class="math display">
+\boldsymbol{u}_i^T \Delta \boldsymbol{A} \boldsymbol{v}_i
+= \Delta \lambda_i \boldsymbol{u}_i^T \boldsymbol{v}_i.
+</span></p>
+<p>Thus, we obtain <span class="math display">
+|\Delta \lambda_i| = \frac{|\boldsymbol{u}_i^T \Delta \boldsymbol{A} \boldsymbol{v}_i|}{|\boldsymbol{u}_i^T \boldsymbol{v}_i|} \leq
+\frac{1}{|\boldsymbol{u}_i^T \boldsymbol{v}_i|} \|\Delta \boldsymbol{A}\|,
+</span> where in the last inequality we have used the fact <span class="math inline">|\boldsymbol{u}_i^T \Delta \boldsymbol{A} \boldsymbol{v}_i|\leq \|\boldsymbol{u}_i\| \|\Delta \boldsymbol{A}\| \|\boldsymbol{v}_i\| = \|\Delta \boldsymbol{A}\|</span>, with the assumption <span class="math inline">\|\boldsymbol{u}_i\| = \|\boldsymbol{v}_i\| = 1</span>.</p>
+<p>Thus, we are led to introduce a new <em>condition number for simple eigenvalues</em>: <span class="math display">
+\kappa_{ev}^{\lambda_i}(\boldsymbol{A}) = \frac{1}{|\boldsymbol{u}_i^T \boldsymbol{v}_i|},
+</span> where the subscript is there to remind us that this is a condition number for a specific problem: for the evaluation of eigenvalues. The superscript keeps track of which specific eigenvalue’s sensitivity we are referring to.</p>
+<p>Thus, we have the bound <span class="math display">
+|\Delta \lambda_i| \leq \kappa_{ev}^{\lambda_i}(\boldsymbol{A}) \|\Delta \boldsymbol{A}\|
+</span></p>
+<p>To calculate the condition number for a given eigenvalue you first have to calculate the product of the corresponding left- and right-eigenvectors.</p>
+</section>
+<section id="remarks" class="level3">
+<h3 class="anchored" data-anchor-id="remarks">Remarks</h3>
+<p>Real symmetric (or complex hermitian) matrices are very common in physics. For these matrices, the left- and right-eigenvector are the same and thus we have <span class="math display">
+\kappa_{ev}^{\lambda_i}(\boldsymbol{A}) = 1.
+</span></p>
+<p>Hence, for these matrices the eigenvalue problems is always <em>well-conditioned</em>.</p>
+</section>
+</section>
+<section id="sensitivity-of-eigenvectors" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="sensitivity-of-eigenvectors"><span class="header-section-number">2.6</span> Sensitivity of eigenvectors</h2>
+<section id="derivation-2" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-2">Derivation</h3>
+<p>Let us now derive the quantative measure of conditioning eigenvectors. Let us start with <span id="eq-perturb-eigenvector"><span class="math display">
+\boldsymbol{A}\Delta \boldsymbol{v}_i + \Delta \boldsymbol{A} \boldsymbol{v}_i
+=
+\lambda_i \Delta \boldsymbol{v}_i + \Delta \lambda_i \boldsymbol{v}_i.
+\tag{6}</span></span></p>
+<p>We now expand the perturbation in the eigenvector in terms of the other eigenvectors <span class="math display">
+\Delta \boldsymbol{v}_i = \sum_{j\neq i} t_{ji} \boldsymbol{v}_j.
+</span></p>
+<p>Here, the coefficients <span class="math inline">t_{ji}</span> are to be determined. We are employing here the linear independence of the eigenvectors. Note that this sum does not include a <span class="math inline">j=i</span> term. This is because, for <span class="math inline">\boldsymbol{v}_i + \Delta \boldsymbol{v}_i</span>, if <span class="math inline">\Delta \boldsymbol{v}_i</span> has a component of <span class="math inline">\boldsymbol{v}_i</span>, then we can simply combine this component with <span class="math inline">\boldsymbol{v}_i</span>, which means we simply adjust the coefficient in front <span class="math inline">\boldsymbol{v}_i</span>.</p>
+<p>Now, if we plug this expansion into <a href="#eq-perturb-eigenvector">Equation&nbsp;6</a>, we obtain <span class="math display">
+\sum_{j\neq i}(\lambda_j - \lambda_i) t_{ji} \boldsymbol{v}_j + \Delta \boldsymbol{A} \boldsymbol{v}_i = \Delta \lambda_i \boldsymbol{v}_i.
+</span></p>
+<p>Multiplying <span class="math inline">\boldsymbol{u}_k^T</span> from the left, and using the fact the left- and right-eigenvectors for different eigenvalues are orthogonal, namely <span class="math inline">\boldsymbol{u}_k^T \boldsymbol{v}_i = 0</span> for <span class="math inline">k\neq i</span>, we find <span class="math display">
+(\lambda_k - \lambda_i) t_{ki} \boldsymbol{u}_k^T\boldsymbol{v}_k
++ \boldsymbol{u}_k^T \Delta \boldsymbol{A} \boldsymbol{v}_i = 0,
+</span> and this means <span class="math display">
+t_{ki} = \frac{\boldsymbol{u}_k^T \Delta \boldsymbol{A} \boldsymbol{v}_i}{(\lambda_i - \lambda_k)\boldsymbol{u}_k^T \boldsymbol{v}_k}.
+</span></p>
+<p>Thus, we obtain <span class="math display">
+\Delta \boldsymbol{v}_i =
+\sum_{j\neq i }
+\frac{\boldsymbol{u}_j^T \Delta \boldsymbol{A} \boldsymbol{v}_i}{(\lambda_i - \lambda_j)\boldsymbol{u}_j^T \boldsymbol{v}_j} \boldsymbol{v}_j.
+</span></p>
+<ul>
+<li>We see that the numerator contains the perturbation <span class="math inline">\Delta \boldsymbol{A}</span>.</li>
+<li>The denominator contains two distinct contributions. (1) a <span class="math inline">\boldsymbol{u}_j^T \boldsymbol{v}_j</span> term, which is the same thing when we define the condition number for a simple eigenvalue. (2) a <span class="math inline">(\lambda_i - \lambda_j)</span> term, which is the separation between <span class="math inline">\lambda_i</span> and other eigenvalues.</li>
+</ul>
+</section>
+<section id="example-9" class="level3">
+<h3 class="anchored" data-anchor-id="example-9">Example 9</h3>
+<p>See the following code. We see that while the eigenvalues are well-conditioned, they happen to be very closely spaced, which is a small number in the denominator, and thus makes the eigenvectors sensitive to perturbation.</p>
+<div class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array([[<span class="fl">1.01</span>, <span class="fl">0.01</span>],</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>              [<span class="dv">0</span>,    <span class="fl">0.99</span>]])</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Find eigenvalues and eigenvectors</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Before perturbation:'</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>ee,ev <span class="op">=</span> np.linalg.eig(A) </span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> jj <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(ee)):</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Eigenvalue'</span>, ee[jj], <span class="st">'with eigenvector'</span>, ev[:,jj])</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'===================================================='</span>)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'After perturbation:'</span>)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">0</span>,] <span class="op">+=</span> <span class="fl">0.005</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>ee,ev <span class="op">=</span> np.linalg.eig(A) </span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> jj <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(ee)):</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Eigenvalue'</span>, ee[jj], <span class="st">'with eigenvector'</span>, ev[:,jj])</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'===================================================='</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Before perturbation:
+Eigenvalue 1.01 with eigenvector [1. 0.]
+====================================================
+Eigenvalue 0.99 with eigenvector [-0.4472136   0.89442719]
+====================================================
+After perturbation:
+Eigenvalue 1.01 with eigenvector [1. 0.]
+====================================================
+Eigenvalue 0.99 with eigenvector [-0.6  0.8]
+====================================================</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="homework" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Homework</h1>
+<ol type="1">
+<li>Prove that left and right eigenvalues are equivalent.</li>
+<li>Compute the eigenvalues and eigenvectors (using <code>np.linalg.eig()</code>) of <span class="math display">
+\boldsymbol{A} =
+\begin{pmatrix}
+1 &amp; 2 &amp; 3 \\
+0 &amp; 4 &amp; 5 \\
+0 &amp; 0 &amp; 4.001
+\end{pmatrix}.
+</span> We then introduce a perturbation, which adds 0.005 to the bottom left element. Please compute eigenvalues and eigenvectors for the perturbed matrix. Please also calculate the condition number for each eigenvalues (using python).</li>
+</ol>
 </section>
 
 </main>
