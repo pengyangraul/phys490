@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.189">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Matrices II</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="week6_files/libs/clipboard/clipboard.min.js"></script>
+<script src="week6_files/libs/quarto-html/quarto.js"></script>
+<script src="week6_files/libs/quarto-html/popper.min.js"></script>
+<script src="week6_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="week6_files/libs/quarto-html/anchor.min.js"></script>
+<link href="week6_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="week6_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="week6_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="week6_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="week6_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#triangular-matrices" id="toc-triangular-matrices" class="nav-link active" data-scroll-target="#triangular-matrices"><span class="toc-section-number">1</span>  Triangular Matrices</a>
+  <ul class="collapse">
+  <li><a href="#forward-substitutio" id="toc-forward-substitutio" class="nav-link" data-scroll-target="#forward-substitutio"><span class="toc-section-number">1.1</span>  Forward Substitutio</a>
+  <ul class="collapse">
+  <li><a href="#back-substitution" id="toc-back-substitution" class="nav-link" data-scroll-target="#back-substitution">Back Substitution</a></li>
+  </ul></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation"><span class="toc-section-number">1.2</span>  Implementation</a></li>
+  <li><a href="#digression-operation-counts" id="toc-digression-operation-counts" class="nav-link" data-scroll-target="#digression-operation-counts"><span class="toc-section-number">1.3</span>  Digression: Operation Counts</a></li>
+  <li><a href="#operation-count-for-forward-substitution" id="toc-operation-count-for-forward-substitution" class="nav-link" data-scroll-target="#operation-count-for-forward-substitution"><span class="toc-section-number">1.4</span>  Operation Count for Forward Substitution</a></li>
+  </ul></li>
+  <li><a href="#gaussian-elimination" id="toc-gaussian-elimination" class="nav-link" data-scroll-target="#gaussian-elimination"><span class="toc-section-number">2</span>  Gaussian Elimination</a>
+  <ul class="collapse">
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="toc-section-number">2.1</span>  Example</a></li>
+  <li><a href="#general-case" id="toc-general-case" class="nav-link" data-scroll-target="#general-case"><span class="toc-section-number">2.2</span>  General Case</a></li>
+  <li><a href="#implementation-1" id="toc-implementation-1" class="nav-link" data-scroll-target="#implementation-1"><span class="toc-section-number">2.3</span>  Implementation</a></li>
+  <li><a href="#operation-count" id="toc-operation-count" class="nav-link" data-scroll-target="#operation-count"><span class="toc-section-number">2.4</span>  Operation Count</a></li>
+  </ul></li>
+  <li><a href="#lu-method" id="toc-lu-method" class="nav-link" data-scroll-target="#lu-method"><span class="toc-section-number">3</span>  LU Method</a>
+  <ul class="collapse">
+  <li><a href="#lu-decomposition" id="toc-lu-decomposition" class="nav-link" data-scroll-target="#lu-decomposition"><span class="toc-section-number">3.1</span>  LU Decomposition</a></li>
+  <li><a href="#solving-a-system-using-lu-decomposition" id="toc-solving-a-system-using-lu-decomposition" class="nav-link" data-scroll-target="#solving-a-system-using-lu-decomposition"><span class="toc-section-number">3.2</span>  Solving a System Using LU Decomposition</a></li>
+  <li><a href="#implementation-2" id="toc-implementation-2" class="nav-link" data-scroll-target="#implementation-2"><span class="toc-section-number">3.3</span>  Implementation</a></li>
+  <li><a href="#operation-count-1" id="toc-operation-count-1" class="nav-link" data-scroll-target="#operation-count-1"><span class="toc-section-number">3.4</span>  Operation Count</a></li>
+  <li><a href="#matrix-inverse" id="toc-matrix-inverse" class="nav-link" data-scroll-target="#matrix-inverse"><span class="toc-section-number">3.5</span>  Matrix Inverse</a></li>
+  <li><a href="#determinant" id="toc-determinant" class="nav-link" data-scroll-target="#determinant"><span class="toc-section-number">3.6</span>  Determinant</a></li>
+  </ul></li>
+  <li><a href="#pivoting" id="toc-pivoting" class="nav-link" data-scroll-target="#pivoting"><span class="toc-section-number">4</span>  Pivoting</a>
+  <ul class="collapse">
+  <li><a href="#instability-without-ill-conditioning" id="toc-instability-without-ill-conditioning" class="nav-link" data-scroll-target="#instability-without-ill-conditioning"><span class="toc-section-number">4.1</span>  Instability without Ill-Conditioning</a></li>
+  <li><a href="#partial-pivoting" id="toc-partial-pivoting" class="nav-link" data-scroll-target="#partial-pivoting"><span class="toc-section-number">4.2</span>  Partial Pivoting</a></li>
+  <li><a href="#implementation-3" id="toc-implementation-3" class="nav-link" data-scroll-target="#implementation-3"><span class="toc-section-number">4.3</span>  Implementation</a></li>
+  </ul></li>
+  <li><a href="#jacobi-iterative-method" id="toc-jacobi-iterative-method" class="nav-link" data-scroll-target="#jacobi-iterative-method"><span class="toc-section-number">5</span>  Jacobi Iterative Method</a>
+  <ul class="collapse">
+  <li><a href="#algorithm" id="toc-algorithm" class="nav-link" data-scroll-target="#algorithm"><span class="toc-section-number">5.1</span>  Algorithm</a></li>
+  <li><a href="#implementation-4" id="toc-implementation-4" class="nav-link" data-scroll-target="#implementation-4"><span class="toc-section-number">5.2</span>  Implementation</a></li>
+  </ul></li>
+  <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework"><span class="toc-section-number">6</span>  Homework</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Matrices II</h1>
+<p class="subtitle lead">Solving Systems of Linear Equations</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<p>In the previous lecture we studied in detail the conditioning of linear-algebra problems. We didn’t explain how we produced the different answers for, e.g., the norm, the eigenvectors, etc. We simply called numpy functions to do the jobs.</p>
+<p>It’s now time to discuss how to solve simultaneous linear equations on the computer: <span class="math display">
+\boldsymbol{A}\boldsymbol{x} = \boldsymbol{b}.
+</span> We will structure our discussion in an algorithm-friendly way, i.e., we will write the equations in such a way as to enable a step-by-step implementation in Python later.</p>
+<section id="triangular-matrices" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Triangular Matrices</h1>
+<p>We start with the simplest case possible, that of triangular matrices (for which all elements either above or below the diagonal are zero). This is not simply a toy problem: many of the fancier methods for the solution of simultaneous equations, like those we discuss below, manipulate the starting problem so that it ends up containing one or two triangular matrices at the end.</p>
+<p>We immediately note that in the real world one rarely stores a triangular matrix in its entirety, as that would be wasteful: it would entail storing a large number of 0s, which don’t add any new information; if we know that a matrix is triangular, the 0s above or below the diagonal are implied. In state-of-the-art libraries, it is common to use a single matrix to store together an upper-triangular and a lower-triangular matrix (with some convention about the diagonal, since each of those triangular matrices also generally has non-zero elements there). Here, since our goal is pedagogical clarity, we will opt for coding up each algorithm “naively”, namely by carrying around several 0s for triangular matrices. Once you get the hang of things, you will be able to modify our codes to make them more efficient (as one of the problems asks you to do).</p>
+<section id="forward-substitutio" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="forward-substitutio"><span class="header-section-number">1.1</span> Forward Substitutio</h2>
+<p>Start with a <em>lower-triangular</em> matrix <span class="math inline">\boldsymbol{L}</span>. The problem we are interested in solving is: <span class="math display">
+\boldsymbol{L}\boldsymbol{x} = \boldsymbol{b}.
+</span></p>
+<p>For concreteness, we look at a <span class="math inline">3\times 3</span> problem: <span class="math display">
+\begin{pmatrix}
+L_{00} &amp; 0 &amp; 0 \\
+L_{10} &amp; L_{11} &amp; 0 \\
+L_{20} &amp; L_{21} &amp; L_{22}
+\end{pmatrix}
+\begin{pmatrix}
+x_0 \\ x_1 \\ x_2
+\end{pmatrix}
+=
+\begin{pmatrix}
+b_0 \\ b_1 \\ b_2
+\end{pmatrix}.
+</span></p>
+<p>This can be expanded into equation form: <span class="math display">
+\begin{align*}
+L_{00} x_0 &amp; = b_0 \\
+L_{10} x_0 + L_{11} x_1 &amp; = b_1 \\
+L_{20} x_0 + L_{21}x_1 + L_{22}x_2 &amp; = b_2.
+\end{align*}
+</span></p>
+<p>The way to find the solution-vector components should be fairly obvious: start with the first equation and solve it for <span class="math inline">x_0</span>. Then, plug in that answer to the second equation and solve for <span class="math inline">x_1</span>. Finally, plug <span class="math inline">x_0</span> and <span class="math inline">x_1</span> into the third equation and solve for <span class="math inline">x_2</span>. We have: <span class="math display">
+x_0 = \frac{b_0}{L_{00}},\quad x_1 = \frac{b_1 - L_{10}x_0}{L_{11}}, \quad x_2 = \frac{b_2 - L_{20}x_0 - L_{21}x_1}{L_{22}}.
+</span></p>
+<p>This process is known as <em>forward substitution</em>, since we solve for the unknowns by starting with the first equation and moving forward from there. It’s easy to see how to generalize this approach to the <span class="math inline">n\times n</span> case:</p>
+<div class="callout-note callout callout-style-simple no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><span class="math display">
+x_i = \left(b_i - \sum_{j=0}^{i-1}L_{ij}x_j \right)\frac{1}{L_{ii}},\quad i = 0, 1, \dots, n-1
+</span></p>
+</div>
+</div>
+</div>
+<p>with the understanding that, on the right-hand side, the sum corresponds to zero terms if <span class="math inline">i=0</span>, one term if <span class="math inline">i=1</span>, and so on.</p>
+<section id="back-substitution" class="level3">
+<h3 class="anchored" data-anchor-id="back-substitution">Back Substitution</h3>
+<p>You can also start with an <em>upper-triangular</em> matrix <span class="math inline">\boldsymbol{U}</span>: <span class="math display">
+\boldsymbol{U}\boldsymbol{x} = \boldsymbol{b}.
+</span></p>
+<p>As above, for concreteness, we study the <span class="math inline">3\times 3</span> problem <span class="math display">
+\begin{pmatrix}
+U_{00} &amp; U_{01} &amp; U_{02} \\
+0 &amp; U_{11} &amp; U_{12} \\
+0 &amp; 0 &amp; U_{22}
+\end{pmatrix}
+\begin{pmatrix}
+x_0 \\ x_1 \\ x_2
+\end{pmatrix}
+=
+\begin{pmatrix}
+b_0 \\ b_1 \\ b_2
+\end{pmatrix}.
+</span> This can be expanded into equation form: <span class="math display">
+\begin{align*}
+U_{00} x_0 + U_{01}x_1 + U_{02}x_2 &amp; = b_0 \\
+U_{11} x_1 + U_{12} x_2 &amp; = b_1 \\
+U_{22} x_2 &amp; = b_2
+\end{align*}.
+</span></p>
+<p>We can obtain <span class="math display">
+x_2 = \frac{b_2}{U_{22}}, \quad x_1 = \frac{b_1 - U_{12}x_2}{U_{11}},
+\quad x_0 = \frac{b_0 - U_{01}x_1 - U_{02}x_2}{U_{00}}.
+</span></p>
+<p>This process is known as <em>back substitution</em>, since we solve for the unknowns by starting with the last equation and moving backward from there. It’s easy to see how to generalize this approach to the <span class="math inline">n\times n</span> case:</p>
+<div class="callout-note callout callout-style-simple no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><span class="math display">
+x_i = \left(b_i - \sum_{j=i+1}^{n-1} U_{ij}x_j\right)\frac{1}{U_{ii}},\quad i = n-1, n-2, \dots, 1, 0
+</span></p>
+</div>
+</div>
+</div>
+<p>with the understanding that, on the right-hand side, the sum corresponds to zero terms if <span class="math inline">i = n - 1</span>, one term if <span class="math inline">i = n-2</span>, and so on.</p>
+</section>
+</section>
+<section id="implementation" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="implementation"><span class="header-section-number">1.2</span> Implementation</h2>
+<p>We will implement this algorithm using numpy array. Our code has the following feature:</p>
+<ul>
+<li>The <code>numpy array</code> by the name of <code>xs</code> (to be returned by the function) is first created to contain zeros.</li>
+<li>Then, each element of <code>xs</code> is evaluated and stored in turn.</li>
+<li>Keep in mind that we are storing the solution vector <span class="math inline">\boldsymbol{x}</span> (which is mathematically a column vector) in a one-dimensional <code>numpy array</code>.</li>
+<li>We created the test matrix and column vector via <code>A,bs = testcreate()</code>. Here <code>A</code> is not symmetric.</li>
+<li><code>np.tril()</code> and <code>np.triu()</code> are used to create lower triangular matrix and upper triangular matrix.</li>
+<li>Note that we compared our result with <code>numpy.linalg.solve()</code>.</li>
+</ul>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Author: Alex Gezerlis</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Numerical Methods in Physics with Python (CUP, 2020)</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> forsub(L,bs):</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> bs.size</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.zeros(n)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        xs[i] <span class="op">=</span> (bs[i] <span class="op">-</span> L[i,:i]<span class="op">@</span>xs[:i])<span class="op">/</span>L[i,i]</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xs</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> backsub(U,bs):</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> bs.size</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.zeros(n)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">reversed</span>(<span class="bu">range</span>(n)):</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        xs[i] <span class="op">=</span> (bs[i] <span class="op">-</span> U[i,i<span class="op">+</span><span class="dv">1</span>:]<span class="op">@</span>xs[i<span class="op">+</span><span class="dv">1</span>:])<span class="op">/</span>U[i,i]</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xs</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testcreate(n,val):</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.arange(val,val<span class="op">+</span>n<span class="op">*</span>n).reshape(n,n)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.sqrt(A)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    bs <span class="op">=</span> (A[<span class="dv">0</span>,:])<span class="op">**</span><span class="fl">2.1</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> A, bs</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testsolve(f,A,bs):</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> f(A,bs)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(xs)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.linalg.solve(A,bs)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(xs)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    A, bs <span class="op">=</span> testcreate(<span class="dv">4</span>,<span class="dv">21</span>)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    L <span class="op">=</span> np.tril(A)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Forward Substitution"</span>)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    testsolve(forsub,L,bs)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">" "</span>)</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Backward Substitution"</span>)</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    U <span class="op">=</span> np.triu(A)</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    testsolve(backsub,U,bs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Forward Substitution
+[ 5.33605887 -0.19676761 -0.13541854 -0.09524368]
+[ 5.33605887 -0.19676761 -0.13541854 -0.09524368]
+ 
+Backward Substitution
+[0.14941285 0.10032435 0.06814924 4.6888955 ]
+[0.14941285 0.10032435 0.06814924 4.6888955 ]</code></pre>
+</div>
+</div>
+</section>
+<section id="digression-operation-counts" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="digression-operation-counts"><span class="header-section-number">1.3</span> Digression: Operation Counts</h2>
+<p>We will now engage in an activity which is very common in linear algebra: we will count how many floating-point operations it takes to carry out a specific calculation (these are also called <em>“flops”</em>). If a given computation scales poorly (e.g., exponentially) with the size of the problem, then it will be hard to increase the size much more than what is currently possible. If the scaling is not “too bad” (e.g., polynomial with a small power), then one can keep solving bigger problems without needing to employ dramatically new hardware.</p>
+<p>In such studies, you will frequently encounter the <span class="math inline">O</span> symbol which is known as big-O notation. Thus, a method that scales as <span class="math inline">O(n^3)</span> is better than another method that scales as <span class="math inline">O(n^4)</span> (for the same problem), since the power dominates over any prefactor when <span class="math inline">n</span> is large. Note that when one explicitly counts the number of additions/subtractions and multiplications/divisions, one is sometimes interested in the prefactor, e.g., <span class="math inline">2n^3</span> is better than <span class="math inline">4n^3</span>, since the former requires only half as many operations. On the other hand, lower powers don’t impact the scaling seriously so you may sometimes encounter expressions such as <span class="math inline">2n^3 − 7n^2 + 5n</span> written as <span class="math inline">\sim 2n^3</span>, simply dropping the lower-degree terms.</p>
+<p>Let’s study the case of matrix-vector multiplication explicitly, <span class="math display">
+\boldsymbol{y} = \boldsymbol{A}\boldsymbol{x}, \quad y_i = \sum_{j=0}^{n-1}A_{ij} x_j.
+</span> We see that for a given <span class="math inline">y_i</span> we need, on the right-hand side, <span class="math inline">n</span> multiplications and <span class="math inline">n-1</span> additions. Thus, since we have <span class="math inline">n</span> terms for the <span class="math inline">y_i</span>’s in total, we are faced with <span class="math inline">n\times n</span> multiplications and <span class="math inline">n\times(n − 1)</span> additions in total. If we add both of these results up, we find that matrix-vector multiplication requires precisely <span class="math inline">2n^2 −n</span> floating-point operations. As above, you will frequently see this re-expressed as <span class="math inline">\sim 2n^2</span> or even as <span class="math inline">O(n^2)</span>.</p>
+</section>
+<section id="operation-count-for-forward-substitution" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="operation-count-for-forward-substitution"><span class="header-section-number">1.4</span> Operation Count for Forward Substitution</h2>
+<p>For concreteness, we will examine only forward substitution (but the answer turns out to be the same for back substitution), based on <span class="math display">
+x_i = \left(b_i - \sum_{j=0}^{i-1}L_{ij}x_j \right)\frac{1}{L_{ii}},\quad i = 0, 1, \dots, n-1.
+</span></p>
+<p>It is easy to see that each of the <span class="math inline">x_i</span> requires one division, so <span class="math inline">n</span> divisions in total. It’s equally easy to see that for a given <span class="math inline">x_i</span>, we need to carry out <span class="math inline">i</span> multiplications and <span class="math inline">i</span> subtractions (check this for a few values of <span class="math inline">i</span> if it’s not immediately obvious). Thus, we can group the required operations into two categories.</p>
+<ul>
+<li>First, we require <span class="math display">
+  \sum_{i=0}^n-1 i = \frac{n(n-1)}{2} = \frac{n^2 - n}{2}
+  </span> additions/subtractions.</li>
+<li>Second, we require <span class="math display">
+n + \sum_{i=0}^{n-1}i = \frac{n^2 +n}{2}
+</span> multiplications/devisions.</li>
+</ul>
+<p>If we add both of these results up, we find that forward substitution requires precisely <span class="math inline">n^2</span> flops. This could be expressed as <span class="math inline">O(n^2)</span>, but the latter form is less informative: in our explicit calculation we have found that the prefactor is exactly 1.</p>
+</section>
+</section>
+<section id="gaussian-elimination" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Gaussian Elimination</h1>
+<p>We now turn to the problem of solving linear simultaneous equations for the general case, i.e., when we are not dealing with a triangular matrix. We will solve <span class="math display">
+\boldsymbol{A}\boldsymbol{x} = \boldsymbol{b}
+</span> for general matrix <span class="math inline">\boldsymbol{A}</span>.</p>
+<p>In essence, this method employs the third elementary row operation we introduced in the previsou lecture <a href="week5.html#the-problems-to-be-solved">Matrices I</a>: a row/equation may be replaced by a linear combination of that row/equation with any other row/equation.</p>
+<p>After doing this repeatedly (in what is known as the elimination phase), we end up with an upper-triangular matrix, at which point we are at the back substitution phase which, as we just saw, is easy to carry out.</p>
+<section id="example" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="example"><span class="header-section-number">2.1</span> Example</h2>
+<p>Let us consider a concrete <span class="math inline">3\times 3</span> problem that we can solve by hand. <span class="math display">
+\begin{pmatrix}
+2 &amp; 1 &amp; 1 \\
+1 &amp; 1 &amp; -2 \\
+1 &amp; 2 &amp; 1
+\end{pmatrix}
+\begin{pmatrix}
+x_0 \\ x_1 \\ x_2
+\end{pmatrix}
+=
+\begin{pmatrix}
+8 \\ -2 \\ 2
+\end{pmatrix}.
+</span></p>
+<p>We can compactly write the problem as <span class="math display">
+\left(
+\begin{matrix*}[r]
+2 &amp; 1 &amp; 1 \\
+1 &amp; 1 &amp; -2 \\
+1 &amp; 2 &amp; 1
+\end{matrix*}
+    \
+\right|
+\left.
+\begin{matrix*}[r]
+8 \\ -2 \\ 2
+\end{matrix*}
+\right)
+</span></p>
+<p>Gaussian elimination employs the third elementary row operation, i.e., we will replace a row with that same row plus another row (times a coefficient). Specifically, we first pick a specific row, called the <em>pivot row</em>, which we multiply with a number and then subtract from the row we are transforming. Let’s use <span class="math inline">j</span> as the index that keeps track of the pivot row and <span class="math inline">i</span> for the index corresponding to the row we are currently transforming (as usual, for a <span class="math inline">3\times 3</span> problem our indices can have the values 0, 1, or 2). The operation we are carrying out is:</p>
+<div class="callout-note callout callout-style-simple no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><span class="math display">
+\mathrm{New\ row\ }i = \mathrm{row\ } i - \mathrm{coefficient}\times\mathrm{row\ } j.
+</span></p>
+</div>
+</div>
+</div>
+<p>The coefficient is selected such that after the transformation the leading number in row <span class="math inline">i</span> is a 0. Perhaps this will become more clear once you see the algorithm in action.</p>
+<p>We begin with <span class="math inline">j=0</span>, taking the first equation as the pivot row. We then take <span class="math inline">i = 1</span> (the second row) as the row to be transformed: our goal is to eliminate the element in the first column (i.e., the term corresponding to <span class="math inline">x_0</span>). To do this, we will replace the second row with the second row minus the first row times <span class="math inline">0.5</span> (since <span class="math inline">1 − 0.5 \times 2 = 0</span>). Obviously, we have to carry out this calculation for the entire row, giving us: <span class="math display">
+\left(
+\begin{matrix*}[r]
+2 &amp; 1 &amp; 1 \\
+0 &amp; 0.5 &amp; -2.5 \\
+1 &amp; 2 &amp; 1
+\end{matrix*}
+    \
+\right|
+\left.
+\begin{matrix*}[r]
+8 \\ -6 \\ 2
+\end{matrix*}
+\right).
+</span></p>
+<p>Next, for the same pivot row (<span class="math inline">j = 0</span>), we will transform the third row (<span class="math inline">i = 2</span>), again by multiplying the pivot row with <span class="math inline">0.5</span> and subtracting. We get <span class="math display">
+\left(
+\begin{matrix*}[r]
+2 &amp; 1 &amp; 1 \\
+0 &amp; 0.5 &amp; -2.5 \\
+0 &amp; 1.5 &amp; 0.5
+\end{matrix*}
+    \
+\right|
+\left.
+\begin{matrix*}[r]
+8 \\ -6 \\ -2
+\end{matrix*}
+\right).
+</span> We now see that our work with <span class="math inline">j=0</span> as our pivot row is done: all the rows below it have been transformed such that the 0th (first) column contains a zero.</p>
+<p>We now take <span class="math inline">j = 1</span>, i.e., use the second equation as our pivot row. (We always use the latest version of the matrix, so our <span class="math inline">j = 1</span> pivot row will be the result of our earlier transformation.) The rows to be transformed always lie below the pivot row, so in this case there’s only one row to change, <span class="math inline">i = 2</span> (the third row). We multiply the pivot row with 3 and subtract from the third row, in order to eliminate the element in the second column (i.e., the term corresponding to <span class="math inline">x_1</span>), since <span class="math inline">1.5 − 3 \times 0.5 = 0</span>. This gives us: <span class="math display">
+\left(
+\begin{matrix*}[r]
+2 &amp; 1 &amp; 1 \\
+0 &amp; 0.5 &amp; -2.5 \\
+0 &amp; 0 &amp; 8
+\end{matrix*}
+    \
+\right|
+\left.
+\begin{matrix*}[r]
+8 \\ -6 \\ 16
+\end{matrix*}
+\right).
+</span></p>
+<p>Our coefficient matrix is now in triangular form, so the elimination phase is done. We can use the backward substitution to obtain <span class="math display">
+x_2 = \frac{16}{8} = 2,\quad x_1 =\frac{-6 - (-2.5)\times 2}{0.5} = -2 ,\quad
+x_0 = \frac{8 - 1\times (-2) - 1\times 2}{2} = 4.
+</span></p>
+</section>
+<section id="general-case" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="general-case"><span class="header-section-number">2.2</span> General Case</h2>
+<p>Having gone through an explicit case step by step, it should be relatively straightforward to generalize this to the <span class="math inline">n \times n</span> problem. First, we repeat the augmented matrix <span class="math inline">(\boldsymbol{A} | \boldsymbol{b})</span>.</p>
+<p>As we saw in the previous section, Gaussian elimination modifies the coefficient matrix and the constant vector until the former becomes triangular. It is standard to do this by modifying the matrix elements of <span class="math inline">\boldsymbol{A}</span> and <span class="math inline">\boldsymbol{b}</span> (so, if you need the original values, you need to make sure you’ve made a copy of them ahead of time).</p>
+<p>You should convince yourself that (pivot index) <span class="math inline">j</span> can take on the values: <span class="math display">
+j = 0,1,2,\dots,n-2.
+</span> The first possibility for the pivot row is the first row, meaning all other rows have to be transformed. The last row to be transformed is the last one, so the final pivot row is the penultimate row (second from last).</p>
+<p>Using the same notation as above, we call <span class="math inline">i</span> the index corresponding to the row that is being transformed. Obviously, <span class="math inline">i</span> has to be greater than <span class="math inline">j</span>. Given what we just discussed, <span class="math inline">i</span> takes on the values: <span class="math display">
+i = j+1, j+2, \dots, n-1.
+</span></p>
+<p>Gaussian elimination works by multiplying the pivot row <span class="math inline">j</span> with a coefficient and subtracting the result from row <span class="math inline">i</span> which is currently being transformed (and storing the result back in row <span class="math inline">i</span>). The coefficient is chosen such that (after the transformation) row <span class="math inline">i</span> starts with a 0. Thus, looking at the snapshot in the augmented matrix: <img src="./week6_files/gauss_elimination.png" class="img-fluid"> with pivot index <span class="math inline">j</span>, where the leading non-zero element of row <span class="math inline">i</span> is <span class="math inline">A_{ij}</span> and the leading non-zero element of row <span class="math inline">j</span> is <span class="math inline">A_{jj}</span>, we see that the coefficient has to be <span class="math inline">A_{ij}/A_{jj}</span> (given that <span class="math inline">A_{ij} − (A_{ij}/A_{jj})A_{jj} = 0</span>). In equation form:</p>
+<div class="callout-note callout callout-style-simple no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><span class="math display">
+\mathrm{coefficient} = \frac{A_{ij}}{A_{jj}}
+</span></p>
+</div>
+</div>
+</div>
+<p>Incidentally, <span class="math inline">A_{jj}</span> is sometimes called the <em>pivot element</em> since it is used (divided out) in order to eliminate the leading elements in the following rows. Obviously, the other elements in row <span class="math inline">i</span> will end up having some new values (most likely non-zero ones).</p>
+<p>At the end of this process, the matrix <span class="math inline">\boldsymbol{A}</span> contained in our augmented matrix will be upper triangular, so it will be straightforward to then apply the backward substitution to solve for all the unknowns.</p>
+</section>
+<section id="implementation-1" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="implementation-1"><span class="header-section-number">2.3</span> Implementation</h2>
+<p>We will structure our code in a modular way, such that it can apply to any input matrices <span class="math inline">\boldsymbol{A}</span> and <span class="math inline">\boldsymbol{b}</span>, impacting the external world only via its return value.</p>
+<p>We start out by importing some of the routines we created in our earlier code on triangular matrices. As already mentioned, we make copies of the input matrices, so we may update them at will, without impacting the rest of the program in an unexpected way (this is inefficient, but pedagogically superior).</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gauelim(inA,inbs):</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.copy(inA)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    bs <span class="op">=</span> np.copy(inbs)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> bs.size</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n<span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(j<span class="op">+</span><span class="dv">1</span>,n):</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>            coeff <span class="op">=</span> A[i,j]<span class="op">/</span>A[j,j]</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>            A[i,j:] <span class="op">-=</span> coeff<span class="op">*</span>A[j,j:]</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>            bs[i] <span class="op">-=</span> coeff<span class="op">*</span>bs[j]</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> backsub(A,bs)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xs</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> backsub(U,bs):</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> bs.size</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.zeros(n)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">reversed</span>(<span class="bu">range</span>(n)):</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        xs[i] <span class="op">=</span> (bs[i] <span class="op">-</span> U[i,i<span class="op">+</span><span class="dv">1</span>:]<span class="op">@</span>xs[i<span class="op">+</span><span class="dv">1</span>:])<span class="op">/</span>U[i,i]</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xs</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testcreate(n,val):</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.arange(val,val<span class="op">+</span>n<span class="op">*</span>n).reshape(n,n)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.sqrt(A)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    bs <span class="op">=</span> (A[<span class="dv">0</span>,:])<span class="op">**</span><span class="fl">2.1</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> A, bs</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testsolve(f,A,bs):</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> f(A,bs)</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(xs)</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.linalg.solve(A,bs)</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(xs)</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    A, bs <span class="op">=</span> testcreate(<span class="dv">4</span>,<span class="dv">21</span>)</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    testsolve(gauelim,A,bs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[ 17118.9554009  -55069.99934969  58822.07580723 -20866.39246612]
+[ 17118.95545069 -55069.99950736  58822.07597336 -20866.39252436]</code></pre>
+</div>
+</div>
+<p>The core of our <code>gauelim()</code> function consists of two loops: one over <span class="math inline">j</span> which keeps track of the current pivot row and one over <span class="math inline">i</span> which keeps track of which row we are currently updating.</p>
+<p>In the inner loop, we always start from evaluating the coefficient <span class="math inline">A_{ij}/A_{jj}</span> which will be used to subtract out the leading element in the row currently being updated. This elimination is carried out in the line <code>A[i,j:]-= coeff*A[j,j:]</code>, which employs NumPy functionality to carry out this modification for each column in row <span class="math inline">i</span>. Notice how nice this is: we did not need to keep track of a third index (and therefore did not need to introduce a third loop). This reduces the cognitive load needed to keep track of what’s going on: all the desired elements on one row are updated in one line. Actually, if we wanted to update the whole row, we would have said <code>A[i,:] -= coeff*A[j,:]</code>. This, too, employs NumPy functionality to our advantage, processing the entire row at one go. The earlier choice we made, however, to index using <code>A[i,j:]</code> instead of <code>A[i,:]</code> is better: it is not wasteful, processing only the non-zero elements. Actually, we are being slightly wasteful: the leading element in row <span class="math inline">i</span> will end up being zero but we are carrying out the subtraction procedure for that column as well, instead of just assuming that it will vanish. The code then makes the corresponding update to the <span class="math inline">\boldsymbol{b}</span> row element currently being processed.</p>
+<p>After we have used all possible pivot rows, our matrix will have been updated to be upper triangular. At this point, we simply call our earlier <code>backsub()</code> function. This seems to be a neat example of code re-usability.</p>
+<p>he main body of the code is quite straightforward: it creates our test matrix and calls the function that compares our new routine to the standard NumPy output. Observe how useful these earlier two functions turned out to be. We will employ them again several times in what follows. Running the code, we see that our simple Gaussian elimination code is already doing a good job matching the output of <code>np.linalg.solve()</code>. Note that you haven’t seen this output vector before: in the earlier code we created a lower or upper-triangular matrix starting from <code>A</code>, whereas now we are using the entire matrix. We always get at least seven digits of agreement between the two solution vectors. This is good, but at this point it is a bit unclear why we’re not doing a better job. We will return to this question in a later section.</p>
+</section>
+<section id="operation-count" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="operation-count"><span class="header-section-number">2.4</span> Operation Count</h2>
+<p>Turning to a study of the operation count for Gaussian elimination, we keep in mind that we are interested in total floating-point operations. Thus, while it may help us to think of additions, multiplications, etc. separately, in the end we will add all of them up.</p>
+<p>We can separate the operations into two categories:</p>
+<ol type="a">
+<li>the conversion of <span class="math inline">\boldsymbol{A}</span> into an upper-triangular matrix together with the corresponding changes to <span class="math inline">\boldsymbol{b}</span></li>
+<li>the back substitution of the resulting triangular problem.</li>
+</ol>
+<p>We already know from an earlier section that the back substitution phase requires <span class="math inline">n^2</span> flops, so we only have to address the first category.</p>
+<p>We know that what we keep doing is the following operation: <span class="math display">
+\mathrm{New\ row\ }i = \mathrm{row\ } i - \mathrm{coefficient}\times\mathrm{row\ } j.
+</span></p>
+<p>The steps involved are organized by pivot rows <span class="math inline">j = 0,1,2,\dots,n-2</span>, and are applied to the rows <span class="math inline">i = j+1, j+2, \dots, n-1</span>.</p>
+<p>In the first step, we have to modify the <span class="math inline">n-1</span> rows below the pivot row <span class="math inline">j = 0</span>. To evaluate the coefficients for each of the <span class="math inline">n-1</span> rows we need <span class="math inline">n-1</span> divisions of the form <span class="math inline">A_{ij}/A_{jj}</span>. For each of the <span class="math inline">n-1</span> distinct <span class="math inline">i</span>’s we will need to carry out <span class="math inline">n</span> multiplications and <span class="math inline">n</span> subtractions (one for each column in <span class="math inline">\boldsymbol{A}</span>) and one multiplication and one subtraction for <span class="math inline">\boldsymbol{b}</span>. Since there are going to be <span class="math inline">n-1</span> values that <span class="math inline">i</span> takes on, we are led to a result of <span class="math inline">(n+1)(n-1)</span> multiplications and <span class="math inline">(n+1)(n-1)</span> subtractions. Putting these results together with the divisions, in this first step we are carrying out <span class="math inline">(n-1)+2(n+1)(n+1)</span> flops.</p>
+<p>We turn to the second step, namely using the pivot row <span class="math inline">j=1</span>. We have to modify the <span class="math inline">n-2</span> rows below that pivot row. That leads to <span class="math inline">n-2</span> divisions for the coefficients. Then, for each of the <span class="math inline">i</span>’s, we will need to carry out <span class="math inline">n-1</span> multiplications and <span class="math inline">n-1</span> subtractions (one for each remaining column in <span class="math inline">\boldsymbol{A}</span>) and 1 multiplication and 1 subtraction for b. Putting these results together, we are led to (n - 2) + 2n(n - 2) flops in total for this step.</p>
+<p>It’s easy to see that the third step would lead to <span class="math inline">(n - 3) + 2(n-1)(n-3)</span> flops. A pattern now emerges: for a given pivot row <span class="math inline">j</span>, we have <span class="math display">
+(n-1-j) + 2(n+1-j)(n-1-j)
+</span> flops. Thus, for all possible values of the pivot row <span class="math inline">j</span> we will need <span class="math display">
+\begin{align*}
+N_{count} &amp;= \sum_{j=0}^{n-2}[(n-1-j) + 2(n+1-j)(n-1-j)] \\
+&amp; = \sum_{k=1}^{n-1} [k + 2(k+2)k]  = \sum_{k=1}^{n-1}(2k^2 + 5k) \\
+&amp; = 2\frac{n(n-1)(2n-1)}{6} + 5\frac{n(n-1)}{2} \\
+&amp;= \frac{2}{3}n^3 + \frac{3}{2}n^2 - \frac{13}{6}n \sim \frac{2}{3}n^3
+\end{align*}
+</span> flops.</p>
+<p>Since we already know that the back substitution stage has a cost of <span class="math inline">n^2</span>, we see that the elimination stage is much slower and therefore dominates the cost of the calculation: symbolically, we have <span class="math inline">\frac{2}{3}n^3 + n^2 ∼ 2n^3/3</span>.</p>
+</section>
+</section>
+<section id="lu-method" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> LU Method</h1>
+<p>While the Gaussian elimination method discussed in the previous section is a reasonably robust approach (see below), it does suffer from the following obvious problem: if you want to solve <span class="math inline">\boldsymbol{A}\boldsymbol{x} = \boldsymbol{b}</span> for the same matrix <span class="math inline">\boldsymbol{A}</span> but a different right-hand-side vector <span class="math inline">\boldsymbol{b}</span>, you would have to waste all the calculations you have already carried out and call a function like <code>gauelim()</code> again, performing the Gaussian elimination on <span class="math inline">\boldsymbol{A}</span> from scratch.</p>
+<p>Thus, we are effectively motivating a new method (the <em>LU method</em>) by stressing the need to somehow “store” the result of the Gaussian elimination process for future use.</p>
+<section id="lu-decomposition" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="lu-decomposition"><span class="header-section-number">3.1</span> LU Decomposition</h2>
+<p>Let us assume we are dealing with a non-singular matrix <span class="math inline">\boldsymbol{A}</span> which can be expressed as the product of a lower-triangular matrix <span class="math inline">\boldsymbol{L}</span> and an upper-triangular matrix <span class="math inline">\boldsymbol{U}</span>: <span class="math inline">\boldsymbol{A} = \boldsymbol{L} \boldsymbol{U}</span>, known as the <em>LU decomposition</em> of matrix <span class="math inline">\boldsymbol{A}</span>.</p>
+<p>The LU decomposition as described above is not unique. Here and in what follows, we will make an extra assumption, namely that the matrix <span class="math inline">\boldsymbol{L}</span> is <em>unit</em> lower triangular, namely that it is a lower-triangular matrix with 1s on the main diagonal, i.e., <span class="math inline">L_{ii} = 1</span> for <span class="math inline">i = 0, 1,..., n - 1</span>.</p>
+<p>Let us look at examples, for <span class="math inline">3\times 3</span> cases. Generically, we can write <span class="math display">
+\boldsymbol{L} =
+\begin{pmatrix}
+1 &amp; 0 &amp; 0 \\
+L_{10} &amp; 1 &amp; 0 \\
+L_{20} &amp; L_{21} &amp; 1
+\end{pmatrix},
+\quad
+\boldsymbol{U} =
+\begin{pmatrix}
+U_{00} &amp; U_{01} &amp; U_{02} \\
+0 &amp; U_{11} &amp; U_{12} \\
+0 &amp; 0 &amp; U_{22}
+\end{pmatrix}.
+</span></p>
+<p>This gives the undecomposed matrix <span class="math inline">\boldsymbol{A}= \boldsymbol{L} \boldsymbol{U}</span> <span class="math display">
+\boldsymbol{A} =
+\begin{pmatrix*}[l]
+U_{00} &amp; U_{01} &amp; U_{02} \\
+U_{00}L_{10} &amp; U_{01}L_{10} + U_{11} &amp; U_{02}L_{10} + U_{12} \\
+U_{00} L_{20} &amp; U_{01}L_{20} + U_{11} L_{21} &amp; U_{02}L_{20} + U_{12}L_{21} + U_{22}
+\end{pmatrix*}.
+</span></p>
+<p>We shall now perform Gaussian elimination on the matrix <span class="math inline">\boldsymbol{A}</span> only, without <span class="math inline">\boldsymbol{b}</span>.</p>
+<p>We start with pivot row <span class="math inline">j = 0</span>. Then we take <span class="math inline">i = 1</span>. We update the row 1 by <span class="math display">
+\mathrm{New \ row \ 1} = \mathrm{row\ } 1 - L_{10} \times \mathrm{row\ } 0.
+</span></p>
+<p>This gives <span class="math display">
+\boldsymbol{A}
+=
+\begin{pmatrix*}[l]
+U_{00} &amp; U_{01} &amp; U_{02} \\
+0 &amp; U_{11} &amp; U_{12} \\
+U_{00} L_{20} &amp; U_{01}L_{20} + U_{11} L_{21} &amp; U_{02}L_{20} + U_{12}L_{21} + U_{22}
+\end{pmatrix*}.
+</span></p>
+<p>Now we take <span class="math inline">i = 2</span>, and update row 2. We get <span class="math display">
+\boldsymbol{A}
+=
+\begin{pmatrix*}[l]
+U_{00} &amp; U_{01} &amp; U_{02} \\
+0 &amp; U_{11} &amp; U_{12} \\
+0 &amp;  U_{11} L_{21} &amp; U_{12}L_{21} + U_{22}
+\end{pmatrix*}.
+</span></p>
+<p>Now we take pivot row <span class="math inline">j = 1</span>, then taken <span class="math inline">i = 2</span>. We need to update row 2 again, which gives <span class="math display">
+\boldsymbol{A}
+=
+\begin{pmatrix*}[l]
+U_{00} &amp; U_{01} &amp; U_{02} \\
+0 &amp; U_{11} &amp; U_{12} \\
+0 &amp;  0 &amp;  U_{22}
+\end{pmatrix*}.
+</span></p>
+<p>This is a very interesting result. <strong>After Gaussian elimination, <span class="math inline">\boldsymbol{A}</span> simply becomes <span class="math inline">\boldsymbol{U}</span>. Moreover, <span class="math inline">\boldsymbol{L}</span> simply stores the coefficients for the Gaussian elimination procedure.</strong> Thus, LU decomposition is equivalent to Gaussian elimination.</p>
+<p>One comment is that actually one can store <span class="math inline">\boldsymbol{L}</span> and <span class="math inline">\boldsymbol{U}</span> in a single matrix to save memory.</p>
+</section>
+<section id="solving-a-system-using-lu-decomposition" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="solving-a-system-using-lu-decomposition"><span class="header-section-number">3.2</span> Solving a System Using LU Decomposition</h2>
+<p>It is now time to see how the above decomposition can help in solving the standard problem we’ve been addressing, namely the solution of: <span class="math display">
+\boldsymbol{A}\boldsymbol{x} = \boldsymbol{b}.
+</span> Let’s say we have carried out the LU decomposition <span class="math inline">\boldsymbol{A} = \boldsymbol{L}\boldsymbol{U}</span>. So our problem becomes <span class="math display">
+\boldsymbol{L}\boldsymbol{U}\boldsymbol{x} =\boldsymbol{b}.
+</span> We can rewrite the above problem as <span class="math display">
+\begin{gather*}
+\boldsymbol{L}\boldsymbol{y} = \boldsymbol{b} \\
+\boldsymbol{U}\boldsymbol{x} = \boldsymbol{y}.
+\end{gather*}
+</span></p>
+<p>We thus can solve the first equation to obtain <span class="math inline">\boldsymbol{y}</span> by forward substitution. The result can be used to solve <span class="math inline">\boldsymbol{x}</span> by backward substitution.</p>
+</section>
+<section id="implementation-2" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="implementation-2"><span class="header-section-number">3.3</span> Implementation</h2>
+<p>The LU decomposition is implemented in the following code. We define a function <code>ludec()</code>, which is identical to our earlier <code>gauelim()</code>, except:</p>
+<ul>
+<li>We don’t have to worry about the constant vector <span class="math inline">\boldsymbol{b}</span>, since at this stage all we’re doing is LU-decomposing a given matrix <span class="math inline">\boldsymbol{A}</span>.</li>
+<li>We are calling the array variable that keeps getting updated <span class="math inline">\boldsymbol{U}</span>, instead of <span class="math inline">\boldsymbol{A}</span>.</li>
+<li>We store all the coefficients we calculated in <span class="math inline">\boldsymbol{L}</span> (while placing 1s in its diagonal — this could have been done at the end, instead of starting from an identity matrix).</li>
+</ul>
+<p>We then create a function that solves <span class="math inline">\boldsymbol{A}\boldsymbol{x} = \boldsymbol{b}</span>, by first forward substituting and then backward substituting. Pay attention to the modularity of the code: : the main body of <code>lusolve()</code> consists of three calls to other functions.</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> forsub(L,bs):</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> bs.size</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.zeros(n)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        xs[i] <span class="op">=</span> (bs[i] <span class="op">-</span> L[i,:i]<span class="op">@</span>xs[:i])<span class="op">/</span>L[i,i]</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xs</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> backsub(U,bs):</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> bs.size</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.zeros(n)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">reversed</span>(<span class="bu">range</span>(n)):</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        xs[i] <span class="op">=</span> (bs[i] <span class="op">-</span> U[i,i<span class="op">+</span><span class="dv">1</span>:]<span class="op">@</span>xs[i<span class="op">+</span><span class="dv">1</span>:])<span class="op">/</span>U[i,i]</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xs</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testcreate(n,val):</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.arange(val,val<span class="op">+</span>n<span class="op">*</span>n).reshape(n,n)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.sqrt(A)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    bs <span class="op">=</span> (A[<span class="dv">0</span>,:])<span class="op">**</span><span class="fl">2.1</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> A, bs</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testsolve(f,A,bs):</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> f(A,bs)</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(xs)</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.linalg.solve(A,bs)</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(xs)</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ludec(A):</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> A.shape[<span class="dv">0</span>]</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    U <span class="op">=</span> np.copy(A)</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    L <span class="op">=</span> np.identity(n)</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n<span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(j<span class="op">+</span><span class="dv">1</span>,n):</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>            coeff <span class="op">=</span> U[i,j]<span class="op">/</span>U[j,j]</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>            U[i,j:] <span class="op">-=</span> coeff<span class="op">*</span>U[j,j:]</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>            L[i,j] <span class="op">=</span> coeff</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> L, U</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> lusolve(A,bs):</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>    L, U <span class="op">=</span> ludec(A)</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>    ys <span class="op">=</span> forsub(L,bs)</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> backsub(U,ys)</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xs</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>    A, bs <span class="op">=</span> testcreate(<span class="dv">4</span>,<span class="dv">21</span>)</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>    testsolve(lusolve,A,bs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[ 17118.9554009  -55069.99934969  58822.07580723 -20866.39246612]
+[ 17118.95545069 -55069.99950736  58822.07597336 -20866.39252436]</code></pre>
+</div>
+</div>
+</section>
+<section id="operation-count-1" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="operation-count-1"><span class="header-section-number">3.4</span> Operation Count</h2>
+<p>The dominant term should be the same as the one for Gaussian elimination. So it is <span class="math inline">\sim 2n^3/3</span>.</p>
+</section>
+<section id="matrix-inverse" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="matrix-inverse"><span class="header-section-number">3.5</span> Matrix Inverse</h2>
+<p>One can use LU decomposition for calculating matrix inverse. Using <span class="math display">
+\boldsymbol{A}\boldsymbol{A}^{-1} = \boldsymbol{I}
+</span> where <span class="math inline">\boldsymbol{I}</span> is the identity matrix. We calculate <span class="math inline">\boldsymbol{A}^{-1}</span> column by column. Namely, we solve <span class="math display">
+\boldsymbol{A}\boldsymbol{x}_i = \boldsymbol{e}_i,
+</span> where <span class="math inline">\boldsymbol{A}^{-1} = (\boldsymbol{x}_0,\boldsymbol{x}_1, \dots,\boldsymbol{x}_{n-1})</span>, and <span class="math inline">\boldsymbol{I} = (\boldsymbol{e}_0,\boldsymbol{e}_1, \dots,\boldsymbol{e}_{n-1})</span>.</p>
+<p>We first perform the LU decomposition for <span class="math inline">\boldsymbol{A}</span>, which has a cost of <span class="math inline">O(n^3)</span>. We then perform one forward substitution and one backwoard substitution to solve <span class="math inline">\boldsymbol{x}_i</span>. Both have the cost <span class="math inline">O(n^2)</span>, so that add up to give the total cost <span class="math inline">O(n^2)</span>.</p>
+<p>Since we have to perform these substitutions for <span class="math inline">n</span> equations, say <span class="math inline">i = 0,1,\dots, n-1</span>, the total substitutions will have a cost <span class="math inline">O(n^2)\times n= O(n^3)</span>, which has the same order in <span class="math inline">n</span> as the LU decomposition does. Hence, the overall cost for computing inverse is <span class="math inline">O(n^3)</span>.</p>
+<p>As a remark, if you perform Gaussian elimination to solve each equations, we have that each equation requires <span class="math inline">O(n^3)</span> cost. As we have <span class="math inline">n</span> equations, the total cost will be <span class="math inline">O(n^4)</span>.</p>
+</section>
+<section id="determinant" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="determinant"><span class="header-section-number">3.6</span> Determinant</h2>
+<p>We can compute the determinant via LU decomposition. <span class="math display">
+\det(\boldsymbol{A}) = \det(\boldsymbol{L})\times\det(\boldsymbol{U})  = \det(\boldsymbol{U}) = \prod_{j = 0}^{n-1}U_{jj},
+</span> where we have used the fact that for triangular matrix, the determinant is simply the product of all diagonal elements.</p>
+</section>
+</section>
+<section id="pivoting" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Pivoting</h1>
+<p>In this section, we find out that things often get sticky.</p>
+<section id="instability-without-ill-conditioning" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="instability-without-ill-conditioning"><span class="header-section-number">4.1</span> Instability without Ill-Conditioning</h2>
+<p>We spent quite a bit of time in an earlier section doing an a priori analysis of linear-algebra problems. For example, we saw that we can quantify the ill-conditioning of the problem <span class="math inline">\boldsymbol{A}\boldsymbol{x} = \boldsymbol{b}</span> using a reasonably straightforward prescription. Ill-conditioning is a property that refers to the problem we are solving.</p>
+<p>However, as we now address, there are situations where one tries to solve a perfectly well-conditioned problem but the method of choice fails to give a satisfactory answer. Obviously, the fault in this case lies with the method, not with the problem.</p>
+<p>First, we look at the following (very simple) 2 × 2 problem: <span class="math display">
+\left(
+\begin{matrix}
+0 &amp; -1 \\
+1 &amp; 1
+\end{matrix}\ \right|
+\left.
+\begin{matrix}
+1 \\ 2
+\end{matrix}
+\right).
+</span></p>
+<p>This is a well-conditioned problem, and we have <span class="math inline">\boldsymbol{x} = (3,-1)^T</span>. However, if you use Gaussian elimination, by choosing the pivot row <span class="math inline">j = 0</span>, and <span class="math inline">i = 1</span>, then you find the coefficient <span class="math inline">A_{ij}/A_{jj}</span> has a zero denominator <span class="math inline">A_{00} = 0</span>.</p>
+<p>Second example: <span class="math display">
+\left(
+\begin{matrix}
+2 &amp; 1 &amp; 1 \\
+2 &amp; 1 &amp; -4 \\
+1 &amp; 2 &amp; 1
+\end{matrix}\ \right|
+\left.
+\begin{matrix}
+8 \\ -2 \\ 2
+\end{matrix}
+\right),
+</span> which is also well conditioned. You first choose the pivot row <span class="math inline">j = 0</span>, and take <span class="math inline">i = 1</span> and then <span class="math inline">i = 2</span>, you will obtain <span class="math display">
+\left(
+\begin{matrix}
+2 &amp; 1 &amp; 1 \\
+0 &amp; 0 &amp; -5 \\
+0 &amp; 1.5 &amp; 0.5
+\end{matrix}\ \right|
+\left.
+\begin{matrix}
+8 \\ -10 \\ -2
+\end{matrix}
+\right).
+</span> Then, if you choose the pivot row <span class="math inline">j=1</span>, you will fact the same zero-denominator issue as in the previous problem.</p>
+<p>Sometimes, even though you don’t have a zero denominator in calculating the coefficient, you can also encounter a very small denominator, which can give rise to a very large round off error.</p>
+</section>
+<section id="partial-pivoting" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="partial-pivoting"><span class="header-section-number">4.2</span> Partial Pivoting</h2>
+<p>We shall introduce a straightforward technique to handle such problems. Consider the first problem above, we can solve the fully equivalent problem <span class="math display">
+\left(
+\begin{matrix}
+1 &amp; 1 \\
+0 &amp; -1
+\end{matrix}\ \right|
+\left.
+\begin{matrix}
+2 \\ 1
+\end{matrix}
+\right).
+</span> without any issues.</p>
+<p>Note that the problem is due to in the previous case we take a small (zero) pivot element. If you swap the rwos, you can get a larger pivot element.</p>
+<p>Hence, the general recipe should be:</p>
+<ul>
+<li><p>Instead of blindly using <span class="math inline">A_{jj}</span> as the pivot element (since it might have a very small magnitude), we look at all the elements in the same column as <span class="math inline">A_{jj}</span> in the rows below it for the largest possible matrix-element magnitude.</p></li>
+<li><p>This would be located, say, in row <span class="math inline">k</span>. Then, simply interchange rows <span class="math inline">j</span> and <span class="math inline">k</span>.</p></li>
+<li><p>Now you have a larger-magnitude pivot element and the coefficient used in the elimination.</p></li>
+<li><p>Symbolically, we search for the smallest-integer <span class="math inline">k</span> that satisfies <span class="math display">
+  |A_{kj}| = \max_{j\leq m \leq n-1} |A_{mj}|,
+  </span> followed by the interchange or rows <span class="math inline">j</span> and <span class="math inline">k</span>.</p></li>
+</ul>
+</section>
+<section id="implementation-3" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="implementation-3"><span class="header-section-number">4.3</span> Implementation</h2>
+<p>We employ <code>np.argmax()</code> to find the index of the element with the maximum value. This search for <span class="math inline">k</span> starts at row <span class="math inline">j</span> and goes up to the bottom row, namely row <span class="math inline">n-1</span>.</p>
+<p>We’ve employed NumPy’s slicing to write this compactly: <code>A[j:,j]</code> contains all the elements in column <span class="math inline">j</span> from row <span class="math inline">j</span> until row <span class="math inline">n-1</span>.</p>
+<p>Note however that, as a result of this slicing, <code>np.argmax()</code> will return an index that is “shifted down”: its output will be 0 if the largest element is <span class="math inline">A_{jj}</span>, 1 if the largest element is <span class="math inline">A_{j+1, j}</span>, and so on. This is why when evaluating <code>k</code> we offset <code>np.argmax()</code>’s output by adding in <code>j</code>: now k’s possible values start at <code>j</code> and end at <code>n-1</code>.</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> backsub(U,bs):</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> bs.size</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.zeros(n)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">reversed</span>(<span class="bu">range</span>(n)):</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        xs[i] <span class="op">=</span> (bs[i] <span class="op">-</span> U[i,i<span class="op">+</span><span class="dv">1</span>:]<span class="op">@</span>xs[i<span class="op">+</span><span class="dv">1</span>:])<span class="op">/</span>U[i,i]</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xs</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testcreate(n,val):</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.arange(val,val<span class="op">+</span>n<span class="op">*</span>n).reshape(n,n)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.sqrt(A)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    bs <span class="op">=</span> (A[<span class="dv">0</span>,:])<span class="op">**</span><span class="fl">2.1</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> A, bs</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testsolve(f,A,bs):</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> f(A,bs)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(xs)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.linalg.solve(A,bs)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(xs)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gauelim_pivot(inA,inbs):</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.copy(inA)</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    bs <span class="op">=</span> np.copy(inbs)</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> bs.size</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n<span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>        k <span class="op">=</span> np.argmax(np.<span class="bu">abs</span>(A[j:,j])) <span class="op">+</span> j</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> k <span class="op">!=</span> j:</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>            A[j,:], A[k,:] <span class="op">=</span> A[k,:], A[j,:].copy()</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>            bs[j], bs[k] <span class="op">=</span> bs[k], bs[j]</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(j<span class="op">+</span><span class="dv">1</span>,n):</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>            coeff <span class="op">=</span> A[i,j]<span class="op">/</span>A[j,j]</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>            A[i,j:] <span class="op">-=</span> coeff<span class="op">*</span>A[j,j:]</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>            bs[i] <span class="op">-=</span> coeff<span class="op">*</span>bs[j]</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> backsub(A,bs)</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xs</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>    A, bs <span class="op">=</span> testcreate(<span class="dv">4</span>,<span class="dv">21</span>)</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>    testsolve(gauelim_pivot,A,bs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[ 17118.95546075 -55069.99953919  58822.07600687 -20866.3925361 ]
+[ 17118.95545069 -55069.99950736  58822.07597336 -20866.39252436]</code></pre>
+</div>
+</div>
+<p>After we’ve determined <span class="math inline">k</span>, we check to see if it is different from <span class="math inline">j</span>: we don’t want to interchange a row with itself (since that doesn’t accomplish anything). If <span class="math inline">k</span> is different from <span class="math inline">j</span>, then we interchange the corresponding rows of <span class="math inline">\boldsymbol{A}</span> and <span class="math inline">\boldsymbol{b}</span>. We do this using the standard swap idiom in Python, which employs multiple assignment (and does not require a temporary throwaway variable). The swapping of bs elements should be totally transparent to you. The swapping of the <span class="math inline">\boldsymbol{A}</span> rows is a little more complicated: as you may recall, NumPy slicing rules imply that array slices are views on the original array. As a result, if you don’t say <code>A[j,:].copy()</code> you will overwrite your elements instead of swapping rows.</p>
+<p>Note that partial pivoting helps reduce roundoff error issues, even when these are not very dramatic (as here).</p>
+<p>Also, not that there are cases (very rare!) where paritial pivoting can also fail. We won’t talk about these methods here.</p>
+</section>
+</section>
+<section id="jacobi-iterative-method" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Jacobi Iterative Method</h1>
+<p>We now briefly talk about iterative methods, also known as <em>relaxation methods</em>. As you may recall, <em>direct</em> methods (such as Gaussian elimination) construct a solution by carrying out a fixed number of operations: first you take a pivot row, then you eliminate the leading elements in the rows below it, etc. In contradistinction to this, <em>iterative</em> methods start with a guess for the solution <span class="math inline">\boldsymbol{x}</span> and then refine it until it stops changing; the number of iterations required is typically not known in advance. The number of iterations can depend on the structure of the matrix, which method is employed, which initial solution vector we guess, and which convergence criterion we use.</p>
+<p>Here we only discuss and implement the simplest possible iterative approach, namely Jacobi’s method.</p>
+<section id="algorithm" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="algorithm"><span class="header-section-number">5.1</span> Algorithm</h2>
+<p>We want to solve <span class="math display">
+\sum_{j = 0}^{n-1} A_{ij}x_j = b_i
+</span> where <span class="math inline">i = 0, 1, 2, \dots, n-1</span>. The Jacobi method is motivated by taking this equation and solving for <span class="math inline">x_i</span>: <span class="math display">
+x_i = \left(b_i - \sum_{j=0}^{i-1} A_{ij}x_j - \sum_{j = i+1}^{n-1} A_{ij}x_j \right)\frac{1}{A_{ii}}.
+</span></p>
+<p>However, the problem here is that the right hand side involves <span class="math inline">x_i</span>s, which are actually unknown. Thus, we shall solve this problem using the following approach.</p>
+<p>We choose an initial guess of the solution <span class="math inline">\boldsymbol{x}^{(0)}</span>. Then we solve for <span class="math inline">\boldsymbol{x}^{(1)}</span> (after first iteration):</p>
+<p><span class="math display">
+x_i^{(1)} = \left(b_i - \sum_{j=0}^{i-1} A_{ij}x^{(0)}_j - \sum_{j=i+1}^{n-1} A_{ij}x^{(0)}_j \right)\frac{1}{A_{ii}}.
+</span></p>
+<p>We keeps on going by running this iteratively, via <span class="math display">
+x_i^{(k)} = \left(b_i - \sum_{j=0}^{i-1} A_{ij}x^{(k-1)}_j - \sum_{j=i+1}^{n-1} A_{ij}x^{(k-1)}_j \right)\frac{1}{A_{ii}},
+</span> until we meet the <em>convergence criterion</em>: <span class="math display">
+\sum_{i = 0}^{n-1} \left|\frac{x_i^{(k)} - x_i^{(k-1)}}{x_i^{(k)}} \right| \leq \epsilon.
+</span></p>
+<p>Jacobi’s mehtod may not be guarrenteed to converge. A sufficient condition for convergence is that we are dealing with diagonally dominant matrices, regardless of initial guesses.</p>
+</section>
+<section id="implementation-4" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="implementation-4"><span class="header-section-number">5.2</span> Implementation</h2>
+<p>We first define a short function <code>termcrit()</code> to encapsulate our termination criterion. We use <code>numpy</code> functionality to conveniently form and sum the ratios <span class="math inline">[x_i^{(k)} - x_i^{(k-1)}]/x_i^{(k)}</span>, this is via <code>np.sum()</code>.</p>
+<p>We then turn to the function <code>jacobi()</code>, which contains two loops, one to keep track of which Jacobi iteration we’re currently at and one to go over the <span class="math inline">x_i</span> in turn. Observe how convenient numpy’s functionality is: we are carrying out the sums for <span class="math inline">j</span> indices that are larger than or smaller than <span class="math inline">i</span>, without having to employ a third loop (or even a third index: <span class="math inline">j</span> is not needed in the code); we don’t even have to employ <code>np.sum()</code>, since <code>@</code> takes care of everything for us.</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testcreate(n,val):</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.arange(val,val<span class="op">+</span>n<span class="op">*</span>n).reshape(n,n)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.sqrt(A)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    bs <span class="op">=</span> (A[<span class="dv">0</span>,:])<span class="op">**</span><span class="fl">2.1</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> A, bs</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testsolve(f,A,bs):</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> f(A,bs)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(xs)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.linalg.solve(A,bs)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(xs)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> termcrit(xolds,xnews):</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    errs <span class="op">=</span> np.<span class="bu">abs</span>((xnews <span class="op">-</span> xolds)<span class="op">/</span>xnews)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(errs)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> jacobi(A,bs,kmax<span class="op">=</span><span class="dv">50</span>,tol<span class="op">=</span><span class="fl">1.e-6</span>):</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> bs.size</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    xnews <span class="op">=</span> np.zeros(n)</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,kmax):</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>        xs <span class="op">=</span> np.copy(xnews)</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>            slt <span class="op">=</span> A[i,:i]<span class="op">@</span>xs[:i]</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>            sgt <span class="op">=</span> A[i,i<span class="op">+</span><span class="dv">1</span>:]<span class="op">@</span>xs[i<span class="op">+</span><span class="dv">1</span>:]</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>            xnews[i] <span class="op">=</span> (bs[i] <span class="op">-</span> slt <span class="op">-</span> sgt)<span class="op">/</span>A[i,i]</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>        err <span class="op">=</span> termcrit(xs,xnews)</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(k, xnews, err)</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> err <span class="op">&lt;</span> tol:</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>        xnews <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xnews</span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="dv">4</span><span class="op">;</span> val <span class="op">=</span> <span class="dv">21</span></span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>    A, bs <span class="op">=</span> testcreate(n,val)</span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>    A <span class="op">+=</span> val<span class="op">*</span>np.identity(n)</span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>    testsolve(jacobi,A,bs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1 [0.95584174 0.98382901 1.01264965 1.04197678] 4.0
+2 [0.38609117 0.38784058 0.39421864 0.40425572] 6.158643474272702
+3 [0.73341768 0.74941422 0.76835846 0.78969405] 1.9310672038734116
+4 [0.52317706 0.53023862 0.54134654 0.55573114] 1.6555533665830167
+5 [0.65072149 0.6631481  0.67896251 0.6975372 ] 0.8024076458188099
+6 [0.57339977 0.58256412 0.59551555 0.61154376] 0.5539167512173229
+7 [0.6202852  0.63142596 0.64611142 0.66368227] 0.30983792417040845
+8 [0.59185737 0.60179949 0.61543315 0.63206832] 0.19712628238915642
+9 [0.60909428 0.61976313 0.63403445 0.65123688] 0.11605599760545227
+10 [0.59864294 0.60887114 0.62275581 0.63961427] 0.07162932168524415
+11 [0.60497996 0.61547534 0.62959445 0.64666147] 0.04296480237007709
+12 [0.6011376  0.61147098 0.62544794 0.6423885 ] 0.026221914973545257
+13 [0.60346736 0.61389897 0.62796212 0.64497935] 0.015836323357587702
+14 [0.60205475 0.61242679 0.62643768 0.64340843] 0.009625240606544867
+15 [0.60291127 0.61331942 0.627362   0.64436094] 0.005827622959638275
+16 [0.60239193 0.61277819 0.62680155 0.6437834 ] 0.0035366211778694286
+17 [0.60270682 0.61310636 0.62714137 0.64413358] 0.002143230680561838
+18 [0.60251589 0.61290738 0.62693533 0.64392125] 0.0012999398547222725
+19 [0.60263166 0.61302803 0.62706026 0.64404999] 0.0007880447138564145
+20 [0.60256146 0.61295487 0.62698451 0.64397193] 0.00047787679848529385
+21 [0.60260403 0.61299923 0.62703044 0.64401926] 0.0002897328047164427
+22 [0.60257822 0.61297234 0.62700259 0.64399056] 0.00017568308149790347
+23 [0.60259387 0.61298864 0.62701948 0.64400797] 0.00010652009946952199
+24 [0.60258438 0.61297875 0.62700924 0.64399742] 6.458798988974602e-05
+25 [0.60259013 0.61298475 0.62701545 0.64400381] 3.916162521264781e-05
+26 [0.60258664 0.61298111 0.62701168 0.64399993] 2.3745235251712988e-05
+27 [0.60258876 0.61298332 0.62701397 0.64400229] 1.4397533714587382e-05
+28 [0.60258748 0.61298198 0.62701258 0.64400086] 8.729758777493622e-06
+29 [0.60258825 0.61298279 0.62701342 0.64400172] 5.2931580222949495e-06
+30 [0.60258778 0.6129823  0.62701291 0.6440012 ] 3.2094336318618936e-06
+31 [0.60258807 0.6129826  0.62701322 0.64400152] 1.9459934721551643e-06
+32 [0.60258789 0.61298242 0.62701303 0.64400132] 1.1799258029178294e-06
+33 [0.602588   0.61298253 0.62701315 0.64400144] 7.154310950193359e-07
+[0.602588   0.61298253 0.62701315 0.64400144]
+[0.60258796 0.61298249 0.6270131  0.6440014 ]</code></pre>
+</div>
+</div>
+<p>Our program employs the <code>for-else</code> idiom: you may recall, the <code>else</code> is only executed if the main body of the <code>for</code> runs out of iterations without ever executing a <code>break</code> (which for us would mean that the error we calculated never became smaller than the pre-set error tolerance).</p>
+<p>Observe that we have been careful to create a new copy of our vector each time through the outside loop, via <code>xs = np.copy(xnews)</code>. This is very important: if you try to use simple assignment (or even slicing) you will get in trouble, since you will only be making <code>xs</code> a synonym for <code>xnews</code>: this would imply that convergence is always (erroneously) reached the first time through the loop.</p>
+<p>In the main program, we first create our test matrix <code>A</code>: in this case, we also modify it after the fact, to ensure “by hand” that it is diagonally dominant. Had we not, Jacobi’s method would fail and return <code>None</code>. Observe that our definition of <code>jacobi()</code> uses default parameter values; this allows us to employ <code>testsolve()</code>, which assumes our system-solver only takes in two arguments, just like before. Running this code, we find that we converge in roughly three dozen iterations. Of course, how fast we will converge will also depend on our initial guess for the solution vector (though we always take <span class="math inline">\boldsymbol{x}^{(0)} = 0</span> for simplicity).</p>
+</section>
+</section>
+<section id="homework" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Homework</h1>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
