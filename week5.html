@@ -217,7 +217,7 @@ y'
 </section>
 <section id="electrostatic-potentials" class="level3">
 <h3 class="anchored" data-anchor-id="electrostatic-potentials">Electrostatic potentials</h3>
-<p>Assume you have <span class="math inline">n</span> electric charges <span class="math inline">q_j</span> (which are unknown) held at the positions <span class="math inline">\boldsymbol{R}_j</span> (which are known). Further assume that you have measured the electric potential <span class="math inline">\phi(r_i)</span> at the <span class="math inline">n</span> known positions <span class="math inline">\boldsymbol{r}_i</span>. From the definition of the potential (as well as the fact that the potential obeys the principle of superposition), we see that: <span class="math display">
+<p>Assume you have <span class="math inline">n</span> electric charges <span class="math inline">q_j</span> (which are unknown) held at the positions <span class="math inline">\boldsymbol{R}_j</span> (which are known). Further assume that you have measured the electric potential <span class="math inline">\phi(\boldsymbol{r}_i)</span> at the <span class="math inline">n</span> known positions <span class="math inline">\boldsymbol{r}_i</span>. From the definition of the potential (as well as the fact that the potential obeys the principle of superposition), we see that: <span class="math display">
 \phi(\boldsymbol{r}_i) = \sum_{j=0}^{n-1}\left(\frac{k q_j}{|\boldsymbol{r}_i - \boldsymbol{R}_j|}\right),
 </span> where <span class="math inline">i = 0,1,\dots,n-1</span>. If you assume you have four charges, the above relation turns into the following <span class="math inline">4\times 4</span> linear systems of equations: <span class="math display">
 \begin{pmatrix}
@@ -239,7 +239,7 @@ q_0 \\ q_1 \\ q_2 \\ q_3
 <h3 class="anchored" data-anchor-id="principle-moments-of-inertia">Principle moments of inertia</h3>
 <p>In study of the rotation of a rigid body about an arbitrary axis in three dimensions, you may have encountered the moment of inertia tensor: <span class="math display">
 I_{\alpha \beta} = \int \rho(\boldsymbol{r}) \left(\delta_{\alpha \beta}r^2 - \boldsymbol{r}_\alpha \boldsymbol{r}_\beta\right)d^3 r,
-</span> where <span class="math inline">\rho(r)</span> is the mass density, <span class="math inline">\alpha</span> and <span class="math inline">\beta</span> denote Cartesian components, and <span class="math inline">\delta_{\alpha \beta}</span> is the Kronecker delta.</p>
+</span> where <span class="math inline">\rho(\boldsymbol{r})</span> is the mass density, <span class="math inline">\alpha</span> and <span class="math inline">\beta</span> denote Cartesian components, and <span class="math inline">\delta_{\alpha \beta}</span> is the Kronecker delta.</p>
 <p>The moment of inertia tensor is represented by a <span class="math inline">3\times 3</span> matrix: <span class="math display">
 \boldsymbol{I} =
 \begin{pmatrix}
@@ -299,7 +299,7 @@ b_0 \\ b_1 \\ \vdots \\b_{n-1}
 <p>The trivial solution is <span class="math inline">\boldsymbol{v} = 0</span>. In order for a non-trivial solution to exist, we must have vanishing determinant <span class="math inline">|\boldsymbol{A} - \lambda \boldsymbol{I}| = 0</span>. In other words, the matrix <span class="math inline">\boldsymbol{A} - \lambda \boldsymbol{I}</span> is singular. Expanding the determinant gives us a polynomial equation, known as the <em>characteristic equation</em>: <span class="math display">
 (-1)^n\lambda^n + c_{n-1} \lambda^{n-1} + \cdots + c_1 \lambda + c_0 = 0.
 </span></p>
-<p>Thus, an $n n $ matrix has at most <span class="math inline">n</span> distinct eigenvalues, which are the roots of the characteristic polynomial. When a root occurs twice, we say that root has multiplicity <span class="math inline">2</span>. If a root occurs only once, in other words if it has multiplicity 1, we are dealing with a <em>simple</em> eigenvalue.</p>
+<p>Thus, an <span class="math inline">n \times n</span> matrix has at most <span class="math inline">n</span> distinct eigenvalues, which are the roots of the characteristic polynomial. When a root occurs twice, we say that root has multiplicity <span class="math inline">2</span>. If a root occurs only once, in other words if it has multiplicity 1, we are dealing with a <em>simple</em> eigenvalue.</p>
 <p>Having calculated the eigenvalues, one way to evaluate the eigenvectors is simply by using <a href="#eq-eigenvalue">Equation&nbsp;1</a> again.</p>
 <ul>
 <li>Specifically, for a given/known eigenvalue, <span class="math inline">\lambda_i</span>, one tries to solve the system of linear equations <span class="math inline">(\boldsymbol{A}-\lambda_i\boldsymbol{I})\boldsymbol{v}_i = 0</span> for <span class="math inline">\boldsymbol{v}_i</span>.</li>
