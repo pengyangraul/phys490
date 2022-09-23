@@ -582,19 +582,16 @@ Example 4 : det(A) = 0.03000000000000001 , Euclidean norm = 0.31622776601683794<
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>deltaA <span class="op">=</span> np.zeros((<span class="dv">8</span>,<span class="dv">8</span>))</span>
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>deltaA[<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>] <span class="op">=</span> <span class="op">-</span><span class="fl">0.01</span>  <span class="co"># bottom-left elememnt is -0.01</span></span>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Delta b: 0.01</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co">#          0</span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>deltab <span class="op">=</span> np.array([<span class="fl">0.01</span>, <span class="dv">0</span>])</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co"># we use np.linalg.solve(A,b) to solve the equation Ax = b.</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linalg.solve(A,b)</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>x_dx <span class="op">=</span> np.linalg.solve(A<span class="op">+</span>deltaA,b)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co"># we use np.linalg.solve(A,b) to solve the equation Ax = b.</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linalg.solve(A,b)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>x_dx <span class="op">=</span> np.linalg.solve(A<span class="op">+</span>deltaA,b)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_dx)</span>
 <span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_dx)</span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"determinant of A is: "</span>, np.linalg.det(A))</span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"norm of A is: "</span>, np.linalg.norm(A))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"determinant of A is: "</span>, np.linalg.det(A))</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"norm of A is: "</span>, np.linalg.norm(A))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[-21.  -11.   -5.   -3.   -1.   -1.    0.   -0.5]
 [-30.88235294 -15.94117647  -7.47058824  -4.23529412  -1.61764706
