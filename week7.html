@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.189">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Matrices III</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="week7_files/libs/clipboard/clipboard.min.js"></script>
+<script src="week7_files/libs/quarto-html/quarto.js"></script>
+<script src="week7_files/libs/quarto-html/popper.min.js"></script>
+<script src="week7_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="week7_files/libs/quarto-html/anchor.min.js"></script>
+<link href="week7_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="week7_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="week7_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="week7_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="week7_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#power-method" id="toc-power-method" class="nav-link active" data-scroll-target="#power-method"><span class="toc-section-number">1</span>  Power Method</a>
+  <ul class="collapse">
+  <li><a href="#algorithm-first-attempt" id="toc-algorithm-first-attempt" class="nav-link" data-scroll-target="#algorithm-first-attempt"><span class="toc-section-number">1.1</span>  Algorithm: First Attempt</a></li>
+  <li><a href="#algorithm-normalizing" id="toc-algorithm-normalizing" class="nav-link" data-scroll-target="#algorithm-normalizing"><span class="toc-section-number">1.2</span>  Algorithm: Normalizing</a></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation"><span class="toc-section-number">1.3</span>  Implementation</a></li>
+  <li><a href="#operation-count" id="toc-operation-count" class="nav-link" data-scroll-target="#operation-count"><span class="toc-section-number">1.4</span>  Operation Count</a></li>
+  </ul></li>
+  <li><a href="#inverse-power-method-with-shifting" id="toc-inverse-power-method-with-shifting" class="nav-link" data-scroll-target="#inverse-power-method-with-shifting"><span class="toc-section-number">2</span>  Inverse-Power Method with Shifting</a>
+  <ul class="collapse">
+  <li><a href="#algorithm" id="toc-algorithm" class="nav-link" data-scroll-target="#algorithm"><span class="toc-section-number">2.1</span>  Algorithm</a></li>
+  <li><a href="#eigenvalue-shifting" id="toc-eigenvalue-shifting" class="nav-link" data-scroll-target="#eigenvalue-shifting"><span class="toc-section-number">2.2</span>  Eigenvalue Shifting</a></li>
+  <li><a href="#implementation-1" id="toc-implementation-1" class="nav-link" data-scroll-target="#implementation-1"><span class="toc-section-number">2.3</span>  Implementation</a></li>
+  <li><a href="#operation-count-1" id="toc-operation-count-1" class="nav-link" data-scroll-target="#operation-count-1"><span class="toc-section-number">2.4</span>  Operation Count</a></li>
+  </ul></li>
+  <li><a href="#qr-method" id="toc-qr-method" class="nav-link" data-scroll-target="#qr-method"><span class="toc-section-number">3</span>  QR Method</a>
+  <ul class="collapse">
+  <li><a href="#qr-decomposition" id="toc-qr-decomposition" class="nav-link" data-scroll-target="#qr-decomposition"><span class="toc-section-number">3.1</span>  QR decomposition</a>
+  <ul class="collapse">
+  <li><a href="#evaluating-boldsymbolq" id="toc-evaluating-boldsymbolq" class="nav-link" data-scroll-target="#evaluating-boldsymbolq">Evaluating <span class="math inline">\boldsymbol{Q}</span></a></li>
+  <li><a href="#evaluating-boldsymbolr" id="toc-evaluating-boldsymbolr" class="nav-link" data-scroll-target="#evaluating-boldsymbolr">Evaluating <span class="math inline">\boldsymbol{R}</span></a></li>
+  </ul></li>
+  <li><a href="#qr-decomposition-implementation" id="toc-qr-decomposition-implementation" class="nav-link" data-scroll-target="#qr-decomposition-implementation"><span class="toc-section-number">3.2</span>  QR Decomposition: Implementation</a></li>
+  <li><a href="#similarity-transformations" id="toc-similarity-transformations" class="nav-link" data-scroll-target="#similarity-transformations"><span class="toc-section-number">3.3</span>  Similarity transformations</a></li>
+  <li><a href="#simultaneous-iteration-first-attempt" id="toc-simultaneous-iteration-first-attempt" class="nav-link" data-scroll-target="#simultaneous-iteration-first-attempt"><span class="toc-section-number">3.4</span>  Simultaneous Iteration: First Attempt</a></li>
+  <li><a href="#simultaneous-iteration-orthonormalizing" id="toc-simultaneous-iteration-orthonormalizing" class="nav-link" data-scroll-target="#simultaneous-iteration-orthonormalizing"><span class="toc-section-number">3.5</span>  Simultaneous Iteration: Orthonormalizing</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Matrices III</h1>
+<p class="subtitle lead">Eigenvalue Problem</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<p>We turn to the “second half” of linear algebra, namely the matrix eigenvalue problem: <span class="math display">
+\boldsymbol{A}\boldsymbol{v}_i = \lambda_i \boldsymbol{v}_i.
+</span> The main trick we employed in the previous section is no longer applicable: subtracting a multiple of a row from another row (i.e., the elimination procedure) changes the eigenvalues of the matrix, so it’s not an operation we’ll be carrying out in what follows.</p>
+<p>We will be selective and study the special case where our <span class="math inline">n \times n</span> matrix <span class="math inline">\boldsymbol{A}</span> has <span class="math inline">n</span> eigenvalues <span class="math inline">\lambda_i</span> that are all distinct. This simplifies things considerably, since it means that the <span class="math inline">n</span> eigenvectors <span class="math inline">\boldsymbol{v}_i</span> are linearly independent. In this case, it is easy to show (as you will discover when you solve the relevant problem) that the following relation holds: <span class="math display">
+\boldsymbol{V}^{-1}\boldsymbol{A}\boldsymbol{V} = \boldsymbol{\Lambda},
+</span> where <span class="math inline">\boldsymbol{\Lambda}</span> is the diagonal “eigenvalue matrix” made up of the eigenvalues <span class="math inline">\lambda_i</span>: <span id="eq-diagonalization"><span class="math display">
+\boldsymbol{\Lambda} =
+\begin{pmatrix}
+\lambda_0 &amp; 0 &amp; \dots &amp; 0 \\
+0 &amp; \lambda_1 &amp; \dots &amp; 0 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; \dots &amp; \lambda_{n-1}
+\end{pmatrix}
+\tag{1}</span></span> and <span class="math inline">\boldsymbol{V}</span> is the “eigenvector matrix”, whose columns are the right eigenvectors <span class="math inline">\boldsymbol{v}_i</span>: <span class="math display">
+\boldsymbol{V} = (\boldsymbol{v}_0\quad \boldsymbol{v}_1 \quad \dots \quad \boldsymbol{v}_{n-1}).
+</span></p>
+<p><a href="#eq-diagonalization">Equation&nbsp;1</a> shows how we can <em>diagonalize</em> a matrix <span class="math inline">\boldsymbol{A}</span>. As solving the eigenproblem is often called <em>diagonalizing a matrix</em>.</p>
+<p>In the following, we shall not assuming that our matrices are sparse or even symmetric, while many problems in physics lead to symmetric matrices, not all do. On the other hand, the eigenvalue problem for nonsymmetric matrices is messy, since the eigenvalues do not need to be real. In what follows, we will study only nonsymmetric matrices that have real (and <em>distinct</em>) eigenvalues.</p>
+<p>You have learned that <span class="math inline">\det(\boldsymbol{A}−\lambda\boldsymbol{I}) = 0</span> leads to a characteristic equation (namely a polynomial set to 0). However, finding roots of polynomial is very often an ill-conditioned problem, even when the corresponding eigenvalue problem is perfectly well-conditioned.</p>
+<p>Thus, it’s wiser, instead, to transform the matrix into a form where it’s easy to read the eigenvalues off, while ensuring that the eigenvalues of the starting and final matrix are the same.</p>
+<p>The methods we do employ to computationally solve the eigenvalue problem are iterative; this is different from the system-solving in the previous section, where some methods were direct and some were iterative.</p>
+<p>We shall in the following introduce the state-of-the-art QR method, currently the gold standard for the case where one requires all eigenvalues. Before we get to it, though, we will discuss the power and inverse-power methods: these help pedagogically, but will also turn out to be conceptually similar to the full-blown QR approach.</p>
+<section id="power-method" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Power Method</h1>
+<p>As already mentioned, we will start with the simplest possible method, which turns out to be intellectually related to more robust methods. The general problem we are trying to solve is <span class="math inline">\boldsymbol{A}\boldsymbol{v}_i = \lambda_i\boldsymbol{v}_i</span>: <span class="math inline">\lambda_i</span> are the true eigenvalues and <span class="math inline">\boldsymbol{v}_i</span> are the true eigenvectors (all of which are currently unknown). Since we’re making the assumption that all <span class="math inline">n</span> eigenvalues are distinct, we are free to sort them such that: <span class="math display">
+|\lambda_0| &gt; |\lambda_1| &gt; \cdots &gt; |\lambda_{n-1}|.
+</span></p>
+<p>The power method (in its simplest form) will give us access to only one eigenvalue and eigenvector pair. Specifically, it will allow us to evaluate the largest eigenvalue λ0 (also known as the <em>dominant</em> eigenvalue) and the corresponding eigenvector <span class="math inline">\boldsymbol{v}_0</span>.</p>
+<section id="algorithm-first-attempt" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="algorithm-first-attempt"><span class="header-section-number">1.1</span> Algorithm: First Attempt</h2>
+<p>We start from an <em>ad hoc</em> guess and then see how we can improve it, as is standard in iterative approaches. The method tells us to start from a vector <span class="math inline">\boldsymbol{z}^{(0)}</span> and simply multiply it with the matrix A to get the next vector in the sequence: <span class="math display">
+\boldsymbol{z}^{(k)} = \boldsymbol{A} \boldsymbol{z}^{(k-1)}, \quad k = 1,2,\dots.
+</span></p>
+<p>Obviously, we have <span class="math inline">\boldsymbol{z}^{(1)} = \boldsymbol{A}\boldsymbol{z}^{(0)}</span>, <span class="math inline">\boldsymbol{z}^{(2)} = \boldsymbol{A}\boldsymbol{z}^{(1)} = \boldsymbol{A}^2\boldsymbol{z}^{(0)}</span>, and so on. This means <span class="math display">
+\boldsymbol{z}^{(k)} = \boldsymbol{A}^k\boldsymbol{z}^{(0)}.
+</span></p>
+<p>To see why this has to do with calculating eigenvalues, we express our starting vector <span class="math inline">\boldsymbol{z}^{(0)}</span> as a linear combination of the (unknown) eigenvectors: <span class="math display">
+\boldsymbol{z}^{(0)} = \sum_{i=0}^{n-1} c_i \boldsymbol{v}_i
+</span> where the coefficient <span class="math inline">c_i</span> are also unknown.</p>
+<p>Thus, we have at the <span class="math inline">k</span>-th iteration, <span class="math display">
+\boldsymbol{z}^{(k)} = \boldsymbol{A}^k \boldsymbol{z}^{(0)} = \sum_{i = 0}^{n-1} c_i \boldsymbol{A}^k \boldsymbol{v}_i
+= \sum_{i = 0}^{n-1}c_i \lambda_i^k \boldsymbol{v}_i = c_0 \lambda_0^k \boldsymbol{v}_0 + \lambda_0^k \sum_{i=1}^{n-1} c_i \left(\frac{\lambda_i}{\lambda_0}\right)^k \boldsymbol{v}_i.
+</span></p>
+<p>Since <span class="math inline">\lambda_0</span> is the largest eigenvalue in magnitude, we have <span class="math inline">(\lambda_i/\lambda_0)^k \to 0</span> as <span class="math inline">k\to \infty</span> for <span class="math inline">i=1,2,\dots</span>.</p>
+<p>Thus, as long as <span class="math inline">c_0\neq 0</span>, we have <span class="math display">
+\lim_{k\to\infty}\boldsymbol{z}^{(k)} =  \lim_{k\to\infty} c_0 \lambda_0^k \left(\boldsymbol{v}_0 + \sum_{i=1}^{n-1} c_i \left(\frac{\lambda_i}{\lambda_0}\right)^k \boldsymbol{v}_i \right) \propto \boldsymbol{v}_0.
+</span> This means as <span class="math inline">k</span> becomes larger and larger, the vector <span class="math inline">\boldsymbol{z}^{(k)}</span> will be closer and closer in parallel to <span class="math inline">\boldsymbol{v}_0</span>, the eigenvector of <span class="math inline">\boldsymbol{A}</span> corresponding to the eigenvalue with the largest magnitude.</p>
+<p>To evaluate the eigenvalue <span class="math inline">\lambda_0</span>, we introduce the <em>Rayleigh quotienta</em> of a vector <span class="math inline">\boldsymbol{x}</span> as follows: <span class="math display">
+\mu(\boldsymbol{x}) = \frac{\boldsymbol{x}^T \boldsymbol{A} \boldsymbol{x}}{\boldsymbol{x}^T \boldsymbol{x}}.
+</span> If <span class="math inline">\boldsymbol{x}</span> is an eigenvector, then <span class="math inline">\mu(\boldsymbol{x})</span> obviously gives the eigenvalue. If <span class="math inline">\boldsymbol{x}</span> is not an eigenvector, then <span class="math inline">\mu(\boldsymbol{x})</span> is the nearest substitute to an eigenvalue (in the least-square sense, which you will learn in later lectures).</p>
+<p>Now consider <span class="math inline">\boldsymbol{z}^{(k)}</span>, we have that <span class="math display">
+\lim_{k\to \infty}\mu(\boldsymbol{z}^{(k)}) = \lambda_0.
+</span> In other words, for finite <span class="math inline">k</span>, <span class="math inline">\mu(\boldsymbol{z}^{(k)})</span> is our best estimate for <span class="math inline">\lambda_0</span>.</p>
+</section>
+<section id="algorithm-normalizing" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="algorithm-normalizing"><span class="header-section-number">1.2</span> Algorithm: Normalizing</h2>
+<p>We could also discuss how to get the dominant eigenvector, <span class="math inline">\boldsymbol{v}_0</span>, from <span class="math inline">\boldsymbol{z}^{(k)}</span>. However, we observe that we have ignored a problem in our earlier derivation: in the previous expression for <span class="math inline">\boldsymbol{z}^{(k)}</span>, the <span class="math inline">\lambda_0^k</span> will become unbounded (if <span class="math inline">|\lambda_0|&gt;1</span>) or tend to 0 (if <span class="math inline">\lambda_0&lt;1</span>). In order to remedy this, we decide to scale the sequence <span class="math inline">\boldsymbol{z}^{(k)}</span> between steps.</p>
+<p>The simplest way to accomplish such a scaling is to introduce a new sequence <span class="math inline">\boldsymbol{q}^{(k)}</span> which has the convenient property that <span class="math inline">\|\boldsymbol{q}^{(k)} \| = 1</span>. In the following we are employing the Euclidean norm implicitly. To do this, we scale <span class="math inline">\boldsymbol{z}^{(k)}</span> with its norm, <span class="math display">
+\boldsymbol{q}^{(k)} = \frac{\boldsymbol{z}^{(k)}}{\| \boldsymbol{z}^{(k)} \|},
+</span> which gives <span class="math inline">\|\boldsymbol{q}^{(k)} \| =1</span>. In this case, the Reyleigh quotient is <span class="math display">
+\mu(\boldsymbol{q}^{(k)})  = [\boldsymbol{q}^{(k)}]^T \boldsymbol{A} \boldsymbol{q}^{(k)}.
+</span></p>
+<p>Thus, our new normalized power-method algorithm can be summarized as the following sequence of steps <span class="math display">
+\begin{gather*}
+\boldsymbol{z}^{(k)} = \boldsymbol{A}\boldsymbol{q}^{(k-1)} \\
+\boldsymbol{q}^{(k)} = \frac{\boldsymbol{z}^{(k)}}{\|\boldsymbol{z}^{(k)}\|} \\
+\mu(\boldsymbol{q}^{(k)})  = [\boldsymbol{q}^{(k)}]^T \boldsymbol{A} \boldsymbol{q}^{(k)}.
+\end{gather*}
+</span> Thus, <span class="math inline">\boldsymbol{q}^{(k)}</span> will approximately equal the dominant (normalized) eigenvector <span class="math inline">\boldsymbol{v}_0</span>.</p>
+</section>
+<section id="implementation" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="implementation"><span class="header-section-number">1.3</span> Implementation</h2>
+<ul>
+<li>Note that we write a function <code>mag()</code> to compute the magnitude, or the norm, of a vector. Here we used <code>np.sum(xs*xs)</code>. We can equivalently use <code>xs@xs</code>.</li>
+<li>The function <code>power()</code> takes in a matrix and an optional parameter of how many times to iterate.</li>
+<li>We start out with <span class="math inline">\boldsymbol{q}^{(0)}</span>, a unit-norm vector.</li>
+<li>We then multiply <span class="math inline">\boldsymbol{A}</span> with the unit-norm vector, to produce a non-unit-norm vector <span class="math inline">\boldsymbol{z}^{(k)}</span>.</li>
+<li>We proceed to normalize <span class="math inline">\boldsymbol{z}^{(k)}</span> to get <span class="math inline">\boldsymbol{q}^{(k)}</span>.</li>
+</ul>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testcreate(n,val):</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.arange(val,val<span class="op">+</span>n<span class="op">*</span>n).reshape(n,n)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.sqrt(A)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    bs <span class="op">=</span> (A[<span class="dv">0</span>,:])<span class="op">**</span><span class="fl">2.1</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> A, bs</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mag(xs):</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt(np.<span class="bu">sum</span>(xs<span class="op">*</span>xs))  </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> power(A,kmax<span class="op">=</span><span class="dv">6</span>):</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    zs <span class="op">=</span> np.ones(A.shape[<span class="dv">0</span>])</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    qs <span class="op">=</span> zs<span class="op">/</span>mag(zs)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,kmax):</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        zs <span class="op">=</span> A<span class="op">@</span>qs</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        qs <span class="op">=</span> zs<span class="op">/</span>mag(zs)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(k,qs)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    lam <span class="op">=</span> qs<span class="op">@</span>A<span class="op">@</span>qs</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> lam, qs</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testeigone(f,A,indx<span class="op">=</span><span class="dv">0</span>):</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    eigval, eigvec <span class="op">=</span> f(A)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">" "</span>)<span class="op">;</span> <span class="bu">print</span>(eigval)<span class="op">;</span> <span class="bu">print</span>(eigvec)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    npeigvals, npeigvecs <span class="op">=</span> np.linalg.eig(A)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">" "</span>)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(npeigvals[indx])<span class="op">;</span> <span class="bu">print</span>(npeigvecs[:,indx])</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    A, bs <span class="op">=</span> testcreate(<span class="dv">4</span>,<span class="dv">21</span>)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    testeigone(power,A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1 [0.44421209 0.48212489 0.51726163 0.55015599]
+2 [0.4443962  0.4821814  0.5172089  0.55000734]
+3 [0.44439562 0.48218122 0.51720907 0.55000781]
+4 [0.44439562 0.48218122 0.51720906 0.55000781]
+5 [0.44439562 0.48218122 0.51720906 0.55000781]
+ 
+21.316662663452007
+[0.44439562 0.48218122 0.51720906 0.55000781]
+ 
+21.316662663452043
+[0.44439562 0.48218122 0.51720906 0.55000781]</code></pre>
+</div>
+</div>
+<p>Note that in the above code we stopped the iteration after 6 iterations. We could have also introduced a termination criterion, <span class="math display">
+\sum_{j=0}^{n-1} \left| \frac{q_j^{(k)} - q_j^{(k-1)}}{q_j^{(k)}} \right| \leq \epsilon,
+</span> which you will implement in your homework.</p>
+</section>
+<section id="operation-count" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="operation-count"><span class="header-section-number">1.4</span> Operation Count</h2>
+<ul>
+<li>For iterative methods, the total operation count depends on the actual number of iterations required, which we generally cannot predict ahead of time.</li>
+<li>Any operation count we encounter will also have to be multiplied by <span class="math inline">m</span>, where $$ is the number of actual iterations needed.</li>
+<li>The bulk of the work is carried out by <span class="math inline">\boldsymbol{z}^{(k)} = \boldsymbol{A}\boldsymbol{q}^{(k-1)}</span>, which is a matrix-vector multiplication, which costs <span class="math inline">\sim 2n^2</span> operations.</li>
+<li>We also have to evaluate the norm of <span class="math inline">\boldsymbol{z}^{(k)}</span>, which is a vector-vector multiplication and costs <span class="math inline">\sim 2n</span>.</li>
+<li>Finally, we need to calculate the Rayleigh quotient, which consists of a single matrix-vector multiplication <span class="math inline">\sim 2n^2</span> and a vector-vector multiplication <span class="math inline">\sim 2n</span>,</li>
+<li>Adding up the highest power, we have <span class="math inline">\sim 2(m+1)n^2</span> for the total cost.</li>
+</ul>
+</section>
+</section>
+<section id="inverse-power-method-with-shifting" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Inverse-Power Method with Shifting</h1>
+<p>We will now discuss a variation of the power method, which will also allow us to evaluate one eigenvalue and eigenvector pair. This time, it will be for the eigenvalue with the smallest magnitude (in absolute value).</p>
+<section id="algorithm" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="algorithm"><span class="header-section-number">2.1</span> Algorithm</h2>
+<p>We start from definition <span class="math inline">\boldsymbol{A}\boldsymbol{v}_i\boldsymbol{\lambda}_i \boldsymbol{v}_i</span>. Multiplying on the left with <span class="math inline">\boldsymbol{A}^{-1}</span>, we find <span class="math inline">\boldsymbol{v}_i = \lambda_i\boldsymbol{A}^{-1}\boldsymbol{v}_i</span>. Dividing both sides of this equation with <span class="math inline">\lambda_i</span>, we get <span class="math display">
+\boldsymbol{A}^{-1}\boldsymbol{v}_i = \lambda_i^{inv}\boldsymbol{v}_i
+</span> where <span class="math inline">\lambda_i^{inv}</span> is an eigenvalue of the inverse matrix, with <span class="math inline">\lambda_i^{inv} = 1/\lambda_i</span>. Now, we can apply the power method <span class="math display">
+\boldsymbol{z}^{(k)} = \boldsymbol{A}^{-1}\boldsymbol{q}^{(k-1)}.
+</span> Since the power method determines the largest eigenvalue of <span class="math inline">\boldsymbol{A}^{-1}</span>, our method then allow us to evaluate the smallest eigenvalue <span class="math inline">\lambda_{n-1}</span> of <span class="math inline">\boldsymbol{A}</span>. Note that <span class="math inline">\boldsymbol{q}^{(k)}</span> is the estimate of the eigenvector of <span class="math inline">\boldsymbol{A}^{-1}</span>, it is an eigenvector of <span class="math inline">\boldsymbol{A}</span> as well. For the eigenvalue estimate, we can evaluate the Rayleigh quotient.</p>
+<p>In practice, one can avoid the costly evaluation of the matrix inverse. Instead, at each iteration, we solve for <span class="math inline">\boldsymbol{z}^{(k)}</span> <span class="math display">
+\boldsymbol{A}\boldsymbol{z}^{(k)} = \boldsymbol{q}^{(k-1)}.
+</span></p>
+<p>At every step we solve the same system with fixed <span class="math inline">\boldsymbol{A}</span>, but different right-hand sides. We can thus perform (just once) an LU decomposition, <span class="math inline">\boldsymbol{A} = \boldsymbol{L} \boldsymbol{U}</span>. Then in each iteration we simply need to calculate <span class="math inline">\boldsymbol{z}^{(k)}</span> by forward substitution and then backward substitution.</p>
+</section>
+<section id="eigenvalue-shifting" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="eigenvalue-shifting"><span class="header-section-number">2.2</span> Eigenvalue Shifting</h2>
+<p>Before implement the inverse-power method, we want to further refine it. Let’s start with <span class="math inline">\boldsymbol{A}\boldsymbol{v}_i = \lambda_i \boldsymbol{v}_i</span>. We can subtract from both sides <span class="math inline">s\boldsymbol{v}_i</span>, with a scaler <span class="math inline">s</span>. We then obtain <span class="math display">
+(\boldsymbol{A} - s\boldsymbol{I})\boldsymbol{v}_i = (\lambda_i - s) \boldsymbol{v}_i,
+</span> which gives a new eigenvalue problem <span class="math display">
+\boldsymbol{A}^{*}\boldsymbol{v}_i = \lambda_i^* \boldsymbol{v}_i
+</span> with <span class="math inline">\boldsymbol{A}^{*} = \boldsymbol{A} - s\boldsymbol{I}</span> and <span class="math inline">\lambda_i^* = \lambda_i - s</span>. We can apply the inverse-power method for <span class="math inline">\boldsymbol{A}^*</span>, which solves the smallest eigenvalue <span class="math inline">\lambda_i^*</span>. The latter actually corresponds to the eigenvalue <span class="math inline">\lambda_i</span> of the original matrix <span class="math inline">\boldsymbol{A}</span> which is closest to <span class="math inline">s</span>.</p>
+<p>To get the estimate of the eigenvalue <span class="math inline">\lambda_i</span> of <span class="math inline">\boldsymbol{A}</span> (of <span class="math inline">\boldsymbol{A}^*</span> as well), we could directly use <span class="math inline">\mu(\boldsymbol{q}^{(k)}) = [\boldsymbol{q}^{(k)}]^T\boldsymbol{A}\boldsymbol{q}^{(k)}</span>.</p>
+<p>Another application, would be to find out the eigenvector if we already know an estimate the a particular eigenvalue of <span class="math inline">\boldsymbol{A}</span>. We can simply choose the shift from this estimate, and calculate <span class="math inline">\boldsymbol{q}^{(k)}</span>, which will converge to the corresponding eigenvector.</p>
+<p>One last comment: the convergence of the power method is determined by the ratio <span class="math inline">|\lambda_1/\lambda_0|</span>. On the other hand, the unshifted inverse-power method’s convergence is converged by <span class="math inline">|\lambda_{n-1}/\lambda_{n-2}|</span>. If <span class="math inline">|\lambda_{n-1}|</span> is much smaller than <span class="math inline">|\lambda_{n-2}|</span>, then the convergence is fast. Thus, we can choose a shift value <span class="math inline">s</span> very close to <span class="math inline">\lambda_{n-1}</span>, such that <span class="math inline">|\lambda_{n-1}^*|\ll |\lambda_{n-2}^*|</span>, in order to <em>accelarate convergence.</em></p>
+</section>
+<section id="implementation-1" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="implementation-1"><span class="header-section-number">2.3</span> Implementation</h2>
+<p>We implement the inverse-power method in the following code. Comparing our new function to <code>power()</code>, we notice three main differences.</p>
+<ol type="1">
+<li>At the start we shift our original matrix to produce <span class="math inline">\boldsymbol{A}^∗ = \boldsymbol{A} − s\boldsymbol{I}</span>. At the end of the process, we evaluate the Rayleigh quotient for the original matrix <span class="math inline">\boldsymbol{A}</span>, which allows us to evaluate the eigenvalue <span class="math inline">\lambda_i</span> of the original matrix that is closest to the hand-picked shift <span class="math inline">s</span>.</li>
+<li>We implement a self-stopping criterion with the <code>if...break</code>. We have been careful to create a new copy of our vector each time through the loop, via <code>qs = np.copy(qnews)</code>. We also check for sign flips and adjust it accordingly, otherwise the iteration will not converge.</li>
+<li><code>power()</code> employ <code>@</code> in the bulk of the code. Here, we have to solve a linear system of equations: by first LU-decomposing <span class="math inline">\boldsymbol{A^*}</span> (only once, outside the loop.) Then, inside the loop we only use the forward and backward substitutions, which are considerably less costly.</li>
+</ol>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testcreate(n,val):</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.arange(val,val<span class="op">+</span>n<span class="op">*</span>n).reshape(n,n)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.sqrt(A)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    bs <span class="op">=</span> (A[<span class="dv">0</span>,:])<span class="op">**</span><span class="fl">2.1</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> A, bs</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> forsub(L,bs):</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> bs.size</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.zeros(n)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        xs[i] <span class="op">=</span> (bs[i] <span class="op">-</span> L[i,:i]<span class="op">@</span>xs[:i])<span class="op">/</span>L[i,i]</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xs</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> backsub(U,bs):</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> bs.size</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.zeros(n)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">reversed</span>(<span class="bu">range</span>(n)):</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        xs[i] <span class="op">=</span> (bs[i] <span class="op">-</span> U[i,i<span class="op">+</span><span class="dv">1</span>:]<span class="op">@</span>xs[i<span class="op">+</span><span class="dv">1</span>:])<span class="op">/</span>U[i,i]</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xs</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ludec(A):</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> A.shape[<span class="dv">0</span>]</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    U <span class="op">=</span> np.copy(A)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    L <span class="op">=</span> np.identity(n)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n<span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(j<span class="op">+</span><span class="dv">1</span>,n):</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>            coeff <span class="op">=</span> U[i,j]<span class="op">/</span>U[j,j]</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>            U[i,j:] <span class="op">-=</span> coeff<span class="op">*</span>U[j,j:]</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>            L[i,j] <span class="op">=</span> coeff</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> L, U</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> termcrit(xolds,xnews):</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    errs <span class="op">=</span> np.<span class="bu">abs</span>((xnews <span class="op">-</span> xolds)<span class="op">/</span>xnews)</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(errs)</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mag(xs):</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt(np.<span class="bu">sum</span>(xs<span class="op">*</span>xs))  </span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testeigone(f,A,indx<span class="op">=</span><span class="dv">0</span>):</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    eigval, eigvec <span class="op">=</span> f(A)</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">" "</span>)<span class="op">;</span> <span class="bu">print</span>(eigval)<span class="op">;</span> <span class="bu">print</span>(eigvec)</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    npeigvals, npeigvecs <span class="op">=</span> np.linalg.eig(A)</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">" "</span>)</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(npeigvals[indx])<span class="op">;</span> <span class="bu">print</span>(npeigvecs[:,indx])</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="co">#def invpowershift(A,shift=20,kmax=200,tol=1.e-2):</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> invpowershift(A,shift<span class="op">=</span><span class="dv">20</span>,kmax<span class="op">=</span><span class="dv">200</span>,tol<span class="op">=</span><span class="fl">1.e-8</span>):</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> A.shape[<span class="dv">0</span>]</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>    znews <span class="op">=</span> np.ones(n)</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>    qnews <span class="op">=</span> znews<span class="op">/</span>mag(znews)</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>    Astar <span class="op">=</span> A <span class="op">-</span> np.identity(n)<span class="op">*</span>shift</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>    L, U <span class="op">=</span> ludec(Astar)</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,kmax):</span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>        qs <span class="op">=</span> np.copy(qnews)</span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>        ys <span class="op">=</span> forsub(L,qs)</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>        znews <span class="op">=</span> backsub(U,ys)</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>        qnews <span class="op">=</span> znews<span class="op">/</span>mag(znews)</span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> qs<span class="op">@</span>qnews<span class="op">&lt;</span><span class="dv">0</span>:</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>            qnews <span class="op">=</span> <span class="op">-</span>qnews</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>        err <span class="op">=</span> termcrit(qs,qnews)</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(k, qnews, err)</span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> err <span class="op">&lt;</span> tol:</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>            lam <span class="op">=</span> qnews<span class="op">@</span>A<span class="op">@</span>qnews</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>        lam <span class="op">=</span> qnews <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> lam, qnews</span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>    A, bs <span class="op">=</span> testcreate(<span class="dv">4</span>,<span class="dv">21</span>)</span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>    testeigone(invpowershift,A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1 [0.44065813 0.48090955 0.51822387 0.55316403] 0.30563801879330116
+2 [0.44464049 0.48226426 0.51714199 0.54980012] 0.019975893536692543
+3 [0.44437955 0.48217577 0.51721346 0.55002143] 0.0013112849763802009
+4 [0.44439667 0.48218158 0.51720878 0.55000691] 8.603442270303673e-05
+5 [0.44439555 0.4821812  0.51720908 0.55000787] 5.6449639949461415e-06
+6 [0.44439562 0.48218122 0.51720906 0.5500078 ] 3.7038142862653805e-07
+7 [0.44439562 0.48218122 0.51720906 0.55000781] 2.430173570284188e-08
+8 [0.44439562 0.48218122 0.51720906 0.55000781] 1.5945032439464706e-09
+ 
+21.316662663486134
+[0.44439562 0.48218122 0.51720906 0.55000781]
+ 
+21.316662663452043
+[0.44439562 0.48218122 0.51720906 0.55000781]</code></pre>
+</div>
+</div>
+</section>
+<section id="operation-count-1" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="operation-count-1"><span class="header-section-number">2.4</span> Operation Count</h2>
+<ul>
+<li>LU decomposition <span class="math inline">\sim 2n^3/3</span> operations, this is only once</li>
+<li>The following are done for each loop:
+<ul>
+<li>Forward substitution and backward substitution costs both <span class="math inline">\sim n^2</span></li>
+<li>Norm evaluation costs <span class="math inline">\sim 2n</span></li>
+<li>The total cost <span class="math inline">\sim 2mn^2</span>, where <span class="math inline">m</span> is the number of loops</li>
+</ul></li>
+<li>Without the LU decomposition overhead, the cost of the inverse-power method scales similarly to the one for the direct power method.</li>
+</ul>
+</section>
+</section>
+<section id="qr-method" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> QR Method</h1>
+<p>The (direct or inverse) power method that we’ve discussed so far gives us only one eigenvalue at a time (either the largest or the smallest). As we saw, you could combine the latter method with eigenvalue shifting and then try to step through all the eigenvalues of your matrix. In the present section, we will discuss a robust and scalable method used to evaluate all the eigenvalues of a matrix at one go. The name <em>QR method</em> originates from the <em>QR decomposition (or factorization)</em>.</p>
+<p>We will also make a slight detour into similarity transformations and the related approach known as “simultaneous iteration”. We’ll try to keep the terminology straight: we use the QR <em>decomposition</em> in order to express a matrix as the product of two other matrices, while we use the QR <em>method</em> in order to evaluate all eigenvalues of a matrix。</p>
+<section id="qr-decomposition" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="qr-decomposition"><span class="header-section-number">3.1</span> QR decomposition</h2>
+<p>The QR decomposition starts with a matrix <span class="math inline">\boldsymbol{A}</span> and decomposes it into the product of an orthogonal matrix <span class="math inline">\boldsymbol{Q}</span> and an upper-triangular matrix <span class="math inline">\boldsymbol{R}</span>. (This upper triangular matrix is called <span class="math inline">\boldsymbol{R}</span> and not <span class="math inline">\boldsymbol{U}</span> for historical reasons.) Symbolically, we say that any real square matrix can be factorized as <span class="math display">
+\boldsymbol{A} = \boldsymbol{Q}\boldsymbol{R}.
+</span></p>
+<p>Let me remind you that a matrix is called <em>orthogonal</em> if the transpose is equal to the inverse <span class="math inline">\boldsymbol{Q}^{-1} = \boldsymbol{Q}^T</span>, or <span class="math inline">\boldsymbol{Q}\boldsymbol{Q}^T = \boldsymbol{I}</span>. In the following, let us derive the QR decomposition.</p>
+<section id="evaluating-boldsymbolq" class="level3">
+<h3 class="anchored" data-anchor-id="evaluating-boldsymbolq">Evaluating <span class="math inline">\boldsymbol{Q}</span></h3>
+<p>We start by constructing the orthogonal matrix <span class="math inline">\boldsymbol{Q}</span>. We will employ an old method which you may have encountered in a course on linear algebra: <em>Gram-Schmidt orthogonaliztion</em>. Let us write our starting matrix <span class="math inline">\boldsymbol{A}</span> in terms of its columns <span class="math inline">\boldsymbol{a}_j</span>: <span class="math display">
+\boldsymbol{A} = \left(\boldsymbol{a}_0 \quad \boldsymbol{a}_1 \quad \dots \quad \boldsymbol{a}_{n-1} \right).
+</span></p>
+<p>Our task now is to start from assuming that the column vectors <span class="math inline">\boldsymbol{a}_j</span> are linearly independent and try to produce an orthonormal set of column vectors <span class="math inline">\boldsymbol{q}_j</span>. When we’ve accomplished that task, we will have already produced our orthogonal matrix <span class="math inline">\boldsymbol{Q}</span>: <span class="math display">
+\boldsymbol{Q} = \left(\boldsymbol{q}_0 \quad \boldsymbol{q}_1 \quad \dots \quad \boldsymbol{q}_{n-1} \right).
+</span> since <span class="math inline">\boldsymbol{Q}</span> will be made up of the orthonormal column vectors <span class="math inline">\boldsymbol{q}_j</span> we just constructed.</p>
+<p>We will build these orthonormal <span class="math inline">\boldsymbol{q}_j</span> column vectors one at a time.</p>
+<ul>
+<li>The first vector <span class="math inline">\boldsymbol{q}_0</span> is very easy to produce: <span class="math inline">\boldsymbol{q}_0 = \boldsymbol{a}_0 / \| \boldsymbol{a}_0 \|</span>.</li>
+<li>To construct <span class="math inline">\boldsymbol{q}_1</span>, which should be orthogonal to <span class="math inline">\boldsymbol{q}_0</span> (or <span class="math inline">\boldsymbol{a}_0</span>), we take the Gram-Schmidt prescription: take the second vector <span class="math inline">\boldsymbol{a}_1</span> and subtract out its component in the direction of <span class="math inline">\boldsymbol{q}_0</span>: <span class="math display">.
+\boldsymbol{a}_1' = \boldsymbol{a}_1 - (\boldsymbol{q}_0^T\boldsymbol{a}_1)\boldsymbol{q}_0.
+</span> This is the part of <span class="math inline">\boldsymbol{a}_1</span> that does not point in the direction of <span class="math inline">\boldsymbol{q}_0</span>. Then we simply perform the normalization: <span class="math inline">\boldsymbol{q}_1 = \boldsymbol{a}_1'/\|\boldsymbol{a}_1' \|</span>.</li>
+<li>Following this procedure, we construct the next vector <span class="math inline">\boldsymbol{q}_2</span>, by first constructing <span class="math display">
+\boldsymbol{a}_2' = \boldsymbol{a}_2 - (\boldsymbol{q}_0^T \boldsymbol{a}_2)\boldsymbol{q}_0 - (\boldsymbol{q}_1^T\boldsymbol{a}_2)\boldsymbol{q}_1,
+</span> and then normalizing <span class="math inline">\boldsymbol{q}_2 = \boldsymbol{a}_2'/\|\boldsymbol{a}_2' \|</span>.</li>
+<li>Generally, we have for <span class="math inline">j = 0, 1, \dots, n-1</span> <span id="eq-evaluating-Q"><span class="math display">
+\begin{gather*}
+\boldsymbol{a}_j' = \boldsymbol{a}_j - \sum_{i = 0}^{j-1} (\boldsymbol{q}_i^T a_j)\boldsymbol{q}_i \\
+\boldsymbol{q}_j = \boldsymbol{a}_j'/\|\boldsymbol{a}_j' \|.
+\end{gather*}
+\tag{2}</span></span></li>
+</ul>
+</section>
+<section id="evaluating-boldsymbolr" class="level3">
+<h3 class="anchored" data-anchor-id="evaluating-boldsymbolr">Evaluating <span class="math inline">\boldsymbol{R}</span></h3>
+<p>We now turn to the matrix <span class="math inline">\boldsymbol{R}</span>. Let us assume <span class="math inline">\boldsymbol{A} = \boldsymbol{Q}\boldsymbol{R}</span> holds, and try to determine <span class="math inline">\boldsymbol{R}</span>. We rewritethis as <span class="math display">
+\left(\boldsymbol{a}_0 \quad \boldsymbol{a}_1 \quad \dots \quad \boldsymbol{a}_{n-1} \right) =
+\left(\boldsymbol{q}_0 \quad \boldsymbol{q}_1 \quad \dots \quad \boldsymbol{q}_{n-1} \right)
+\begin{pmatrix}
+R_{00} &amp; R_{01} &amp; R_{02} &amp;\cdots &amp; R_{0,n-1} \\
+0 &amp; R_{11} &amp; R_{12} &amp; \cdots &amp; R_{1,n-1} \\
+0 &amp; 0 &amp; R_{22} &amp; \cdots &amp; R_{2,n-1} \\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; 0 &amp; \cdots &amp; R_{n-1, n-1}
+\end{pmatrix}.
+</span> We can explicitly carry out the multiplication, and find <span class="math display">
+\begin{align*}
+\boldsymbol{a}_0 &amp;= R_{00}\boldsymbol{q}_0 \\
+\boldsymbol{a}_1 &amp;= R_{01}\boldsymbol{q}_0 + R_{11}\boldsymbol{q}_1 \\
+\boldsymbol{a}_2 &amp;= R_{02}\boldsymbol{q}_0 + R_{12}\boldsymbol{q}_1 + \boldsymbol{R}_{22}\boldsymbol{q}_2 \\
+&amp; \vdots \\
+\boldsymbol{a}_j &amp;= R_{0j}\boldsymbol{q}_0 + R_{1j}\boldsymbol{q}_1 +\cdots +  \boldsymbol{R}_{jj}\boldsymbol{q}_j \\
+&amp; \vdots \\
+\boldsymbol{a}_{n-1} &amp;= R_{0,n-1}\boldsymbol{q}_0 + R_{1,n-1}\boldsymbol{q}_1 +\cdots +  \boldsymbol{R}_{n-1,n-1}\boldsymbol{q}_{n-1} \\
+\end{align*}
+</span></p>
+<p>These equations can be solved: <span class="math display">
+\begin{align*}
+&amp;\boldsymbol{q}_0 = \boldsymbol{a}_0/R_{00}, \quad \boldsymbol{q}_1 = \frac{\boldsymbol{a}_1 - R_{01}\boldsymbol{q}_0}{R_{11}},
+\quad \boldsymbol{q}_2 = \frac{\boldsymbol{a}_2 - R_{02}\boldsymbol{q}_0 - R_{12}\boldsymbol{q}_1}{R_{22}}, \dots \\
+&amp;\boldsymbol{q}_j = \frac{\boldsymbol{a}_j - \sum_{i = 0}^{j-1}R_{ij}\boldsymbol{q}_i}{R_{jj}}, \quad \dots, \quad
+\boldsymbol{q}_{n-1} = \frac{\boldsymbol{a}_{n-1} - \sum_{i = 0}^{n-2} R_{i,n-1}\boldsymbol{q}_i}{R_{n-1,n-1}}.
+\end{align*}
+</span></p>
+<p>Compare with <a href="#eq-evaluating-Q">Equation&nbsp;2</a>, we have <span class="math display">
+\boldsymbol{R}_{ij} = \boldsymbol{q}_i^T \boldsymbol{a}_j, \quad j = 0,1,\dots,n-1, \quad i = 0,1,\dots, j-1 \\
+\boldsymbol{R}_{jj} = \| \boldsymbol{a}_j' \| = \|\boldsymbol{a}_j - \sum_{i = 0}^{j-1} R_{ij}\boldsymbol{q}_i \|, \quad j = 0,1,\dots,n-1
+</span></p>
+<p>Note that here we choose <span class="math inline">R_{jj}&gt;0</span>, which makes the QR decomposition <em>uniquely determined</em>.</p>
+<p>Crucially, both <span class="math inline">R_{ij}</span> and <span class="math inline">R_{jj}</span> are quantities that we have already evaluated in the process of constructing the matrix <span class="math inline">\boldsymbol{Q}</span>. That means we can carry out those computations in parallel, building up the matrices <span class="math inline">\boldsymbol{Q}</span> and <span class="math inline">\boldsymbol{R}</span> together.</p>
+</section>
+</section>
+<section id="qr-decomposition-implementation" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="qr-decomposition-implementation"><span class="header-section-number">3.2</span> QR Decomposition: Implementation</h2>
+<p>The QR decomposition is implemented in the following code.</p>
+<p>In order to check the performance of our algorithm, we computed two quantities. - The error in QR decomposition $| - | $ - The orthogonality <span class="math inline">\|\boldsymbol{Q}^T\boldsymbol{Q} - \boldsymbol{I}\|</span></p>
+<p>We have tried on <span class="math inline">4\times 4</span>, <span class="math inline">6\times 6</span> and <span class="math inline">8 \times 8</span> matrices. We found that the error in QR decomposition is small. However, the orthogonality is very poor. This is due to the <em>classical Gram-Schmidt</em> procedure behaves poorly in the presence of roundoff errors.</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> qrdec(A):</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> A.shape[<span class="dv">0</span>]</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    Ap <span class="op">=</span> np.copy(A)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    Q <span class="op">=</span> np.zeros((n,n))</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    R <span class="op">=</span> np.zeros((n,n))</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(j):</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>            R[i,j] <span class="op">=</span> Q[:,i]<span class="op">@</span>A[:,j]</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>            Ap[:,j] <span class="op">-=</span> R[i,j]<span class="op">*</span>Q[:,i]</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        R[j,j] <span class="op">=</span> mag(Ap[:,j])</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        Q[:,j] <span class="op">=</span> Ap[:,j]<span class="op">/</span>R[j,j]</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Q, R</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testcreate(n,val):</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.arange(val,val<span class="op">+</span>n<span class="op">*</span>n).reshape(n,n)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.sqrt(A)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    bs <span class="op">=</span> (A[<span class="dv">0</span>,:])<span class="op">**</span><span class="fl">2.1</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> A, bs</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mag(xs):</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt(np.<span class="bu">sum</span>(xs<span class="op">*</span>xs))  </span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testqrdec(A):</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> A.shape[<span class="dv">0</span>]</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    Q, R <span class="op">=</span> qrdec(A)</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    diffa <span class="op">=</span> A <span class="op">-</span> Q<span class="op">@</span>R</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    diffq <span class="op">=</span> np.transpose(Q)<span class="op">@</span>Q <span class="op">-</span> np.identity(n) </span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(n, mag(diffa), mag(diffq))</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4</span>,<span class="dv">10</span>,<span class="dv">2</span>):</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>        A, bs <span class="op">=</span> testcreate(n,<span class="dv">21</span>)</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>        testqrdec(A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>4 0.0 0.007574779389820895
+6 2.3498992183808826e-15 2.446997224625433
+8 4.5288390936029406e-15 3.508585247394872</code></pre>
+</div>
+</div>
+</section>
+<section id="similarity-transformations" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="similarity-transformations"><span class="header-section-number">3.3</span> Similarity transformations</h2>
+<p>We now make a quick detour to introduce another related concept. Recall that if we diagonalize a matrix <span class="math inline">\boldsymbol{A}</span>, we manage to find the matrices <span class="math inline">\boldsymbol{V}</span> and <span class="math inline">\boldsymbol{\Lambda}</span> such that <span class="math display">
+\boldsymbol{V}^{-1}\boldsymbol{A}\boldsymbol{V} = \boldsymbol{\Lambda}
+</span> where <span class="math inline">\boldsymbol{\Lambda}</span> contains the eigenvalues of <span class="math inline">\boldsymbol{A}</span> and <span class="math inline">\boldsymbol{V}</span> is made up of the eigenvectors of <span class="math inline">\boldsymbol{A}</span>.</p>
+<p>Assume there exists another (non-singular) matrix, <span class="math inline">\boldsymbol{S}</span>, such that: <span class="math display">
+\boldsymbol{A}' = \boldsymbol{S}^{-1} \boldsymbol{A} \boldsymbol{S}.
+</span> This is known as a <em>similarity transformation</em> and we say <span class="math inline">\boldsymbol{A}</span> and <span class="math inline">\boldsymbol{A}'</span> are similar.</p>
+<p>Now, if <span class="math inline">\boldsymbol{A}\boldsymbol{v}_i = \lambda_i \boldsymbol{v}_i</span>, we have <span class="math display">
+\boldsymbol{S}\boldsymbol{A}'\boldsymbol{S}^{-1} \boldsymbol{v}_i = \lambda_i \boldsymbol{v}_i.
+</span> If you multiply on the left with <span class="math inline">\boldsymbol{S}^{-1}</span> you get <span class="math display">
+\boldsymbol{A}' \boldsymbol{S}^{-1} \boldsymbol{v}_i = \lambda_i \boldsymbol{S}^{-1}\boldsymbol{v}_i.
+</span> If you define <span class="math inline">\boldsymbol{v}_i' \equiv \boldsymbol{S}^{-1}\boldsymbol{v}_i</span>, we have <span class="math inline">\boldsymbol{A}'\boldsymbol{v}_i' = \lambda_i \boldsymbol{v}_i'</span>.</p>
+<p><strong>We find that similar matrices have the same eigenvalues!</strong> The eigenvectors are then related by similarity transformations.</p>
+<p>As a special case, if <span class="math inline">\boldsymbol{S}</span> is orthogonal (or unitary), we then say <span class="math inline">\boldsymbol{A}</span> and <span class="math inline">\boldsymbol{A}'</span> are <em>orthogonally (or unitarily) similar</em>. Let us stay with real matrices, so the orthogonality gives <span class="math display">
+\boldsymbol{A}' = \boldsymbol{Q}^T \boldsymbol{A} \boldsymbol{Q}.
+</span></p>
+<p>Since similarity transformation has the property that preserves the eigenvalues, we can then read off the eigenvalues along the diagonal of <span class="math inline">\boldsymbol{A}'</span> (or <span class="math inline">\boldsymbol{A}</span>) if we can find a <span class="math inline">\boldsymbol{Q}</span> such that <span class="math inline">\boldsymbol{A}'</span> is triangular.</p>
+</section>
+<section id="simultaneous-iteration-first-attempt" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="simultaneous-iteration-first-attempt"><span class="header-section-number">3.4</span> Simultaneous Iteration: First Attempt</h2>
+<p>The method of simultaneous iteration is a generalization of the power method to more than one eigenvectors. We assume that our eigenvalues are distinct so that they can be sorted. For the power method, we started with a vector <span class="math inline">\boldsymbol{z}^{(0)}</span> and then multiplied with <span class="math inline">\boldsymbol{A}</span> repeatedly. If we expand <span class="math inline">\boldsymbol{z}^{(0)}</span> by the eigenvectors, then we have <span class="math display">
+\boldsymbol{z}^{(k)} = \sum_{i = 0}^{n-1} c_i \lambda_i^k \boldsymbol{v}_i.
+</span></p>
+<p>We can generalize this approach to the case of more eigenvectors. Let us construct the initial guess <span class="math display">
+\boldsymbol{Z}^{(0)} = \left(\boldsymbol{z}_{0}^{(0)} \quad \boldsymbol{z}_{1}^{(0)} \quad \cdots \quad \boldsymbol{z}_{n-1}^{(0)} \right).
+</span> For example, one can take <span class="math inline">\boldsymbol{Z}^{0} = \boldsymbol{I}</span>. We can compute <span class="math display">
+\boldsymbol{Z}^{(k)} = \boldsymbol{A}^{k}\boldsymbol{Z}^{(0)}
+= \left(\boldsymbol{z}_0^{(k)} \quad \boldsymbol{z}_1^{(k)} \quad \boldsymbol{z}_2^{(k)} \quad \cdots \quad \boldsymbol{z}_{n-1}^{(k)} \right).
+</span></p>
+<p>If we simply makes <span class="math inline">k</span> larger and larger, all <span class="math inline">\boldsymbol{z}_{j}^{(k)}</span> will converge to <span class="math inline">\boldsymbol{v}_0</span>. This is disappointing, even if we normalize these vectors <span class="math inline">\boldsymbol{z}_j^{(k)}</span> at each step.</p>
+</section>
+<section id="simultaneous-iteration-orthonormalizing" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="simultaneous-iteration-orthonormalizing"><span class="header-section-number">3.5</span> Simultaneous Iteration: Orthonormalizing</h2>
+<p>Upon closer inspection, we realize what’s going on: since we are now dealing with more than one eigenvector, normalizing columns is not enough: what we need to do, instead, is to ensure that the dependence of one column on any of the other columns is projected out. That is, in addition to normalizing, we also need to <em>orthogonalize</em>. We can ensure that we are dealing with orthonormal vectors by carrying out a QR decomposition at each step.</p>
+<p>We’ll proceed to give the prescription for the simultaneous iteration method (also known as orthogonal iteration) and later explore some of its fascinating properties. Let us consider <span class="math display">
+\begin{gather*}
+\boldsymbol{Z}^{(k)} = \boldsymbol{A} \boldsymbol{Q}^{(k-1)} \\
+\boldsymbol{Z}^{(k)} = \boldsymbol{Q}^{(k)} \boldsymbol{R}^{(k)},
+\end{gather*}
+</span> where we start with <span class="math inline">\boldsymbol{Q}^{(0)} = \boldsymbol{I}</span>.</p>
+<p>If we multiply from right <span class="math inline">\boldsymbol{R}^{(k-1)}</span> on both sides in the first of the above equations, we get <span class="math display">
+\boldsymbol{Z}^{(k)}\boldsymbol{R}^{(k-1)} = \boldsymbol{A}\boldsymbol{Q}^{(k-1)}\boldsymbol{R}^{(k-1)} = \boldsymbol{A}\boldsymbol{Z}^{(k-1)}.
+</span> Multiplying on the right <span class="math inline">\boldsymbol{R}^{(k-2)}</span> on both sides, we then obtain <span class="math display">
+\boldsymbol{Z}^{(k)}\boldsymbol{R}^{(k-1)}\boldsymbol{R}^{(k-2)} = \boldsymbol{A}\boldsymbol{Z}^{(k-1)}\boldsymbol{R}^{(k-2)} = \boldsymbol{A}^2\boldsymbol{Z}^{(k-2)}.
+</span></p>
+<p>We can continue this procedure, and finally arrive at <span class="math display">
+\boldsymbol{Z}^{(k)}\boldsymbol{R}^{(k-1)}\boldsymbol{R}^{(k-2)}\cdots\boldsymbol{R}^{(1)}  = \boldsymbol{A}^{k-1}\boldsymbol{Z}^{(1)}.
+</span></p>
+<p>On the other hand, we have <span class="math display">
+\boldsymbol{Z}^{(1)} = \boldsymbol{A}\boldsymbol{Q}^{(0)} = \boldsymbol{A},
+</span> which combined with the previous equation gives <span class="math display">
+\boldsymbol{Z}^{(k)}\boldsymbol{R}^{(k-1)}\boldsymbol{R}^{(k-2)}\cdots\boldsymbol{R}^{(1)} = \boldsymbol{A}^k.
+</span> Note that <span class="math inline">\boldsymbol{Z}^{(k)} = \boldsymbol{Q}^{(k)}\boldsymbol{R}^{(k)}</span>, we can rewrite the left-hand side of the above equation and obtain <span class="math display">
+\boldsymbol{A}^k = \boldsymbol{Q}^{(k)} \boldsymbol{R}^{(k)}\boldsymbol{R}^{(k-1)}\cdots\boldsymbol{R}^{(1)} = \boldsymbol{Q}^{(k)}\mathcal{R}^{(k)},
+</span> where <span class="math display">
+\mathcal{R}^{(k)} = \prod_{j=k}^{1}\boldsymbol{R}^{(j)}
+</span> is also upper triangular, since it is a product of upper triangular matrices.</p>
+<p>Thus, this allow us to construct orthonormal bases for the <span class="math inline">k</span>-th power of <span class="math inline">\boldsymbol{A}</span>. For symmetric <span class="math inline">\boldsymbol{A}</span>, <span class="math inline">\boldsymbol{Q}^{(k)}</span> converges to the eigenvectors. For a nonsymmetric <span class="math inline">\boldsymbol{A}</span>, <span class="math inline">\boldsymbol{Q}^{(k)}</span> converges toward the orthogonal “factor” of the eigenvector matrix. In either case, <span class="math inline">\boldsymbol{Q}^{(k)}</span> is related to the eigenvectors of the matrix <span class="math inline">\boldsymbol{A}</span>.</p>
+<p>After obtaining <span class="math inline">\boldsymbol{Q}^{(k)}</span>, we compute <span class="math display">
+\boldsymbol{A}^{(k)} = [\boldsymbol{Q}^{(k)}]^T\boldsymbol{A}\boldsymbol{Q}^{(k)},
+</span> which is a generalization of the Rayleigh quotient.</p>
+<p>Here <span class="math inline">\boldsymbol{A}^{(k)}</span> is orthogonally similar to <span class="math inline">\boldsymbol{A}</span> and converges to an upper-triangular matrix for general matrix <span class="math inline">\boldsymbol{A}</span> as <span class="math inline">k</span> grows.</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
