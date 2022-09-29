@@ -539,7 +539,11 @@ R_{00} &amp; R_{01} &amp; R_{02} &amp;\cdots &amp; R_{0,n-1} \\
 <section id="qr-decomposition-implementation" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="qr-decomposition-implementation"><span class="header-section-number">3.2</span> QR Decomposition: Implementation</h2>
 <p>The QR decomposition is implemented in the following code.</p>
-<p>In order to check the performance of our algorithm, we computed two quantities. - The error in QR decomposition $| - | $ - The orthogonality <span class="math inline">\|\boldsymbol{Q}^T\boldsymbol{Q} - \boldsymbol{I}\|</span></p>
+<p>In order to check the performance of our algorithm, we computed two quantities.</p>
+<ul>
+<li>The error in QR decomposition <span class="math inline">\|\boldsymbol{A} - \boldsymbol{Q}\boldsymbol{R}\|</span></li>
+<li>The orthogonality <span class="math inline">\|\boldsymbol{Q}^T\boldsymbol{Q} - \boldsymbol{I}\|</span></li>
+</ul>
 <p>We have tried on <span class="math inline">4\times 4</span>, <span class="math inline">6\times 6</span> and <span class="math inline">8 \times 8</span> matrices. We found that the error in QR decomposition is small. However, the orthogonality is very poor. This is due to the <em>classical Gram-Schmidt</em> procedure behaves poorly in the presence of roundoff errors.</p>
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>

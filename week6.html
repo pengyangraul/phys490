@@ -126,7 +126,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul>
   <li><a href="#triangular-matrices" id="toc-triangular-matrices" class="nav-link active" data-scroll-target="#triangular-matrices"><span class="toc-section-number">1</span>  Triangular Matrices</a>
   <ul class="collapse">
-  <li><a href="#forward-substitutio" id="toc-forward-substitutio" class="nav-link" data-scroll-target="#forward-substitutio"><span class="toc-section-number">1.1</span>  Forward Substitutio</a>
+  <li><a href="#forward-substitution" id="toc-forward-substitution" class="nav-link" data-scroll-target="#forward-substitution"><span class="toc-section-number">1.1</span>  Forward Substitution</a>
   <ul class="collapse">
   <li><a href="#back-substitution" id="toc-back-substitution" class="nav-link" data-scroll-target="#back-substitution">Back Substitution</a></li>
   </ul></li>
@@ -192,8 +192,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1 data-number="1"><span class="header-section-number">1</span> Triangular Matrices</h1>
 <p>We start with the simplest case possible, that of triangular matrices (for which all elements either above or below the diagonal are zero). This is not simply a toy problem: many of the fancier methods for the solution of simultaneous equations, like those we discuss below, manipulate the starting problem so that it ends up containing one or two triangular matrices at the end.</p>
 <p>We immediately note that in the real world one rarely stores a triangular matrix in its entirety, as that would be wasteful: it would entail storing a large number of 0s, which don’t add any new information; if we know that a matrix is triangular, the 0s above or below the diagonal are implied. In state-of-the-art libraries, it is common to use a single matrix to store together an upper-triangular and a lower-triangular matrix (with some convention about the diagonal, since each of those triangular matrices also generally has non-zero elements there). Here, since our goal is pedagogical clarity, we will opt for coding up each algorithm “naively”, namely by carrying around several 0s for triangular matrices. Once you get the hang of things, you will be able to modify our codes to make them more efficient (as one of the problems asks you to do).</p>
-<section id="forward-substitutio" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="forward-substitutio"><span class="header-section-number">1.1</span> Forward Substitutio</h2>
+<section id="forward-substitution" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="forward-substitution"><span class="header-section-number">1.1</span> Forward Substitution</h2>
 <p>Start with a <em>lower-triangular</em> matrix <span class="math inline">\boldsymbol{L}</span>. The problem we are interested in solving is: <span class="math display">
 \boldsymbol{L}\boldsymbol{x} = \boldsymbol{b}.
 </span></p>
