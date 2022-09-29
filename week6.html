@@ -126,13 +126,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul>
   <li><a href="#triangular-matrices" id="toc-triangular-matrices" class="nav-link active" data-scroll-target="#triangular-matrices"><span class="toc-section-number">1</span>  Triangular Matrices</a>
   <ul class="collapse">
-  <li><a href="#forward-substitution" id="toc-forward-substitution" class="nav-link" data-scroll-target="#forward-substitution"><span class="toc-section-number">1.1</span>  Forward Substitution</a>
-  <ul class="collapse">
-  <li><a href="#back-substitution" id="toc-back-substitution" class="nav-link" data-scroll-target="#back-substitution">Back Substitution</a></li>
-  </ul></li>
-  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation"><span class="toc-section-number">1.2</span>  Implementation</a></li>
-  <li><a href="#digression-operation-counts" id="toc-digression-operation-counts" class="nav-link" data-scroll-target="#digression-operation-counts"><span class="toc-section-number">1.3</span>  Digression: Operation Counts</a></li>
-  <li><a href="#operation-count-for-forward-substitution" id="toc-operation-count-for-forward-substitution" class="nav-link" data-scroll-target="#operation-count-for-forward-substitution"><span class="toc-section-number">1.4</span>  Operation Count for Forward Substitution</a></li>
+  <li><a href="#forward-substitution" id="toc-forward-substitution" class="nav-link" data-scroll-target="#forward-substitution"><span class="toc-section-number">1.1</span>  Forward Substitution</a></li>
+  <li><a href="#back-substitution" id="toc-back-substitution" class="nav-link" data-scroll-target="#back-substitution"><span class="toc-section-number">1.2</span>  Back Substitution</a></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation"><span class="toc-section-number">1.3</span>  Implementation</a></li>
+  <li><a href="#digression-operation-counts" id="toc-digression-operation-counts" class="nav-link" data-scroll-target="#digression-operation-counts"><span class="toc-section-number">1.4</span>  Digression: Operation Counts</a></li>
+  <li><a href="#operation-count-for-forward-substitution" id="toc-operation-count-for-forward-substitution" class="nav-link" data-scroll-target="#operation-count-for-forward-substitution"><span class="toc-section-number">1.5</span>  Operation Count for Forward Substitution</a></li>
   </ul></li>
   <li><a href="#gaussian-elimination" id="toc-gaussian-elimination" class="nav-link" data-scroll-target="#gaussian-elimination"><span class="toc-section-number">2</span>  Gaussian Elimination</a>
   <ul class="collapse">
@@ -235,8 +233,9 @@ x_i = \left(b_i - \sum_{j=0}^{i-1}L_{ij}x_j \right)\frac{1}{L_{ii}},\quad i = 0,
 </div>
 </div>
 <p>with the understanding that, on the right-hand side, the sum corresponds to zero terms if <span class="math inline">i=0</span>, one term if <span class="math inline">i=1</span>, and so on.</p>
-<section id="back-substitution" class="level3">
-<h3 class="anchored" data-anchor-id="back-substitution">Back Substitution</h3>
+</section>
+<section id="back-substitution" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="back-substitution"><span class="header-section-number">1.2</span> Back Substitution</h2>
 <p>You can also start with an <em>upper-triangular</em> matrix <span class="math inline">\boldsymbol{U}</span>: <span class="math display">
 \boldsymbol{U}\boldsymbol{x} = \boldsymbol{b}.
 </span></p>
@@ -279,9 +278,8 @@ x_i = \left(b_i - \sum_{j=i+1}^{n-1} U_{ij}x_j\right)\frac{1}{U_{ii}},\quad i = 
 </div>
 <p>with the understanding that, on the right-hand side, the sum corresponds to zero terms if <span class="math inline">i = n - 1</span>, one term if <span class="math inline">i = n-2</span>, and so on.</p>
 </section>
-</section>
-<section id="implementation" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="implementation"><span class="header-section-number">1.2</span> Implementation</h2>
+<section id="implementation" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="implementation"><span class="header-section-number">1.3</span> Implementation</h2>
 <p>We will implement this algorithm using numpy array. Our code has the following feature:</p>
 <ul>
 <li>The <code>numpy array</code> by the name of <code>xs</code> (to be returned by the function) is first created to contain zeros.</li>
@@ -343,16 +341,16 @@ Backward Substitution
 </div>
 </div>
 </section>
-<section id="digression-operation-counts" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="digression-operation-counts"><span class="header-section-number">1.3</span> Digression: Operation Counts</h2>
+<section id="digression-operation-counts" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="digression-operation-counts"><span class="header-section-number">1.4</span> Digression: Operation Counts</h2>
 <p>We will now engage in an activity which is very common in linear algebra: we will count how many floating-point operations it takes to carry out a specific calculation (these are also called <em>“flops”</em>). If a given computation scales poorly (e.g., exponentially) with the size of the problem, then it will be hard to increase the size much more than what is currently possible. If the scaling is not “too bad” (e.g., polynomial with a small power), then one can keep solving bigger problems without needing to employ dramatically new hardware.</p>
 <p>In such studies, you will frequently encounter the <span class="math inline">O</span> symbol which is known as big-O notation. Thus, a method that scales as <span class="math inline">O(n^3)</span> is better than another method that scales as <span class="math inline">O(n^4)</span> (for the same problem), since the power dominates over any prefactor when <span class="math inline">n</span> is large. Note that when one explicitly counts the number of additions/subtractions and multiplications/divisions, one is sometimes interested in the prefactor, e.g., <span class="math inline">2n^3</span> is better than <span class="math inline">4n^3</span>, since the former requires only half as many operations. On the other hand, lower powers don’t impact the scaling seriously so you may sometimes encounter expressions such as <span class="math inline">2n^3 − 7n^2 + 5n</span> written as <span class="math inline">\sim 2n^3</span>, simply dropping the lower-degree terms.</p>
 <p>Let’s study the case of matrix-vector multiplication explicitly, <span class="math display">
 \boldsymbol{y} = \boldsymbol{A}\boldsymbol{x}, \quad y_i = \sum_{j=0}^{n-1}A_{ij} x_j.
 </span> We see that for a given <span class="math inline">y_i</span> we need, on the right-hand side, <span class="math inline">n</span> multiplications and <span class="math inline">n-1</span> additions. Thus, since we have <span class="math inline">n</span> terms for the <span class="math inline">y_i</span>’s in total, we are faced with <span class="math inline">n\times n</span> multiplications and <span class="math inline">n\times(n − 1)</span> additions in total. If we add both of these results up, we find that matrix-vector multiplication requires precisely <span class="math inline">2n^2 −n</span> floating-point operations. As above, you will frequently see this re-expressed as <span class="math inline">\sim 2n^2</span> or even as <span class="math inline">O(n^2)</span>.</p>
 </section>
-<section id="operation-count-for-forward-substitution" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="operation-count-for-forward-substitution"><span class="header-section-number">1.4</span> Operation Count for Forward Substitution</h2>
+<section id="operation-count-for-forward-substitution" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="operation-count-for-forward-substitution"><span class="header-section-number">1.5</span> Operation Count for Forward Substitution</h2>
 <p>For concreteness, we will examine only forward substitution (but the answer turns out to be the same for back substitution), based on <span class="math display">
 x_i = \left(b_i - \sum_{j=0}^{i-1}L_{ij}x_j \right)\frac{1}{L_{ii}},\quad i = 0, 1, \dots, n-1.
 </span></p>
