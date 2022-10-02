@@ -561,7 +561,7 @@ i = j+1, j+2, \dots, n-1.
 </span></p>
 <p>The steps involved are organized by pivot rows <span class="math inline">j = 0,1,2,\dots,n-2</span>, and are applied to the rows <span class="math inline">i = j+1, j+2, \dots, n-1</span>.</p>
 <p>In the first step, we have to modify the <span class="math inline">n-1</span> rows below the pivot row <span class="math inline">j = 0</span>. To evaluate the coefficients for each of the <span class="math inline">n-1</span> rows we need <span class="math inline">n-1</span> divisions of the form <span class="math inline">A_{ij}/A_{jj}</span>. For each of the <span class="math inline">n-1</span> distinct <span class="math inline">i</span>’s we will need to carry out <span class="math inline">n</span> multiplications and <span class="math inline">n</span> subtractions (one for each column in <span class="math inline">\boldsymbol{A}</span>) and one multiplication and one subtraction for <span class="math inline">\boldsymbol{b}</span>. Since there are going to be <span class="math inline">n-1</span> values that <span class="math inline">i</span> takes on, we are led to a result of <span class="math inline">(n+1)(n-1)</span> multiplications and <span class="math inline">(n+1)(n-1)</span> subtractions. Putting these results together with the divisions, in this first step we are carrying out <span class="math inline">(n-1)+2(n+1)(n+1)</span> flops.</p>
-<p>We turn to the second step, namely using the pivot row <span class="math inline">j=1</span>. We have to modify the <span class="math inline">n-2</span> rows below that pivot row. That leads to <span class="math inline">n-2</span> divisions for the coefficients. Then, for each of the <span class="math inline">i</span>’s, we will need to carry out <span class="math inline">n-1</span> multiplications and <span class="math inline">n-1</span> subtractions (one for each remaining column in <span class="math inline">\boldsymbol{A}</span>) and 1 multiplication and 1 subtraction for b. Putting these results together, we are led to (n - 2) + 2n(n - 2) flops in total for this step.</p>
+<p>We turn to the second step, namely using the pivot row <span class="math inline">j=1</span>. We have to modify the <span class="math inline">n-2</span> rows below that pivot row. That leads to <span class="math inline">n-2</span> divisions for the coefficients. Then, for each of the <span class="math inline">i</span>’s, we will need to carry out <span class="math inline">n-1</span> multiplications and <span class="math inline">n-1</span> subtractions (one for each remaining column in <span class="math inline">\boldsymbol{A}</span>) and 1 multiplication and 1 subtraction for b. Putting these results together, we are led to <span class="math inline">(n - 2) + 2n(n - 2)</span> flops in total for this step.</p>
 <p>It’s easy to see that the third step would lead to <span class="math inline">(n - 3) + 2(n-1)(n-3)</span> flops. A pattern now emerges: for a given pivot row <span class="math inline">j</span>, we have <span class="math display">
 (n-1-j) + 2(n+1-j)(n-1-j)
 </span> flops. Thus, for all possible values of the pivot row <span class="math inline">j</span> we will need <span class="math display">
@@ -803,15 +803,15 @@ U_{00} &amp; U_{01} &amp; U_{02} \\
 \end{matrix}
 \right).
 </span> without any issues.</p>
-<p>Note that the problem is due to in the previous case we take a small (zero) pivot element. If you swap the rwos, you can get a larger pivot element.</p>
+<p>Note that the problem is due to in the previous case we take a small (zero) pivot element. If you swap the rows, you can get a larger pivot element.</p>
 <p>Hence, the general recipe should be:</p>
 <ul>
-<li><p>Instead of blindly using <span class="math inline">A_{jj}</span> as the pivot element (since it might have a very small magnitude), we look at all the elements in the same column as <span class="math inline">A_{jj}</span> in the rows below it for the largest possible matrix-element magnitude.</p></li>
-<li><p>This would be located, say, in row <span class="math inline">k</span>. Then, simply interchange rows <span class="math inline">j</span> and <span class="math inline">k</span>.</p></li>
-<li><p>Now you have a larger-magnitude pivot element and the coefficient used in the elimination.</p></li>
-<li><p>Symbolically, we search for the smallest-integer <span class="math inline">k</span> that satisfies <span class="math display">
+<li>Instead of blindly using <span class="math inline">A_{jj}</span> as the pivot element (since it might have a very small magnitude), we look at all the elements in the same column as <span class="math inline">A_{jj}</span> in the rows below it for the largest possible matrix-element magnitude.</li>
+<li>This would be located, say, in row <span class="math inline">k</span>. Then, simply interchange rows <span class="math inline">j</span> and <span class="math inline">k</span>.</li>
+<li>Now you have a larger-magnitude pivot element and the coefficient used in the elimination.</li>
+<li>Symbolically, we search for the smallest-integer <span class="math inline">k</span> that satisfies <span class="math display">
   |A_{kj}| = \max_{j\leq m \leq n-1} |A_{mj}|,
-  </span> followed by the interchange or rows <span class="math inline">j</span> and <span class="math inline">k</span>.</p></li>
+  </span> followed by the interchange or rows <span class="math inline">j</span> and <span class="math inline">k</span>.</li>
 </ul>
 </section>
 <section id="implementation-3" class="level2" data-number="4.3">
