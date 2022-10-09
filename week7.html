@@ -312,7 +312,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 data-number="1.4" class="anchored" data-anchor-id="operation-count"><span class="header-section-number">1.4</span> Operation Count</h2>
 <ul>
 <li>For iterative methods, the total operation count depends on the actual number of iterations required, which we generally cannot predict ahead of time.</li>
-<li>Any operation count we encounter will also have to be multiplied by <span class="math inline">m</span>, where <span class="math inline">m</span> is the number of actual iterations needed.</li>
+<li>Any operation count we encounter will also have to be multiplied by <span class="math inline">m</span>, where <span class="math inline">ms</span> is the number of actual iterations needed.</li>
 <li>The bulk of the work is carried out by <span class="math inline">\boldsymbol{z}^{(k)} = \boldsymbol{A}\boldsymbol{q}^{(k-1)}</span>, which is a matrix-vector multiplication, which costs <span class="math inline">\sim 2n^2</span> operations.</li>
 <li>We also have to evaluate the norm of <span class="math inline">\boldsymbol{z}^{(k)}</span>, which is a vector-vector multiplication and costs <span class="math inline">\sim 2n</span>.</li>
 <li>Finally, we need to calculate the Rayleigh quotient, which consists of a single matrix-vector multiplication <span class="math inline">\sim 2n^2</span> and a vector-vector multiplication <span class="math inline">\sim 2n</span>,</li>
@@ -325,7 +325,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We will now discuss a variation of the power method, which will also allow us to evaluate one eigenvalue and eigenvector pair. This time, it will be for the eigenvalue with the smallest magnitude (in absolute value).</p>
 <section id="algorithm" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="algorithm"><span class="header-section-number">2.1</span> Algorithm</h2>
-<p>We start from definition <span class="math inline">\boldsymbol{A}\boldsymbol{v}_i\boldsymbol{\lambda}_i \boldsymbol{v}_i</span>. Multiplying on the left with <span class="math inline">\boldsymbol{A}^{-1}</span>, we find <span class="math inline">\boldsymbol{v}_i = \lambda_i\boldsymbol{A}^{-1}\boldsymbol{v}_i</span>. Dividing both sides of this equation with <span class="math inline">\lambda_i</span>, we get <span class="math display">
+<p>We start from definition <span class="math inline">\boldsymbol{A}\boldsymbol{v}_i=\boldsymbol{\lambda}_i \boldsymbol{v}_i</span>. Multiplying on the left with <span class="math inline">\boldsymbol{A}^{-1}</span>, we find <span class="math inline">\boldsymbol{v}_i = \lambda_i\boldsymbol{A}^{-1}\boldsymbol{v}_i</span>. Dividing both sides of this equation with <span class="math inline">\lambda_i</span>, we get <span class="math display">
 \boldsymbol{A}^{-1}\boldsymbol{v}_i = \lambda_i^{inv}\boldsymbol{v}_i
 </span> where <span class="math inline">\lambda_i^{inv}</span> is an eigenvalue of the inverse matrix, with <span class="math inline">\lambda_i^{inv} = 1/\lambda_i</span>. Now, we can apply the power method <span class="math display">
 \boldsymbol{z}^{(k)} = \boldsymbol{A}^{-1}\boldsymbol{q}^{(k-1)}.
@@ -354,7 +354,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>We implement a self-stopping criterion with the <code>if...break</code>. We have been careful to create a new copy of our vector each time through the loop, via <code>qs = np.copy(qnews)</code>. We also check for sign flips and adjust it accordingly, otherwise the iteration will not converge.</li>
 <li><code>power()</code> employ <code>@</code> in the bulk of the code. Here, we have to solve a linear system of equations: by first LU-decomposing <span class="math inline">\boldsymbol{A^*}</span> (only once, outside the loop.) Then, inside the loop we only use the forward and backward substitutions, which are considerably less costly.</li>
 </ol>
-<div class="cell">
+<div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testcreate(n,val):</span>
@@ -435,6 +435,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
 <span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>    A, bs <span class="op">=</span> testcreate(<span class="dv">4</span>,<span class="dv">21</span>)</span>
 <span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>    testeigone(invpowershift,A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1 [0.44065813 0.48090955 0.51822387 0.55316403] 0.30563801879330116
+2 [0.44464049 0.48226426 0.51714199 0.54980012] 0.019975893536692543
+3 [0.44437955 0.48217577 0.51721346 0.55002143] 0.0013112849763802009
+4 [0.44439667 0.48218158 0.51720878 0.55000691] 8.603442270303673e-05
+5 [0.44439555 0.4821812  0.51720908 0.55000787] 5.6449639949461415e-06
+6 [0.44439562 0.48218122 0.51720906 0.5500078 ] 3.7038142862653805e-07
+7 [0.44439562 0.48218122 0.51720906 0.55000781] 2.430173570284188e-08
+8 [0.44439562 0.48218122 0.51720906 0.55000781] 1.5945032439464706e-09
+ 
+21.316662663486134
+[0.44439562 0.48218122 0.51720906 0.55000781]
+ 
+21.316662663452043
+[0.44439562 0.48218122 0.51720906 0.55000781]</code></pre>
+</div>
 </div>
 </section>
 <section id="operation-count-1" class="level2" data-number="2.4">
@@ -535,42 +551,42 @@ R_{00} &amp; R_{01} &amp; R_{02} &amp;\cdots &amp; R_{0,n-1} \\
 </ul>
 <p>We have tried on <span class="math inline">4\times 4</span>, <span class="math inline">6\times 6</span> and <span class="math inline">8 \times 8</span> matrices. We found that the error in QR decomposition is small. However, the orthogonality is very poor. This is due to the <em>classical Gram-Schmidt</em> procedure behaves poorly in the presence of roundoff errors.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> qrdec(A):</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> A.shape[<span class="dv">0</span>]</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    Ap <span class="op">=</span> np.copy(A)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    Q <span class="op">=</span> np.zeros((n,n))</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    R <span class="op">=</span> np.zeros((n,n))</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n):</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(j):</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>            R[i,j] <span class="op">=</span> Q[:,i]<span class="op">@</span>A[:,j]</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>            Ap[:,j] <span class="op">-=</span> R[i,j]<span class="op">*</span>Q[:,i]</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        R[j,j] <span class="op">=</span> mag(Ap[:,j])</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        Q[:,j] <span class="op">=</span> Ap[:,j]<span class="op">/</span>R[j,j]</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Q, R</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testcreate(n,val):</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.arange(val,val<span class="op">+</span>n<span class="op">*</span>n).reshape(n,n)</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.sqrt(A)</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    bs <span class="op">=</span> (A[<span class="dv">0</span>,:])<span class="op">**</span><span class="fl">2.1</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> A, bs</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mag(xs):</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt(np.<span class="bu">sum</span>(xs<span class="op">*</span>xs))  </span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testqrdec(A):</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> A.shape[<span class="dv">0</span>]</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    Q, R <span class="op">=</span> qrdec(A)</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    diffa <span class="op">=</span> A <span class="op">-</span> Q<span class="op">@</span>R</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    diffq <span class="op">=</span> np.transpose(Q)<span class="op">@</span>Q <span class="op">-</span> np.identity(n) </span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(n, mag(diffa), mag(diffq))</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4</span>,<span class="dv">10</span>,<span class="dv">2</span>):</span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>        A, bs <span class="op">=</span> testcreate(n,<span class="dv">21</span>)</span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>        testqrdec(A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> qrdec(A):</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> A.shape[<span class="dv">0</span>]</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    Ap <span class="op">=</span> np.copy(A)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    Q <span class="op">=</span> np.zeros((n,n))</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    R <span class="op">=</span> np.zeros((n,n))</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(j):</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>            R[i,j] <span class="op">=</span> Q[:,i]<span class="op">@</span>A[:,j]</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>            Ap[:,j] <span class="op">-=</span> R[i,j]<span class="op">*</span>Q[:,i]</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        R[j,j] <span class="op">=</span> mag(Ap[:,j])</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        Q[:,j] <span class="op">=</span> Ap[:,j]<span class="op">/</span>R[j,j]</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Q, R</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testcreate(n,val):</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.arange(val,val<span class="op">+</span>n<span class="op">*</span>n).reshape(n,n)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.sqrt(A)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    bs <span class="op">=</span> (A[<span class="dv">0</span>,:])<span class="op">**</span><span class="fl">2.1</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> A, bs</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mag(xs):</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt(np.<span class="bu">sum</span>(xs<span class="op">*</span>xs))  </span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testqrdec(A):</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> A.shape[<span class="dv">0</span>]</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    Q, R <span class="op">=</span> qrdec(A)</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    diffa <span class="op">=</span> A <span class="op">-</span> Q<span class="op">@</span>R</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    diffq <span class="op">=</span> np.transpose(Q)<span class="op">@</span>Q <span class="op">-</span> np.identity(n) </span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(n, mag(diffa), mag(diffq))</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4</span>,<span class="dv">10</span>,<span class="dv">2</span>):</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>        A, bs <span class="op">=</span> testcreate(n,<span class="dv">21</span>)</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>        testqrdec(A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="similarity-transformations" class="level2" data-number="3.3">
@@ -663,67 +679,6 @@ R_{00} &amp; R_{01} &amp; R_{02} &amp;\cdots &amp; R_{0,n-1} \\
 <h2 data-number="3.7" class="anchored" data-anchor-id="qr-method-implementation"><span class="header-section-number">3.7</span> QR method: Implementation</h2>
 <p>See the following code.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> qrdec(A):</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> A.shape[<span class="dv">0</span>]</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    Ap <span class="op">=</span> np.copy(A)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    Q <span class="op">=</span> np.zeros((n,n))</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    R <span class="op">=</span> np.zeros((n,n))</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n):</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(j):</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>            R[i,j] <span class="op">=</span> Q[:,i]<span class="op">@</span>A[:,j]</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>            Ap[:,j] <span class="op">-=</span> R[i,j]<span class="op">*</span>Q[:,i]</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        R[j,j] <span class="op">=</span> mag(Ap[:,j])</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        Q[:,j] <span class="op">=</span> Ap[:,j]<span class="op">/</span>R[j,j]</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Q, R</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testcreate(n,val):</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.arange(val,val<span class="op">+</span>n<span class="op">*</span>n).reshape(n,n)</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.sqrt(A)</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    bs <span class="op">=</span> (A[<span class="dv">0</span>,:])<span class="op">**</span><span class="fl">2.1</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> A, bs</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mag(xs):</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt(np.<span class="bu">sum</span>(xs<span class="op">*</span>xs))  </span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> qrmet(inA,kmax<span class="op">=</span><span class="dv">100</span>):</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.copy(inA)</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,kmax):</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>        Q, R <span class="op">=</span> qrdec(A)</span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>        A <span class="op">=</span> R<span class="op">@</span>Q</span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(k, np.diag(A))</span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    qreigvals <span class="op">=</span> np.diag(A)</span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> qreigvals</span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>    A, bs <span class="op">=</span> testcreate(<span class="dv">4</span>,<span class="dv">21</span>)</span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    qreigvals <span class="op">=</span> qrmet(A,<span class="dv">6</span>)</span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">" "</span>)</span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>    npeigvals, npeigvecs <span class="op">=</span> np.linalg.eig(A)<span class="op">;</span> <span class="bu">print</span>(npeigvals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="qr-method-operation-count" class="level2" data-number="3.8">
-<h2 data-number="3.8" class="anchored" data-anchor-id="qr-method-operation-count"><span class="header-section-number">3.8</span> QR Method: Operation Count</h2>
-<p>To compute the operation count required for the full QR method, we need to first count the operation cost of the QR decomposition prescription and then of the QR method itself.</p>
-<p>We will here only look at the leading contribution.</p>
-<p>FIrst, we focus on the QR decomposition, via the Gram-Schmidt procedure. For fixed <span class="math inline">i,j</span>, we have to compute the inner product <span class="math inline">R_{ij} = (\boldsymbol{q}_i^T\boldsymbol{a}_j)</span>, which involves <span class="math inline">n</span> multiplication and <span class="math inline">(n-1)</span> addition. Then, to compute <span class="math display">
-\boldsymbol{a}_j' = \boldsymbol{a}_j - \sum_{i=0}^{j-1}R_{ij}\boldsymbol{q}_i,
-</span> we need another <span class="math inline">n</span> multiplication and <span class="math inline">n</span> subtraction. In total, for fixed <span class="math inline">i,j</span>, we have <span class="math inline">\sim 4n</span> flops.</p>
-<p>Let us now sum over <span class="math inline">i,j</span>, <span class="math display">
-\sum_{j=0}^{n-1}\sum_{i=0}^{j-1} 4n = \sum_{j=0}^{n-1}4nj = 4n\frac{n(n-1)}{2}\sim 2n^3.
-</span></p>
-<p>We see the QR decomposition costs <span class="math inline">\sim 2n^3</span> flops, larger than LU decomposition (<span class="math inline">\sim 2n^3/3</span>).</p>
-<p>For the QR method, we have to perform additional matrix multiplication. For each matrix multiplication, we have <span class="math inline">\sim 2n^3</span> cost. Thus, if we have <span class="math inline">m</span> iterations, the total cost will be <span class="math inline">\sim 4mn^3</span>, where half comes from the QR decomposition and the other half comes from the multiplication.</p>
-</section>
-</section>
-<section id="all-eigenvalues-and-eigenvectors" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> All Eigenvalues and Eigenvectors</h1>
-<p>After finding all eigenvalues, we can use the inverse power method with shift to find out each eigenvectors. This is implemented in the following code.</p>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> qrdec(A):</span>
@@ -746,91 +701,152 @@ R_{00} &amp; R_{01} &amp; R_{02} &amp;\cdots &amp; R_{0,n-1} \\
 <span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    bs <span class="op">=</span> (A[<span class="dv">0</span>,:])<span class="op">**</span><span class="fl">2.1</span></span>
 <span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> A, bs</span>
 <span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ludec(A):</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> A.shape[<span class="dv">0</span>]</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    U <span class="op">=</span> np.copy(A)</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    L <span class="op">=</span> np.identity(n)</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n<span class="op">-</span><span class="dv">1</span>):</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(j<span class="op">+</span><span class="dv">1</span>,n):</span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>            coeff <span class="op">=</span> U[i,j]<span class="op">/</span>U[j,j]</span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>            U[i,j:] <span class="op">-=</span> coeff<span class="op">*</span>U[j,j:]</span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>            L[i,j] <span class="op">=</span> coeff</span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> L, U</span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mag(xs):</span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt(np.<span class="bu">sum</span>(xs<span class="op">*</span>xs))  </span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> termcrit(xolds,xnews):</span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>    errs <span class="op">=</span> np.<span class="bu">abs</span>((xnews <span class="op">-</span> xolds)<span class="op">/</span>xnews)</span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(errs)</span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mag(xs):</span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt(np.<span class="bu">sum</span>(xs<span class="op">*</span>xs))  </span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="co">#def invpowershift(A,shift=20,kmax=200,tol=1.e-2):</span></span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> invpowershift(A,shift<span class="op">=</span><span class="dv">20</span>,kmax<span class="op">=</span><span class="dv">200</span>,tol<span class="op">=</span><span class="fl">1.e-8</span>):</span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> A.shape[<span class="dv">0</span>]</span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>    znews <span class="op">=</span> np.ones(n)</span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>    qnews <span class="op">=</span> znews<span class="op">/</span>mag(znews)</span>
-<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>    Astar <span class="op">=</span> A <span class="op">-</span> np.identity(n)<span class="op">*</span>shift</span>
-<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>    L, U <span class="op">=</span> ludec(Astar)</span>
-<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,kmax):</span>
-<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>        qs <span class="op">=</span> np.copy(qnews)</span>
-<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>        ys <span class="op">=</span> forsub(L,qs)</span>
-<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>        znews <span class="op">=</span> backsub(U,ys)</span>
-<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>        qnews <span class="op">=</span> znews<span class="op">/</span>mag(znews)</span>
-<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> qs<span class="op">@</span>qnews<span class="op">&lt;</span><span class="dv">0</span>:</span>
-<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>            qnews <span class="op">=</span> <span class="op">-</span>qnews</span>
-<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>        err <span class="op">=</span> termcrit(qs,qnews)</span>
-<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(k, qnews, err)</span>
-<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> err <span class="op">&lt;</span> tol:</span>
-<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>            lam <span class="op">=</span> qnews<span class="op">@</span>A<span class="op">@</span>qnews</span>
-<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
-<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>        lam <span class="op">=</span> qnews <span class="op">=</span> <span class="va">None</span></span>
-<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> lam, qnews</span>
-<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> forsub(L,bs):</span>
-<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> bs.size</span>
-<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.zeros(n)</span>
-<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
-<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>        xs[i] <span class="op">=</span> (bs[i] <span class="op">-</span> L[i,:i]<span class="op">@</span>xs[:i])<span class="op">/</span>L[i,i]</span>
-<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xs</span>
-<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> backsub(U,bs):</span>
-<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> bs.size</span>
-<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.zeros(n)</span>
-<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">reversed</span>(<span class="bu">range</span>(n)):</span>
-<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a>        xs[i] <span class="op">=</span> (bs[i] <span class="op">-</span> U[i,i<span class="op">+</span><span class="dv">1</span>:]<span class="op">@</span>xs[i<span class="op">+</span><span class="dv">1</span>:])<span class="op">/</span>U[i,i]</span>
-<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xs</span>
-<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> eig(A,eps<span class="op">=</span><span class="fl">1.e-12</span>):</span>
-<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> A.shape[<span class="dv">0</span>]</span>
-<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>    eigvals <span class="op">=</span> np.zeros(n)</span>
-<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>    eigvecs <span class="op">=</span> np.zeros((n,n))</span>
-<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a>    qreigvals <span class="op">=</span> qrmet(A)</span>
-<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, qre <span class="kw">in</span> <span class="bu">enumerate</span>(qreigvals):</span>
-<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a>        eigvals[i], eigvecs[:,i] <span class="op">=</span> invpowershift(A,qre<span class="op">+</span>eps)</span>
-<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> eigvals, eigvecs</span>
-<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testeigall(f,A):</span>
-<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a>    eigvals, eigvecs <span class="op">=</span> f(A)</span>
-<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a>    npeigvals, npeigvecs <span class="op">=</span> np.linalg.eig(A)</span>
-<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(eigvals)<span class="op">;</span> <span class="bu">print</span>(npeigvals)</span>
-<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">" "</span>)</span>
-<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> eigvec, npeigvec <span class="kw">in</span> <span class="bu">zip</span>(eigvecs.T,npeigvecs.T):</span>
-<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(eigvec)<span class="op">;</span> <span class="bu">print</span>(npeigvec)</span>
-<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">" "</span>)</span>
-<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
-<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a>    A, bs <span class="op">=</span> testcreate(<span class="dv">4</span>,<span class="dv">21</span>)</span>
-<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a>    testeigall(eig,A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mag(xs):</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt(np.<span class="bu">sum</span>(xs<span class="op">*</span>xs))  </span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> qrmet(inA,kmax<span class="op">=</span><span class="dv">100</span>):</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.copy(inA)</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,kmax):</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>        Q, R <span class="op">=</span> qrdec(A)</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>        A <span class="op">=</span> R<span class="op">@</span>Q</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(k, np.diag(A))</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    qreigvals <span class="op">=</span> np.diag(A)</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> qreigvals</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>    A, bs <span class="op">=</span> testcreate(<span class="dv">4</span>,<span class="dv">21</span>)</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>    qreigvals <span class="op">=</span> qrmet(A,<span class="dv">6</span>)</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">" "</span>)</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>    npeigvals, npeigvecs <span class="op">=</span> np.linalg.eig(A)<span class="op">;</span> <span class="bu">print</span>(npeigvals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="qr-method-operation-count" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="qr-method-operation-count"><span class="header-section-number">3.8</span> QR Method: Operation Count</h2>
+<p>To compute the operation count required for the full QR method, we need to first count the operation cost of the QR decomposition prescription and then of the QR method itself.</p>
+<p>We will here only look at the leading contribution.</p>
+<p>FIrst, we focus on the QR decomposition, via the Gram-Schmidt procedure. For fixed <span class="math inline">i,j</span>, we have to compute the inner product <span class="math inline">R_{ij} = (\boldsymbol{q}_i^T\boldsymbol{a}_j)</span>, which involves <span class="math inline">n</span> multiplication and <span class="math inline">(n-1)</span> addition. Then, to compute <span class="math display">
+\boldsymbol{a}_j' = \boldsymbol{a}_j - \sum_{i=0}^{j-1}R_{ij}\boldsymbol{q}_i,
+</span> we need another <span class="math inline">n</span> multiplication and <span class="math inline">n</span> subtraction. In total, for fixed <span class="math inline">i,j</span>, we have <span class="math inline">\sim 4n</span> flops.</p>
+<p>Let us now sum over <span class="math inline">i,j</span>, <span class="math display">
+\sum_{j=0}^{n-1}\sum_{i=0}^{j-1} 4n = \sum_{j=0}^{n-1}4nj = 4n\frac{n(n-1)}{2}\sim 2n^3.
+</span></p>
+<p>We see the QR decomposition costs <span class="math inline">\sim 2n^3</span> flops, larger than LU decomposition (<span class="math inline">\sim 2n^3/3</span>).</p>
+<p>For the QR method, we have to perform additional matrix multiplication. For each matrix multiplication, we have <span class="math inline">\sim 2n^3</span> cost. Thus, if we have <span class="math inline">m</span> iterations, the total cost will be <span class="math inline">\sim 4mn^3</span>, where half comes from the QR decomposition and the other half comes from the multiplication.</p>
+</section>
+</section>
+<section id="all-eigenvalues-and-eigenvectors" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> All Eigenvalues and Eigenvectors</h1>
+<p>After finding all eigenvalues, we can use the inverse power method with shift to find out each eigenvectors. This is implemented in the following code.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> qrdec(A):</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> A.shape[<span class="dv">0</span>]</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    Ap <span class="op">=</span> np.copy(A)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    Q <span class="op">=</span> np.zeros((n,n))</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    R <span class="op">=</span> np.zeros((n,n))</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(j):</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>            R[i,j] <span class="op">=</span> Q[:,i]<span class="op">@</span>A[:,j]</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>            Ap[:,j] <span class="op">-=</span> R[i,j]<span class="op">*</span>Q[:,i]</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        R[j,j] <span class="op">=</span> mag(Ap[:,j])</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        Q[:,j] <span class="op">=</span> Ap[:,j]<span class="op">/</span>R[j,j]</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Q, R</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testcreate(n,val):</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.arange(val,val<span class="op">+</span>n<span class="op">*</span>n).reshape(n,n)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.sqrt(A)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    bs <span class="op">=</span> (A[<span class="dv">0</span>,:])<span class="op">**</span><span class="fl">2.1</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> A, bs</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ludec(A):</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> A.shape[<span class="dv">0</span>]</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    U <span class="op">=</span> np.copy(A)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    L <span class="op">=</span> np.identity(n)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n<span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(j<span class="op">+</span><span class="dv">1</span>,n):</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>            coeff <span class="op">=</span> U[i,j]<span class="op">/</span>U[j,j]</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>            U[i,j:] <span class="op">-=</span> coeff<span class="op">*</span>U[j,j:]</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>            L[i,j] <span class="op">=</span> coeff</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> L, U</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mag(xs):</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt(np.<span class="bu">sum</span>(xs<span class="op">*</span>xs))  </span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> termcrit(xolds,xnews):</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>    errs <span class="op">=</span> np.<span class="bu">abs</span>((xnews <span class="op">-</span> xolds)<span class="op">/</span>xnews)</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(errs)</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mag(xs):</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt(np.<span class="bu">sum</span>(xs<span class="op">*</span>xs))  </span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="co">#def invpowershift(A,shift=20,kmax=200,tol=1.e-2):</span></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> invpowershift(A,shift<span class="op">=</span><span class="dv">20</span>,kmax<span class="op">=</span><span class="dv">200</span>,tol<span class="op">=</span><span class="fl">1.e-8</span>):</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> A.shape[<span class="dv">0</span>]</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>    znews <span class="op">=</span> np.ones(n)</span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>    qnews <span class="op">=</span> znews<span class="op">/</span>mag(znews)</span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>    Astar <span class="op">=</span> A <span class="op">-</span> np.identity(n)<span class="op">*</span>shift</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>    L, U <span class="op">=</span> ludec(Astar)</span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,kmax):</span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>        qs <span class="op">=</span> np.copy(qnews)</span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>        ys <span class="op">=</span> forsub(L,qs)</span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>        znews <span class="op">=</span> backsub(U,ys)</span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>        qnews <span class="op">=</span> znews<span class="op">/</span>mag(znews)</span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> qs<span class="op">@</span>qnews<span class="op">&lt;</span><span class="dv">0</span>:</span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>            qnews <span class="op">=</span> <span class="op">-</span>qnews</span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>        err <span class="op">=</span> termcrit(qs,qnews)</span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(k, qnews, err)</span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> err <span class="op">&lt;</span> tol:</span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>            lam <span class="op">=</span> qnews<span class="op">@</span>A<span class="op">@</span>qnews</span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>        lam <span class="op">=</span> qnews <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> lam, qnews</span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> forsub(L,bs):</span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> bs.size</span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.zeros(n)</span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>        xs[i] <span class="op">=</span> (bs[i] <span class="op">-</span> L[i,:i]<span class="op">@</span>xs[:i])<span class="op">/</span>L[i,i]</span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xs</span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> backsub(U,bs):</span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> bs.size</span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.zeros(n)</span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">reversed</span>(<span class="bu">range</span>(n)):</span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a>        xs[i] <span class="op">=</span> (bs[i] <span class="op">-</span> U[i,i<span class="op">+</span><span class="dv">1</span>:]<span class="op">@</span>xs[i<span class="op">+</span><span class="dv">1</span>:])<span class="op">/</span>U[i,i]</span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xs</span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> eig(A,eps<span class="op">=</span><span class="fl">1.e-12</span>):</span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> A.shape[<span class="dv">0</span>]</span>
+<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a>    eigvals <span class="op">=</span> np.zeros(n)</span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a>    eigvecs <span class="op">=</span> np.zeros((n,n))</span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a>    qreigvals <span class="op">=</span> qrmet(A)</span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, qre <span class="kw">in</span> <span class="bu">enumerate</span>(qreigvals):</span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a>        eigvals[i], eigvecs[:,i] <span class="op">=</span> invpowershift(A,qre<span class="op">+</span>eps)</span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> eigvals, eigvecs</span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> testeigall(f,A):</span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a>    eigvals, eigvecs <span class="op">=</span> f(A)</span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a>    npeigvals, npeigvecs <span class="op">=</span> np.linalg.eig(A)</span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(eigvals)<span class="op">;</span> <span class="bu">print</span>(npeigvals)</span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">" "</span>)</span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> eigvec, npeigvec <span class="kw">in</span> <span class="bu">zip</span>(eigvecs.T,npeigvecs.T):</span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(eigvec)<span class="op">;</span> <span class="bu">print</span>(npeigvec)</span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">" "</span>)</span>
+<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a>    A, bs <span class="op">=</span> testcreate(<span class="dv">4</span>,<span class="dv">21</span>)</span>
+<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a>    testeigall(eig,A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="homeworks" class="level1" data-number="5">
