@@ -20,6 +20,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -67,6 +130,29 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#matrix-representation" id="toc-matrix-representation" class="nav-link" data-scroll-target="#matrix-representation"><span class="toc-section-number">1.2</span>  Matrix Representation</a></li>
   <li><a href="#hamiltonian" id="toc-hamiltonian" class="nav-link" data-scroll-target="#hamiltonian"><span class="toc-section-number">1.3</span>  Hamiltonian</a></li>
   </ul></li>
+  <li><a href="#two-particles" id="toc-two-particles" class="nav-link" data-scroll-target="#two-particles"><span class="toc-section-number">2</span>  Two particles</a>
+  <ul class="collapse">
+  <li><a href="#hilbert-spaces" id="toc-hilbert-spaces" class="nav-link" data-scroll-target="#hilbert-spaces"><span class="toc-section-number">2.1</span>  Hilbert spaces</a></li>
+  <li><a href="#matrix-representation-1" id="toc-matrix-representation-1" class="nav-link" data-scroll-target="#matrix-representation-1"><span class="toc-section-number">2.2</span>  Matrix Representation</a>
+  <ul class="collapse">
+  <li><a href="#kronecker-product" id="toc-kronecker-product" class="nav-link" data-scroll-target="#kronecker-product">Kronecker Product</a></li>
+  </ul></li>
+  <li><a href="#interacting-spins" id="toc-interacting-spins" class="nav-link" data-scroll-target="#interacting-spins"><span class="toc-section-number">2.3</span>  Interacting Spins</a></li>
+  <li><a href="#hamiltonian-1" id="toc-hamiltonian-1" class="nav-link" data-scroll-target="#hamiltonian-1"><span class="toc-section-number">2.4</span>  Hamiltonian</a></li>
+  </ul></li>
+  <li><a href="#three-particles" id="toc-three-particles" class="nav-link" data-scroll-target="#three-particles"><span class="toc-section-number">3</span>  Three Particles</a>
+  <ul class="collapse">
+  <li><a href="#hamiltonian-2" id="toc-hamiltonian-2" class="nav-link" data-scroll-target="#hamiltonian-2"><span class="toc-section-number">3.1</span>  Hamiltonian</a></li>
+  </ul></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation"><span class="toc-section-number">4</span>  Implementation</a>
+  <ul class="collapse">
+  <li><a href="#kronecker-product-1" id="toc-kronecker-product-1" class="nav-link" data-scroll-target="#kronecker-product-1"><span class="toc-section-number">4.1</span>  Kronecker product</a></li>
+  <li><a href="#two-particles-1" id="toc-two-particles-1" class="nav-link" data-scroll-target="#two-particles-1"><span class="toc-section-number">4.2</span>  Two particles</a>
+  <ul class="collapse">
+  <li><a href="#three-particles-1" id="toc-three-particles-1" class="nav-link" data-scroll-target="#three-particles-1">Three particles</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework"><span class="toc-section-number">5</span>  Homework</a></li>
   </ul>
 </nav>
 </div>
@@ -203,9 +289,423 @@ i &amp; 0
 \hat{H} = -\hat{\boldsymbol{\mu}} \cdot \boldsymbol{B} =-\frac{gqB}{2m}.
 </span></p>
 <p>We then took our <span class="math inline">z</span> axis as pointing in the direction of the magnetic field. Combining our earlier point about how to go from operators to matrices, with the explicit matrix representation of <span class="math inline">\hat{\boldsymbol{S}}_z</span>, as <span class="math display">
-\boldsymbol{H} = -\frac{gqB}{4m}.
+\boldsymbol{H} = -\frac{gqB}{4m}\boldsymbol{\sigma}_z
+= -\frac{gqB}{4m}
+\begin{pmatrix}
+1 &amp; 0 \\
+0 &amp; -1
+\end{pmatrix}.
 </span></p>
 </section>
+</section>
+<section id="two-particles" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Two particles</h1>
+<section id="hilbert-spaces" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="hilbert-spaces"><span class="header-section-number">2.1</span> Hilbert spaces</h2>
+<p>For a single spin-half particle, we can introduce two states <span class="math inline">\ket{\uparrow}, \ket{\downarrow}</span> forming the basis of its Hilbert space. For a system of two spin-half particles, we should be careful about the notation. We need to label these two particles. Let’s call them particle I and particle II. Particle I involves a vector space which is spanned by the two kets <span class="math inline">\ket{\uparrow^{(I)}}</span> and <span class="math inline">\ket{\downarrow^{(I)}}</span>. Similarly, the Hilbert space of the second particle is spanned by the two kets <span class="math inline">\ket{\uparrow^{(II)}}</span> and <span class="math inline">\ket{\downarrow}^{(II)}</span>.</p>
+<p>We now wish to start from these single-particle vector spaces and generalize to a two-particle space. To do this, we employ the concept of a tensor product (denoted by <span class="math inline">\otimes</span>): this allows us to express the product between state vectors belonging to different Hilbert spaces. In short, the two-particle Hilbert space is a four-dimensional complex vector space which is spanned by the vectors: <span class="math display">
+\begin{gather*}
+\ket{\uparrow^{(I)}}\otimes\ket{\uparrow^{(II)}} \equiv \ket{\uparrow\uparrow}, \quad \ket{\uparrow^{(I)}}\otimes\ket{\downarrow^{(II)}} \equiv \ket{\uparrow\downarrow} \\
+\ket{\downarrow^{(I)}}\otimes\ket{\uparrow^{(II)}} \equiv \ket{\downarrow\uparrow}, \quad \ket{\downarrow^{(I)}}\otimes\ket{\downarrow^{(II)}} \equiv \ket{\downarrow\downarrow}.
+\end{gather*}
+</span></p>
+<p>Thus, we can write the basis of the two-state Hilbert space in a compact form as <span class="math inline">\ket{i}</span>, with <span class="math inline">i = \uparrow\uparrow, \uparrow\downarrow, \downarrow\uparrow, \downarrow\downarrow</span>.</p>
+<p>In terms of the Hilbert spaces themselves, we started from the space of the first particle (<span class="math inline">\mathscr{H}^{(I)}</span>) and the space of the second particle (<span class="math inline">\mathscr{H}^{(II)}</span>) and have produced the larger, two-particle Hilbert space <span class="math inline">\mathscr{H}^{(I)}\otimes\mathscr{H}^{(II)}</span>. The four state vectors <span class="math inline">\ket{i^{(I)}}\otimes\ket{j^{(II)}}</span>, <span class="math inline">i,j = \uparrow, \downarrow</span> form the <em>product basis</em> of this Hilbert space <span class="math inline">\mathscr{H}^{(I)}\otimes\mathscr{H}^{(II)}</span>.</p>
+<p>Let us turn to the operators in the two-particle Hilbert space, focusing on the <span class="math inline">z</span>-projection operator for concreteness. We already know the one-particle operator <span class="math inline">\hat{S}_z^{(I)}</span> which acts on the vector of particle I and, similarly, the one-particle operator <span class="math inline">\hat{S}_z^{(II)}</span> which acts on the vector space of particle II. Each of these operators measures the <span class="math inline">z</span>-projection of the spin for the respective particle. What we wish to do is come up with operators for the composite system. We do this by, again, employing the tensor product. For example <span class="math display">
+\hat{S}_{1z} = \hat{S}_z^{(I)} \otimes \hat{\mathcal{I}}^{(II)}.
+</span> On the left-hand side we are introducing a new entity, <span class="math inline">\hat{S}_{Iz}</span>, acting on the two-particle Hilbert space. Instead, it is made up of two one-particle operators, each of which knows how to act on its respective one-particle space. It should be easy to see why we have taken the tensor product with the identity operator <span class="math inline">\hat{\mathcal{I}}</span>: the two-particle operator <span class="math inline">\hat{S}_{Iz}</span> measures the <span class="math inline">z</span> component of the spin for particle I, so it does nothing to any particle-II ket it encounters. In complete analogy to this, the two-particle operator that measures the <span class="math inline">z</span> component of the spin for particle II is: <span class="math display">
+\hat{S}_{IIz} =\hat{\mathcal{I}}^{(I)} \otimes \hat{S}_z^{(II)}.
+</span></p>
+<p>Let’s see what happens when a two-particle operator acts on a given two-particle state vector: <span class="math display">
+\hat{S}_{IIz}\ket{\uparrow\downarrow}  = (\hat{\mathcal{I}}^{(I)}\otimes \hat{S}_z^{(II)})(\ket{\uparrow^{(I)}}\otimes\ket{\downarrow^{(II)}}) = \ket{\uparrow^{(I)}} \otimes (-\frac{1}{2}\ket{\downarrow^{(II)}}) = -\frac{1}{2}\ket{\uparrow\downarrow}.
+</span></p>
+<p>Finally, an arbitrary spin state can be expressed as a linear superposition: <span class="math display">
+\ket{\psi} = \sum_{a}\psi_a \ket{a}, \quad a = \uparrow\uparrow, \uparrow\downarrow, \downarrow\uparrow, \downarrow\downarrow.
+</span></p>
+<p>As a remark, in QM we typically consider the <em>coupled representation</em> where we need to add angular momenta using the Clebsh-Gordan coefficients. For the specific case of two spin-half particles, this leads to one spin-singlet state and a spin-triplet (made up of three states). In contradistinction to this, here we are interested in the uncoupled representation, where we consider the two-particle system as being made up of two individual particles. Below, we will show you how to build up the matrix representation of a two-particle operator using the matrix representation of one-particle operators: this will give us a tool that is then trivial to generalize to larger numbers of particles.</p>
+</section>
+<section id="matrix-representation-1" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="matrix-representation-1"><span class="header-section-number">2.2</span> Matrix Representation</h2>
+<p>Turning to the matrix representation of two spin-half particles, you will not be surprised to hear that it involves <span class="math inline">4 \times 4</span> matrices for spin operators and <span class="math inline">4\times 1</span> column vectors for the state vectors.</p>
+<p>We shall use the two-particle basis <span class="math inline">\ket{\uparrow\uparrow},\ket{\uparrow\downarrow},\ket{\downarrow\uparrow},\ket{\downarrow\downarrow}</span>, corresponding to the following column vectors <span class="math display">
+\boldsymbol{\zeta}_{\uparrow\uparrow} =
+\begin{pmatrix}
+1 \\ 0 \\ 0 \\ 0
+\end{pmatrix}, \quad
+\boldsymbol{\zeta}_{\uparrow\downarrow} =
+\begin{pmatrix}
+0 \\ 1 \\ 0 \\ 0
+\end{pmatrix}, \quad
+\boldsymbol{\zeta}_{\downarrow\uparrow} =
+\begin{pmatrix}
+0 \\ 0 \\ 1 \\ 0
+\end{pmatrix}, \quad
+\boldsymbol{\zeta}_{\downarrow\downarrow} =
+\begin{pmatrix}
+0 \\ 0 \\ 0 \\ 1
+\end{pmatrix}.
+</span> For an arbitrary state vector, we can represent it as the following column vector <span class="math display">
+\boldsymbol{\psi} = \psi_{\uparrow\uparrow}\boldsymbol{\zeta}_{\uparrow\uparrow} + \psi_{\uparrow\downarrow}\boldsymbol{\zeta}_{\uparrow\downarrow}
++ \psi_{\downarrow\uparrow}\boldsymbol{\zeta}_{\downarrow\uparrow} + \psi_{\downarrow\downarrow}\boldsymbol{\zeta}_{\downarrow\downarrow}=
+\begin{pmatrix}
+\psi_{\uparrow\uparrow} \\ \psi_{\uparrow\downarrow} \\ \psi_{\downarrow\uparrow} \\ \psi_{\downarrow\downarrow}
+\end{pmatrix}.
+</span></p>
+<p>We have seen that the two-particle basis can be constructed via the tensor product of single-particle basis. For matrices, there exists a similar operation that builds larger matrices from smaller matrices. We shall introduce this operation below.</p>
+<section id="kronecker-product" class="level3">
+<h3 class="anchored" data-anchor-id="kronecker-product">Kronecker Product</h3>
+<p>The <em>Kronecker product</em> between two matrices is denoted similarly as the tensor product. Let us take an <span class="math inline">n\times n</span> matrix <span class="math inline">\boldsymbol{U}</span> and a <span class="math inline">p \times p</span> matrix <span class="math inline">\boldsymbol{V}</span>. The Kronecker product <span class="math inline">\boldsymbol{W} = \boldsymbol{U}\otimes\boldsymbol{V}</span> is the <span class="math inline">np\times np</span> matrix: <span class="math display">
+\boldsymbol{W} = \boldsymbol{U} \otimes \boldsymbol{V} =
+\begin{pmatrix}
+U_{00}\boldsymbol{V} &amp; U_{01}\boldsymbol{V} &amp; \dots &amp; U_{0,n-1}\boldsymbol{V} \\
+U_{10}\boldsymbol{V} &amp; U_{11}\boldsymbol{V} &amp; \dots &amp; U_{1,n-1}\boldsymbol{V} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+U_{n-1,0}\boldsymbol{V} &amp; U_{n-1,1}\boldsymbol{V} &amp; \dots &amp; U_{n-1,n-1}\boldsymbol{V}
+\end{pmatrix}.
+</span></p>
+<p>The presence of a <span class="math inline">\boldsymbol{V}</span> in each slot is to be interpreted as follows: to produce <span class="math inline">\boldsymbol{U}\otimes \boldsymbol{V}</span>, take each element of <span class="math inline">\boldsymbol{U}</span>, namely <span class="math inline">U_{ik}</span>, and replace it by <span class="math inline">U_{ik}\boldsymbol{V}</span>, which is a <span class="math inline">p \times p</span> matrix. For example, we have <span class="math display">
+\zeta_{\uparrow\downarrow} =
+\begin{pmatrix}
+1 \\ 0
+\end{pmatrix}
+\otimes
+\begin{pmatrix}
+0 \\ 1
+\end{pmatrix}
+=
+\begin{pmatrix}
+1\begin{pmatrix} 0 \\ 1 \end{pmatrix} \\ 0 \begin{pmatrix} 0 \\ 1 \end{pmatrix}
+\end{pmatrix}
+=
+\begin{pmatrix}
+0 \\ 1 \\ 0 \\ 0
+\end{pmatrix}.
+</span></p>
+<p>We can also use Kronecker product to build matrix representation of <span class="math inline">\hat{S}_{Iz}</span>. We have <span class="math display">
+\boldsymbol{S}_{Iz} = \boldsymbol{S}_z \otimes \boldsymbol{I} = \frac{1}{2}
+\begin{pmatrix}
+1 &amp; 0 \\
+0 &amp; -1
+\end{pmatrix}
+\otimes
+\begin{pmatrix}
+1 &amp; 0 \\
+0 &amp; 1
+\end{pmatrix}
+=
+\frac{1}{2}
+\begin{pmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; -1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; -1
+\end{pmatrix}.
+</span></p>
+<p>Now let us try to implement the Kronecker product programmatically, for general matrices <span class="math inline">\boldsymbol{U}</span> and <span class="math inline">\boldsymbol{V}</span>. We need an equation connecting the indices of the <span class="math inline">\boldsymbol{U}</span> and <span class="math inline">\boldsymbol{V}</span> matrix elements, on the one hand, with the indices of the <span class="math inline">\boldsymbol{W}</span> matrix, on the other. This is: <span class="math display">
+W_{ab} =(\boldsymbol{U}\otimes \boldsymbol{V})_{ab} = U_{ik}V_{jl}, \quad a = pi+j, b = pk + i
+</span> where <span class="math inline">p</span> is the dimension of <span class="math inline">\boldsymbol{V}</span>. The original four indices take on the values: <span class="math display">
+i = 0,1,\dots, n-1, \quad k = 0, 1, \dots, n-1, \quad j = 0, 1, \dots, p-1, \quad l = 0,1,\dots, p-1.
+</span> As a result, the new indices takes on the values <span class="math display">
+a = 0,1,\dots,np-1, \quad b = 0,1,\dots, np-1.
+</span></p>
+<p>You should spend some time thinking about our new equation: you will benefit from applying it by hand to one or two simple cases (say, the Kronecker product of a <span class="math inline">2 \times 2</span> matrix with a <span class="math inline">3 \times 3</span> matrix).</p>
+</section>
+</section>
+<section id="interacting-spins" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="interacting-spins"><span class="header-section-number">2.3</span> Interacting Spins</h2>
+<p>Let us now consider the interaction between two spins: <span class="math display">
+\hat{\boldsymbol{S}}_{I} \cdot \hat{\boldsymbol{S}}_{II} = \hat{S}_{Ix}\hat{S}_{IIx} + \hat{S}_{Iy}\hat{S}_{IIy} +\hat{S}_{Iz}\hat{S}_{IIz}.
+</span></p>
+<p>The matrix representation of this interaction can be constructed with Kronecker product <span class="math display">
+\boldsymbol{S}_{I\cdot II} = \{\bra{a}\hat{\boldsymbol{S}}_{I} \cdot \hat{\boldsymbol{S}}_{II} \ket{b}\}
+= \boldsymbol{S}_{x}\otimes\boldsymbol{S}_{x} + \boldsymbol{S}_{y}\otimes\boldsymbol{S}_{y} + \boldsymbol{S}_{z}\otimes\boldsymbol{S}_{z}.
+</span></p>
+</section>
+<section id="hamiltonian-1" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="hamiltonian-1"><span class="header-section-number">2.4</span> Hamiltonian</h2>
+<p>We end our discussion of two spin-half particles with the Schrödinger equation: <span class="math display">
+\hat{H}\ket{\psi} = E\ket{\psi}.
+</span> We can use its matrix representation for numerical implementation <span class="math display">
+\boldsymbol{H}\boldsymbol{\psi} = E \boldsymbol{\psi},
+</span> where <span class="math inline">\boldsymbol{H}</span> is a <span class="math inline">4\times 4</span> matrix, and <span class="math inline">\psi</span> is a <span class="math inline">4 \times 1</span> column vector.</p>
+<p>A Hamiltonian describing the interaction between two spins in presence of external magnetic field is of the following form <span class="math display">
+\begin{align*}
+\hat{H} &amp;= -\frac{g_I q_I B}{2m_I}\hat{S}_{Iz} - \frac{g_II q_II B}{2m_II}\hat{S}_{IIz} + \gamma \hat{\boldsymbol{S}}_{I} \cdot \hat{\boldsymbol{S}}_{II} \\
+&amp; = -\omega_{I}\hat{S}_{Iz} - \omega_{II}\hat{S}_{IIz} + \gamma (\hat{S}_{Ix}\hat{S}_{IIx} + \hat{S}_{Iy}\hat{S}_{IIy} +\hat{S}_{Iz}\hat{S}_{IIz}).
+\end{align*}
+</span></p>
+<p>Based on this, we can construct its matrix representation using Kronecker product <span id="eq-two-spin-tensor"><span class="math display">
+\boldsymbol{H}  = -\omega_I \boldsymbol{S}_z\otimes\boldsymbol{I} - \omega_{II}\boldsymbol{I}\otimes\boldsymbol{S}_z + \gamma(\boldsymbol{S}_{x}\otimes\boldsymbol{S}_x + \boldsymbol{S}_{y}\otimes\boldsymbol{S}_y + \boldsymbol{S}_{z}\otimes\boldsymbol{S}_z).
+\tag{2}</span></span></p>
+<p>In your homework, you will show that <span id="eq-two-spin"><span class="math display">
+\boldsymbol{H} = -\frac{1}{2}
+\begin{pmatrix}
+\omega_{I}+\omega_{II}-\frac{\gamma}{2} &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp;\omega_{I} - \omega_{II}+\frac{\gamma}{2} &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; -\omega_I+\omega_{II}+\frac{\gamma}{2} &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; -\omega_I-\omega_{II}-\frac{\gamma}{2}
+\end{pmatrix}
+\tag{3}</span></span></p>
+</section>
+</section>
+<section id="three-particles" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Three Particles</h1>
+<p>We will now see the benefits of the theoretical machinery we established in the previous sections. We can now study the problem of three spin-half particles, interacting with a magnetic field and with each other. The matrix formulation of this problem gives rise to <span class="math inline">8 \times 8</span> matrices (so 64 matrix elements per matrix): since there are three particles and three Cartesian coordinates, we need to deal with at least nine matrices, each of which is <span class="math inline">8 \times 8</span>. In other words, this is not a task that is comfortably carried out using paper and pencil, which is why it doesn’t appear in QM textbooks traditionally.</p>
+<p>The basis for the three-particle Hilbert space can be chosen naturally as <span class="math display">
+\ket{i^{I}}\otimes\ket{j^{II}}\otimes\ket{k^{III}} \equiv \ket{\mu}
+</span> with all possible <span class="math display">
+\mu = \uparrow\uparrow\uparrow, \uparrow\uparrow\downarrow, \uparrow\downarrow\uparrow, \downarrow\uparrow\uparrow, \uparrow\downarrow\downarrow, \downarrow\uparrow\downarrow, \downarrow\downarrow\uparrow,\downarrow\downarrow\downarrow.
+</span> You may thus think <span class="math inline">\mu</span> as the ordered triple <span class="math inline">(i,j,k)</span>.</p>
+<p>The operators acting on the three-particle Hilbert space can thus be constructed, for example, <span class="math display">
+\hat{S}_{Iz} = \hat{S}_{z}^{(I)}\otimes\hat{\mathcal{I}}^{(II)}\otimes\hat{\mathcal{I}}^{(III)},
+</span> as the <span class="math inline">z</span> projection for the first particle. Similarly, the matrix representation of this operator can be constructed with Kronecker product <span class="math display">
+\boldsymbol{S}_{1z} = \boldsymbol{S}_z \otimes \boldsymbol{I} \otimes \boldsymbol{I}.
+</span></p>
+<p>Here, we see two Kronecker products in a row, so you may be wondering how to interpret such an operation. Luckily, the Kronecker product is <em>associative</em>: <span class="math display">
+(\boldsymbol{T}\otimes \boldsymbol{U})\otimes \boldsymbol{V} =
+\boldsymbol{T} \otimes (\boldsymbol{U} \otimes \boldsymbol{V})
+</span> meaning that you simply carry out one Kronecker product after the other and it doesn’t matter which Kronecker product you carry out first. (<strong>Note that the Kronecker product is not commutative: <span class="math inline">\boldsymbol{U}\otimes \boldsymbol{V} \neq \boldsymbol{V} \otimes \boldsymbol{U}</span></strong>).</p>
+<section id="hamiltonian-2" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="hamiltonian-2"><span class="header-section-number">3.1</span> Hamiltonian</h2>
+<p>With these preparations, let us consider the following Hamiltonian <span class="math display">
+\hat{H} = -\sum_{\alpha=I,II,III} \omega_\alpha \hat{S}_{\alpha z}
++ \gamma \sum_{\alpha&lt;\beta}\hat{\boldsymbol{S}}_{\alpha} \cdot \hat{\boldsymbol{S}}_{\beta}
+</span> which describes three interacting spins in an external magnetic field. Note that in the second summation, the two indices have to satisfy <span class="math inline">\alpha &lt; \beta</span>, and hence the only possible <span class="math inline">(\alpha,\beta)</span> pairs are <span class="math inline">(I,II)</span>, <span class="math inline">(II,III)</span>, and <span class="math inline">(I,III)</span>.</p>
+<p>The matrix representation of this Hamiltonian can be constructed via the Kronecker product <span class="math display">
+\boldsymbol{H} = -\sum_{\alpha = I,II, III}\boldsymbol{S}_{\alpha z}
++ \gamma\sum_{\alpha&lt;\beta}\boldsymbol{S}_{\alpha\cdot\beta},
+</span> where <span class="math display">
+\begin{gather*}
+\boldsymbol{S}_{Iz} = \boldsymbol{S}_z \otimes \boldsymbol{I} \otimes \boldsymbol{I} \\
+\boldsymbol{S}_{IIz} = \boldsymbol{I} \otimes \boldsymbol{S}_z \otimes \boldsymbol{I} \\
+\boldsymbol{S}_{IIIz} = \boldsymbol{I}  \otimes \boldsymbol{I} \otimes \boldsymbol{S}_z
+\end{gather*}
+</span> and <span class="math display">
+\begin{gather*}
+\boldsymbol{S}_{I \cdot II} =
+\boldsymbol{S}_x\otimes\boldsymbol{S}_x\otimes \boldsymbol{I} +
+\boldsymbol{S}_y\otimes\boldsymbol{S}_y\otimes \boldsymbol{I} +
+\boldsymbol{S}_z\otimes\boldsymbol{S}_z\otimes \boldsymbol{I} =
+\sum_{w=x,y,z}\boldsymbol{S}_{I w}\boldsymbol{S}_{II w}
+\\
+\boldsymbol{S}_{II \cdot III} =
+\boldsymbol{I}\otimes \boldsymbol{S}_x\otimes\boldsymbol{S}_x +
+\boldsymbol{I}\otimes \boldsymbol{S}_y\otimes\boldsymbol{S}_y +
+\boldsymbol{I}\otimes \boldsymbol{S}_z\otimes\boldsymbol{S}_z =
+\sum_{w=x,y,z}\boldsymbol{S}_{II w}\boldsymbol{S}_{III w}
+  \\
+\boldsymbol{S}_{I \cdot III} =
+\boldsymbol{S}_x\otimes\boldsymbol{I}\otimes \boldsymbol{S}_x +
+\boldsymbol{S}_y\otimes\boldsymbol{I}\otimes \boldsymbol{S}_y +
+\boldsymbol{S}_z\otimes\boldsymbol{I}\otimes \boldsymbol{S}_z =
+\sum_{w=x,y,z}\boldsymbol{S}_{I w}\boldsymbol{S}_{III w}.
+\end{gather*}
+</span></p>
+<p>Note that here we explored the property of the Kronecker product (homework) <span class="math display">
+(\boldsymbol{A}\otimes \boldsymbol{B})(\boldsymbol{C}\otimes \boldsymbol{D})
+= (\boldsymbol{A}\boldsymbol{C}) \otimes (\boldsymbol{B}\boldsymbol{D}).
+</span></p>
+</section>
+</section>
+<section id="implementation" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Implementation</h1>
+<section id="kronecker-product-1" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="kronecker-product-1"><span class="header-section-number">4.1</span> Kronecker product</h2>
+<p>We first implement the Kronecker product in the following code.</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> paulimatrices():</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    sigx <span class="op">=</span> np.array([<span class="fl">0.</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>]).reshape(<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    sigy <span class="op">=</span> np.array([<span class="fl">0.</span>,<span class="op">-</span><span class="ot">1j</span>,<span class="ot">1j</span>,<span class="dv">0</span>]).reshape(<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    sigz <span class="op">=</span> np.array([<span class="fl">1.</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="op">-</span><span class="dv">1</span>]).reshape(<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> sigx, sigy, sigz</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> kron(U,V):</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> U.shape[<span class="dv">0</span>]</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> V.shape[<span class="dv">0</span>]</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    W <span class="op">=</span> np.zeros((n<span class="op">*</span>p,n<span class="op">*</span>p), dtype<span class="op">=</span>np.complex64)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(p):</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> l <span class="kw">in</span> <span class="bu">range</span>(p):</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>                    W[p<span class="op">*</span>i<span class="op">+</span>j,p<span class="op">*</span>k<span class="op">+</span>l] <span class="op">=</span> U[i,k]<span class="op">*</span>V[j,l]</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> W</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    sigx, sigy, sigz <span class="op">=</span> paulimatrices()</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    allones <span class="op">=</span> np.ones((<span class="dv">3</span>,<span class="dv">3</span>))</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    kronprod <span class="op">=</span> kron(sigx,allones)<span class="op">;</span> <span class="bu">print</span>(kronprod.real)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[0. 0. 0. 1. 1. 1.]
+ [0. 0. 0. 1. 1. 1.]
+ [0. 0. 0. 1. 1. 1.]
+ [1. 1. 1. 0. 0. 0.]
+ [1. 1. 1. 0. 0. 0.]
+ [1. 1. 1. 0. 0. 0.]]</code></pre>
+</div>
+</div>
+</section>
+<section id="two-particles-1" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="two-particles-1"><span class="header-section-number">4.2</span> Two particles</h2>
+<p>We implement the Hamiltonian for two spins in the following. This program also calls the previous codes for calculating eigenvalues using QR method (<code>qrmet()</code>). The inputs for <code>twospins(omI,omII,gam)</code> are <span class="math inline">\omega_I, \omega_{II}, \gamma</span>.</p>
+<p>Note that we first call <code>paulimatrices()</code> to get a list of Pauli matrices. We then use list comprehension to store the <span class="math inline">x,y,z</span> components of <span class="math inline">\boldsymbol{S}_I</span> as a list in <code>SIs</code>.</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> twospins(omI,omII,gam):</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    hbar <span class="op">=</span> <span class="fl">1.</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    paulis <span class="op">=</span> paulimatrices()</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    iden <span class="op">=</span> np.identity(<span class="dv">2</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    SIs <span class="op">=</span> [hbar<span class="op">*</span>kron(pa,iden)<span class="op">/</span><span class="dv">2</span> <span class="cf">for</span> pa <span class="kw">in</span> paulis]</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    SIIs <span class="op">=</span> [hbar<span class="op">*</span>kron(iden,pa)<span class="op">/</span><span class="dv">2</span> <span class="cf">for</span> pa <span class="kw">in</span> paulis]</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    SIdotII <span class="op">=</span> <span class="bu">sum</span>([SIs[i]<span class="op">@</span>SIIs[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>)])</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    H <span class="op">=</span> <span class="op">-</span>omI<span class="op">*</span>SIs[<span class="dv">2</span>] <span class="op">-</span> omII<span class="op">*</span>SIIs[<span class="dv">2</span>] <span class="op">+</span> gam<span class="op">*</span>SIdotII</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    H <span class="op">=</span> H.real</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> H</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> paulimatrices():</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    sigx <span class="op">=</span> np.array([<span class="fl">0.</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>]).reshape(<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    sigy <span class="op">=</span> np.array([<span class="fl">0.</span>,<span class="op">-</span><span class="ot">1j</span>,<span class="ot">1j</span>,<span class="dv">0</span>]).reshape(<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    sigz <span class="op">=</span> np.array([<span class="fl">1.</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="op">-</span><span class="dv">1</span>]).reshape(<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> sigx, sigy, sigz</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> kron(U,V):</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> U.shape[<span class="dv">0</span>]</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> V.shape[<span class="dv">0</span>]</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    W <span class="op">=</span> np.zeros((n<span class="op">*</span>p,n<span class="op">*</span>p), dtype<span class="op">=</span>np.complex64)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(p):</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> l <span class="kw">in</span> <span class="bu">range</span>(p):</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>                    W[p<span class="op">*</span>i<span class="op">+</span>j,p<span class="op">*</span>k<span class="op">+</span>l] <span class="op">=</span> U[i,k]<span class="op">*</span>V[j,l]</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> W</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> qrmet(inA,kmax<span class="op">=</span><span class="dv">100</span>):</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.copy(inA)</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,kmax):</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>        Q, R <span class="op">=</span> qrdec(A)</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>        A <span class="op">=</span> R<span class="op">@</span>Q</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>        <span class="co"># print(k, np.diag(A))</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    qreigvals <span class="op">=</span> np.diag(A)</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> qreigvals</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> qrdec(A):</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> A.shape[<span class="dv">0</span>]</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    Ap <span class="op">=</span> np.copy(A)</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    Q <span class="op">=</span> np.zeros((n,n))</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    R <span class="op">=</span> np.zeros((n,n))</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(j):</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>            R[i,j] <span class="op">=</span> Q[:,i]<span class="op">@</span>A[:,j]</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>            Ap[:,j] <span class="op">-=</span> R[i,j]<span class="op">*</span>Q[:,i]</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>        R[j,j] <span class="op">=</span> mag(Ap[:,j])</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>        Q[:,j] <span class="op">=</span> Ap[:,j]<span class="op">/</span>R[j,j]</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Q, R</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mag(xs):</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt(np.<span class="bu">sum</span>(xs<span class="op">*</span>xs))</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>    H <span class="op">=</span> twospins(<span class="fl">1.</span>,<span class="fl">2.</span>,<span class="fl">0.5</span>)</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>    qreigvals <span class="op">=</span> qrmet(H)<span class="op">;</span> <span class="bu">print</span>(qreigvals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[-1.375      -0.68401701  0.434017    1.625     ]</code></pre>
+</div>
+</div>
+<section id="three-particles-1" class="level3">
+<h3 class="anchored" data-anchor-id="three-particles-1">Three particles</h3>
+<p>Let us now implement the Hamiltonian for three particles.</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> threespins(omI,omII,omIII,gam):</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    hbar <span class="op">=</span> <span class="fl">1.</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    paulis <span class="op">=</span> paulimatrices()</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    iden <span class="op">=</span> np.identity(<span class="dv">2</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    SIs <span class="op">=</span> [hbar<span class="op">*</span>kron(kron(pa,iden),iden)<span class="op">/</span><span class="dv">2</span> <span class="cf">for</span> pa <span class="kw">in</span> paulis]</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    SIIs <span class="op">=</span> [hbar<span class="op">*</span>kron(kron(iden,pa),iden)<span class="op">/</span><span class="dv">2</span> <span class="cf">for</span> pa <span class="kw">in</span> paulis]</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    SIIIs <span class="op">=</span> [hbar<span class="op">*</span>kron(kron(iden,iden),pa)<span class="op">/</span><span class="dv">2</span> <span class="cf">for</span> pa <span class="kw">in</span> paulis]</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    SIdotII <span class="op">=</span> <span class="bu">sum</span>([SIs[i]<span class="op">@</span>SIIs[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>)])</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    SIdotIII <span class="op">=</span> <span class="bu">sum</span>([SIs[i]<span class="op">@</span>SIIIs[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>)])</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    SIIdotIII <span class="op">=</span> <span class="bu">sum</span>([SIIs[i]<span class="op">@</span>SIIIs[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>)])</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    H <span class="op">=</span> <span class="op">-</span>omI<span class="op">*</span>SIs[<span class="dv">2</span>] <span class="op">-</span> omII<span class="op">*</span>SIIs[<span class="dv">2</span>] <span class="op">-</span> omIII<span class="op">*</span>SIIIs[<span class="dv">2</span>]</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    H <span class="op">+=</span> gam<span class="op">*</span>(SIdotII<span class="op">+</span>SIdotIII<span class="op">+</span>SIIdotIII)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    H <span class="op">=</span> H.real</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> H</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> paulimatrices():</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    sigx <span class="op">=</span> np.array([<span class="fl">0.</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>]).reshape(<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    sigy <span class="op">=</span> np.array([<span class="fl">0.</span>,<span class="op">-</span><span class="ot">1j</span>,<span class="ot">1j</span>,<span class="dv">0</span>]).reshape(<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    sigz <span class="op">=</span> np.array([<span class="fl">1.</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="op">-</span><span class="dv">1</span>]).reshape(<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> sigx, sigy, sigz</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> kron(U,V):</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> U.shape[<span class="dv">0</span>]</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> V.shape[<span class="dv">0</span>]</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    W <span class="op">=</span> np.zeros((n<span class="op">*</span>p,n<span class="op">*</span>p), dtype<span class="op">=</span>np.complex64)</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(p):</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> l <span class="kw">in</span> <span class="bu">range</span>(p):</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>                    W[p<span class="op">*</span>i<span class="op">+</span>j,p<span class="op">*</span>k<span class="op">+</span>l] <span class="op">=</span> U[i,k]<span class="op">*</span>V[j,l]</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> W</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> qrmet(inA,kmax<span class="op">=</span><span class="dv">100</span>):</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.copy(inA)</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,kmax):</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>        Q, R <span class="op">=</span> qrdec(A)</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>        A <span class="op">=</span> R<span class="op">@</span>Q</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>        <span class="co"># print(k, np.diag(A))</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>    qreigvals <span class="op">=</span> np.diag(A)</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> qreigvals</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> qrdec(A):</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> A.shape[<span class="dv">0</span>]</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>    Ap <span class="op">=</span> np.copy(A)</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>    Q <span class="op">=</span> np.zeros((n,n))</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>    R <span class="op">=</span> np.zeros((n,n))</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(j):</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>            R[i,j] <span class="op">=</span> Q[:,i]<span class="op">@</span>A[:,j]</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>            Ap[:,j] <span class="op">-=</span> R[i,j]<span class="op">*</span>Q[:,i]</span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>        R[j,j] <span class="op">=</span> mag(Ap[:,j])</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>        Q[:,j] <span class="op">=</span> Ap[:,j]<span class="op">/</span>R[j,j]</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Q, R</span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mag(xs):</span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt(np.<span class="bu">sum</span>(xs<span class="op">*</span>xs))</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>    np.set_printoptions(precision<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>    H <span class="op">=</span> threespins(<span class="fl">1.</span>,<span class="fl">2.</span>,<span class="fl">3.</span>,<span class="fl">0.5</span>)</span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>    qreigvals <span class="op">=</span> qrmet(H)<span class="op">;</span> <span class="bu">print</span>(qreigvals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[-2.625 -2.201 -1.151  1.978 -0.022  0.849 -0.201  3.375]</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="homework" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Homework</h1>
+<ol type="1">
+<li>(no programming) Please derive <a href="#eq-two-spin">Equation&nbsp;3</a> from <a href="#eq-two-spin-tensor">Equation&nbsp;2</a>.</li>
+<li>(no programming) Please prove the Kronecker product for arbitrary matrices satisfies <span class="math display">
+(\boldsymbol{A}\otimes \boldsymbol{B})(\boldsymbol{C}\otimes \boldsymbol{D})
+= (\boldsymbol{A}\boldsymbol{C}) \otimes (\boldsymbol{B}\boldsymbol{D}).
+</span> Note that <span class="math inline">(\boldsymbol{A}\otimes \boldsymbol{B})(\boldsymbol{C}\otimes \boldsymbol{D})</span> is a matrix product between <span class="math inline">\boldsymbol{A}\otimes \boldsymbol{B}</span> and <span class="math inline">\boldsymbol{C}\otimes \boldsymbol{D}</span>, and <span class="math inline">\boldsymbol{A}\boldsymbol{C}</span> is the matrix product between <span class="math inline">\boldsymbol{A}</span> and <span class="math inline">\boldsymbol{C}</span>.</li>
+<li>(programming) Take the two particle Hamiltonian. Fix <span class="math inline">\omega_{II}=2\omega_{I}</span>, and <span class="math inline">\gamma = 1</span>. Plot the eigenvalues as a function of <span class="math inline">\omega_I</span> in an interval <span class="math inline">0\leq \omega_I \leq 3.0</span>.</li>
+</ol>
 </section>
 
 </main>
