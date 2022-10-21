@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Roots I</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="week9_files/libs/clipboard/clipboard.min.js"></script>
+<script src="week9_files/libs/quarto-html/quarto.js"></script>
+<script src="week9_files/libs/quarto-html/popper.min.js"></script>
+<script src="week9_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="week9_files/libs/quarto-html/anchor.min.js"></script>
+<link href="week9_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="week9_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="week9_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="week9_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="week9_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><span class="toc-section-number">1</span>  Motivation</a>
+  <ul class="collapse">
+  <li><a href="#examples-from-physics" id="toc-examples-from-physics" class="nav-link" data-scroll-target="#examples-from-physics"><span class="toc-section-number">1.1</span>  Examples from Physics</a>
+  <ul class="collapse">
+  <li><a href="#van-der-waals-equation-of-state" id="toc-van-der-waals-equation-of-state" class="nav-link" data-scroll-target="#van-der-waals-equation-of-state">Van der Waals equation of state</a></li>
+  <li><a href="#quantum-mechanics-of-a-particle-in-a-finite-well" id="toc-quantum-mechanics-of-a-particle-in-a-finite-well" class="nav-link" data-scroll-target="#quantum-mechanics-of-a-particle-in-a-finite-well">Quantum mechanics of a particle in a finite well</a></li>
+  </ul></li>
+  <li><a href="#the-problems-to-be-solved" id="toc-the-problems-to-be-solved" class="nav-link" data-scroll-target="#the-problems-to-be-solved"><span class="toc-section-number">1.2</span>  The Problem(s) to Be Solved</a></li>
+  </ul></li>
+  <li><a href="#nonlinear-equation-in-one-variable" id="toc-nonlinear-equation-in-one-variable" class="nav-link" data-scroll-target="#nonlinear-equation-in-one-variable"><span class="toc-section-number">2</span>  Nonlinear Equation in One Variable</a>
+  <ul class="collapse">
+  <li><a href="#conditioning" id="toc-conditioning" class="nav-link" data-scroll-target="#conditioning"><span class="toc-section-number">2.1</span>  Conditioning</a></li>
+  <li><a href="#order-of-convergence-and-termination-criteria" id="toc-order-of-convergence-and-termination-criteria" class="nav-link" data-scroll-target="#order-of-convergence-and-termination-criteria"><span class="toc-section-number">2.2</span>  Order of Convergence and Termination Criteria</a></li>
+  <li><a href="#fixed-point-iteration" id="toc-fixed-point-iteration" class="nav-link" data-scroll-target="#fixed-point-iteration"><span class="toc-section-number">2.3</span>  Fixed-point iteration</a>
+  <ul class="collapse">
+  <li><a href="#algorithm" id="toc-algorithm" class="nav-link" data-scroll-target="#algorithm">Algorithm</a></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">Implementation</a></li>
+  <li><a href="#convergence-properties" id="toc-convergence-properties" class="nav-link" data-scroll-target="#convergence-properties">Convergence properties</a></li>
+  </ul></li>
+  <li><a href="#bisection-method" id="toc-bisection-method" class="nav-link" data-scroll-target="#bisection-method"><span class="toc-section-number">2.4</span>  Bisection method</a>
+  <ul class="collapse">
+  <li><a href="#algorithm-and-convergence" id="toc-algorithm-and-convergence" class="nav-link" data-scroll-target="#algorithm-and-convergence">Algorithm and Convergence</a></li>
+  <li><a href="#implementation-1" id="toc-implementation-1" class="nav-link" data-scroll-target="#implementation-1">Implementation</a></li>
+  </ul></li>
+  <li><a href="#newtons-method" id="toc-newtons-method" class="nav-link" data-scroll-target="#newtons-method"><span class="toc-section-number">2.5</span>  Newton’s Method</a>
+  <ul class="collapse">
+  <li><a href="#algorithm-and-interpretation" id="toc-algorithm-and-interpretation" class="nav-link" data-scroll-target="#algorithm-and-interpretation">Algorithm and Interpretation</a></li>
+  <li><a href="#convergence" id="toc-convergence" class="nav-link" data-scroll-target="#convergence">Convergence</a></li>
+  </ul></li>
+  <li><a href="#secant-method" id="toc-secant-method" class="nav-link" data-scroll-target="#secant-method"><span class="toc-section-number">2.6</span>  Secant Method</a>
+  <ul class="collapse">
+  <li><a href="#algorithm-and-interpretation-1" id="toc-algorithm-and-interpretation-1" class="nav-link" data-scroll-target="#algorithm-and-interpretation-1">Algorithm and Interpretation</a></li>
+  <li><a href="#implementation-2" id="toc-implementation-2" class="nav-link" data-scroll-target="#implementation-2">Implementation</a></li>
+  </ul></li>
+  <li><a href="#ridders-method" id="toc-ridders-method" class="nav-link" data-scroll-target="#ridders-method"><span class="toc-section-number">2.7</span>  Ridders’ Method</a>
+  <ul class="collapse">
+  <li><a href="#implementation-3" id="toc-implementation-3" class="nav-link" data-scroll-target="#implementation-3">Implementation</a></li>
+  </ul></li>
+  <li><a href="#summary-of-one-dimensional-methods" id="toc-summary-of-one-dimensional-methods" class="nav-link" data-scroll-target="#summary-of-one-dimensional-methods"><span class="toc-section-number">2.8</span>  Summary of One-Dimensional Methods</a></li>
+  </ul></li>
+  <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework"><span class="toc-section-number">3</span>  Homework</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Roots I</h1>
+<p class="subtitle lead">Nonlinear Equation in One Variable</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="motivation" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Motivation</h1>
+<section id="examples-from-physics" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="examples-from-physics"><span class="header-section-number">1.1</span> Examples from Physics</h2>
+<p>Let us consider a few examples in Physics.</p>
+<section id="van-der-waals-equation-of-state" class="level3">
+<h3 class="anchored" data-anchor-id="van-der-waals-equation-of-state">Van der Waals equation of state</h3>
+<p>As you may recall, the classical ideal gas “law” has the form: <span class="math display">
+Pv = RT
+</span> where <span class="math inline">P</span> is the pressure, <span class="math inline">v</span> is the molar volume, <span class="math inline">R</span> is the gas constant, and <span class="math inline">T</span> is the temperature.</p>
+<p>This ignores the finite size of the gas molecules, as well as the mutual attraction between molecules. Correcting for these features “by hand” (or via the formalism of statistical mechanics) leads to the so-called <em>van der Waals equation of state</em>: <span class="math display">
+(P + \frac{a}{v^2})(v-b) = RT,
+</span> where <span class="math inline">a</span> and <span class="math inline">b</span> are the parameters that depend on the gas. Assume you know the pressure and the temperature and wish to evaluate the molar volume. As you can see by multiplying this equation with <span class="math inline">v^2</span>, you get a cubic equation in <span class="math inline">v</span>. Although cubic equation can still be solved analytically, you can consider even more complicated but realistic models. Then you have to use numerical methods to find solutions.</p>
+</section>
+<section id="quantum-mechanics-of-a-particle-in-a-finite-well" class="level3">
+<h3 class="anchored" data-anchor-id="quantum-mechanics-of-a-particle-in-a-finite-well">Quantum mechanics of a particle in a finite well</h3>
+<p>In the problem of finding eigenstates of a single particle restricted in a finite square well potential, we will encounter such a transcendental equation <span class="math display">
+k\tan ka = \kappa,
+</span> where <span class="math inline">k</span>, <span class="math inline">a</span> and <span class="math inline">\kappa</span> are parameters of the system. If we want to solve for <span class="math inline">k</span> given <span class="math inline">a</span> and <span class="math inline">\kappa</span>, we have to take the numerical approach.</p>
+</section>
+</section>
+<section id="the-problems-to-be-solved" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="the-problems-to-be-solved"><span class="header-section-number">1.2</span> The Problem(s) to Be Solved</h2>
+<p>At its most basic level, the problem we are faced with is as follows: you are given a function <span class="math inline">f(x)</span> and you need to find its zeros. In other words, you need to solve the equation <span class="math inline">f(x)=0</span> (the solutions of this equation are known as <em>roots</em>). Thus, our task is to solve: <span class="math display">
+f(x) = 0,
+</span> where <span class="math inline">f(x)</span> is generally nonlinear.The <span class="math inline">f(x)</span> involved may be a polynomial, a special function, or a complicated programming routine (which makes each function evaluation quite costly). In what follows, we will denote our root by <span class="math inline">x^*</span>.</p>
+<p>To give an example: <span class="math inline">f(x) = x^2 - 5 = 0</span> is very easy to write down. Anyone can “solve” it by saying <span class="math inline">x^2 = 5</span> followed by <span class="math inline">x = \pm\sqrt{5}</span>. This is where things are not so easy any more: what is the value of <span class="math inline">\sqrt{5}</span> ? You can use a calculator, or use python built-in function <code>sqrt</code>. But how do these tools figure out which number gives 5 when squared? We will encounter several general-use methods later to find out the answer.</p>
+<p>A complication arises when you are faced with a single polynomial and need to evaluate its zeros. In equation form <span class="math display">
+c_0 + c_1 x + \cdots + c_{n-1}x^{n-1} = 0.
+</span> This is a single equation, but it has <span class="math inline">n-1</span> roots.</p>
+<p>A more complicated version of the earlier problem (one nonlinear equation in one variable) is the case where we have <span class="math inline">n</span> simultaneous nonlinear equations <span class="math inline">n</span> unknowns: <span class="math display">
+\begin{cases}
+f_{0}(x_{0},x_{1,}\dots,x_{n-1}) &amp; =0\\
+f_{1}(x_{0},x_{1,}\dots,x_{n-1}) &amp; =0\\
+&amp; \vdots\\
+f_{n-1}(x_{0},x_{1},\dots,x_{n-1}) &amp; =0
+\end{cases}
+</span> which can be recast using our vector notation <span class="math display">
+\boldsymbol{f(x) = 0}.
+</span></p>
+<p>The final problem we attack on this topic is related yet distinct: instead of trying to find the zeros of a function, find the points where the function attains a minimum (or, as we will see, a maximum). Using the notation we introduced above, this problem would have the form: <span class="math display">
+\min \phi(\boldsymbol{x})
+</span> where <span class="math inline">\boldsymbol{x} = (x_0, x_1, \dots, x_{n-1})</span>, and <span class="math inline">\phi</span> is a function producing scalar values.</p>
+</section>
+</section>
+<section id="nonlinear-equation-in-one-variable" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Nonlinear Equation in One Variable</h1>
+<p>Let us consider a concrete problem, solving <span class="math display">
+e^{x-\sqrt{x}} - x = 0.
+</span></p>
+<p>Most simply, we can find out the roots by plotting the function.</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="fl">3.5</span>,<span class="dv">100</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>fx <span class="op">=</span> np.exp(x <span class="op">-</span> np.sqrt(x)) <span class="op">-</span> x</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>plt.plot(x,fx,<span class="st">'-'</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>plt.hlines(y<span class="op">=</span><span class="dv">0</span>,xmin<span class="op">=</span><span class="dv">0</span>,xmax<span class="op">=</span><span class="fl">3.5</span>,ls<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'x'</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'f(x)'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>Text(0, 0.5, 'f(x)')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="week9_files/figure-html/cell-2-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>We see that our function has two zeros, one near <span class="math inline">x^*\simeq 1</span> and another one near <span class="math inline">x^∗ \simeq 2.5</span>. We can check that <span class="math inline">x^*=1</span> is indeed a root.</p>
+<p>Now, turning to ways of solving our equation: we’ll need a method that can find both roots, preferably in comparable amounts of time. (While we already analytically know one of the roots, we’ll keep things general.) The most naive approach, having already plotted the function, is to try out different values (or perhaps even a very fine grid) near where we expect the roots to be. This is not a great idea, for several reasons:</p>
+<ol type="1">
+<li>It is very wasteful, requiring a large number of function evaluations. What do you do if the first grid spacing you chose was not fine enough? You pick a smaller grid spacing and start evaluating the function again.</li>
+<li>As noted in the previous section, in some cases even evaluating the function a single time may be very costly, so you might not even be able to plot the function in the first place.</li>
+<li>It is easy to see that this brute-force approach will immediately fail when you are faced with a multidimensional problem (since you’d need a multidimensional grid, with costly function evaluations at each point on the grid).</li>
+</ol>
+<p>At a big-picture level, we can divide root-finding methods into two large classes:</p>
+<ul>
+<li><strong>Bracketing methods</strong>: these are approaches which start with two values of <span class="math inline">x</span>, let us call them <span class="math inline">x_0</span> and <span class="math inline">x_1</span>, which bracket the root (i.e., we already know that <span class="math inline">f(x_0)</span> and <span class="math inline">f(x_1)</span> have opposite signs). Of the methods we discuss below, <em>bisection</em> and <em>Ridders’</em> are bracketing methods.</li>
+<li><strong>Non-bracketing methods</strong>: also known as open-domain methods: these approaches may need one or two starting estimates of the root, but the root itself does not need to be bracketed in the first place. Of the methods introduced below, <em>fixed-point iteration</em>, <em>Newton’s</em>, and the <em>secant</em> methods are all non-bracketing.</li>
+</ul>
+<p>While the distinction between bracketing and non-bracketing methods is very important and should always be borne in mind when thinking about a given approach, we will not introduce these methods in that order. Instead, we will employ a pedagogical approach, starting with simple methods first (which end up being very slow) and increasing the sophistication level as we go.</p>
+<section id="conditioning" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="conditioning"><span class="header-section-number">2.1</span> Conditioning</h2>
+<p>When discussing solving systems of linear equations, <span class="math inline">\boldsymbol{A}\boldsymbol{x} = \boldsymbol{b}</span>, we encountered the question of how <span class="math inline">\boldsymbol{x}</span> is impacted when we slightly perturb <span class="math inline">\boldsymbol{A}</span>. This led us to introduce the condition number <span class="math inline">\kappa(\boldsymbol{A})</span> as a measure of how much (or how little) a perturbation in the coefficient matrix, <span class="math inline">\|\Delta \boldsymbol{A} \|/\|\boldsymbol{A}\|</span>, is amplified when evaluating the effect on the solution vector, <span class="math inline">\|\Delta \boldsymbol{x}\|/\| \boldsymbol{x}\|</span>.</p>
+<p>We will now do something analogous, this time for the case of absolute changes. The problem we are now solving is the nonlinear equation <span class="math inline">f(x) = 0</span>, so the perturbations in the system would be perturbations of the value of the function <span class="math inline">f</span>.</p>
+<p>To be specific, the exact root is denoted by <span class="math inline">x^*</span>, and the approximate value for it is denoted as <span class="math inline">\tilde{x}^*</span>. What we’ll do is to Taylor expand <span class="math inline">f(\tilde{x}^*)</span> around <span class="math inline">x^*</span>. This gives us: <span class="math display">
+f(\tilde{x}^*) - f(x^*) = f(x^* + \Delta x^*) - f(x^*) \simeq   f'(x^*)\Delta x^*,
+</span> where <span class="math inline">\Delta x^* = \tilde{x}^* - x^*</span>.</p>
+<p>This implies <span class="math display">
+\Delta x^* \simeq \frac{1}{f'(x^*)}[f(\tilde{x}^*) - f(x^*)],
+</span> which allows us to introduce a <em>condition number</em> for our problem: <span class="math display">
+\kappa_f = \frac{1}{f'(x^*)}.
+</span></p>
+<p>Thus, a larger <span class="math inline">f'(x^*)</span> gives a small <span class="math inline">\kappa_f</span>, indicating a <em>well-conditioned</em> problem.</p>
+</section>
+<section id="order-of-convergence-and-termination-criteria" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="order-of-convergence-and-termination-criteria"><span class="header-section-number">2.2</span> Order of Convergence and Termination Criteria</h2>
+<p>Our goal is to find an <span class="math inline">x^∗</span> such that <span class="math inline">f(x^∗) = 0</span>. Except for very low-degree polynomials, this is a problem that does not have an analytical solution with a closed formula. In practice, we have to resort to <em>iterative methods</em>. For these iterative methods, we have to first have an initial root estimate <span class="math inline">x^{(0)}</span>.</p>
+<p>We will have a sequence of iterates, <span class="math inline">x^{(0)}, x^{(1)}, x^{(2)}, \cdots, x^{(k)}</span> which will be approaching <span class="math inline">x^*</span>. Let us assume that we are dealing with a convergent method and that <span class="math inline">x^{(k)}</span> will be close to the root <span class="math inline">x^*</span>. We shall discuss the meaning “close” below.</p>
+<p>If there exist a constant <span class="math inline">m\neq 0</span> and a number <span class="math inline">p</span> such that: <span class="math display">
+|x^{(k)} - x^*| \leq m |x^{(k-1)} - x^*|^p
+</span> for <span class="math inline">k</span> sufficiently large, then <span class="math inline">m</span> is called the <em>asymptotic error constant</em> and <span class="math inline">p</span> is called the <em>order of convergence</em>.</p>
+<ul>
+<li>If <span class="math inline">p = 1</span> then we are dealing with a <em>linearly convergent</em> method (e.g.&nbsp;fixed-point iteration).</li>
+<li>If <span class="math inline">p = 2</span> then we have a <em>quadratically convergent</em> method (e.g.&nbsp;Newton’s method).</li>
+<li>Non-integer <span class="math inline">p \simeq 1.618</span>, such as secant method, which is <em>superlinearly convergent</em>.</li>
+</ul>
+<p>Practically, one can use another test for convergence <span class="math display">
+\frac{|x^{(k)} - x^{(k-1)}|}{|x^{(k)}|}\leq \epsilon.
+</span> Sometimes, <span class="math inline">x^{(k)}</span> may be small, then we may use <span class="math display">
+\frac{|x^{(k)} - x^{(k-1)}|}{1+|x^{(k)}|}\leq \epsilon
+</span> as a convergence criterion.</p>
+</section>
+<section id="fixed-point-iteration" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="fixed-point-iteration"><span class="header-section-number">2.3</span> Fixed-point iteration</h2>
+<section id="algorithm" class="level3">
+<h3 class="anchored" data-anchor-id="algorithm">Algorithm</h3>
+<p>This algorithm solves the following problem <span class="math display">
+x = g(x).
+</span> A point <span class="math inline">x^*</span> satisfying the above relation is called a <em>fixed point</em> of <span class="math inline">g</span>.</p>
+<ul>
+<li><span class="math inline">g(x) = x^2 - 6</span> has two fixed points: <span class="math inline">x^* = 3</span> and <span class="math inline">x^* = -2</span>.</li>
+<li><span class="math inline">g(x) = x + 2</span> has no fixed point.</li>
+</ul>
+<p>The algorithm is:</p>
+<ol type="1">
+<li>Starting from an initial estimate <span class="math inline">x^{(0)}</span></li>
+<li>Compute <span class="math display">
+x^{(1)} = g(x^{(0)})
+</span></li>
+<li>Iterate this procedure, with <span class="math display">
+x^{(k)} = g(x^{(k-1)}).
+</span></li>
+</ol>
+</section>
+<section id="implementation" class="level3">
+<h3 class="anchored" data-anchor-id="implementation">Implementation</h3>
+<p>Let us consider the problem <span class="math inline">g(x) = e^{x - \sqrt{x}}</span>.</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> g(x):</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.exp(x <span class="op">-</span> np.sqrt(x))</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fixedpoint(g,xold,kmax<span class="op">=</span><span class="dv">200</span>,tol<span class="op">=</span><span class="fl">1.e-8</span>):</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,kmax):</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        xnew <span class="op">=</span> g(xold)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        xdiff <span class="op">=</span> xnew <span class="op">-</span> xold</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"</span><span class="sc">{0:2d}</span><span class="st"> </span><span class="sc">{1:1.16f}</span><span class="st"> </span><span class="sc">{2:1.16f}</span><span class="st">"</span>.<span class="bu">format</span>(k,xnew,xdiff))</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">abs</span>(xdiff<span class="op">/</span>xnew) <span class="op">&lt;</span> tol:</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        xold <span class="op">=</span> xnew</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        xnew <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xnew</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> xold <span class="kw">in</span> (<span class="fl">0.99</span>, <span class="fl">2.499</span>):</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> fixedpoint(g,xold)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1 0.9950249795068901 0.0050249795068901
+ 2 0.9975186749161311 0.0024936954092410
+ 3 0.9987608763846132 0.0012422014684821
+ 4 0.9993808220095828 0.0006199456249696
+ 5 0.9996905068451969 0.0003096848356141
+ 6 0.9998452773684844 0.0001547705232875
+ 7 0.9999226446689382 0.0000773673004538
+ 8 0.9999613238304214 0.0000386791614831
+ 9 0.9999806622891710 0.0000193384587497
+10 0.9999903312380722 0.0000096689489012
+11 0.9999951656424073 0.0000048344043351
+12 0.9999975828270463 0.0000024171846390
+13 0.9999987914149838 0.0000012085879375
+14 0.9999993957078571 0.0000006042928733
+15 0.9999996978540199 0.0000003021461628
+16 0.9999998489270328 0.0000001510730129
+17 0.9999999244635221 0.0000000755364894
+18 0.9999999622317625 0.0000000377682403
+19 0.9999999811158816 0.0000000188841192
+20 0.9999999905579409 0.0000000094420592
+0.9999999905579409
+ 1 2.5047211959255882 0.0057211959255881
+ 2 2.5145405344896088 0.0098193385640206
+ 3 2.5314955389430209 0.0169550044534121
+ 4 2.5610776263207149 0.0295820873776940
+ 5 2.6136322055597172 0.0525545792390023
+ 6 2.7100281298330811 0.0963959242733639
+ 7 2.8973943199022352 0.1873661900691541
+ 8 3.3042876376136805 0.4068933177114453
+ 9 4.4216709817920821 1.1173833441784016
+10 10.1644263605947831 5.7427553788027010
+11 1070.9020500060432823 1060.7376236454485934
+12 inf inf
+13 nan nan
+14 nan nan
+15 nan nan
+16 nan nan
+17 nan nan
+18 nan nan
+19 nan nan
+20 nan nan
+21 nan nan
+22 nan nan
+23 nan nan
+24 nan nan
+25 nan nan
+26 nan nan
+27 nan nan
+28 nan nan
+29 nan nan
+30 nan nan
+31 nan nan
+32 nan nan
+33 nan nan
+34 nan nan
+35 nan nan
+36 nan nan
+37 nan nan
+38 nan nan
+39 nan nan
+40 nan nan
+41 nan nan
+42 nan nan
+43 nan nan
+44 nan nan
+45 nan nan
+46 nan nan
+47 nan nan
+48 nan nan
+49 nan nan
+50 nan nan
+51 nan nan
+52 nan nan
+53 nan nan
+54 nan nan
+55 nan nan
+56 nan nan
+57 nan nan
+58 nan nan
+59 nan nan
+60 nan nan
+61 nan nan
+62 nan nan
+63 nan nan
+64 nan nan
+65 nan nan
+66 nan nan
+67 nan nan
+68 nan nan
+69 nan nan
+70 nan nan
+71 nan nan
+72 nan nan
+73 nan nan
+74 nan nan
+75 nan nan
+76 nan nan
+77 nan nan
+78 nan nan
+79 nan nan
+80 nan nan
+81 nan nan
+82 nan nan
+83 nan nan
+84 nan nan
+85 nan nan
+86 nan nan
+87 nan nan
+88 nan nan
+89 nan nan
+90 nan nan
+91 nan nan
+92 nan nan
+93 nan nan
+94 nan nan
+95 nan nan
+96 nan nan
+97 nan nan
+98 nan nan
+99 nan nan
+100 nan nan
+101 nan nan
+102 nan nan
+103 nan nan
+104 nan nan
+105 nan nan
+106 nan nan
+107 nan nan
+108 nan nan
+109 nan nan
+110 nan nan
+111 nan nan
+112 nan nan
+113 nan nan
+114 nan nan
+115 nan nan
+116 nan nan
+117 nan nan
+118 nan nan
+119 nan nan
+120 nan nan
+121 nan nan
+122 nan nan
+123 nan nan
+124 nan nan
+125 nan nan
+126 nan nan
+127 nan nan
+128 nan nan
+129 nan nan
+130 nan nan
+131 nan nan
+132 nan nan
+133 nan nan
+134 nan nan
+135 nan nan
+136 nan nan
+137 nan nan
+138 nan nan
+139 nan nan
+140 nan nan
+141 nan nan
+142 nan nan
+143 nan nan
+144 nan nan
+145 nan nan
+146 nan nan
+147 nan nan
+148 nan nan
+149 nan nan
+150 nan nan
+151 nan nan
+152 nan nan
+153 nan nan
+154 nan nan
+155 nan nan
+156 nan nan
+157 nan nan
+158 nan nan
+159 nan nan
+160 nan nan
+161 nan nan
+162 nan nan
+163 nan nan
+164 nan nan
+165 nan nan
+166 nan nan
+167 nan nan
+168 nan nan
+169 nan nan
+170 nan nan
+171 nan nan
+172 nan nan
+173 nan nan
+174 nan nan
+175 nan nan
+176 nan nan
+177 nan nan
+178 nan nan
+179 nan nan
+180 nan nan
+181 nan nan
+182 nan nan
+183 nan nan
+184 nan nan
+185 nan nan
+186 nan nan
+187 nan nan
+188 nan nan
+189 nan nan
+190 nan nan
+191 nan nan
+192 nan nan
+193 nan nan
+194 nan nan
+195 nan nan
+196 nan nan
+197 nan nan
+198 nan nan
+199 nan nan
+None</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>C:\Users\pengy\AppData\Local\Temp\ipykernel_16604\827739561.py:4: RuntimeWarning: overflow encountered in exp
+  return np.exp(x - np.sqrt(x))
+C:\Users\pengy\AppData\Local\Temp\ipykernel_16604\827739561.py:13: RuntimeWarning: invalid value encountered in double_scalars
+  if abs(xdiff/xnew) &lt; tol:
+C:\Users\pengy\AppData\Local\Temp\ipykernel_16604\827739561.py:4: RuntimeWarning: invalid value encountered in double_scalars
+  return np.exp(x - np.sqrt(x))</code></pre>
+</div>
+</div>
+<p>Note that we get <span class="math inline">x^* = 1</span> successfully. However, the other fixed point <span class="math inline">x^*\simeq 2.5</span> can not be found even if we started at <span class="math inline">2.499</span>.</p>
+<p>Now, if we take <span class="math inline">x = e^{x-\sqrt{x}}</span> and rewrite it as <span class="math inline">\ln x = x - \sqrt{x}</span>, or <span class="math inline">x = \ln x + \sqrt{x}</span>, we can take <span class="math inline">g(x) = \ln x + \sqrt{x}</span>. The fixed point of this <span class="math inline">g(x)</span> can be calculated below.</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> g(x):</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.log(x) <span class="op">+</span> np.sqrt(x)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fixedpoint(g,xold,kmax<span class="op">=</span><span class="dv">200</span>,tol<span class="op">=</span><span class="fl">1.e-8</span>):</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,kmax):</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        xnew <span class="op">=</span> g(xold)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        xdiff <span class="op">=</span> xnew <span class="op">-</span> xold</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"</span><span class="sc">{0:2d}</span><span class="st"> </span><span class="sc">{1:1.16f}</span><span class="st"> </span><span class="sc">{2:1.16f}</span><span class="st">"</span>.<span class="bu">format</span>(k,xnew,xdiff))</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">abs</span>(xdiff<span class="op">/</span>xnew) <span class="op">&lt;</span> tol:</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        xold <span class="op">=</span> xnew</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        xnew <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xnew</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> xold <span class="kw">in</span> (<span class="fl">0.99</span>, <span class="fl">2.499</span>):</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> fixedpoint(g,xold)</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1 0.9849371012531185 -0.0050628987468815
+ 2 0.9772624771823942 -0.0076746240707243
+ 3 0.9655658621701254 -0.0116966150122688
+ 4 0.9475911454393494 -0.0179747167307760
+ 5 0.9196107829003974 -0.0279803625389520
+ 6 0.8751586292403727 -0.0444521536600248
+ 7 0.8021490152512132 -0.0730096139891595
+ 8 0.6751668375278304 -0.1269821777233828
+ 9 0.4288899121282286 -0.2462769253996017
+10 -0.1916581367026353 -0.6205480488308639
+11 nan nan
+12 nan nan
+13 nan nan
+14 nan nan
+15 nan nan
+16 nan nan
+17 nan nan
+18 nan nan
+19 nan nan
+20 nan nan
+21 nan nan
+22 nan nan
+23 nan nan
+24 nan nan
+25 nan nan
+26 nan nan
+27 nan nan
+28 nan nan
+29 nan nan
+30 nan nan
+31 nan nan
+32 nan nan
+33 nan nan
+34 nan nan
+35 nan nan
+36 nan nan
+37 nan nan
+38 nan nan
+39 nan nan
+40 nan nan
+41 nan nan
+42 nan nan
+43 nan nan
+44 nan nan
+45 nan nan
+46 nan nan
+47 nan nan
+48 nan nan
+49 nan nan
+50 nan nan
+51 nan nan
+52 nan nan
+53 nan nan
+54 nan nan
+55 nan nan
+56 nan nan
+57 nan nan
+58 nan nan
+59 nan nan
+60 nan nan
+61 nan nan
+62 nan nan
+63 nan nan
+64 nan nan
+65 nan nan
+66 nan nan
+67 nan nan
+68 nan nan
+69 nan nan
+70 nan nan
+71 nan nan
+72 nan nan
+73 nan nan
+74 nan nan
+75 nan nan
+76 nan nan
+77 nan nan
+78 nan nan
+79 nan nan
+80 nan nan
+81 nan nan
+82 nan nan
+83 nan nan
+84 nan nan
+85 nan nan
+86 nan nan
+87 nan nan
+88 nan nan
+89 nan nan
+90 nan nan
+91 nan nan
+92 nan nan
+93 nan nan
+94 nan nan
+95 nan nan
+96 nan nan
+97 nan nan
+98 nan nan
+99 nan nan
+100 nan nan
+101 nan nan
+102 nan nan
+103 nan nan
+104 nan nan
+105 nan nan
+106 nan nan
+107 nan nan
+108 nan nan
+109 nan nan
+110 nan nan
+111 nan nan
+112 nan nan
+113 nan nan
+114 nan nan
+115 nan nan
+116 nan nan
+117 nan nan
+118 nan nan
+119 nan nan
+120 nan nan
+121 nan nan
+122 nan nan
+123 nan nan
+124 nan nan
+125 nan nan
+126 nan nan
+127 nan nan
+128 nan nan
+129 nan nan
+130 nan nan
+131 nan nan
+132 nan nan
+133 nan nan
+134 nan nan
+135 nan nan
+136 nan nan
+137 nan nan
+138 nan nan
+139 nan nan
+140 nan nan
+141 nan nan
+142 nan nan
+143 nan nan
+144 nan nan
+145 nan nan
+146 nan nan
+147 nan nan
+148 nan nan
+149 nan nan
+150 nan nan
+151 nan nan
+152 nan nan
+153 nan nan
+154 nan nan
+155 nan nan
+156 nan nan
+157 nan nan
+158 nan nan
+159 nan nan
+160 nan nan
+161 nan nan
+162 nan nan
+163 nan nan
+164 nan nan
+165 nan nan
+166 nan nan
+167 nan nan
+168 nan nan
+169 nan nan
+170 nan nan
+171 nan nan
+172 nan nan
+173 nan nan
+174 nan nan
+175 nan nan
+176 nan nan
+177 nan nan
+178 nan nan
+179 nan nan
+180 nan nan
+181 nan nan
+182 nan nan
+183 nan nan
+184 nan nan
+185 nan nan
+186 nan nan
+187 nan nan
+188 nan nan
+189 nan nan
+190 nan nan
+191 nan nan
+192 nan nan
+193 nan nan
+194 nan nan
+195 nan nan
+196 nan nan
+197 nan nan
+198 nan nan
+199 nan nan
+None
+ 1 2.4967132225418855 -0.0022867774581146
+ 2 2.4950742738487812 -0.0016389486931043
+ 3 2.4938989085322354 -0.0011753653165458
+ 4 2.4930556295838491 -0.0008432789483863
+ 5 2.4924504188398293 -0.0006052107440198
+ 6 2.4920159683111445 -0.0004344505286848
+ 7 2.4917040473019760 -0.0003119210091684
+ 8 2.4914800722657500 -0.0002239750362261
+ 9 2.4913192333987566 -0.0001608388669934
+10 2.4912037263370528 -0.0001155070617038
+11 2.4911207709026488 -0.0000829554344040
+12 2.4910611917076024 -0.0000595791950464
+13 2.4910184005431231 -0.0000427911644794
+14 2.4909876664406752 -0.0000307341024479
+15 2.4909655918855487 -0.0000220745551265
+16 2.4909497368590046 -0.0000158550265441
+17 2.4909383489348955 -0.0000113879241090
+18 2.4909301694866981 -0.0000081794481974
+19 2.4909242945285412 -0.0000058749581568
+20 2.4909200747806546 -0.0000042197478867
+21 2.4909170438994339 -0.0000030308812207
+22 2.4909148669325525 -0.0000021769668814
+23 2.4909133032986395 -0.0000015636339130
+24 2.4909121801982073 -0.0000011231004322
+25 2.4909113735163491 -0.0000008066818582
+26 2.4909107941061746 -0.0000005794101745
+27 2.4909103779368764 -0.0000004161692981
+28 2.4909100790175280 -0.0000002989193484
+29 2.4909098643145522 -0.0000002147029758
+30 2.4909097101011435 -0.0000001542134087
+31 2.4909095993352044 -0.0000001107659391
+32 2.4909095197760154 -0.0000000795591890
+33 2.4909094626315103 -0.0000000571445051
+34 2.4909094215866654 -0.0000000410448449
+35 2.4909093921056282 -0.0000000294810372
+36 2.4909093709304582 -0.0000000211751701
+2.490909370930458</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>C:\Users\pengy\AppData\Local\Temp\ipykernel_16604\158291069.py:4: RuntimeWarning: invalid value encountered in log
+  return np.log(x) + np.sqrt(x)
+C:\Users\pengy\AppData\Local\Temp\ipykernel_16604\158291069.py:4: RuntimeWarning: invalid value encountered in sqrt
+  return np.log(x) + np.sqrt(x)</code></pre>
+</div>
+</div>
+<p>In this new program, <span class="math inline">x^* \simeq 2.5</span> is found successfully, but not the other.</p>
+</section>
+<section id="convergence-properties" class="level3">
+<h3 class="anchored" data-anchor-id="convergence-properties">Convergence properties</h3>
+<p>From <span class="math inline">x^{(k)} = g(x^{(k-1)})</span> and <span class="math inline">x^* = g(x^*)</span>, we have <span class="math display">
+x^{(k)} - x^* = g(x^{(k-1)})  - g(x^*) = g'(\xi)(x^{(k-1)} - x^*),
+</span> with some <span class="math inline">\xi</span> between <span class="math inline">x^{(k-1)}</span> and <span class="math inline">x^*</span>. If <span class="math inline">|g'(\xi)|\leq m &lt;1</span>, we will have <span class="math display">
+|x^{(k) - x^*}| \leq m |x^{(k-1)} - x^*| \leq m^2 |x^{(k-2)} - x^*| \leq \dots \leq m^k|x^{(0)} - x^*|.
+</span></p>
+<p>Let us first consider <span class="math inline">g(x) = e^{x - \sqrt{x}}</span>. We have <span class="math display">
+g'(x^*) = (1 -\frac{1}{2\sqrt{x^*}})x^* = x^* - \frac{\sqrt{x^*}}{2}.
+</span> For <span class="math inline">x^*=1</span>, we have <span class="math inline">g'(x^*)= \frac{1}{2}&lt;1</span>, indicating near <span class="math inline">x^*=1</span> the method is convergent. For <span class="math inline">x^*\simeq 2.5</span>, <span class="math inline">g'(x^*)&gt;1</span>, that’s why the method is not convergent.</p>
+</section>
+</section>
+<section id="bisection-method" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="bisection-method"><span class="header-section-number">2.4</span> Bisection method</h2>
+<p>The problem of the fixed-point iteration is that the mapping from <span class="math inline">f(x) = 0</span> to <span class="math inline">x = g(x)</span> is not unique. Also, if $g’() &gt;1 $, the fixed-point iteration method diverges. It would be nice to have a more stable method. This is precisely what the bisection method accomplishes; it is a slow method, which doesn’t really generalize to higher-dimensional problems, but it is safe and systematic.</p>
+<section id="algorithm-and-convergence" class="level3">
+<h3 class="anchored" data-anchor-id="algorithm-and-convergence">Algorithm and Convergence</h3>
+<p>The bisection method assumes you have already bracketed the root; that means that you have found an x0 and an x1 for which <span class="math inline">f(x_0)</span> and <span class="math inline">f(x_1)</span> have opposite signs. The algorithm:</p>
+<ul>
+<li>Take the interval <span class="math inline">(x_0, x_1)</span> (for which we know <span class="math inline">f(x_0)f(x_1) &lt; 0</span>) and evaluate the midpoint: <span class="math display">
+x_2 = \frac{x_0 + x_1}{2}
+</span></li>
+<li>We are producing two subintervals: <span class="math inline">(x_0, x_2)</span> and <span class="math inline">(x_2, x_1)</span>. The sign of <span class="math inline">f(x_2)</span> will determine in which of these two subintervals the root lies.</li>
+<li>If <span class="math inline">f(x_0)f(x_2) &lt; 0</span>, then the root is in <span class="math inline">(x_0, x_2)</span>. Thus, we could rename <span class="math inline">x_1 \leftarrow x_2</span> and repeat the entire process (which started with an <span class="math inline">x_0</span> and an <span class="math inline">x_1</span> that bracket the root).</li>
+<li>If <span class="math inline">f(x_0)f(x_2)&gt;0</span>, then the root is in <span class="math inline">(x_2, x_1)</span>. Thus, we could rename <span class="math inline">x_0 \leftarrow x_2</span> and repeat the entire process.</li>
+</ul>
+<p>Let us denote <span class="math inline">x^{(k)}</span> as the midpoint obtained in the <span class="math inline">k</span>th step. Let us denote the initial interaval as <span class="math inline">(a,b)</span>, we have <span class="math display">
+|x^{(k)} - x^*| \leq \frac{b-a}{2^{k+1}}
+</span></p>
+<p>For each order higher in <span class="math inline">k</span>, we get an additional factor of <span class="math inline">1/2</span>, and thus the bisection method gives <em>linear convergence</em>.</p>
+</section>
+<section id="implementation-1" class="level3">
+<h3 class="anchored" data-anchor-id="implementation-1">Implementation</h3>
+<p>We will use the termination criterion <span class="math display">
+\frac{|x^{(k)} - x^{(k-1)}|}{|x^{(k)}|}\leq \epsilon
+</span></p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.exp(x <span class="op">-</span> np.sqrt(x)) <span class="op">-</span> x</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> bisection(f,x0,x1,kmax<span class="op">=</span><span class="dv">200</span>,tol<span class="op">=</span><span class="fl">1.e-8</span>):</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    f0 <span class="op">=</span> f(x0)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,kmax):</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        x2 <span class="op">=</span> (x0<span class="op">+</span>x1)<span class="op">/</span><span class="dv">2</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        f2 <span class="op">=</span> f(x2)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> f0<span class="op">*</span>f2 <span class="op">&lt;</span> <span class="dv">0</span>:</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>            x1 <span class="op">=</span> x2</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>            x0, f0 <span class="op">=</span> x2, f2</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>        x2new <span class="op">=</span> (x0<span class="op">+</span>x1)<span class="op">/</span><span class="dv">2</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>        xdiff <span class="op">=</span> np.<span class="bu">abs</span>(x2new<span class="op">-</span>x2)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>        rowf <span class="op">=</span> <span class="st">"</span><span class="sc">{0:2d}</span><span class="st"> </span><span class="sc">{1:1.16f}</span><span class="st"> </span><span class="sc">{2:1.16f}</span><span class="st"> </span><span class="sc">{3:1.16f}</span><span class="st">"</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(rowf.<span class="bu">format</span>(k,x2new,xdiff,np.<span class="bu">abs</span>(f(x2new))))</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> np.<span class="bu">abs</span>(xdiff<span class="op">/</span>x2new) <span class="op">&lt;</span> tol:</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>        x2new <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x2new</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>    root <span class="op">=</span> bisection(f,<span class="fl">0.</span>,<span class="fl">1.5</span>)</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(root)<span class="op">;</span> <span class="bu">print</span>(<span class="st">""</span>)</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>    root <span class="op">=</span> bisection(f,<span class="fl">1.5</span>,<span class="fl">3.</span>)</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(root)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1 1.1250000000000000 0.3750000000000000 0.0585452513912128
+ 2 0.9375000000000000 0.1875000000000000 0.0322220096468296
+ 3 1.0312500000000000 0.0937500000000000 0.0153801917893579
+ 4 0.9843750000000000 0.0468750000000000 0.0078734577169989
+ 5 1.0078125000000000 0.0234375000000000 0.0038909811511951
+ 6 0.9960937500000000 0.0117187500000000 0.0019569384633997
+ 7 1.0019531250000000 0.0058593750000000 0.0009756086699708
+ 8 0.9990234375000000 0.0029296875000000 0.0004885196492074
+ 9 1.0004882812500000 0.0014648437500000 0.0002440810179281
+10 0.9997558593750000 0.0007324218750000 0.0001220852133581
+11 1.0001220703125000 0.0003662109375000 0.0000610314309217
+12 0.9999389648437500 0.0001831054687500 0.0000305185094428
+13 1.0000305175781250 0.0000915527343750 0.0000152585562312
+14 0.9999847412109375 0.0000457763671875 0.0000076294527388
+15 1.0000076293945312 0.0000228881835938 0.0000038146827137
+16 0.9999961853027344 0.0000114440917969 0.0000019073522708
+17 1.0000019073486328 0.0000057220458984 0.0000009536734069
+18 0.9999990463256836 0.0000028610229492 0.0000004768373856
+19 1.0000004768371582 0.0000014305114746 0.0000002384185223
+20 0.9999997615814209 0.0000007152557373 0.0000001192093038
+21 1.0000001192092896 0.0000003576278687 0.0000000596046412
+22 0.9999999403953552 0.0000001788139343 0.0000000298023233
+23 1.0000000298023224 0.0000000894069672 0.0000000149011612
+24 0.9999999850988388 0.0000000447034836 0.0000000074505806
+25 1.0000000074505806 0.0000000223517418 0.0000000037252903
+26 0.9999999962747097 0.0000000111758709 0.0000000018626451
+27 1.0000000018626451 0.0000000055879354 0.0000000009313226
+1.0000000018626451
+
+ 1 2.6250000000000000 0.3750000000000000 0.1064014398192343
+ 2 2.4375000000000000 0.1875000000000000 0.0356230351130975
+ 3 2.5312500000000000 0.0937500000000000 0.0293964402317419
+ 4 2.4843750000000000 0.0468750000000000 0.0045574885289668
+ 5 2.5078125000000000 0.0234375000000000 0.0120518421269580
+ 6 2.4960937500000000 0.0117187500000000 0.0036561016538679
+ 7 2.4902343750000000 0.0058593750000000 0.0004733589489967
+ 8 2.4931640625000000 0.0029296875000000 0.0015856921045336
+ 9 2.4916992187500000 0.0014648437500000 0.0005547483769988
+10 2.4909667968750000 0.0007324218750000 0.0000403403649947
+11 2.4906005859375000 0.0003662109375000 0.0002165978541178
+12 2.4907836914062500 0.0001831054687500 0.0000881508882320
+13 2.4908752441406250 0.0000915527343750 0.0000239107979292
+14 2.4909210205078125 0.0000457763671875 0.0000082133994064
+15 2.4908981323242188 0.0000228881835938 0.0000078490452871
+16 2.4909095764160156 0.0000114440917969 0.0000001820905529
+17 2.4909038543701172 0.0000057220458984 0.0000038334989942
+18 2.4909067153930664 0.0000028610229492 0.0000018257096275
+19 2.4909081459045410 0.0000014305114746 0.0000008218108891
+20 2.4909088611602783 0.0000007152557373 0.0000003198605061
+21 2.4909092187881470 0.0000003576278687 0.0000000688850612
+22 2.4909093976020813 0.0000001788139343 0.0000000566027243
+23 2.4909093081951141 0.0000000894069672 0.0000000061411738
+24 2.4909093528985977 0.0000000447034836 0.0000000252307739
+25 2.4909093305468559 0.0000000223517418 0.0000000095448001
+2.490909330546856</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="newtons-method" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="newtons-method"><span class="header-section-number">2.5</span> Newton’s Method</h2>
+<p>We now turn to <em>Newton’s method</em> (sometimes also called the <em>Newton–Raphson method</em>): this is the simplest fast method used for root-finding. It also happens to generalize to larger-dimensional problems in a reasonably straightforward manner. At a big-picture level, Newton’s method requires more input than the approaches we saw earlier: in addition to being able to evaluate the function <span class="math inline">f(x)</span>, one must also be able to evaluate its first derivative <span class="math inline">f'(x)</span>. This is obviously trivial for our example above, where <span class="math inline">f(x)</span> is analytically known, but may not be so easy to access for the case where <span class="math inline">f(x)</span> is an externally provided (costly) routine. Furthermore, to give the conclusion ahead of time: there are many situations in which Newton’s method can get in trouble, so it always pays to think about your specific problem instead of blindly trusting a canned routine. Even so, if you already have a reasonable estimate of where the root may lie, Newton’s method is usually a fast and reliable solution.</p>
+<section id="algorithm-and-interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="algorithm-and-interpretation">Algorithm and Interpretation</h3>
+<p>We will assume that <span class="math inline">f(x)</span> has continuous first and second derivatives. Take <span class="math inline">x^{(k-1)}</span> to be the last iterate we’ve produced (or just an initial guess). We will now write down a Taylor expansion of <span class="math inline">f(x)</span> around <span class="math inline">x^{(k-1)}</span>: <span class="math display">
+f(x) = f(x^{(k-1)}) + (x - x^{(k-1)})f'(x^{(k-1)}) + \frac{1}{2}(x - x^{(k-1)})^2f''(\xi),
+</span> where <span class="math inline">\xi</span> is a point between <span class="math inline">x</span> and <span class="math inline">x^{(k-1)}</span>. If we now take <span class="math inline">x = x^*</span> then we have <span class="math inline">f(x^*) = 0</span>. If <span class="math inline">f(x)</span> is linear then we have <span class="math display">
+0 = f(x^{(k-1)}) + (x^* - x^{(k-1)})f'(x^{(k-1)}),
+</span> or <span id="eq-newton"><span class="math display">
+x^* = x^{(k-1)}  - \frac{f(x^{(k-1)})}{f'(x^{(k-1)})}.
+\tag{1}</span></span> Thus, if the function <span class="math inline">f(x)</span> is linear, with an initial guess, the function value and its derivative (at the guess), one can locate the root.</p>
+<p>This motivates Newton’s method: if <span class="math inline">f(x)</span> is nonlinear, we still use the same formula <a href="#eq-newton">Equation&nbsp;1</a>, with iterations <span id="eq-newton-iteration"><span class="math display">
+x^{(k)} = x^{(k-1)}  - \frac{f(x^{(k-1)})}{f'(x^{(k-1)})}, \quad k = 1,2,\dots
+\tag{2}</span></span></p>
+<div id="fig-newton" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="week9_files/newton.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: Illustration of Newton’s method for our example function</figcaption><p></p>
+</figure>
+</div>
+<p>The Newton’s method is illustrated in <a href="#fig-newton">Figure&nbsp;1</a>.</p>
+</section>
+<section id="convergence" class="level3">
+<h3 class="anchored" data-anchor-id="convergence">Convergence</h3>
+<p>If we do not neglect the second order derivative, we have <span class="math display">
+0 = f(x^{(k-1)}) + (x^* - x^{(k-1)})f'(x^{(k-1)}) + \frac{1}{2}(x^* - x^{(k-1)})^2f''(\xi),
+</span> which can be manipulated into <span class="math display">
+-\frac{f(x^{(k-1)})}{f'(x^{(k-1)})} - x^*+x^{(k-1)}
+=
+\frac{(x^* - x^{(k-1)})^2f''(\xi)}{2f'(x^{(k-1)})}.
+</span> Using <a href="#eq-newton-iteration">Equation&nbsp;2</a>, we have <span class="math display">
+x^{(k)}- x^* = \left[\frac{f''(\xi)}{2f'(x^{(k-1)})} \right](x^{(k-1)} - x^*)^2.
+</span></p>
+<p>Thus, under the assumption <span class="math display">
+\left[\frac{f''(\xi)}{2f'(x^{(k-1)})} \right]\leq m &lt; 1,
+</span> we have that <em>the Newton’s method is quadratically convergent</em>.</p>
+</section>
+</section>
+<section id="secant-method" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="secant-method"><span class="header-section-number">2.6</span> Secant Method</h2>
+<p>Newton’s method involves derivative evaluation, which can be costly. Here, we want to introduce a similar method but without direct derivative evaluations. This method is the <em>secant method</em>.</p>
+<section id="algorithm-and-interpretation-1" class="level3">
+<h3 class="anchored" data-anchor-id="algorithm-and-interpretation-1">Algorithm and Interpretation</h3>
+<p>The secant method replaces the evaluation of the derivative, needed for Newton’s method, by a single function evaluation. Particularly, we introduce the approximation <span class="math display">
+f'(x^{(k-1)}) = \frac{f'(x^{(k-1)})-f'(x^{(k-2)})}{x^{(k-1)} - x^{(k-2)}}.
+</span></p>
+<p>Using this approximation and <a href="#eq-newton-iteration">Equation&nbsp;2</a>, we have <span class="math display">
+x^{(k)} = x^{(k-1)} - f(x^{(k-1)})\frac{x^{(k-1)} - x^{(k-2)}}{f(x^{(k-1)})-f(x^{(k-2)})}, \quad k = 2,3,\dots
+</span> where we start the iteration <span class="math inline">k = 2</span>, as we need <em>two</em> initial guesses as starting points. Once we get going, though, we only need to evaluate the function once per iteration.</p>
+<div id="fig-secant" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="week9_files/secant.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2: Illustration of the secant method for our example function</figcaption><p></p>
+</figure>
+</div>
+<p>This method is illustrated in <a href="#fig-secant">Figure&nbsp;2</a>.</p>
+</section>
+<section id="implementation-2" class="level3">
+<h3 class="anchored" data-anchor-id="implementation-2">Implementation</h3>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.exp(x <span class="op">-</span> np.sqrt(x)) <span class="op">-</span> x</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> secant(f,x0,x1,kmax<span class="op">=</span><span class="dv">200</span>,tol<span class="op">=</span><span class="fl">1.e-8</span>):</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    f0 <span class="op">=</span> f(x0)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,kmax):</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        f1 <span class="op">=</span> f(x1)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>        ratio <span class="op">=</span> (x1 <span class="op">-</span> x0)<span class="op">/</span>(f1 <span class="op">-</span> f0)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>        x2 <span class="op">=</span> x1 <span class="op">-</span> f1<span class="op">*</span>ratio</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>        xdiff <span class="op">=</span> <span class="bu">abs</span>(x2<span class="op">-</span>x1)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>        x0, x1 <span class="op">=</span> x1, x2</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>        f0 <span class="op">=</span> f1</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>        rowf <span class="op">=</span> <span class="st">"</span><span class="sc">{0:2d}</span><span class="st"> </span><span class="sc">{1:1.16f}</span><span class="st"> </span><span class="sc">{2:1.16f}</span><span class="st"> </span><span class="sc">{3:1.16f}</span><span class="st">"</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(rowf.<span class="bu">format</span>(k,x2,xdiff,<span class="bu">abs</span>(f(x2))))</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">abs</span>(xdiff<span class="op">/</span>x2) <span class="op">&lt;</span> tol:</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>        x2 <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x2</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    root <span class="op">=</span> secant(f,<span class="fl">0.</span>,<span class="fl">1.7</span>) </span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(root)<span class="op">;</span> <span class="bu">print</span>(<span class="st">""</span>)</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>    root <span class="op">=</span> secant(f,<span class="fl">2.</span>,<span class="fl">2.1</span>) </span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(root)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1 1.4004521854971097 0.2995478145028903 0.1580519765211532
+ 2 0.5526242043685871 0.8478279811285226 0.2737043845137117
+ 3 1.0900899065346898 0.5374657021661028 0.0429985337663841
+ 4 1.0171185639642890 0.0729713425704008 0.0084859132802808
+ 5 0.9991764756419195 0.0179420883223695 0.0004119317155123
+ 6 1.0000071166820816 0.0008306410401622 0.0000035583283791
+ 7 1.0000000029289857 0.0000071137530959 0.0000000014644927
+ 8 0.9999999999999898 0.0000000029289959 0.0000000000000051
+0.9999999999999898
+
+ 1 2.9792935568396453 0.8792935568396452 0.5223433070698373
+ 2 2.3279525096516824 0.6513410471879628 0.0975332367096038
+ 3 2.4304364658064559 0.1024839561547735 0.0400602911601338
+ 4 2.5018707221082970 0.0714342563018411 0.0077720681470095
+ 5 2.4902636862846230 0.0116070358236740 0.0004528144783174
+ 6 2.4909027025612960 0.0006390162766730 0.0000046418045581
+ 7 2.4909093209671904 0.0000066184058944 0.0000000028219960
+ 8 2.4909093169459600 0.0000000040212305 0.0000000000000178
+2.49090931694596</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="ridders-method" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="ridders-method"><span class="header-section-number">2.7</span> Ridders’ Method</h2>
+<p>We realize that the last two methods we’ve encountered (Newton’s, secant) produced the next iterate by finding the <span class="math inline">x</span> axis intercept of a straight line; they only differ in how that straight line is produced. Ridders’ method follows the same general idea, of finding the <span class="math inline">x</span> axis intercept of a straight line, but chooses this line not by the value of the function <span class="math inline">f(x)</span> or its derivative <span class="math inline">f'(x)</span>, but through a clever trick. While our derivation below will be somewhat long, the prescription we arrive at is quite simple, requiring very little bookkeeping.</p>
+<p>Ridders’ is a bracketing method, so it assumes <span class="math inline">f(x_0)f(x_1) &lt; 0</span>. The main idea is to multiply <span class="math inline">f(x)</span> with the unique exponential function which turns it into a straight line <span class="math display">
+R(x) = f(x)e^{Qx}.
+</span> That is regardless of the shape of <span class="math inline">f(x)</span>, the new <span class="math inline">R(x)</span> will be linear, <span class="math inline">R(x) = c_0 + c_1 x</span>. Since we have three undetermined parameters (c0, c1, and Q), we will use three points to pin them down. We take these to be our initial bracket’s endpoints, <span class="math inline">x_0</span> and <span class="math inline">x_1</span>, as well as their midpoint, <span class="math inline">x_2 = (x_0 + x_1)/2</span>. A moment’s thought will convince you that, since <span class="math inline">R(x)</span> is a straight line, we will have: <span class="math display">
+R_2 = \frac{R_0 + R_1}{2}
+</span> where we are using the notation <span class="math inline">R_i \equiv R(x_i)</span>.</p>
+<p>The above equation translates into <span class="math display">
+2 f_2 e^{Qx_2} = f_0 e^{Qx_0} + f_1 e^{Q x_1}
+</span> or <span class="math display">
+2 f_2 e^{2Qd} = f_0 + f_1 e^{Qd}
+</span> where <span class="math display">
+d = x_2 - x_0 = x_1 - x_2.
+</span></p>
+<p>We can solve it <span class="math display">
+e^{Qd} = \frac{f_2 - \mathrm{sign}(f_0)\sqrt{f_2^2 - f_0 f_1}}{f_1}.
+</span> Since we are starting with the assumption <span class="math inline">f_0 f_1 &lt;0</span>, then <span class="math inline">f_2^2 - f_0 f_1 &gt;0</span> as it should be. For the same reason, the square root of <span class="math inline">f_2^2 -f_0f_1</span> is larger in magnitude than <span class="math inline">f_2</span>.</p>
+<p>Note that <span class="math inline">-\mathrm{sign}(f_0)</span> is deduced from the fact that <span class="math inline">e^{Qd}&gt;0</span>. For example, if <span class="math inline">f_0&gt;0</span> and <span class="math inline">f_1&lt;0</span>, then the numerator and denominator are both negative， so that <span class="math inline">e^{Qd}&gt;0</span>.</p>
+<p>Now, Q can be determined from known values <span class="math inline">d, f_0, f_1, f_2</span>. This means <span class="math inline">R(x)</span> is fully determined. Given <span class="math inline">R(x)</span> is a straight line, we can play the same game as in the secant method, namely we can find the <span class="math inline">x</span> axis intercept. This means we produce a new point <span class="math inline">x_3</span> as the <span class="math inline">x</span> axis intercept of the line going through <span class="math inline">(x_1, R_1)</span> and <span class="math inline">(x_2, R_2)</span>. Explicitly, <span class="math display">
+x_3 = x_2 - R_2\frac{x2 - x_1}{R_2 - R_1} = x_2 - \frac{d}{R_1/R_2 - 1} = x_2 + \mathrm{sign}(f_0)\frac{f_2 d}{\sqrt{f_2^2 -f_0 f_1}},
+</span> where in the last equality we employed the fact <span class="math display">
+\frac{R_1}{R_2} = \frac{f_1e^{Qx_1}}{f_2 e^{Qx_2}} = \frac{f_1}{f_2}e^{Qd}.
+</span></p>
+<p>To summarize, we can obtain the root estimate <span class="math inline">x_3</span> by <span class="math display">
+x_3 = x_2 + (x_1 - x_2) \frac{f_2/f_0}{\sqrt{(f_2/f_0)^2 - f_1/f_0}},
+</span> where we devided both the numerator and denominator by <span class="math inline">f_0</span> in order to get rid of the <span class="math inline">\mathrm{sign}</span> function.</p>
+<p>One nice property is that since <span class="math inline">f_0f_1&lt;0</span>, the denominator (of the secon term above) is always larger than the numerator, and hence <span class="math inline">x_3</span> will always stay inside the bracket <span class="math inline">x_0</span> and <span class="math inline">x_1</span>. Thus, Ridder’s method is guaranteed to converge.</p>
+<div id="fig-Ridders" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="week9_files/Ridders.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3: Illustration of Ridders’ method for our example function</figcaption><p></p>
+</figure>
+</div>
+<p>This method is illustrate in <a href="#fig-Ridders">Figure&nbsp;3</a>.</p>
+<p>Now we only have a single estimate of the root <span class="math inline">x_3</span>. We can iterate this by checking if <span class="math inline">f_3 f_i &lt;0</span> for <span class="math inline">i = 0,1,2</span> to ensure that the root is still bracketed between <span class="math inline">x_3</span> and a specific <span class="math inline">x_i</span>. We then rename the two endpoints appropriately, i.e.&nbsp;to <span class="math inline">x_0</span> and <span class="math inline">x_1</span>, and repeat the entire process.</p>
+<section id="implementation-3" class="level3">
+<h3 class="anchored" data-anchor-id="implementation-3">Implementation</h3>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.exp(x <span class="op">-</span> np.sqrt(x)) <span class="op">-</span> x</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ridders(f,x0,x1,Nmax,eps):</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    f0 <span class="op">=</span> f(x0)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    f1 <span class="op">=</span> f(x1)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(Nmax):</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>        x2 <span class="op">=</span> <span class="fl">0.5</span><span class="op">*</span>(x0<span class="op">+</span>x1)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>        f2 <span class="op">=</span> f(x2)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>        f2_f0 <span class="op">=</span> f2<span class="op">/</span>f0</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>        x3 <span class="op">=</span> x2 <span class="op">+</span> (x1 <span class="op">-</span> x2)<span class="op">*</span>f2_f0<span class="op">/</span>np.sqrt(f2_f0<span class="op">**</span><span class="dv">2</span> <span class="op">-</span> f1<span class="op">/</span>f0)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>        f3 <span class="op">=</span> f(x3)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(i, x3, f3)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">abs</span>(f3) <span class="op">&lt;</span> eps:</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> f2<span class="op">*</span>f3<span class="op">&lt;</span><span class="dv">0</span>: <span class="co"># these are the closest ones</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>            x0, x1, f0, f1 <span class="op">=</span> x2, x3, f2, f3</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> f0<span class="op">*</span>f3<span class="op">&lt;</span><span class="dv">0</span>:</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>                x1, f1 <span class="op">=</span> x3, f3</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>                x0, f0 <span class="op">=</span> x3, f3</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Root not found after Nmax iterations"</span>)</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>        x3 <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x3</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>eps <span class="op">=</span> <span class="fl">1.e-6</span></span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>a, b <span class="op">=</span> <span class="fl">0.</span>, <span class="fl">1.7</span></span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>Nmax <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>root <span class="op">=</span> ridders(f,b,a,Nmax,eps)</span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(root)</span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>a, b <span class="op">=</span> <span class="fl">1.5</span>, <span class="fl">3.</span></span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>root <span class="op">=</span> ridders(f,b,a,Nmax,eps)</span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(root)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0 0.9958875746530631 0.002060439244781387
+1 0.9996523016332284 0.00017387940604918217
+2 0.9999949039857269 2.5480136288669186e-06
+3 0.9999999844378445 7.781077782098578e-09
+0.9999999844378445
+0 2.5390832274121595 0.035359580591518114
+1 2.491169805145504 0.00018284985958505473
+2 2.490909576263296 1.819833772565005e-07
+2.490909576263296</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="summary-of-one-dimensional-methods" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="summary-of-one-dimensional-methods"><span class="header-section-number">2.8</span> Summary of One-Dimensional Methods</h2>
+<p>We’ve already encountered five different methods that solve nonlinear equations. Here’s a quick summary of their main features:</p>
+<ul>
+<li>Fixed-point method: a non-bracketing method; simple; doesn’t always converge.</li>
+<li>Bisection method: a bracketing method; simple; always converges; linear convergence.</li>
+<li>Newton’s method: a non-bracketing method; requires the function derivative; usually quadratic convergence; sometimes slow or worse</li>
+<li>Secant method: a non-bracketing method; similar to Newton’s method but doesn’t require the function derivative; usually superlinear convergence; sometimes slow or worse.</li>
+<li>Ridders’ method: a bracketing method; superlinear convergence; rarely slow.</li>
+</ul>
+</section>
+</section>
+<section id="homework" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Homework</h1>
+<p>Code up Newton’s method for our example function <span class="math inline">f(x) = e^{x - \sqrt{x}}- x</span> and use it to find out the roots.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
