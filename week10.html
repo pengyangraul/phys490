@@ -20,6 +20,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -69,7 +132,24 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#general-features" id="toc-general-features" class="nav-link" data-scroll-target="#general-features">General Features</a></li>
   <li><a href="#a-two-dimensional-example" id="toc-a-two-dimensional-example" class="nav-link" data-scroll-target="#a-two-dimensional-example">A Two-Dimensional Example</a></li>
   </ul></li>
+  <li><a href="#gradient-descent" id="toc-gradient-descent" class="nav-link" data-scroll-target="#gradient-descent"><span class="toc-section-number">1.3</span>  Gradient Descent</a>
+  <ul class="collapse">
+  <li><a href="#algorithm-and-interpretation" id="toc-algorithm-and-interpretation" class="nav-link" data-scroll-target="#algorithm-and-interpretation">Algorithm and Interpretation</a></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">Implementation</a></li>
   </ul></li>
+  <li><a href="#newtons-method" id="toc-newtons-method" class="nav-link" data-scroll-target="#newtons-method"><span class="toc-section-number">1.4</span>  Newton’s Method</a>
+  <ul class="collapse">
+  <li><a href="#map-to-a-finding-roots-of-multiple-nonlinear-equations" id="toc-map-to-a-finding-roots-of-multiple-nonlinear-equations" class="nav-link" data-scroll-target="#map-to-a-finding-roots-of-multiple-nonlinear-equations">Map to a finding roots of multiple nonlinear equations</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#project-extremizing-the-action-in-classical-mechanics" id="toc-project-extremizing-the-action-in-classical-mechanics" class="nav-link" data-scroll-target="#project-extremizing-the-action-in-classical-mechanics"><span class="toc-section-number">2</span>  Project: Extremizing the Action in Classical Mechanics</a>
+  <ul class="collapse">
+  <li><a href="#defining-and-extremizing-the-action" id="toc-defining-and-extremizing-the-action" class="nav-link" data-scroll-target="#defining-and-extremizing-the-action"><span class="toc-section-number">2.1</span>  Defining and Extremizing the Action</a></li>
+  <li><a href="#discretizing-the-action" id="toc-discretizing-the-action" class="nav-link" data-scroll-target="#discretizing-the-action"><span class="toc-section-number">2.2</span>  Discretizing the Action</a></li>
+  <li><a href="#newtons-method-for-the-discrete-action" id="toc-newtons-method-for-the-discrete-action" class="nav-link" data-scroll-target="#newtons-method-for-the-discrete-action"><span class="toc-section-number">2.3</span>  Newton’s Method for the Discrete Action</a></li>
+  <li><a href="#implementation-1" id="toc-implementation-1" class="nav-link" data-scroll-target="#implementation-1"><span class="toc-section-number">2.4</span>  Implementation</a></li>
+  </ul></li>
+  <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework"><span class="toc-section-number">3</span>  Homework</a></li>
   </ul>
 </nav>
 </div>
@@ -150,14 +230,499 @@ H_{ij}(\boldsymbol{x}) \equiv (\boldsymbol{H}(\boldsymbol{x}))_{ij}
 <p>If we now further assume that <span class="math inline">\boldsymbol{H}(\boldsymbol{x}^∗)</span> is <em>positive definite</em> (meaning <span class="math inline">\boldsymbol{v}^T \boldsymbol{H}\boldsymbol{v}&gt;0</span>, <span class="math inline">\forall \boldsymbol{v} \neq \boldsymbol{0}</span>), then we can see that, indeed, <span class="math inline">\phi(\boldsymbol{x}^* + \boldsymbol{q}) &gt; \phi(\boldsymbol{x}^*)</span>, as it should, since <span class="math inline">\boldsymbol{x}^*</span> is a minimum.</p>
 <p>To summarize:</p>
 <ol type="i">
-<li><p>a necessary condition for x∗ being a local minimum is that it be a critical point, i.e., that its gradient vector vanish, and</p></li>
-<li><p>a sufficient condition for the critical point x∗ being a local minimum is that its Hessian matrix be positive definite.</p></li>
+<li><p>a necessary condition for <span class="math inline">x^∗</span> being a local minimum is that it be a critical point, i.e., that its gradient vector vanish, and</p></li>
+<li><p>a sufficient condition for the critical point <span class="math inline">x^∗</span> being a local minimum is that its Hessian matrix be positive definite.</p></li>
 </ol>
 </section>
 <section id="a-two-dimensional-example" class="level3">
 <h3 class="anchored" data-anchor-id="a-two-dimensional-example">A Two-Dimensional Example</h3>
+<p>Let us consider <span class="math display">
+\phi(x_0, x_1) = x_0^2 − 2x_0 + x_1^4 - 2x_1^2 + x_1.
+</span> This function is shown in <a href="#fig-two-variable">Figure&nbsp;2</a>.</p>
+<div id="fig-two-variable" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="week10_files/two_variable.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2: Example of a scalar function of two variables</figcaption><p></p>
+</figure>
+</div>
+<p>This is attempting both to visualize the third dimension and to draw equipotential curves (also known as contour lines).</p>
+<p>We find that we are dealing with two local minima. The one on the “right” leads to smaller/more negative function values, so it appears to be the global minimum. If you place a marble somewhere near these two well, it will roll down to one of the minima; which of the two minima you end up in depends on where you start.</p>
 </section>
 </section>
+<section id="gradient-descent" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="gradient-descent"><span class="header-section-number">1.3</span> Gradient Descent</h2>
+<p>We now turn to a simple and intuitively clear approach to multidimensional minimization. This method, known as gradient descent, does not exhibit great convergence properties and can get in trouble for non-differentiable functions. Even so, it is a pedagogical, straightforward approach.</p>
+<section id="algorithm-and-interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="algorithm-and-interpretation">Algorithm and Interpretation</h3>
+<p>Recall that <span class="math inline">\nabla\phi(\boldsymbol{\boldsymbol{x}})</span> is in the direction of steepest ascent. This leads to the conclusion that <span class="math inline">-\nabla\phi(\boldsymbol{x})</span> is the direction of steepest descent. We know that choosing <span class="math inline">\boldsymbol{q}</span> to point along the negative gradient guarantees that the function value decrease will be the fastest. The method we are about to introduce, which employs <span class="math inline">-\nabla \phi(\boldsymbol{x})</span>, is known as <em>gradient descent</em>.</p>
+<p>Qualitatively, this approach makes use of local information: if you’re exploring a mountainous region (with your eyes closed), you can take a small step downhill at that point; this doesn’t mean that you’re always actually moving in the direction that will most quickly bring you to a (possibly distant) local minimum, simply that you are moving in a downward direction.</p>
+<p>Implicit in our discussion above is the fact that the steps we make will be <em>small</em>: while <span class="math inline">-\nabla \phi(\boldsymbol{x})</span> helps you pick the direction, it doesn’t tell you how far in that direction you should go, i.e., how large a <span class="math inline">\|\boldsymbol{q} \|</span> you should employ. The simplest possible choice, analogously to our closed-eyes example, is to make small fixed steps, quantified by a parameter <span class="math inline">\gamma</span>. This leads to the following prescription: <span class="math display">
+\boldsymbol{x}^{(k)} = \boldsymbol{x}^{(k-1)} -\gamma \nabla \phi(\boldsymbol{x}^{(k-1)}).
+</span> At each step, this method picks the direction that is perpendicular to the contour line, as illustrated in <a href="#fig-gradient-descent">Figure&nbsp;3</a>.</p>
+<div id="fig-gradient-descent" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="week10_files/Gradient_Descent.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3: Illustrate of gradient descent</figcaption><p></p>
+</figure>
+</div>
+<p>In practice, we may not know the gradient analytically, and we typically approximate it using a forward-difference scheme. In equation form, this means that <span class="math display">
+\nabla\phi(\boldsymbol{x}) = \begin{pmatrix}
+[\phi(\boldsymbol{x} + \boldsymbol{e}_0 h) - \phi(\boldsymbol{x})]/h\\
+[\phi(\boldsymbol{x} + \boldsymbol{e}_1 h) - \phi(\boldsymbol{x})]/h\\
+\cdots \\
+[\phi(\boldsymbol{x} + \boldsymbol{e}_{n-1} h) - \phi(\boldsymbol{x})]/h\\
+\end{pmatrix}
+</span> for a given spacing h. This involves “only” <span class="math inline">n+1</span> function evaluations.</p>
+</section>
+<section id="implementation" class="level3">
+<h3 class="anchored" data-anchor-id="implementation">Implementation</h3>
+<p>Note that in the function <code>gradient()</code>, we used <code>xs*np.ones((n,n)).T</code>. The meaning of this expression can be understood in the following way.</p>
+<ul>
+<li>Let’s say <code>xs=np.array([x0,x1])</code></li>
+<li>Then <code>xs*np.ones((2,2)) = np.array([[x0,x1],[x0,x1]])</code></li>
+<li>Thus,<code>(xs*np.ones((2,2))).T = np.array([[x0,x0],[x1,x1]])</code></li>
+</ul>
+<p>Then, <code>Xph = (xs*np.ones((n,n))).T + np.identity(n)*h = np.array([[x0+h,x0],[x1,x1+h]])</code>.</p>
+<p>When <code>Xph</code> is inserted into <code>phi()</code>, we have <code>x0,x1 = Xph</code> which leads to <code>x0 = np.array([x0+h,x0])</code>, <code>x1 = np.array([x1,x1+h])</code>. Then the function <code>phi(Xph)</code> returns a vector <span class="math display">
+\begin{pmatrix}
+\phi(\boldsymbol{x}+\boldsymbol{e}_0 h) \\
+\phi(\boldsymbol{x}+\boldsymbol{e}_1 h) .
+\end{pmatrix}
+</span></p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> phi(xs):</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    x0, x1 <span class="op">=</span> xs</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x0<span class="op">**</span><span class="dv">2</span> <span class="op">-</span> <span class="dv">2</span><span class="op">*</span>x0 <span class="op">+</span> x1<span class="op">**</span><span class="dv">4</span> <span class="op">-</span> <span class="dv">2</span><span class="op">*</span>x1<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> x1</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gradient(phi,xs,h<span class="op">=</span><span class="fl">1.e-6</span>):</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> xs.size</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    phi0 <span class="op">=</span> phi(xs)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    Xph <span class="op">=</span> (xs<span class="op">*</span>np.ones((n,n))).T <span class="op">+</span> np.identity(n)<span class="op">*</span>h</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    grad <span class="op">=</span> (phi(Xph) <span class="op">-</span> phi0)<span class="op">/</span>h</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> grad</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> descent(phi,gradient,xolds,gamma<span class="op">=</span><span class="fl">0.15</span>,kmax<span class="op">=</span><span class="dv">200</span>,tol<span class="op">=</span><span class="fl">1.e-8</span>):</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,kmax):</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        xnews <span class="op">=</span> xolds <span class="op">-</span> gamma<span class="op">*</span>gradient(phi,xolds)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        err <span class="op">=</span> termcrit(xolds,xnews)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(k, xnews, err, phi(xnews))</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> err <span class="op">&lt;</span> tol:</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        xolds <span class="op">=</span> np.copy(xnews)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        xnews <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xnews</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> termcrit(xolds,xnews):</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    errs <span class="op">=</span> np.<span class="bu">abs</span>((xnews <span class="op">-</span> xolds)<span class="op">/</span>xnews)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(errs)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    xolds <span class="op">=</span> np.array([<span class="fl">2.</span>,<span class="fl">0.25</span>])</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    xnews <span class="op">=</span> descent(phi, gradient, xolds)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(xnews)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1 [1.69999985 0.24062524] 0.21543067857184484 -0.38182351336797915
+2 [1.48999974 0.22664124] 0.20264073065897387 -0.6333530209502826
+3 [1.34299967 0.20564122] 0.21157625945177916 -0.7594983275463574
+4 [1.24009962 0.17380848] 0.2661256195506861 -0.8280498618293368
+5 [1.16806958 0.12494345] 0.45276305522029103 -0.8777871985954815
+6 [1.11764856 0.04873952] 1.608607274900684 -0.9421647380026318
+7 [ 1.08235384 -0.07208595] 1.7087398591446958 -1.0756695552415236
+8 [ 1.05764754 -0.26511247] 0.7514526354432409 -1.3974185387806914
+9 [ 1.04035313 -0.56299971] 0.5457308766418241 -2.0948395460096236
+10 [ 1.02824704 -0.94372756] 0.41520335042339795 -2.9309660540915905
+11 [ 1.01977278 -1.15566205] 0.19169789499758141 -3.0426740826911614
+12 [ 1.01384079 -1.0729902 ] 0.08289908836262229 -3.0499045321707055
+13 [ 1.00968841 -1.12557975] 0.05083473301209256 -3.054234380060766
+14 [ 1.00678173 -1.09531014] 0.03052274820652257 -3.05538233943229
+15 [ 1.00474706 -1.11406803] 0.018862352410894102 -3.05589334211737
+16 [ 1.00332279 -1.10287596] 0.011567627294141984 -3.056063921191618
+17 [ 1.00232581 -1.1097221 ] 0.007163907055812726 -3.056132246972263
+18 [ 1.00162791 -1.10559374] 0.004430823076617533 -3.056157117969501
+19 [ 1.00113939 -1.10810556] 0.0027547414719851855 -3.0561667943226265
+20 [ 1.00079742 -1.10658539] 0.0017154484765218943 -3.0561704829239886
+21 [ 1.00055805 -1.10750841] 0.0010726689437897882 -3.0561719231405475
+22 [ 1.00039048 -1.10694906] 0.0006728037904015246 -3.056172494841105
+23 [ 1.00027319 -1.10728843] 0.0004237463185425745 -3.056172722103985
+24 [ 1.00019108 -1.10708268] 0.00026793975693115976 -3.0561728168266145
+25 [ 1.00013361 -1.10720748] 0.00017018001506541433 -3.0561728552582403
+26 [ 1.00009337 -1.1071318 ] 0.00010858056296563575 -3.0561728723063135
+27 [ 1.00006521 -1.1071777 ] 6.961331368515191e-05 -3.0561728792903975
+28 [ 1.0000455  -1.10714986] 4.485147212742855e-05 -3.0561728826380756
+29 [ 1.0000317  -1.10716674] 2.9044432169820975e-05 -3.056172883986762
+30 [ 1.00002204 -1.10715651] 1.8904903190473045e-05 -3.0561728846981224
+31 [ 1.00001528 -1.10716272] 1.236866979687839e-05 -3.056172884967764
+32 [ 1.00001054 -1.10715895] 8.133575043645464e-06 -3.0561728851287384
+33 [ 1.00000723 -1.10716123] 5.37538599036186e-06 -3.056172885182245
+34 [ 1.00000491 -1.10715985] 3.5698772250060277e-06 -3.0561728852203363
+35 [ 1.00000329 -1.10716069] 2.3819480385739737e-06 -3.056172885230078
+36 [ 1.00000215 -1.10716018] 1.5963972365386816e-06 -3.056172885239327
+37 [ 1.00000136 -1.10716049] 1.0743651801166516e-06 -3.0561728852405894
+38 [ 1.0000008 -1.1071603] 7.259538200711832e-07 -3.0561728852428383
+39 [ 1.00000041 -1.10716041] 4.923441634847997e-07 -3.0561728852427184
+40 [ 1.00000014 -1.10716035] 3.3505999120764203e-07 -3.0561728852432424
+41 [ 0.99999995 -1.10716039] 2.287712532568859e-07 -3.0561728852430368
+42 [ 0.99999981 -1.10716036] 1.564959858869905e-07 -3.0561728852431402
+43 [ 0.99999972 -1.10716038] 1.0724305579788708e-07 -3.056172885243015
+44 [ 0.99999965 -1.10716037] 7.378388107643756e-08 -3.0561728852430234
+45 [ 0.99999961 -1.10716037] 5.101074560430894e-08 -3.056172885242959
+46 [ 0.99999957 -1.10716037] 3.5236294141767044e-08 -3.0561728852429515
+47 [ 0.99999955 -1.10716037] 2.431386477902596e-08 -3.056172885242921
+48 [ 0.99999954 -1.10716037] 1.6863918806819815e-08 -3.0561728852429133
+49 [ 0.99999953 -1.10716037] 1.1653038863784987e-08 -3.056172885242899
+50 [ 0.99999952 -1.10716037] 8.088151816259404e-09 -3.0561728852428938
+[ 0.99999952 -1.10716037]</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="newtons-method" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="newtons-method"><span class="header-section-number">1.4</span> Newton’s Method</h2>
+<p>Gradient descent is nice and simple but, as we will see in the problem set, either your <span class="math inline">\gamma</span> is very small and you waste iterations or you are carrying out a line-search at each step to determine the optimal <span class="math inline">γ^{(k)}</span>, which is starting to get costly.</p>
+<p>A distinct approach goes as follows: instead of using only the value of the gradient at a given point, perhaps we should be building in more information. Specifically, we have that gradient vanishes at a critical point <span class="math display">
+\nabla\phi(\boldsymbol{x}^*) = \boldsymbol{0}.
+</span></p>
+<p>Combine that with the fact that the gradient of a scalar function is a column vector, and you can recast that equation as a set of <span class="math inline">n</span> coupled nonlinear equations <span class="math display">
+\boldsymbol{f}(\boldsymbol{x}) = \nabla\phi(\boldsymbol) = \boldsymbol{0}.
+</span></p>
+<p>In other words, finding a critical point is simply a special case of solving a nonlinear system of equations. We shall apply the Newton’s method in the following to find out the critical point.</p>
+<section id="map-to-a-finding-roots-of-multiple-nonlinear-equations" class="level3">
+<h3 class="anchored" data-anchor-id="map-to-a-finding-roots-of-multiple-nonlinear-equations">Map to a finding roots of multiple nonlinear equations</h3>
+<p>We assume that <span class="math inline">\boldsymbol{f}</span> has bounded first and second derivatives; the actual solution of our problem <span class="math inline">\boldsymbol{f}(\boldsymbol{x})=\boldsymbol{0}</span> is <span class="math inline">\boldsymbol{x}^∗</span> and we will be trying to approximate it using iterates, which this time are themselves vectors, <span class="math inline">\boldsymbol{x}^{(k)}</span>. In order to make the transition to the general problem as simple as possible, let’s start from a Taylor expansion of a single function component <span class="math inline">f_i</span> around our latest iterate <span class="math inline">\boldsymbol{x}^{(k-1)}</span>: <span class="math display">
+f_i(\boldsymbol{x}) = f_i(\boldsymbol{x}^{(k-1)}) + (\nabla f_i(\boldsymbol{x}^{(k-1)}))^T(\boldsymbol{x} - \boldsymbol{x}^{(k-1)})
++ O(\|\boldsymbol{x} - \boldsymbol{x}^{(k-1)} \|^2),
+</span> where <span class="math inline">i = 0, 1, \dots, n-1</span> is the index for each component of <span class="math inline">\boldsymbol{f}</span>. We can rewrite the second term on the right-hand side in terms of vector components <span class="math display">
+(\nabla f_i(\boldsymbol{x}^{(k-1)}))^T(\boldsymbol{x} - \boldsymbol{x}^{(k-1)})
+=
+\sum_{j=0}^{n-1}\left. \frac{\partial f_i}{\partial x_i}\right|_{x_j^{(k-1)}}(x_j - x_j^{(k-1)}).
+</span></p>
+<p>With a view to collecting the n function components together, we now introduce the <em>Jacobian matrix</em>: <span class="math display">
+\boldsymbol{J}(\boldsymbol{x}) = \left\{\frac{\partial f_i}{\partial x_j} \right\}
+= \begin{pmatrix}
+\frac{\partial f_0}{\partial x_0} &amp;\frac{\partial f_0}{\partial x_1} &amp;\cdots &amp;\frac{\partial f_0}{\partial x_{n-1}} \\
+\frac{\partial f_1}{\partial x_0} &amp;\frac{\partial f_1}{\partial x_1} &amp;\cdots &amp;\frac{\partial f_1}{\partial x_{n-1}} \\
+\vdots &amp;\vdots &amp; \ddots &amp; \vdots \\
+\frac{\partial f_{n-1}}{\partial x_0} &amp;\frac{\partial f_{n-1}}{\partial x_1} &amp;\cdots &amp;\frac{\partial f_{n-1}}{\partial x_{n-1}}
+\end{pmatrix}.
+</span></p>
+<p>We can thus write <span class="math display">
+\boldsymbol{f}(\boldsymbol{x}) = \boldsymbol{f}(\boldsymbol{x}^{(k-1)}) + \boldsymbol{J}(\boldsymbol{x}^{(k-1)})(\boldsymbol{x} - \boldsymbol{x}^{(k-1)})
++ O(\|\boldsymbol{x} - \boldsymbol{x}^{(k-1)} \|^2).
+</span></p>
+<p>The solution correspoding to <span class="math inline">\boldsymbol{f}(\boldsymbol{x}^*)=\boldsymbol{0}</span> satisfies <span class="math display">
+\boldsymbol{0} = \boldsymbol{f}(\boldsymbol{x}^{(k-1)}) + \boldsymbol{J}(\boldsymbol{x}^{(k-1)})(\boldsymbol{x}^* - \boldsymbol{x}^{(k-1)}),
+</span> where we neglected the second order terms.</p>
+<p>In practice, one iteration will not be enough to find the solution so, instead, we use our latest formula to introduce the prescription of <em>Newton’s method</em> for the next iterate, <span class="math inline">x^{(k)}</span>: <span class="math display">
+\boldsymbol{J}(\boldsymbol{x}^{(k-1)})(\boldsymbol{x}^{(k)}-\boldsymbol{x}^{(k-1)}) = -\boldsymbol{f}(\boldsymbol{x}^{(k-1)}).
+</span></p>
+<p>When we are minimizing a function <span class="math inline">\phi(\boldsymbol{x})</span>, we take the above function <span class="math inline">\boldsymbol{f}(\boldsymbol{x}) = \nabla\phi(\boldsymbol{\phi})</span>. Thus, the Jacobian <span class="math display">
+\boldsymbol{J}(\boldsymbol{x}) = \boldsymbol{H}(\boldsymbol{x}),
+</span> where <span class="math inline">\boldsymbol{H}(\boldsymbol{x})</span> is the Hessian matrix at point <span class="math inline">\boldsymbol{x}</span>. We hence have <span class="math display">
+\boldsymbol{H}(\boldsymbol{x}^{(k-1)})(\boldsymbol{x}^{(k)}-\boldsymbol{x}^{(k-1)}) = - \nabla\phi(\boldsymbol{\phi}).
+</span></p>
+<p>Since all quantities at the location of our previous iterate, <span class="math inline">x^{(k−1)}</span>, are known, this equation has the form of <span class="math inline">\boldsymbol{Ax} = \boldsymbol{b}</span>, i.e., it is a linear system of <span class="math inline">n</span> equations in <span class="math inline">n</span> unknowns. Assuming <span class="math inline">\boldsymbol{J}(\boldsymbol{x}^{(k−1)})</span> is non-singular, we can solve this system and then we will be able to find the <span class="math inline">\boldsymbol{x}^{(k)}</span>. This process is repeated, until we satisfy a termination criterion, which could be taken to be <span class="math display">
+\sum_{j=0}^{n-1} \left|\frac{x_j^{(k)}-x_j^{(k-1)}}{x_j^{(k)}} \right| \leq \epsilon.
+</span></p>
+<p>In the following, we shall apply the Newton’s method to a physics problem.</p>
+</section>
+</section>
+</section>
+<section id="project-extremizing-the-action-in-classical-mechanics" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Project: Extremizing the Action in Classical Mechanics</h1>
+<section id="defining-and-extremizing-the-action" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="defining-and-extremizing-the-action"><span class="header-section-number">2.1</span> Defining and Extremizing the Action</h2>
+<p>Let us study a single particle in one dimension. We can denote the particle’s location by <span class="math inline">x(t)</span>, where we’re explicitly showing that the position is a function of time.</p>
+<p>The kinetic energy of the particle will be a function of only <span class="math inline">\dot{x}(t)</span>, i.e., of the time derivative of the position: <span class="math inline">K = K(\dot{x}(t))</span>. Specifically, since we are dealing with a single particle, we know that: <span class="math display">
+K = \frac{1}{2} m\dot{x}^2
+</span> where <span class="math inline">m</span> is the mass of the particle. Similarly, in the absence of time-dependent external fields, the potential energy is a function of only <span class="math inline">x(t)</span>: <span class="math inline">V = V(x(t))</span>. The difference of these two quantities is defined as the <em>Lagrangian</em>: <span class="math display">
+L(x(t),\dot{x}(t)) \equiv K(\dot{x}(t)) - V(x(t)),
+</span> where, for our case, there is no explicit dependence of the Lagrangian on time.</p>
+<p>We are interested in studying the particle from time <span class="math inline">t = 0</span> to time <span class="math inline">t = T</span>. Then, one can define the <em>action functional</em> as the integral of the Lagrangian over time: <span class="math display">
+S[x(t)] = \int_0^T dt \, L(x(t),\dot{x}(t)) = \int_0^T dt\, \left(\frac{1}{2}m\dot{x}^2  - V(x)\right).
+</span></p>
+<p>Notice that we called the action a <em>functional</em> and used square brackets on the left-hand side. Roughly speaking, a <em>functional</em> is a function of a function. A reminder: an ordinary function <span class="math inline">\phi</span> takes us from one number <span class="math inline">t</span> to another number <span class="math inline">\phi(t)</span>. A functional is an entity that takes in an entire function and gives back a number. In other words, a functional is a mapping from a space of functions into the real (or complex) numbers.</p>
+<p>In case you haven’t encountered functionals before, let us start with a simple case: a functional <span class="math inline">F</span> of <span class="math inline">\phi(t)</span> (where <span class="math inline">t</span> is a regular variable – this is a one-dimensional problem): <span class="math inline">F[\phi(t)]</span>. Being a functional, <span class="math inline">F</span> depends simultaneously on the values of <span class="math inline">\phi</span> at all points <span class="math inline">t</span> but it does not depend on <span class="math inline">t</span> itself: we provide it with the entire function and it provides us with one number as a result. A trivial example: <span class="math inline">F[\phi] =\int_1^0 dt\phi(t)</span> gives us one number for <span class="math inline">\phi(t) = t</span> and a different number for <span class="math inline">\phi(t) = t^2</span>. In both cases, however, the answer is an ordinary number that does not depend on <span class="math inline">t</span>.</p>
+<p>Applied to our mechanics problem, we see that the action <span class="math inline">S</span> depends on the position of the particle <span class="math inline">x(t)</span> at all times from <span class="math inline">0</span> to <span class="math inline">T</span>, but not on <span class="math inline">t</span> directly, since <span class="math inline">t</span> has been “integrated out”. For a given trajectory <span class="math inline">x(t)</span> from <span class="math inline">t = 0</span> to <span class="math inline">t = T</span>, the action produces a single number, <span class="math inline">S</span>. The question then arises: which trajectory <span class="math inline">x(t)</span> from <span class="math inline">t = 0</span> to time <span class="math inline">t = T</span> does the particle actually “choose”? The answer comes from Hamilton’s principle: of all possible paths, the path that is actually followed is that which minimizes the action. As it so happens, the action only needs to be stationary, i.e., we are extremizing and not necessarily minimizing, but we will usually be dealing with a minimum. This extremization is taking place with the endpoints kept fixed, i.e., <span class="math inline">x(0)</span> and <span class="math inline">x(T)</span> are not free to vary.</p>
+</section>
+<section id="discretizing-the-action" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="discretizing-the-action"><span class="header-section-number">2.2</span> Discretizing the Action</h2>
+<p>We will assume the positions <span class="math inline">x(t)</span> from <span class="math inline">t = 0</span> to <span class="math inline">t = T</span> can be accessed only at a discrete set of <span class="math inline">n</span> points: <span class="math display">
+t_k = k\Delta t = k\frac{T}{n-1}
+</span> where <span class="math inline">k = 1, 2, \dots, n-1</span>. We will denote <span class="math inline">x_k \equiv x(t_k)</span> to denote the possible position of the particle at <span class="math inline">t = t_k</span>. After we discretize the time, the action functional can be approximated as <span class="math display">
+S_n \equiv \sum_{k=0}^{n-2} \Delta t\left[ \frac{1}{2}m \left(\frac{x_{k+1} - x_{k}}{\Delta t}\right)^2 - V(x_k)\right],
+</span> in which the integral is replaced by summation of small rectangles.</p>
+<p>Since we want to extremize the action with end points fixed, we should fix <span class="math inline">x_0</span> and <span class="math inline">x_{n-1}</span> in our case. Thus, we shall consider the following function <span class="math display">
+S_n = S_n(x_1, x_2, \dots, x_{n-2}),
+</span> and we will be finding a minimum of <span class="math inline">S_n</span> in the <span class="math inline">(n-2)</span>-dimensional space.</p>
+</section>
+<section id="newtons-method-for-the-discrete-action" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="newtons-method-for-the-discrete-action"><span class="header-section-number">2.3</span> Newton’s Method for the Discrete Action</h2>
+<p>We shall employ the Newton’s method for this multidimensional minimization problem. To apply this method, we require the gradient vecotr as well as the Hessian.</p>
+<p>We can compute the gradient <span class="math display">
+\begin{align*}
+\frac{\partial S_n}{\partial x_i} &amp;=
+\sum_{k=0}^{n-2}\Delta t\left[ \frac{m}{\Delta t}^2(x_{k+1} - x_k)(\delta_{i,k+1} - \delta_{i,k}) - \frac{\partial V(x_k)}{\partial x_i}\delta_{i,k} \right] \\
+&amp;= \frac{m}{\Delta t} (2 x_i - x_{i-1} - x_{i+1}) - \Delta t\frac{\partial V(x_i)}{\partial x_i}
+\end{align*}.
+</span></p>
+<p>Similarly, the Hessian <span class="math display">
+H_{ji} = \frac{\partial^2 S_n}{\partial x_j \partial x_i}
+= \frac{m}{\Delta t} (2\delta_{j,i} - \delta_{j,i-1} - \delta_{j, i+1})
+- \Delta t \frac{\partial^2 V(x_i)}{\partial x_i^2} \delta_{j,i}
+</span></p>
+</section>
+<section id="implementation-1" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="implementation-1"><span class="header-section-number">2.4</span> Implementation</h2>
+<p>Let us pick a specific form for the potential energy <span class="math display">
+V = \frac{1}{4}x^4
+</span> which describes a <em>quartic oscillator</em>.</p>
+<p>With this potential, we can compute its first and second order derivatives analytically: <span class="math display">
+F(x) = -\frac{\partial V}{\partial x} = -x^3, \quad
+F'(x) = -\frac{\partial^2 V}{\partial x^2} = -3x^2.
+</span></p>
+<p>With this, we have the gradient vector <span class="math display">
+\frac{\partial S_n}{\partial x_i} = \frac{m}{\Delta t} (2 x_i - x_{i-1} - x_{i+1}) - \Delta t x_i^3
+</span> or in a vector form <span class="math display">
+\nabla S_n =
+\begin{pmatrix}
+\frac{m}{\Delta t} (2 x_1 - x_{0} - x_{2}) - \Delta t x_1^3 \\
+\frac{m}{\Delta t} (2 x_2 - x_{1} - x_{3}) - \Delta t x_2^3 \\
+\vdots \\
+\frac{m}{\Delta t} (2 x_{n-2} - x_{n-3} - x_{n-1}) - \Delta t x_{n-2}^3 \\
+\end{pmatrix}.
+</span> We also have the Hessian <span class="math display">
+H_{ji} = \frac{\partial^2 S_n}{\partial x_j \partial x_i}
+= \frac{m}{\Delta t} (2\delta_{j,i} - \delta_{j,i-1} - \delta_{j, i+1})
+- 3\Delta t x_i^2 \delta_{j,i}
+</span> or in matrix form <span class="math display">
+\boldsymbol{H} = \begin{pmatrix}
+\frac{2m}{\Delta t} - 3\Delta t x_1^2 &amp;-\frac{m}{\Delta t} &amp; 0 &amp;\cdots &amp;0\\
+-\frac{m}{\Delta t} &amp;\frac{2m}{\Delta t} - 3\Delta t x_2^2 &amp;-\frac{m}{\Delta t} &amp; \cdots &amp; 0\\
+0 &amp;-\frac{m}{\Delta t} &amp;\frac{2m}{\Delta t} - 3\Delta t x_3^2 &amp; \ddots &amp; 0\\
+\vdots &amp;\vdots &amp;\ddots &amp;\ddots &amp; \vdots\\
+0 &amp; 0 &amp; \cdots &amp;-\frac{m}{\Delta t} &amp;\frac{2m}{\Delta t} - 3\Delta t x_{n-2}^2
+\end{pmatrix}.
+</span> We see that the Hessian matrix is a <em>tri-diagonal matrix</em>, in which the main diagonal consists of <span class="math inline">\frac{2m}{\Delta t} - 3\Delta t x_i^2</span> with <span class="math inline">i=1,2,\dots,n-2</span>. The two neighboring <em>subdiagonals</em> are both made of <span class="math inline">-\frac{m}{\Delta t}</span>.</p>
+<div class="cell" data-execution_count="58">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> params():</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    nvar <span class="op">=</span> <span class="dv">99</span><span class="op">;</span> m <span class="op">=</span> <span class="fl">1.</span> <span class="co"># We have 99 middle points, 1,2,...,99</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    xini, xfin <span class="op">=</span> <span class="fl">2.</span>, <span class="fl">0.</span> <span class="co"># end points are fixed at 2 and 0</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    tt <span class="op">=</span> <span class="fl">1.</span><span class="op">;</span> dt <span class="op">=</span> tt<span class="op">/</span>(nvar<span class="op">+</span><span class="dv">1</span>) <span class="co"># total time 1</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> nvar, m, xini, xfin, dt</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fod(der,x):</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span>x<span class="op">**</span><span class="dv">3</span> <span class="cf">if</span> der<span class="op">==</span><span class="dv">0</span> <span class="cf">else</span> <span class="op">-</span><span class="dv">3</span><span class="op">*</span>x<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gradient(xs):</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    nvar, m, xini, xfin, dt <span class="op">=</span> params()</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    arr <span class="op">=</span> np.zeros(nvar)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    arr[<span class="dv">0</span>] <span class="op">=</span> (m<span class="op">/</span>dt)<span class="op">*</span>(<span class="dv">2</span><span class="op">*</span>xs[<span class="dv">0</span>]<span class="op">-</span>xini<span class="op">-</span>xs[<span class="dv">1</span>]) <span class="op">+</span> dt <span class="op">*</span> fod(<span class="dv">0</span>,xs[<span class="dv">0</span>])</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    arr[<span class="dv">1</span>:<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> (m<span class="op">/</span>dt)<span class="op">*</span>(<span class="dv">2</span><span class="op">*</span>xs[<span class="dv">1</span>:<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> xs[:<span class="op">-</span><span class="dv">2</span>] <span class="op">-</span> xs[<span class="dv">2</span>:]) <span class="op">+</span> dt<span class="op">*</span>fod(<span class="dv">0</span>,xs[<span class="dv">1</span>:<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    arr[<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> (m<span class="op">/</span>dt)<span class="op">*</span>(<span class="dv">2</span><span class="op">*</span>xs[<span class="op">-</span><span class="dv">1</span>]<span class="op">-</span>xs[<span class="op">-</span><span class="dv">2</span>]<span class="op">-</span>xfin) <span class="op">+</span>dt <span class="op">*</span> fod(<span class="dv">0</span>,xs[<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> arr</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> hessian(xs):</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    nvar, m, xini, xfin, dt <span class="op">=</span> params()</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    he <span class="op">=</span> np.diag(<span class="dv">2</span><span class="op">*</span>m<span class="op">/</span>dt<span class="op">+</span> dt<span class="op">*</span>fod(<span class="dv">1</span>,xs))</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    np.fill_diagonal(he[<span class="dv">1</span>:,:], <span class="op">-</span>m<span class="op">/</span>dt)   </span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    np.fill_diagonal(he[:,<span class="dv">1</span>:], <span class="op">-</span>m<span class="op">/</span>dt)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> he</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> multi_newton(gradient,hessian,xolds,kmax<span class="op">=</span><span class="dv">200</span>,tol<span class="op">=</span><span class="fl">1.e-8</span>):</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,kmax):</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>        grad_xolds <span class="op">=</span> gradient(xolds)</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>        he_xolds <span class="op">=</span> hessian(xolds)</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>        xnews <span class="op">=</span> xolds <span class="op">+</span> gauelim_pivot(he_xolds, <span class="op">-</span>grad_xolds)</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>        err <span class="op">=</span> termcrit(xolds,xnews)</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(k, xnews, err)</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> err <span class="op">&lt;</span> tol:</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>        xolds <span class="op">=</span> np.copy(xnews)</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>        xnews <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xnews</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gauelim_pivot(inA,inbs):</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.copy(inA)</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    bs <span class="op">=</span> np.copy(inbs)</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> bs.size</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n<span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>        k <span class="op">=</span> np.argmax(np.<span class="bu">abs</span>(A[j:,j])) <span class="op">+</span> j</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> k <span class="op">!=</span> j:</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>            A[j,:], A[k,:] <span class="op">=</span> A[k,:], A[j,:].copy()</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>            bs[j], bs[k] <span class="op">=</span> bs[k], bs[j]</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(j<span class="op">+</span><span class="dv">1</span>,n):</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>            coeff <span class="op">=</span> A[i,j]<span class="op">/</span>A[j,j]</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>            A[i,j:] <span class="op">-=</span> coeff<span class="op">*</span>A[j,j:]</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>            bs[i] <span class="op">-=</span> coeff<span class="op">*</span>bs[j]</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> backsub(A,bs)</span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xs</span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> backsub(U,bs):</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> bs.size</span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.zeros(n)</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">reversed</span>(<span class="bu">range</span>(n)):</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>        xs[i] <span class="op">=</span> (bs[i] <span class="op">-</span> U[i,i<span class="op">+</span><span class="dv">1</span>:]<span class="op">@</span>xs[i<span class="op">+</span><span class="dv">1</span>:])<span class="op">/</span>U[i,i]</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xs</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> termcrit(xolds,xnews):</span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>    errs <span class="op">=</span> np.<span class="bu">abs</span>((xnews <span class="op">-</span> xolds)<span class="op">/</span>xnews)</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(errs)</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>    nvar, m, xini, xfin, dt <span class="op">=</span> params()</span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>    xolds <span class="op">=</span> np.linspace(<span class="dv">2</span>,<span class="dv">0</span>,nvar<span class="op">+</span><span class="dv">2</span>)[<span class="dv">1</span>:<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>    xnews <span class="op">=</span> multi_newton(gradient, hessian, xolds)<span class="op">;</span> <span class="bu">print</span>(xnews)</span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>    tlist <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">1</span>,nvar<span class="op">+</span><span class="dv">2</span>)</span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>    plt.plot(tlist[<span class="dv">1</span>:<span class="op">-</span><span class="dv">1</span>],xolds,label<span class="op">=</span><span class="st">'initial guess'</span>)</span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>    plt.plot(tlist[<span class="dv">1</span>:<span class="op">-</span><span class="dv">1</span>],xnews, label<span class="op">=</span><span class="st">'minimized'</span>)</span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">'t'</span>)</span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">'x(t)'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1 [2.00243064 2.00405866 2.00488295 2.00490384 2.00412305 2.00254359
+ 2.00016973 1.9970069  1.99306166 1.98834158 1.98285524 1.9766121
+ 1.96962249 1.96189752 1.95344901 1.94428947 1.93443198 1.92389019
+ 1.91267825 1.90081072 1.88830256 1.87516909 1.86142587 1.84708874
+ 1.83217371 1.81669697 1.8006748  1.78412356 1.76705965 1.74949946
+ 1.73145938 1.71295568 1.6940046  1.67462221 1.65482445 1.6346271
+ 1.61404573 1.59309569 1.57179212 1.55014988 1.52818357 1.50590752
+ 1.48333574 1.46048195 1.43735953 1.41398156 1.39036074 1.36650947
+ 1.34243976 1.31816329 1.29369138 1.26903496 1.24420463 1.2192106
+ 1.19406273 1.1687705  1.14334304 1.1177891  1.09211709 1.06633505
+ 1.04045067 1.0144713  0.98840394 0.96225525 0.93603156 0.90973887
+ 0.88338287 0.85696893 0.83050211 0.80398719 0.77742863 0.75083064
+ 0.72419714 0.69753177 0.67083794 0.6441188  0.61737725 0.59061599
+ 0.56383745 0.5370439  0.51023736 0.4834197  0.45659257 0.42975747
+ 0.40291572 0.3760685  0.34921681 0.32236157 0.29550351 0.26864329
+ 0.24178145 0.21491843 0.18805458 0.16119016 0.1343254  0.10746044
+ 0.08059537 0.05373025 0.02686513] 20.58576209557278
+2 [2.00641498 2.01202226 2.01681505 2.02078758 2.02393506 2.02625371
+ 2.02774078 2.02839456 2.02821437 2.02720058 2.02535461 2.02267892
+ 2.01917696 2.01485324 2.00971323 2.00376337 1.99701108 1.98946466
+ 1.98113333 1.97202715 1.962157   1.95153453 1.94017215 1.92808295
+ 1.91528067 1.90177966 1.88759483 1.8727416  1.85723584 1.84109384
+ 1.82433226 1.80696806 1.78901849 1.77050101 1.75143324 1.73183293
+ 1.71171793 1.69110612 1.67001536 1.64846349 1.62646824 1.60404726
+ 1.581218   1.55799776 1.53440359 1.51045232 1.48616048 1.46154432
+ 1.43661973 1.41140231 1.38590724 1.36014936 1.33414308 1.30790243
+ 1.28144099 1.25477193 1.22790797 1.20086138 1.173644   1.14626718
+ 1.11874184 1.09107845 1.063287   1.03537704 1.00735768 0.97923755
+ 0.95102487 0.92272743 0.89435256 0.86590719 0.83739785 0.80883065
+ 0.78021131 0.75154518 0.72283722 0.69409206 0.66531395 0.63650682
+ 0.6076743  0.57881966 0.54994593 0.5210558  0.49215175 0.46323595
+ 0.43431035 0.40537669 0.37643646 0.34749098 0.31854137 0.28958857
+ 0.26063339 0.23167645 0.20271829 0.17375932 0.14479982 0.11584003
+ 0.08688008 0.05792007 0.02896003] 5.506719009111121
+3 [2.00682081 2.01283341 2.01803051 2.02240578 2.02595386 2.0286704
+ 2.03055203 2.03159645 2.03180236 2.0311695  2.02969866 2.02739166
+ 2.02425135 2.0202816  2.01548729 2.00987426 2.00344935 1.99622032
+ 1.98819584 1.97938548 1.96979963 1.95944951 1.94834711 1.93650514
+ 1.92393701 1.91065678 1.89667909 1.88201913 1.86669261 1.85071568
+ 1.83410491 1.8168772  1.7990498  1.78064016 1.761666   1.74214517
+ 1.72209564 1.70153546 1.6804827  1.65895542 1.63697163 1.61454924
+ 1.59170603 1.56845961 1.54482739 1.52082654 1.49647399 1.47178636
+ 1.44677997 1.42147078 1.39587442 1.37000612 1.34388072 1.31751265
+ 1.29091592 1.2641041  1.23709031 1.20988722 1.18250707 1.15496158
+ 1.12726206 1.09941932 1.07144371 1.04334512 1.01513298 0.98681624
+ 0.95840343 0.9299026  0.90132137 0.87266694 0.84394606 0.81516508
+ 0.78632994 0.75744619 0.72851899 0.69955314 0.67055305 0.64152282
+ 0.6124662  0.5833866  0.55428715 0.52517068 0.49603972 0.46689656
+ 0.43774322 0.4085815  0.37941296 0.35023896 0.32106066 0.29187905
+ 0.26269496 0.23350905 0.20432188 0.17513384 0.14594528 0.1167564
+ 0.08756736 0.05837825 0.02918913] 0.5892695101103118
+4 [2.00682568 2.01284315 2.0180451  2.0224252  2.02597809 2.0286994
+ 2.03058578 2.03163488 2.03184542 2.03121714 2.02975081 2.02744824
+ 2.02431228 2.02034679 2.01555663 2.00994766 2.00352669 1.99630149
+ 1.98828071 1.97947392 1.9698915  1.95954467 1.94844542 1.93660645
+ 1.92404116 1.91076361 1.89678844 1.88213083 1.8668065  1.85083159
+ 1.83422267 1.81699664 1.79917074 1.78076244 1.76178945 1.74226961
+ 1.7222209  1.70166138 1.68060911 1.65908216 1.63709855 1.61467617
+ 1.59183283 1.56858612 1.54495346 1.52095205 1.49659879 1.47191033
+ 1.44690297 1.4215927  1.39599513 1.37012552 1.34399869 1.3176291
+ 1.29103075 1.26421721 1.23720162 1.20999666 1.18261454 1.15506702
+ 1.1273654  1.09952049 1.07154266 1.04344179 1.01522732 0.98690821
+ 0.95849297 0.92998968 0.90140595 0.87274898 0.84402554 0.81524197
+ 0.78640421 0.75751782 0.72858797 0.69961943 0.67061666 0.64158372
+ 0.61252437 0.58344205 0.55433986 0.52522064 0.49608693 0.46694101
+ 0.43778491 0.40862042 0.3794491  0.35027232 0.32109125 0.29190686
+ 0.26271999 0.23353131 0.20434135 0.17515053 0.14595918 0.11676752
+ 0.0875757  0.05838382 0.02919191] 0.007134034897490792
+5 [2.00682568 2.01284315 2.0180451  2.02242521 2.0259781  2.02869941
+ 2.03058578 2.03163489 2.03184543 2.03121715 2.02975081 2.02744825
+ 2.02431229 2.0203468  2.01555664 2.00994767 2.0035267  1.9963015
+ 1.98828072 1.97947393 1.96989151 1.95954469 1.94844543 1.93660646
+ 1.92404118 1.91076363 1.89678845 1.88213085 1.86680652 1.85083161
+ 1.83422269 1.81699666 1.79917076 1.78076246 1.76178946 1.74226962
+ 1.72222092 1.70166139 1.68060913 1.65908218 1.63709857 1.61467619
+ 1.59183284 1.56858614 1.54495348 1.52095207 1.49659881 1.47191034
+ 1.44690299 1.42159272 1.39599515 1.37012553 1.34399871 1.31762912
+ 1.29103076 1.26421723 1.23720164 1.20999667 1.18261455 1.15506704
+ 1.12736541 1.09952051 1.07154267 1.04344181 1.01522733 0.98690822
+ 0.95849298 0.92998969 0.90140596 0.872749   0.84402555 0.81524198
+ 0.78640422 0.75751784 0.72858798 0.69961944 0.67061667 0.64158373
+ 0.61252438 0.58344206 0.55433987 0.52522064 0.49608693 0.46694101
+ 0.43778491 0.40862042 0.37944911 0.35027233 0.32109125 0.29190687
+ 0.26272    0.23353131 0.20434135 0.17515054 0.14595919 0.11676753
+ 0.08757571 0.05838382 0.02919191] 1.045648689538472e-06
+6 [2.00682568 2.01284315 2.0180451  2.02242521 2.0259781  2.02869941
+ 2.03058578 2.03163489 2.03184543 2.03121715 2.02975081 2.02744825
+ 2.02431229 2.0203468  2.01555664 2.00994767 2.0035267  1.9963015
+ 1.98828072 1.97947393 1.96989151 1.95954469 1.94844543 1.93660646
+ 1.92404118 1.91076363 1.89678845 1.88213085 1.86680652 1.85083161
+ 1.83422269 1.81699666 1.79917076 1.78076246 1.76178946 1.74226962
+ 1.72222092 1.70166139 1.68060913 1.65908218 1.63709857 1.61467619
+ 1.59183284 1.56858614 1.54495348 1.52095207 1.49659881 1.47191034
+ 1.44690299 1.42159272 1.39599515 1.37012553 1.34399871 1.31762912
+ 1.29103076 1.26421723 1.23720164 1.20999667 1.18261455 1.15506704
+ 1.12736541 1.09952051 1.07154267 1.04344181 1.01522733 0.98690822
+ 0.95849298 0.92998969 0.90140596 0.872749   0.84402555 0.81524198
+ 0.78640422 0.75751784 0.72858798 0.69961944 0.67061667 0.64158373
+ 0.61252438 0.58344206 0.55433987 0.52522064 0.49608693 0.46694101
+ 0.43778491 0.40862042 0.37944911 0.35027233 0.32109125 0.29190687
+ 0.26272    0.23353131 0.20434135 0.17515054 0.14595919 0.11676753
+ 0.08757571 0.05838382 0.02919191] 2.2573685220323112e-14
+[2.00682568 2.01284315 2.0180451  2.02242521 2.0259781  2.02869941
+ 2.03058578 2.03163489 2.03184543 2.03121715 2.02975081 2.02744825
+ 2.02431229 2.0203468  2.01555664 2.00994767 2.0035267  1.9963015
+ 1.98828072 1.97947393 1.96989151 1.95954469 1.94844543 1.93660646
+ 1.92404118 1.91076363 1.89678845 1.88213085 1.86680652 1.85083161
+ 1.83422269 1.81699666 1.79917076 1.78076246 1.76178946 1.74226962
+ 1.72222092 1.70166139 1.68060913 1.65908218 1.63709857 1.61467619
+ 1.59183284 1.56858614 1.54495348 1.52095207 1.49659881 1.47191034
+ 1.44690299 1.42159272 1.39599515 1.37012553 1.34399871 1.31762912
+ 1.29103076 1.26421723 1.23720164 1.20999667 1.18261455 1.15506704
+ 1.12736541 1.09952051 1.07154267 1.04344181 1.01522733 0.98690822
+ 0.95849298 0.92998969 0.90140596 0.872749   0.84402555 0.81524198
+ 0.78640422 0.75751784 0.72858798 0.69961944 0.67061667 0.64158373
+ 0.61252438 0.58344206 0.55433987 0.52522064 0.49608693 0.46694101
+ 0.43778491 0.40862042 0.37944911 0.35027233 0.32109125 0.29190687
+ 0.26272    0.23353131 0.20434135 0.17515054 0.14595919 0.11676753
+ 0.08757571 0.05838382 0.02919191]</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="week10_files/figure-html/cell-3-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="homework" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Homework</h1>
+<p>Modify the above code for minimizing the action to address the physical context of the <em>harmonic oscillator</em>, namely <span class="math display">
+V(x) = \frac{1}{2}x^2
+</span> Take <span class="math inline">m=1</span>, <span class="math inline">x_0 = 0</span>, <span class="math inline">x_{n−1} = 1</span> and <span class="math inline">T = 1</span>. Plot the coordinate <span class="math inline">x(t)</span> of the particle as a function of time; also show the (analytically known) answer.</p>
 </section>
 
 </main>
