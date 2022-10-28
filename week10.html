@@ -383,12 +383,12 @@ H_{ij}(\boldsymbol{x}) \equiv (\boldsymbol{H}(\boldsymbol{x}))_{ij}
 </section>
 <section id="newtons-method" class="level2" data-number="1.4">
 <h2 data-number="1.4" class="anchored" data-anchor-id="newtons-method"><span class="header-section-number">1.4</span> Newton’s Method</h2>
-<p>Gradient descent is nice and simple but, as we will see in the problem set, either your <span class="math inline">\gamma</span> is very small and you waste iterations or you are carrying out a line-search at each step to determine the optimal <span class="math inline">γ^{(k)}</span>, which is starting to get costly.</p>
+<p>Gradient descent is nice and simple but if your <span class="math inline">\gamma</span> is chosen to be very small you will waste iterations. Or if you choose <span class="math inline">\gamma</span> large, the convergence may not be met as well.</p>
 <p>A distinct approach goes as follows: instead of using only the value of the gradient at a given point, perhaps we should be building in more information. Specifically, we have that gradient vanishes at a critical point <span class="math display">
 \nabla\phi(\boldsymbol{x}^*) = \boldsymbol{0}.
 </span></p>
 <p>Combine that with the fact that the gradient of a scalar function is a column vector, and you can recast that equation as a set of <span class="math inline">n</span> coupled nonlinear equations <span class="math display">
-\boldsymbol{f}(\boldsymbol{x}) = \nabla\phi(\boldsymbol) = \boldsymbol{0}.
+\boldsymbol{f}(\boldsymbol{x}) = \nabla\phi(\boldsymbol{x}) = \boldsymbol{0}.
 </span></p>
 <p>In other words, finding a critical point is simply a special case of solving a nonlinear system of equations. We shall apply the Newton’s method in the following to find out the critical point.</p>
 <section id="map-to-a-finding-roots-of-multiple-nonlinear-equations" class="level3">
