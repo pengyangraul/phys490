@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.256">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Numerical Integration I</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="week11_files/libs/clipboard/clipboard.min.js"></script>
+<script src="week11_files/libs/quarto-html/quarto.js"></script>
+<script src="week11_files/libs/quarto-html/popper.min.js"></script>
+<script src="week11_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="week11_files/libs/quarto-html/anchor.min.js"></script>
+<link href="week11_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="week11_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="week11_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="week11_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="week11_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><span class="toc-section-number">1</span>  Motivation</a>
+  <ul class="collapse">
+  <li><a href="#the-problem-to-be-solved" id="toc-the-problem-to-be-solved" class="nav-link" data-scroll-target="#the-problem-to-be-solved"><span class="toc-section-number">1.1</span>  The problem to be solved</a></li>
+  </ul></li>
+  <li><a href="#newtoncotes-methods" id="toc-newtoncotes-methods" class="nav-link" data-scroll-target="#newtoncotes-methods"><span class="toc-section-number">2</span>  Newton–Cotes Methods</a>
+  <ul class="collapse">
+  <li><a href="#rectangle-rule" id="toc-rectangle-rule" class="nav-link" data-scroll-target="#rectangle-rule"><span class="toc-section-number">2.1</span>  Rectangle Rule</a>
+  <ul class="collapse">
+  <li><a href="#error-analysis" id="toc-error-analysis" class="nav-link" data-scroll-target="#error-analysis">Error Analysis</a></li>
+  </ul></li>
+  <li><a href="#midpoint-rule" id="toc-midpoint-rule" class="nav-link" data-scroll-target="#midpoint-rule"><span class="toc-section-number">2.2</span>  Midpoint Rule</a></li>
+  <li><a href="#integration-from-interpolation" id="toc-integration-from-interpolation" class="nav-link" data-scroll-target="#integration-from-interpolation"><span class="toc-section-number">2.3</span>  Integration from Interpolation</a>
+  <ul class="collapse">
+  <li><a href="#lagrange-interpolation" id="toc-lagrange-interpolation" class="nav-link" data-scroll-target="#lagrange-interpolation">Lagrange Interpolation</a></li>
+  <li><a href="#integration" id="toc-integration" class="nav-link" data-scroll-target="#integration">Integration</a></li>
+  </ul></li>
+  <li><a href="#trapezoid-rule" id="toc-trapezoid-rule" class="nav-link" data-scroll-target="#trapezoid-rule"><span class="toc-section-number">2.4</span>  Trapezoid Rule</a>
+  <ul class="collapse">
+  <li><a href="#error-analysis-1" id="toc-error-analysis-1" class="nav-link" data-scroll-target="#error-analysis-1">Error analysis</a></li>
+  </ul></li>
+  <li><a href="#simpsons-rule" id="toc-simpsons-rule" class="nav-link" data-scroll-target="#simpsons-rule"><span class="toc-section-number">2.5</span>  Simpson’s Rule</a>
+  <ul class="collapse">
+  <li><a href="#error-analysis-2" id="toc-error-analysis-2" class="nav-link" data-scroll-target="#error-analysis-2">Error analysis</a></li>
+  <li><a href="#increasing-order" id="toc-increasing-order" class="nav-link" data-scroll-target="#increasing-order">Increasing order</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation"><span class="toc-section-number">3</span>  Implementation</a></li>
+  <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework"><span class="toc-section-number">4</span>  Homework</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Numerical Integration I</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="motivation" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Motivation</h1>
+<p>We now turn to numerical <em>integration</em>, also known as <em>quadrature</em>.</p>
+<p>There are many examples in physics involving computing integrations, and we will not list them here.</p>
+<section id="the-problem-to-be-solved" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="the-problem-to-be-solved"><span class="header-section-number">1.1</span> The problem to be solved</h2>
+<p>More generally, the task of quadrature is to evaluate <span class="math inline">\int_a^b f(x) dx</span>, for a function <span class="math inline">f(x)</span> which may look like that in <a href="#fig-fx">Figure&nbsp;1</a>.</p>
+<div id="fig-fx" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="week11_files/fx.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: The definite integral is the area under the curve, when <span class="math inline">x</span> goes from <span class="math inline">a</span> to <span class="math inline">b</span></figcaption><p></p>
+</figure>
+</div>
+<p>Numerical integration at its most fundamental consists of approximating a definite integral by a sum, as follows: <span class="math display">
+\int_a^b f(x) dx \simeq \sum_{i=0}^{n-1} c_i f(x_i).
+</span> Here, the <span class="math inline">x_i</span> are known as the <em>nodal abscissas</em> and the <span class="math inline">c_i</span> are known as the <em>weights</em>. Note that the <span class="math inline">i</span> runs from <span class="math inline">0</span> to <span class="math inline">n-1</span>, so we are dealing with n abscissas (and <span class="math inline">n</span> weights) in total.</p>
+<p>Such quadrature methods can be divided into three categories.</p>
+<ul>
+<li>First, we have <em>closed method</em>, where the endpoints of our interval (<span class="math inline">a</span> and <span class="math inline">b</span>) are included as abscissas (<span class="math inline">x_i</span>). The trapezoid and Simpson’s methods are closed.</li>
+<li>Second, we have open methods, where the endpoints of our interval (<span class="math inline">a</span> and <span class="math inline">b</span>) are <em>not</em> included as abscissas (<span class="math inline">x_i</span>). The midpoint method and Gaussian quadrature are open.</li>
+<li>Third, these are half-open methods, where one of the endpoints of our interval (<span class="math inline">a</span> or <span class="math inline">b</span>) is not included in the abscissas (<span class="math inline">x_i</span>). Of the approaches we discuss below, the rectangle method is half-open. It’s easy to see that open or half-open methods are to be preferred in the case where the integrand has a singularity at an endpoint.</li>
+</ul>
+<p>One can also group the several integration methods according to a different criterion, namely</p>
+<ul>
+<li><strong>Newton–Cotes methods</strong>: these make the assumption that the integral can be approximated by summing up the areas of elementary shapes (e.g., rectangles); such methods typically involve <em>equally spaced abscissas</em>: these are useful (if not necessary) when <span class="math inline">f(x)</span> has already been evaluated at specific points on a grid.</li>
+<li><strong>Gaussian quadrature</strong>: these make use of unequally spaced abscissas: these methods choose the <span class="math inline">x_i</span> in such a way as to provide better accuracy. As a result, they typically require fewer abscissas and therefore fewer function evaluations, making them an attractive option when an <span class="math inline">f(x)</span> evaluation is costly.</li>
+</ul>
+</section>
+</section>
+<section id="newtoncotes-methods" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Newton–Cotes Methods</h1>
+<p>Newton–Cotes methods evaluate the integral as a sum of elementary areas (rectangles, trapezoids, etc.). We use Newton–Cotes methods that employ an equally spaced grid. The assumption is that we have access to a set of <span class="math inline">n</span> discrete data points (i.e., a table) of the form <span class="math inline">(x_i, f(x_i))</span> for <span class="math inline">i = 0, 1,\dots, n-1</span>. The points <span class="math inline">x_i</span> are on an equally spaced grid, from <span class="math inline">a</span> to <span class="math inline">b</span>. The <span class="math inline">n</span> points then are given by the following relation: <span class="math display">
+x_i = a + ih, \quad h = \frac{b-a}{n-1}.
+</span> Recall that we are dealing with <span class="math inline">n</span> points in total, so we are faced with <span class="math inline">n- 1</span> subintervals from <span class="math inline">a</span> to <span class="math inline">b</span>. It would be nice to introduce a new variable <span class="math inline">N=n-1</span>, which is the number of intervals (also called <em>panels</em>). Then for <span class="math inline">x_i</span>, <span class="math inline">i = 0,\dots, N</span> and we have in total <span class="math inline">n = N+1</span> points.</p>
+<p>In the following, all methods will be constructed based on <span class="math display">
+\int_a^b f(x)dx = \sum_{i=0}^N\int_{x_i}^{x_{i+1}} f(x) dx,
+</span> and perform approximations to the “small problem” <span class="math display">
+\int_{x_i}^{x_{i+1}} f(x) dx.
+</span></p>
+<section id="rectangle-rule" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="rectangle-rule"><span class="header-section-number">2.1</span> Rectangle Rule</h2>
+<p>The <em>rectangle rule</em> makes the simplest assumption possible, namely that the area under <span class="math inline">f(x)</span> from <span class="math inline">x_i</span> to <span class="math inline">x_{i+1}</span> can be approximated by the area of a rectangle, with width <span class="math inline">h</span> (the distance from <span class="math inline">x_i</span> to <span class="math inline">x_{i+1}</span>) and height given by the value of <span class="math inline">f(x)</span> either at <span class="math inline">x_i</span> or at <span class="math inline">x_{i+1}</span>. Analytically, this is <span class="math display">
+\int_{x_i}^{x_{i+1}} f(x) dx\simeq hf(x_i).
+</span> This is illustrated in <a href="#fig-rectangle">Figure&nbsp;2</a> for <span class="math inline">n=5</span> (<span class="math inline">N=4</span>).</p>
+<div id="fig-rectangle" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="week11_files/rectangle_rule.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2: Illustration of rectangle rule.</figcaption><p></p>
+</figure>
+</div>
+<p>In fact, this should be referred to as the <em>left-handed rectangle rule</em>. We would just as easily have take the height of the rectangle as the value of <span class="math inline">f(x)</span> at the right abscissa, <span class="math inline">f(x_{i+1})</span>, giving rise to the right-hand rectangle rule.</p>
+<p>With this, we have <span class="math display">
+\int_a^b f(x) dx\simeq h f(x_0) + h f(x_1) + \cdots + hf(x_{n-2}).
+</span> Using the language of weights <span class="math inline">c_i</span> for <span class="math inline">\int_a^b f(x) dx \simeq \sum_i c_i f(x_i)</span>, these weights are all <span class="math inline">h</span> except at the endpoint <span class="math inline">x_{n-1}</span> (point <span class="math inline">b</span>).</p>
+<section id="error-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="error-analysis">Error Analysis</h3>
+<p>To do an error analysis, let us perform a Taylor expansion <span class="math display">
+f(x) = f(x_i) + (x - x_i) f'(x_i) + \cdots
+= f(x_i) + (x - x_i) f'(\xi_i),
+</span> where <span class="math inline">\xi_i</span> is a point between <span class="math inline">x</span> and <span class="math inline">x_i</span>. With this, we can write the integration as <span class="math display">
+\int_{x_i}^{x_{i+1}} f(x) dx
+= \int_{x_i}^{x_{i+1}} dx\,[f(x_i) + (x - x_i) f'(\xi_i)],
+</span> where the first term is the same as in the “rectangle-rule” approximation, and the second term is the error.</p>
+<p>To evaluate the error term, we introduce <span class="math display">
+u = \frac{x - x_i}{h}.
+</span> Expressed in terms of <span class="math inline">u</span>, the above integral can be rewritten as <span class="math display">
+\int_{x_i}^{x_{i+1}} f(x) dx =
+h \int_0^1 du [f(x_i) + hu f'(\xi_i)] = hf(x_i) + \frac{1}{2}h^2 f'(\xi_i).
+</span></p>
+<p>We find that the <em>absolute error in the one-panel rectangle formula</em> is <span class="math display">
+\mathcal{E}_i = \frac{1}{2} h^2 f'(\xi_i)
+</span></p>
+<p>The total absolute error is then given by <span class="math display">
+\begin{align*}
+\mathcal{E} &amp;= \sum_{i=0}^{n-2} \mathcal{E}_i
+= \frac{1}{2}h^2\sum_{i=0}^{n-2} f'(\xi_i) \\
+&amp; = \frac{n-1}{2}h^2 \bar{f'} \\
+&amp; = \frac{b-a}{2}h \bar{f'}
+\end{align*}
+</span> where <span class="math display">
+\bar{f'} = \frac{1}{n-1}\sum_{i=0}^{n-2} f'(\xi_i)
+</span> is the mean value of <span class="math inline">f'</span>. In the third line, we have used <span class="math inline">(n-1)h = b-a</span>. Thus, we see the leading error is <span class="math inline">O(h)</span>.</p>
+</section>
+</section>
+<section id="midpoint-rule" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="midpoint-rule"><span class="header-section-number">2.2</span> Midpoint Rule</h2>
+<p>The <em>one-panel version of the midpoint rule</em> is <span class="math display">
+\int_{x_i}^{x_{i+1}} f(x) dx \simeq h f(x_i + \frac{h}{2}).
+</span></p>
+<p>In fact, the midpoint rule is an <em>open</em> method, namely the two endpoints are not included. In your homework, you will perform an error analysis for this method.</p>
+</section>
+<section id="integration-from-interpolation" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="integration-from-interpolation"><span class="header-section-number">2.3</span> Integration from Interpolation</h2>
+<p>We now briefly turn to an improved rule, which is surprisingly similar to the rectangle rule. We start with the one-panel version.</p>
+<p>Notice that in both the rectangle rule and midpoint rule, we approximate <span class="math inline">f(x)</span> as a constant between <span class="math inline">x_i</span> and <span class="math inline">x_{i+1}</span>, namely, just a horizontal line between <span class="math inline">x_i</span> and <span class="math inline">x_{i+1}</span>.</p>
+<p>The natural next step is to assume that the function is not approximated by a constant, i.e., a horizontal line, from <span class="math inline">x_i</span> to <span class="math inline">x_{i+1}</span>, but by a straight line, a quadratic, a cubic, and so on. This is actually the problem of <em>interpolation</em>, which will be explained in the following.</p>
+<p>It should be straightforward to see that one panel, made up of two consecutive abscissas, is enough to define a general straight line (i.e., not necessarily a flat, horizontal line). Similarly, two panels, made up of three consecutive abscissas, can “anchor” a quadratic, and so on.</p>
+<p>In general, we have as input a table of <span class="math inline">q</span> data points <span class="math inline">(x_{i+j}, f(x_{i+j}))</span> for <span class="math inline">j=0, 1,\dots, q - 1</span> and wish to find the interpolating polynomial that goes through them. For <span class="math inline">q = 2</span> we get a straight line, for <span class="math inline">q = 3</span> a quadratic, and so on. We shall use the notation: <span class="math inline">q = 3</span> leads to the three abscissas <span class="math inline">x_i</span>, <span class="math inline">x_{i+1}</span>, and <span class="math inline">x_{i+2}</span>.</p>
+<p>Thus, for a given approach the <em>elementary interval</em> will depend on the value of <span class="math inline">q</span>: for <span class="math inline">q = 2</span> the elementary interval has a width of one panel, for <span class="math inline">q = 3</span> of two panels, for <span class="math inline">q = 4</span> of three panels, and so on. More generally, for the case of <span class="math inline">q</span> points in the elementary interval we wish to approximate the integral: <span class="math display">
+\int_{x_i}^{x_{i+q-1}} f(x) dx.
+</span> The way we do this in general is to employ an <em>interpolating polynomial</em> <span class="math inline">p(x)</span>.</p>
+<section id="lagrange-interpolation" class="level3">
+<h3 class="anchored" data-anchor-id="lagrange-interpolation">Lagrange Interpolation</h3>
+<p>Lagrange interpolation is a method to introduce a polynomial <span class="math inline">p(x)</span> that passes a given set of points. We shall introduce a few related concepts in the following.</p>
+<section id="cardinal-polynomials" class="level4">
+<h4 class="anchored" data-anchor-id="cardinal-polynomials">Cardinal Polynomials</h4>
+<p>We have a table of data points <span class="math inline">(x_j, y_j)</span> for <span class="math inline">j = 0, 1, \dots, q-1</span>. Before discussing how to interpolate through those points, let us introduce what are known as <em>cardinal or Lagrange or fundamental</em> polynomials: <span class="math display">
+L_k(x) = \frac{\prod_{j=0,j\neq k}^{q-1} (x - x_j)}{\prod_{j=0,j\neq k}^{q-1} (x_k - x_j)}.
+</span></p>
+<p>The denominator depends only on the <span class="math inline">x_j</span>’s, on the interpolation points. So it is a constant. the numerator is a polynomial in <span class="math inline">x</span> of degree <span class="math inline">n-1</span>, which for a given <span class="math inline">k</span> goes to <span class="math inline">0</span> at <span class="math inline">x_j</span> when <span class="math inline">j \neq k</span>. The Lagrange polynomial <span class="math inline">L_k(x)</span> goes to <span class="math inline">1</span> at <span class="math inline">x_k</span>, since the numerator and the denominator are equal to each other in that case.</p>
+<p>If you’ve never encountered Lagrange polynomials before, you might benefit from seeing them explicitly written out for a simple case. Regardless of where the <span class="math inline">x_j</span>’s are placed, here’s what the three Lagrange polynomials for the case of <span class="math inline">q=3</span> look like: <span class="math display">
+L_0(x) = \frac{(x - x_1)(x - x_2)}{(x_0 - x_1)(x_0 - x_2)}, \quad L_1(x) = \frac{(x - x_0)(x - x_2)}{(x_1 - x_0)(x_1 - x_2)}, \quad L_2(x) = \frac{(x - x_0)(x - x_1)}{(x_2 - x_0)(x_2 - x_1)}.
+</span> They have the properties, for example, <span class="math inline">L_0(x_1) = 0</span>, <span class="math inline">L_0(x_2) = 0</span>, and <span class="math inline">L_0(x_0) = 1</span>.</p>
+<p>In general, we have <span class="math display">
+L_k(x_j) = \delta_{kj}.
+</span></p>
+<p>We can use these cardinal polynomials as basis functions: <span class="math display">
+p(x) = \sum_{k=0}^{q-1}y_k L_k(x).
+</span> One can verify that when we insert <span class="math inline">x = x_j</span>, we have <span class="math display">
+p(x=x_j) = \sum_{k=0}^{n-1} y_k \delta_{kj} = y_j
+</span>, as expected!</p>
+</section>
+</section>
+<section id="integration" class="level3">
+<h3 class="anchored" data-anchor-id="integration">Integration</h3>
+<p>Let us now come back to integrations. The <em>elementary interval</em> for the integration will depend on the value of <span class="math inline">q</span>: for <span class="math inline">q=2</span>, this has a width of one panel; for <span class="math inline">q=3</span> of two panels, for <span class="math inline">q=4</span> of three panels and so on. We will work with the following integral <span class="math display">
+\int_{x_i}^{x_{i+q-1}} f(x) dx .
+</span></p>
+<p>The way we do this in general is to employ an interpolating polynomial (so that we approximate <span class="math inline">f(x)\simeq p(x)</span> in the elementary interval) <span class="math display">
+p(x) = \sum_{j=0}^{q-1} f(x_{i+j}) L_{i+j} (x).
+</span></p>
+<p>Since our nodes go from <span class="math inline">x_j</span> to <span class="math inline">x_{j+q-1}</span>, the cardinal polynomials <span class="math inline">L_{i+j}(x)</span> take the form: <span class="math display">
+L_{i+j}(x) = \frac{\prod_{k=0,k\neq j}^{q-1}(x - x_{i+k})}{\prod_{k=0,k\neq j}^{q-1}(x_{i+j} - x_{i+k})}.
+</span></p>
+<p>For example, consider <span class="math inline">q=4</span>, we have <span class="math inline">L_i(x)</span>, <span class="math inline">L_{i+1}(x)</span>, <span class="math inline">L_{i+2}(x)</span> and <span class="math inline">L_{i+3}(x)</span>, each of which is a cubic polynomial. The points they are interpolating over are <span class="math inline">x_i</span>, <span class="math inline">x_{i+1}</span>, <span class="math inline">x_{i+2}</span>, and <span class="math inline">x_{i+3}</span>.</p>
+<p>Newton–Cotes methods in an elementary interval are cast as: <span class="math display">
+\begin{align*}
+\int_{x_i}^{x_{i+q-1}} f(x) dx &amp;\simeq \int_{x_i}^{x_{i+q-1}} p(x) dx  \\
+&amp;= \sum_{j=0}^{q-1}\left(f(x_{i+j}) \int_{x_i}^{x_{i+q-1}} L_{i+j}(x)dx\right) \\
+&amp;= \sum_{j=0}^{q-1}w_{i+j} f(x_{i+j}),
+\end{align*}
+</span> here we introduced the <em>weights for the elementary interval</em>: <span class="math display">
+w_{i+j} = \int_{x_i}^{x_{i+q-1}} L_{i+j}(x) dx.
+</span></p>
+<p><strong>The crucial point is that these weights depend only on the cardinal polynomials, not on the function <span class="math inline">f(x)</span> that is being integrated.</strong> Thus, for a given <span class="math inline">q</span>, implying an elementary interval with a width of <span class="math inline">q−1</span> panels, these weights can be evaluated once and for all, and employed to integrate any function you wish, after the fact.</p>
+<p>By focusing on an elementary interval and employing a low-degree polynomial in it, in essence what we’re doing is <em>piecewise polynomial interpolation and then integration of each interpolant</em>.</p>
+</section>
+</section>
+<section id="trapezoid-rule" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="trapezoid-rule"><span class="header-section-number">2.4</span> Trapezoid Rule</h2>
+<p>We consider the case <span class="math inline">q=2</span>, giving rise to what is known as the <em>trapezoid rule</em>. We have the two points <span class="math inline">(x_i, f(x_i))</span> and <span class="math inline">(x_{i+1}, f(x_{i+1}))</span>, and the two cardinal polynomials are <span class="math display">
+L_i(x) = \frac{x - x_{i+1}}{x_i - x_{i+1}} = -\frac{x - x_{i+1}}{h},\quad L_{i+1}(x) = \frac{x - x_{i}}{x_{i+1} - x_{i}} = \frac{x - x_i}{h}.
+</span></p>
+<p>This immediately gives the two elementary weights <span class="math display">
+\begin{gather*}
+w_i = \int_{x_i}^{x_{i+1}} L_i(x) dx = -\frac{1}{h}\int_{x_i}^{x_{i+1}}(x - x_{i+1})dx = \frac{h}{2} \\
+w_{i+1} = \int_{x_i}^{x_{i+1}} L_{i+1}(x) dx = \frac{1}{h}\int_{x_i}^{x_{i+1}}(x - x_{i})dx = \frac{h}{2} = w_i.
+\end{gather*}
+</span> We see that the sum of weights for the elementary interval is equal to the width of the elementary interval.</p>
+<p>We summarize the trapezoid rule below:</p>
+<ul>
+<li>One-panel version <span class="math display">
+\int_{x_i}^{x_{i+1}} f(x) dx \simeq \frac{h}{2} \left[f(x_i) + f(x_{i+1}) \right].
+</span></li>
+<li>Composite version <span class="math display">
+\int_a^b f(x)dx = \sum_{i=0}^{n-2} \int_{x_i}^{x_{i+1}} f(x)dx \simeq \frac{h}{2}f(x_0) + h[f(x_1)+\dots+f(x_{n-2})] + \frac{h}{2}f(x_{n-1}).
+</span></li>
+</ul>
+<p>We can summarize the weights as <span class="math inline">c_i = h\{\frac{1}{2}, 1, \dots, 1, \frac{1}{2}\}</span>. This is illustrated <a href="#fig-interpolation">Figure&nbsp;3</a>.</p>
+<div id="fig-interpolation" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="week11_files/interpolation.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3: Composite version of trapezoid rule (left) and Simpson‘s rule (right)</figcaption><p></p>
+</figure>
+</div>
+<section id="error-analysis-1" class="level3">
+<h3 class="anchored" data-anchor-id="error-analysis-1">Error analysis</h3>
+<p>Without giving a proof, the leading error for trapezoid rule is <span class="math display">
+\mathcal{E} = -\frac{b-a}{12}h^2\bar{f''},
+</span> where <span class="math inline">\bar{f''}</span> is equal to the arithmetic mean of <span class="math inline">f''</span>.</p>
+</section>
+</section>
+<section id="simpsons-rule" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="simpsons-rule"><span class="header-section-number">2.5</span> Simpson’s Rule</h2>
+<p>Simpson’s rule is the natural continuation of the Lagrange interpolation process we saw above for <span class="math inline">q=3</span>, and we have three abscissas <span class="math inline">x_i</span>, <span class="math inline">x_{i+1}</span> and <span class="math inline">x_{i+2}</span>. The trapezoid rule fig a straight line through two points, so Simpson’s rule fits a quadratic throught three points (making up two panels). The elementary interval here is of width <span class="math inline">2h</span>.</p>
+<p>We are dealing with three points <span class="math inline">(x_i, f(x_i))</span>, <span class="math inline">(x_{i+1}, f(x_{i+1}))</span>, and <span class="math inline">(x_{i+2}, f(x_{i+2}))</span>, and three cardinal polynomials <span class="math display">
+\begin{gather*}
+L_i(x) = \frac{(x - x_{i+1})(x - x_{i+2})}{(x_i - x_{i+1})(x_{i} - x_{i+2})} \\
+L_{i+1}(x) = \frac{(x - x_{i})(x - x_{i+2})}{(x_i - x_{i})(x_{i} - x_{i+2})} \\
+L_{i+2}(x) = \frac{(x - x_{i})(x - x_{i+1})}{(x_i - x_{i})(x_{i} - x_{i+1})}.
+\end{gather*}
+</span> Each of these is a quadratic polynomial. We would now like to compute the three elementary weights, which requires integration from <span class="math inline">x_i</span> to <span class="math inline">x_{i+2}</span>. It can be shown that (left as homework) <span class="math display">
+\begin{gather*}
+w_i = \int_{x_i}^{x_{i+2}} L_i(x) dx = \frac{h}{3} \\
+w_{i+1} = \int_{x_i}^{x_{i+2}} L_{i+1}(x) dx = \frac{4h}{3} \\
+w_{i+2} = \int_{x_i}^{x_{i+2}} L_{i+2}(x) dx = \frac{h}{3}.
+\end{gather*}
+</span></p>
+<p>We can summarize the Simpson’s rule:</p>
+<ul>
+<li><p>Two-panel version: <span class="math display">
+\int_{x_i}^{x_{i+2}} f(x) dx \simeq \frac{h}{3} [f(x_i) +4f(x_{i+1}) + f(x_{i+2})]
+</span></p></li>
+<li><p>Composite version (requiring odd number of points <span class="math inline">n</span>, or even number of pannels <span class="math inline">N</span>): <span class="math display">
+\begin{align*}
+\int_{a}^b f(x)dx &amp; = \sum_{i = 0,2,4,\dots}^{n-3}\int_{x_i}^{x_{i+2}} f(x) dx \\
+&amp;\simeq  \frac{h}{3} f(x_0) + \frac{4h}{3}f(x_1) + \frac{2h}{3}f(x_2) + \frac{4h}{3}f(x_3)+ \dots + \frac{2h}{3}f(x_{n-3}) +
+\frac{4h}{3}f(x_{n-2}) + \frac{h}{3}f(x_{n-1}).
+\end{align*}
+</span></p>
+<p>We can summarize the weights as <span class="math inline">c_i = \frac{h}{3}\{1,4,2,4,\dots,2,4,1\}</span>. This method is illustrated in the right of <a href="#fig-interpolation">Figure&nbsp;3</a>.</p></li>
+</ul>
+<section id="error-analysis-2" class="level3">
+<h3 class="anchored" data-anchor-id="error-analysis-2">Error analysis</h3>
+<p>We simply state the absolute error for Simpson’s rule: <span class="math display">
+\mathcal{E} = -\frac{b-a}{180}h^4\overline{f^{(4)}},
+</span> with the arithmetic mean <span class="math inline">\overline{f^{(4)}}</span>.</p>
+<p>Observe that this error contains a fourth derivative, <em>so for polynomials of up to third degree, the composite Simpson’s rule is exact</em>. This is surprising: we found that this method is exact for all cubic polynomials, even though we derived it using a quadratic polynomial!</p>
+</section>
+<section id="increasing-order" class="level3">
+<h3 class="anchored" data-anchor-id="increasing-order">Increasing order</h3>
+<p>By keep going in the order of polynomials, one can derive other rules. We summarize a few of these rules in the following. <img src="week11_files/newton_cotes.png" class="img-fluid" alt="Newton-Cotes method in elementary interval"></p>
+</section>
+</section>
+</section>
+<section id="implementation" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Implementation</h1>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Implementation</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">1</span><span class="op">/</span>np.sqrt(x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rectangle(f,a,b,n):</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.linspace(a,b,n)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    h <span class="op">=</span> (b<span class="op">-</span>a)<span class="op">/</span>(n<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    fs <span class="op">=</span> f(xs)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> h<span class="op">*</span>np.<span class="bu">sum</span>(fs)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> trapezoid(f,a,b,n):</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.linspace(a,b,n)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    h <span class="op">=</span> (b<span class="op">-</span>a)<span class="op">/</span>(n<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    fs <span class="op">=</span> f(xs)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    cs <span class="op">=</span> np.ones(n)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    cs[<span class="dv">0</span>] <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    cs[<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> h<span class="op">*</span>np.<span class="bu">sum</span>(cs<span class="op">*</span>fs)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simpson(f,a,b,n):</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.linspace(a,b,n)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    h <span class="op">=</span> (b<span class="op">-</span>a)<span class="op">/</span>(n<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    fs <span class="op">=</span> f(xs)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    cs <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>np.ones(n)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    cs[<span class="dv">1</span>::<span class="dv">2</span>] <span class="op">=</span> <span class="dv">4</span><span class="op">;</span> cs[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> cs[<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (h<span class="op">/</span><span class="dv">3</span>)<span class="op">*</span>np.<span class="bu">sum</span>(cs<span class="op">*</span>fs)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    ans <span class="op">=</span> np.log(<span class="dv">1</span> <span class="op">+</span> np.sqrt(<span class="dv">2</span>))</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(ans)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> integrator <span class="kw">in</span> (rectangle, trapezoid, simpson):</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(integrator(f, <span class="fl">0.</span>, <span class="fl">1.</span>, <span class="dv">51</span>), end<span class="op">=</span><span class="st">" "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.8813735870195429
+0.898432869659475 0.8813618018476096 0.8813735872550068 </code></pre>
+</div>
+</div>
+<p>You can modify this code to explore the error as a function of the step size <span class="math inline">h</span> (or the number of points <span class="math inline">n</span>). You can obtain the following figure. <img src="week11_files/error_newton.png" class="img-fluid" alt="Log-log plot resulting from the rectangle, trapezoid, and Simpson’s rules"></p>
+</section>
+<section id="homework" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Homework</h1>
+<ol type="1">
+<li><p>Carry out an error analysis for the midpoint rule (Taylor expand around <span class="math inline">x_i + h/2</span> and keep terms up to second order). Please show that the one-panel version absolute error <span class="math display">
+\mathcal{E}_i = \frac{1}{24}h^3 f''(\xi_i)
+</span> and the composite version error <span class="math display">
+  \mathcal{E} = \frac{b-a}{24}h^2\overline{f''}
+  </span> where <span class="math inline">\overline{f''}</span> is the arithmetic mean.</p></li>
+<li><p>Please prove (no programming) that for Simpson’s rule, the weights are <span class="math display">
+  \begin{gather*}
+  w_i = \int_{x_i}^{x_{i+2}} L_i(x) dx = \frac{h}{3} \\
+  w_{i+1} = \int_{x_i}^{x_{i+2}} L_{i+1}(x) dx = \frac{4h}{3} \\
+  w_{i+2} = \int_{x_i}^{x_{i+2}} L_{i+2}(x) dx = \frac{h}{3}.
+  \end{gather*}
+  </span></p></li>
+</ol>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
