@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.256">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Numerical Integration II</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="week12_files/libs/clipboard/clipboard.min.js"></script>
+<script src="week12_files/libs/quarto-html/quarto.js"></script>
+<script src="week12_files/libs/quarto-html/popper.min.js"></script>
+<script src="week12_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="week12_files/libs/quarto-html/anchor.min.js"></script>
+<link href="week12_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="week12_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="week12_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="week12_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="week12_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#gaussian-quadrature" id="toc-gaussian-quadrature" class="nav-link active" data-scroll-target="#gaussian-quadrature"><span class="toc-section-number">1</span>  Gaussian Quadrature</a>
+  <ul class="collapse">
+  <li><a href="#gausslegendre-n-2-case" id="toc-gausslegendre-n-2-case" class="nav-link" data-scroll-target="#gausslegendre-n-2-case"><span class="toc-section-number">1.1</span>  Gauss–Legendre: <span class="math inline">n = 2</span> Case</a></li>
+  </ul></li>
+  <li><a href="#gausslegendre-general-case" id="toc-gausslegendre-general-case" class="nav-link" data-scroll-target="#gausslegendre-general-case"><span class="toc-section-number">2</span>  Gauss–Legendre: General Case</a>
+  <ul class="collapse">
+  <li><a href="#hermite-interpolation" id="toc-hermite-interpolation" class="nav-link" data-scroll-target="#hermite-interpolation"><span class="toc-section-number">2.1</span>  Hermite Interpolation</a></li>
+  <li><a href="#node-placement" id="toc-node-placement" class="nav-link" data-scroll-target="#node-placement"><span class="toc-section-number">2.2</span>  Node Placement</a></li>
+  <li><a href="#orthogonal-polynomials" id="toc-orthogonal-polynomials" class="nav-link" data-scroll-target="#orthogonal-polynomials"><span class="toc-section-number">2.3</span>  Orthogonal polynomials</a></li>
+  <li><a href="#making-d_k-vanish" id="toc-making-d_k-vanish" class="nav-link" data-scroll-target="#making-d_k-vanish"><span class="toc-section-number">2.4</span>  Making <span class="math inline">d_k</span> vanish</a></li>
+  <li><a href="#why-legendre" id="toc-why-legendre" class="nav-link" data-scroll-target="#why-legendre"><span class="toc-section-number">2.5</span>  Why “Legendre”</a></li>
+  <li><a href="#weight-computation" id="toc-weight-computation" class="nav-link" data-scroll-target="#weight-computation"><span class="toc-section-number">2.6</span>  Weight Computation</a></li>
+  <li><a href="#integrating-from-a-to-b" id="toc-integrating-from-a-to-b" class="nav-link" data-scroll-target="#integrating-from-a-to-b"><span class="toc-section-number">2.7</span>  Integrating from <span class="math inline">a</span> to <span class="math inline">b</span></a></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation"><span class="toc-section-number">2.8</span>  Implementation</a></li>
+  </ul></li>
+  <li><a href="#other-gaussian-quadratures" id="toc-other-gaussian-quadratures" class="nav-link" data-scroll-target="#other-gaussian-quadratures"><span class="toc-section-number">3</span>  Other Gaussian Quadratures</a></li>
+  <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework"><span class="toc-section-number">4</span>  Homework</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Numerical Integration II</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="gaussian-quadrature" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Gaussian Quadrature</h1>
+<p>In previous lecture, we studied the Newton-Cotes methods which employ an evenly spaced grid. In contradistinction to this, what the <em>method(s) of Gaussian quadrature</em> accomplish is both simple and impressive: instead of limiting yourself to equally spaced nodal abscissas, <em>expand your freedom so that both the <span class="math inline">n</span> abscissas <span class="math inline">x_i</span> and the <span class="math inline">n</span> weights <span class="math inline">c_i</span> are at your disposal</em>. Then, you will be able to <em>integrate all polynomials up to degree <span class="math inline">2n - 1</span> exactly</em>!</p>
+<p>It should be straightforward to see why this is impressive: it implies that even using a very small number of points (say <span class="math inline">n = 5</span>) allows us to integrate all polynomials up to quite high order exactly (up to ninth order for <span class="math inline">n = 5</span>). As you may have already guessed, the reason this is possible is that we have doubled the number of parameters at our disposal: we can use the <span class="math inline">2n</span> parameters (the <span class="math inline">x_i</span>’s and the <span class="math inline">c_i</span>’s) to handle polynomials up to degree <span class="math inline">2n - 1</span>.</p>
+<p>In our discussion of Newton–Cotes methods, we always started from an elementary interval and later generalized to a composite integration rule, which could handle the full integral from <span class="math inline">a</span> to <span class="math inline">b</span>. Now, for the discussion of Gaussian quadrature, we will employ it <em>directly</em> in the full interval from <span class="math inline">a</span> to <span class="math inline">b</span>.</p>
+<p>It is standard to take <span class="math inline">a = -1</span> and <span class="math inline">b = 1</span> at this stage, since we can transform the integration domain to <span class="math inline">[-1,1]</span> in most times. We will make the approximation <span id="eq-gaussian-quadrature"><span class="math display">
+\int_{-1}^{1} f(x)dx \simeq \sum_{k=0}^{n-1}c_k f(x_k).
+\tag{1}</span></span> We claim that by an intelligent choice of both <span class="math inline">\{x_k\}</span> and <span class="math inline">\{c_k\}</span>, we will be able to integrate polynomials up to degree <span class="math inline">2n-1</span> exactly. We also point out that <em>all Gaussian quadrature methods are open</em>, so the <span class="math inline">x_k</span>s are not to be identified with <span class="math inline">-1</span> and <span class="math inline">+1</span>. Let’s see how this all works.</p>
+<section id="gausslegendre-n-2-case" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="gausslegendre-n-2-case"><span class="header-section-number">1.1</span> Gauss–Legendre: <span class="math inline">n = 2</span> Case</h2>
+<p>We start from explicitly addressing the exact integrability of polynomials up to degree <span class="math inline">2n-1</span> for the simplest non-trivial case, namely that of two points. We take <a href="#eq-gaussian-quadrature">Equation&nbsp;1</a> and apply it to the case of <span class="math inline">n=2</span>: <span id="eq-gaussian-legendre"><span class="math display">
+\int_{-1}^1 f(x)dx = c_0 f(x_0) + c_1f(x_1).
+\tag{2}</span></span></p>
+<p>The abscissas <span class="math inline">x_0</span> and <span class="math inline">x_1</span> along with the weights <span class="math inline">c_0</span> and <span class="math inline">c_1</span> are the four quantities we need to now determine. Since Gaussian quadrature methods are open, <span class="math inline">x_0</span> and <span class="math inline">x_1</span> will lie in <span class="math inline">(a, b)</span>.</p>
+<p>As advertised, we will determine the four unknown parameters by demanding that all polynomials up to order <span class="math inline">2n - 1 = 3</span> can be integrated exactly.</p>
+<p>It is simplest to use monomials, i.e., single powers of <span class="math inline">x</span>, instead of polynomials (which can later be arrived at as linear combinations of monomials). Thus, we will take <span class="math display">
+f(x) =
+\begin{cases}
+x^0\equiv 1 \\
+x^1 \\
+x^2 \\
+x^3
+\end{cases}
+</span> and assume that for all these cases <a href="#eq-gaussian-legendre">Equation&nbsp;2</a> holds. This leads to the following four equations in four unknowns: <span class="math display">
+\begin{gather}
+\int_{-1}^{1} 1 dx = 2 = c_0 + c_1, \tag{a} \\
+\int_{-1}^{x} 1 dx = 0 = c_0x_0 + c_1 x_1, \tag{b} \\
+\int_{-1}^{x^2} 1 dx = \frac{2}{3} = c_0 x_0^2 + c_1 x_1^2, \tag{c} \\
+\int_{-1}^{x^3} 1 dx = 0 = c_0 x_0^3 + c_1 x_1^3 \tag{d}.
+\end{gather}
+</span> Using Eq. (b), we have <span class="math inline">c_0 x_0 = -c_1 x_1</span>. Inserting this into Eq. (d), we have <span class="math display">
+c_0 x_0(x_0^2 - x_1^2) = 0.
+</span></p>
+<p>Note that the weight <span class="math inline">c_0\neq 0</span>. Moreover, <span class="math inline">x_0\neq 0</span>, otherwise we would have <span class="math inline">x_0 = x_1 = 0</span>! Because of this, we must have <span class="math inline">x_0^2 = x_1^2</span>. Since <span class="math inline">x_0</span> and <span class="math inline">x_1</span> should be distinct, this implies <span class="math inline">x_0 = -x_1</span>. Now, we can use Eqs. (a) and (b) to obtain <span class="math inline">c_0 = c_1 = 1</span>. We can also use Eqs. (a) and (c) to get <span class="math display">
+2x_0^2 = 2x_1^2 = \frac{2}{3},
+</span> which gives <span class="math inline">x_{0,1} = \pm \frac{1}{\sqrt{3}}</span>.</p>
+<p>To summarize, we have <span class="math display">
+\int_{-1}^1 f(x)dx = f(\frac{1}{\sqrt{3}}) + f(-\frac{1}{\sqrt{3}}).
+</span></p>
+<p>This employs two points and is exact for polynomials up to third order; it is approximate for other functions. It’s worth pausing for a second to realize that our accomplishment is already noteworthy: Simpson’s rule could integrate polynomials up to third order exactly, but it needed at least three points in order to do that.</p>
+</section>
+</section>
+<section id="gausslegendre-general-case" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Gauss–Legendre: General Case</h1>
+<p>There are many ways to introduce the general case of Gauss-Legendre method. For example, you can repeat the previous section by considering a larger <span class="math inline">n</span> manually. But this can become very complicated as you can imagine for larger and larger <span class="math inline">n</span>.</p>
+<p>Instead, in this section, we tackle Gaussian quadrature using Hermite interpolation, which will be introduced in the following. This approach will allow us to explain in a unified manner:</p>
+<ul>
+<li>how to pick the nodes xk, thereby justifying the presence of the name “Legendre” in Gauss–Legendre,</li>
+<li>how to compute the weights <span class="math inline">c_k</span>,</li>
+<li>the overall error scaling of Gauss–Legendre quadrature.</li>
+</ul>
+<section id="hermite-interpolation" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="hermite-interpolation"><span class="header-section-number">2.1</span> Hermite Interpolation</h2>
+<p>In this section, we solve the problem of interpolating through both the points <span class="math inline">(x_j, y_j)</span> and the first derivatives <span class="math inline">(x_j, y'_j)</span> at those points: <span class="math display">
+p(x_j) = y_j, \quad p'(x_j) = y_j', \quad j=0,1,\dots, n-1.
+</span> This involves <span class="math inline">2n</span> conditions gives rise to what is known as the <em>Hermite interpolation</em>.</p>
+<p>As you can guess, using a polynomial of degree <span class="math inline">n−1</span> won’t work: this would have <span class="math inline">n</span> undetermined parameters, but we need to satisfy <span class="math inline">2n</span> conditions. In other words, our Ansatz for the interpolating polynomial should start from a form containing <span class="math inline">2n</span> undetermined parameters, i.e., a polynomial of degree <span class="math inline">2n-1</span>.</p>
+<p>We start from the following guess: <span class="math display">
+p(x) = \sum_{k=0}^{n-1} y_k\alpha_k(x) + \sum_{k=0}^{n-1} y_k'\beta_k(x)
+</span> where the <span class="math inline">\alpha_k(x)</span> are meant to capture the function values and the <span class="math inline">\beta_k(x)</span> the derivative values.</p>
+<p>In other words: <span id="eq-hermite"><span class="math display">
+\begin{gather*}
+\alpha_k(x_j) = \delta_{kj}, \quad \beta_k(x_j) = 0  \\
+\alpha_k'(x_j) = 0, \quad \beta_k'(x_j) = \delta_{kj},
+\end{gather*}
+\tag{3}</span></span> for <span class="math inline">k,j = 0,1, \dots, n-1</span>.</p>
+<p>We can then write <span class="math inline">\alpha_k(x)</span> and <span class="math inline">\beta_k(x)</span> in terms of <span class="math inline">L_k(x)</span>, the cardinal polynomials. Note that <span class="math inline">L_k(x)</span> is a polynomial of degree <span class="math inline">n-1</span>, satisfying <span class="math inline">L_k(x_j) = \delta_{kj}</span>. In order to get a polynomial of degree <span class="math inline">2n-1</span>, we can take <span class="math inline">L_k(x)</span> which has degree of <span class="math inline">2n-2</span>, and then multiply it by a linear polynomial. We thus write <span class="math display">
+\alpha_k(x) = u_k(x) L_k^2(x), \quad \beta_k(x) = v_k(x)L_k^2(x), \quad k = 0, 1, \dots, n-1,
+</span> where both <span class="math inline">u_k(x)</span> and <span class="math inline">v_k(x)</span> are linear.</p>
+<p>To see how these are determined, we first write out two properties of the squared cardinal polynomials: <span class="math display">
+\begin{gather*}
+L_k^2(x_j)=(\delta_{kj})^2 = \delta_{kj} \\
+(L_k^2(x_j))' = 2L_k(x_j)L_k'(x_j) = 2\delta_{kj} L_k'(x_j)
+\end{gather*}
+</span></p>
+<p>Using conditions in <a href="#eq-hermite">Equation&nbsp;3</a>, we have <span class="math display">
+\delta_{kj} = \alpha_k(x_j) = u_k(x_j)L^2_k(x_j) = u_k(x_j) \delta_{kj},
+</span> implying <span class="math inline">u_k(x_k)=1</span>.</p>
+<p>Similarly, we have <span class="math display">
+0 = \alpha_k'(x_j) = u_k'(x_j)L_k^2(x_j) + u_k(x_j)(L_k^2(x_j))' = u_k'(x_j)\delta_{kj} + 2u_k(x_j) \delta_{kj} L_k'(x_j),
+</span> which implies (<span class="math inline">taking j = k</span>): <span class="math display">
+u_k'(x_k) + 2 u_k(x_k) L_k'(x_k) = 0.
+</span></p>
+<p>Since <span class="math inline">u_k(x)</span> is linear and we can write <span class="math inline">u_k(x) = \gamma x + \delta</span>. This means <span class="math display">
+\gamma x_k + \delta = 1, \quad \gamma + 2L_k'(x_k) = 0.
+</span> We can solve it <span class="math display">
+\gamma = -2L_k'(x_k), \quad  \delta = 1 + 2L_k'(x_k)x_k,
+</span> and it gives rise to <span class="math display">
+\alpha_k(x) = \left[1+2L_k'(x_k)(x_k - x)\right] L_k^2(x).
+</span></p>
+<p>A completely analogous derivation allows you to determine <span class="math inline">\beta_k(x)</span> (left in homework). Putting everything together, our interpolating polynomial is then <span id="eq-hermite-interpolation"><span class="math display">
+p(x) = \sum_{k=0}^{n-1} y_k\left[1 + 2L_k'(x_k)(x_k - x)\right]L_k^2(x) + \sum_{k=0}^{n-1} y_k'(x - x_k)L_k^2(x).
+\tag{4}</span></span></p>
+</section>
+<section id="node-placement" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="node-placement"><span class="header-section-number">2.2</span> Node Placement</h2>
+<p>In the previous lecture, we saw how to produce Newton–Cotes quadrature rules starting from Lagrange interpolation, writing the interpolating polynomial <span class="math inline">p(x)</span> of degree <span class="math inline">n-1</span> in terms of the function values at the grid points, as well as the cardinal polynomials. We now write down the analogous formula for the case of Hermite interpolation, since we are interested in studying polynomials of degree up to <span class="math inline">2n-1</span>.</p>
+<p>We introduce <span class="math display">
+p(x) = \sum_{k=0}^{n-1}f(x_k) \alpha_k(x)  + \sum_{k=0}^{n-1} f'(x_k)\beta_k(x)
+</span> where we have updated the notation to employ <span class="math inline">f(x_k)</span> and <span class="math inline">f'(x_k)</span> for our integrand and derivative values at the nodes; the <span class="math inline">\alpha_k(x)</span> and <span class="math inline">\beta_k(x)</span> are determined in terms of the cardinal polynomials as in <a href="#eq-hermite-interpolation">Equation&nbsp;4</a>.</p>
+<p>Note that if we pick <span class="math inline">f(x)</span> to be a polynomial of degree <span class="math inline">2n-1</span> or less, then <span class="math inline">p(x)=f(x)</span>. We now perform integration <span id="eq-node-placement"><span class="math display">
+\begin{align*}
+\int_{-1}^{1} f(x) dx &amp;\simeq \int_{-1}^1 p(x) dx = \sum_{k=0}^{n-1} f(x_k) \int_{-1}^{1} \alpha_k(x) dx + \sum_{k=0}^{n-1} f'(x_k) \int_{-1}^{1} \beta_k(x) dx  \\
+&amp;=\sum_{k=0}^{n-1} c_k f(x_k) + \sum_{k=0}^{n-1} d_k f'(x_k).
+\end{align*}
+\tag{5}</span></span> In the last step we introduced <span class="math display">
+c_k = \int_{-1}^{1}dx \alpha_k(x), \quad d_k = \int_{-1}^1 dx \beta_k(x).
+</span></p>
+<p>If we can now somehow make the <span class="math inline">d_k</span>s vanish, we will have accomplished what we set out to. The left-hand side of <a href="#eq-node-placement">Equation&nbsp;5</a> is the integral we wish to evaluate, and the last step on the right hand side would express it (exactly) as a sum of weights times function values. Also, if the <span class="math inline">d_k</span>s dropped out of the problem then we would no longer have to worry about the fact that we don’t know the <span class="math inline">f'(x_k)</span> values.</p>
+<p>To see how we could possibly make the <span class="math inline">d_k</span>s vanish, we express the <span class="math inline">\beta_k(x)</span> in terms of the cardinal polynomials <span class="math display">
+d_k = \int_{-1}^{1} \beta_k(x) dx = \int_{-1}^1(x - x_k)L_k^2(x) dx.
+</span> Using the relation (prove in your homework) <span id="eq-Lk-relation"><span class="math display">
+L_k(x) = \frac{L(x)}{(x - x_k)L'(x_k)} \Leftrightarrow (x - x_k)L_k(x)=\frac{L(x)}{L'(x_k)},
+\tag{6}</span></span> where we introduced the <em>node polynomial</em>, <span class="math display">
+L(x) = \prod_{j=0}^{n-1}(x - x_j),
+</span> we can rewrite <span class="math display">
+d_k = \frac{1}{L'(x_k)}\int_{-1}^1 L(x)L_k(x) dx.
+</span></p>
+<p>Now, we want to make <span class="math inline">d_k</span> vanish. In order to do so, we need some concepts from orthogonal polynomials, which will be introduced in the following.</p>
+</section>
+<section id="orthogonal-polynomials" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="orthogonal-polynomials"><span class="header-section-number">2.3</span> Orthogonal polynomials</h2>
+<p>Here we will generalize the <em>Gram–Schmidt orthonormalization</em> process to work with functions. We realize that we are lacking the concept of the “length” of a function (which would correspond to the norm used in the denominator to normalize) as well as the concept of the “inner product” of two functions (which would be needed to subtract out any component that’s not orthogonal).</p>
+<p>Let’s introduce the latter, namely the inner product of the function <span class="math inline">f(x)</span> with the function <span class="math inline">g(x)</span>. We choose to work with the symmetrical interval <span class="math inline">-1 \leq x leq 1</span> and define: <span class="math display">
+(f,g) \equiv \int_{-1}^{1} f(x)g(x) dx
+</span> assuming these are real functions. It is then straighforward to define the length of a function as simply <span class="math inline">\|f\| = \sqrt{(f,f)}</span>.</p>
+<p>We are now in a position to start following the Gram-Schmidt steps. We will call <span class="math inline">q_j</span> the result of orthonormalizing the monomials <span class="math inline">a_0 = 1</span>, <span class="math inline">a_1 = x</span>, <span class="math inline">a_2 = x^2</span>, <span class="math inline">a_3 = x^3</span>, <span class="math inline">\dots</span>. Taking them in order we have <span class="math display">
+q_0 = \frac{a_0}{\|a_0 \|} = \frac{1}{\sqrt{\int_{-1}^1 dx}} = \frac{1}{\sqrt{2}}.
+</span></p>
+<p>Next, we have <span class="math display">
+a_1' = a_1 - (q_0,a_1)q_0 = x - (\frac{1}{\sqrt{2}},x)\frac{1}{\sqrt{2}} = x - \frac{1}{\sqrt{2}}\int_{-1}^1 \frac{1}{\sqrt{2}}x dx = x,
+</span> and the normalized one <span class="math display">
+q_1= \frac{a_1'}{\|a_1' \|} = \frac{x}{\sqrt{\int_{-1}^1 x^2 dx}} = \sqrt{\frac{3}{2}}x.
+</span></p>
+<p>Next, we have <span class="math display">
+a_2' = a_2 - (q_0, a_2)q_0 - (q_1, a_2)q_1 = x^2 - (\frac{1}{\sqrt{2}}, x^2) \frac{1}{\sqrt{2}} - (\sqrt{\frac{3}{2}}x, x^2)\sqrt{\frac{3}{2}}x = x^2 - \frac{1}{3}.
+</span> With normalization, we obtain <span class="math display">
+q_2 = \frac{a_2'}{\|a_2' \|} = \frac{x^2 - 1/3}{\sqrt{\int_{-1}^1 (x^2 - 1/3)^2 dx}} = \sqrt{\frac{5}{2}}(\frac{3}{2}x^2 - \frac{1}{2}).
+</span></p>
+<p>With this Gram-Schmidt procedure, we can obtain <span class="math inline">q_n</span> which is a polynomial of degree <span class="math inline">n</span>, and satisfies the orthonormal condition <span class="math display">
+(q_n, q_m)  \equiv \int_{-1}^1 q_n(x) q_m(x) dx = \delta_{nm}.
+</span> Thus, these <span class="math inline">q_j</span>s are called <em>orthogonal polynomials</em>, and they serve as a basis for polynomials.</p>
+<p>Any polynomial of degree <span class="math inline">n-1</span> can then be expressed as a linear combination of the orthonormal <span class="math inline">q_j</span>s as follows: <span class="math display">
+r_{n-1}(x) = \sum_{j=0}^{n-1} c_j q_j(x).
+</span> Because of this, we must have <span class="math display">
+(r_{n-1},q_n) \equiv \int_{-1}^1 r_{n-1}(x) q_n(x) dx = 0.
+</span> In words, <span class="math inline">q_n</span> is <strong>orthogonal to all polynomials of a lower degree</strong>.</p>
+</section>
+<section id="making-d_k-vanish" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="making-d_k-vanish"><span class="header-section-number">2.4</span> Making <span class="math inline">d_k</span> vanish</h2>
+<p>Let us now come back to the expression <span class="math display">
+d_k = \frac{1}{L'(x_k)}\int_{-1}^1 L(x)L_k(x) dx.
+</span> Here, <span class="math inline">L(x)</span> is the nodal polynomial of degree <span class="math inline">n</span>, which vanishes at its nodes <span class="math inline">x = x_0, x_1, \dots, x_{n-1}</span>. On the other hand, <span class="math display">
+L_k(x) = \frac{\prod_{j = 0, n\neq k}^{n-1} (x - x_j)}{\prod_{j = 0, n\neq k}^{n-1} (x_k - x_j)}
+</span> is a polynomial in <span class="math inline">x</span> of degree <span class="math inline">n-1</span>.</p>
+<p><strong>Now, if <span class="math inline">L(x)</span> is an orthogonal polynomial (of degree <span class="math inline">n</span>), then <span class="math inline">d_k = 0</span> according to the results in the previous section !</strong>.</p>
+<p>Notice that <span class="math inline">L(x) = \prod_{j=0}^{n-1} (x - x_j)</span> is a monic polynomial (namely, the coefficient for the highest degree of monomial is 1). If we choose the nodes <span class="math inline">x_j</span> to be the zeros of the orthogonal polynomial of degree <span class="math inline">n</span>, then <span class="math inline">L(x)</span> will be proportional to this orthogonal polynomial (so it is a monic orthogonal polynomial). With this choice, the <span class="math inline">d_k = 0</span> and we will have <span class="math display">
+\int_{-1}^{1}f(x) dx \simeq \sum_{k=0}^{n-1} c_k f(x_k).
+</span> The approximation will become exact if <span class="math inline">f(x)</span> is a polynomial of degree <span class="math inline">n</span>.</p>
+</section>
+<section id="why-legendre" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="why-legendre"><span class="header-section-number">2.5</span> Why “Legendre”</h2>
+<p>In the above discussion, the orthogonal polynomial <span class="math inline">q_n(x)</span>s were ctually multiples of the <em>Legendre polynomials, <span class="math inline">P_n(x)</span>s</em>. If we take the nodal abscissas <span class="math inline">x_j</span>s to match the zeros of <span class="math inline">P_n(x)</span>, then we have <span class="math display">
+P_n(x) = \frac{(2n)!}{2^n(n!)^2} L(x).
+</span> This is known as the <em>Rodrigues’ formula</em>.</p>
+<p>Now you see why we have been speaking of <em>Gauss-Legendre</em> quadrature: this is Gaussian quadrature when the nodal abscissas are taken to be the roots of Legendre polynomials. This also explains why we decided to focus on the interval <span class="math inline">[-1,1]</span> in the first place.</p>
+</section>
+<section id="weight-computation" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="weight-computation"><span class="header-section-number">2.6</span> Weight Computation</h2>
+<p>In this section, let us compute the weights <span class="math inline">c_j</span>. We have mentioned that if <span class="math inline">f(x)</span> is a polynomial of degree less than <span class="math inline">2n-1</span>, the integration is exactly. Hence, if we simply take <span class="math inline">f(x) = L_j(x)</span>, we have <span class="math display">
+\int_{-1}^{1}L_j(x)dx = \sum_{k=0}^{n-1} c_k L_j(x_k) = \sum_{k=0}^{n-1}c_k\delta_{kj}.
+</span></p>
+<p>This implies <span class="math display">
+c_j = \int_{-1}^{1} L_j(x)dx ,
+</span> formally identical to what we had found for Newton-Cotes integration, although the difference here is that the integral is on the interval <span class="math inline">[-1,1]</span>.</p>
+<p>Using <a href="#eq-Lk-relation">Equation&nbsp;6</a>, we have <span class="math display">
+c_j = \int_{-1}^{1} \frac{L(x)}{(x - x_j)L'(x_j)}dx = \frac{1}{P_n'(x_j)}\int_{-1}^{1} \frac{P_n(x)}{x - x_j} dx.
+</span></p>
+<p>In order to prceed, we have to use some properties of the Legendre polynomials. I will only directly state the result without providing detail derivation, that <span class="math display">
+c_j = \frac{2}{(1-x_j^2)[P_n'(x_j)]^2}.
+</span> Thus, this requires the value of the Legendre polynomial derivatives at the abscissas.</p>
+</section>
+<section id="integrating-from-a-to-b" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="integrating-from-a-to-b"><span class="header-section-number">2.7</span> Integrating from <span class="math inline">a</span> to <span class="math inline">b</span></h2>
+<p>In general we need to integrate from <span class="math inline">a</span> to <span class="math inline">b</span> instead of from <span class="math inline">-1</span> to <span class="math inline">1</span>. The solution is simply to carry out a change of variables <span class="math display">
+t = \frac{b+a}{2} + \frac{b-a}{2}x, \quad dt = \frac{b-a}{2}dx.
+</span></p>
+<p>Thus, we have <span class="math display">
+\int_{a}^{b} f(t)dt = \frac{b-a}{2}\int_{-1}^{1} f\left(\frac{b+a}{2}+\frac{b-a}{2}x\right) \simeq \frac{b-a}{2}\sum_{i=0}^{n-1}c_k f(\frac{b+a}{2}+\frac{b-a}{2}x_k).
+</span></p>
+</section>
+<section id="implementation" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="implementation"><span class="header-section-number">2.8</span> Implementation</h2>
+<p>In the following implementation, we called a <code>Scipy</code> function <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.roots_legendre.html#scipy.special.roots_legendre"><code>scipy.special.roots_legendre()</code></a>. This takes an input integer corresponding to the order of the quadrature (the degree of the Legendre polynomial), and output two arrays:</p>
+<ul>
+<li>a 1Darray for the zeros of the polynomial (abscissas)</li>
+<li>weights at these points</li>
+</ul>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import legendre  method</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.special <span class="im">import</span> roots_legendre</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">1</span><span class="op">/</span>np.sqrt(x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gauleg(f,a,b,n):</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    xs, cs <span class="op">=</span> roots_legendre(n)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    coeffp <span class="op">=</span> <span class="fl">0.5</span><span class="op">*</span>(b<span class="op">+</span>a) </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    coeffm <span class="op">=</span> <span class="fl">0.5</span><span class="op">*</span>(b<span class="op">-</span>a)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    ts <span class="op">=</span> coeffp <span class="op">+</span> coeffm<span class="op">*</span>xs</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    contribs <span class="op">=</span> cs<span class="op">*</span>f(ts)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> coeffm<span class="op">*</span>np.<span class="bu">sum</span>(contribs)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    ans <span class="op">=</span> np.log(<span class="dv">1</span> <span class="op">+</span> np.sqrt(<span class="dv">2</span>))</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(ans)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>,<span class="dv">10</span>):</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(n, gauleg(f,<span class="fl">0.</span>,<span class="dv">1</span>,n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.8813735870195429
+2 0.8817898064445446
+3 0.8813312019379165
+4 0.8813752230725129
+5 0.8813735706987258
+6 0.8813735849145593
+7 0.8813735871721438
+8 0.8813735870147529
+9 0.8813735870195224</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="other-gaussian-quadratures" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Other Gaussian Quadratures</h1>
+<p>In the previous sections, we focused on <em>Gauss–Legendre</em> quadrature only. In the present short section, we will provide a qualitative argument of how one goes about generalizing things.</p>
+<p>The general form of the problem at hand is <span class="math display">
+\int_{a}^{b} w(x)f(x) dx \simeq \sum_{i=0}^{n-1} c_k f(x_k)
+</span> where <span class="math inline">w(x)</span> is a non-negative weight function. As you can see, the presence of <span class="math inline">w(x)</span> on the left-hand side (only) is new. As before, the Gaussian quadrature approach allows you to find the exact answer when <span class="math inline">f(x)</span> is a polynomial of degree up to <span class="math inline">2n- 1</span>. On the other hand, the full integrand does not need to be a polynomial. Here are three standard choices for the weight function, which have been worked out in the literature</p>
+<ul>
+<li>Gauss-Chebyshev: <span class="math display">
+w(x) = \frac{1}{\sqrt{1-x^2}}
+</span></li>
+<li>Gauss-Laguerre: <span class="math display">
+w(x) = x^\alpha e^{-x}
+</span></li>
+<li>Gauss-Hermite: <span class="math display">
+w(x) = e^{-x^2}
+</span></li>
+</ul>
+<p>Note that the Gauss-Legendre case is equivalent to <span class="math inline">w(x) = 1</span>.</p>
+<p>Here, the weights are <span class="math display">
+c_k = \int_{a}^{b}w(x)\alpha_k(x)dx.
+</span></p>
+<p>The integration domain for the above three cases are actually <span class="math inline">[-1,1]</span>, <span class="math inline">[0,\infty)</span>, and <span class="math inline">(-\infty, \infty)</span>. The nodal abscissas <span class="math inline">x_j</span>s should be taken as roots of Chebyshev, Laguerre, and Hermite polynomials, respectively.</p>
+</section>
+<section id="homework" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Homework</h1>
+<ol type="1">
+<li>Please prove the following formula in the lecture note (prime denotes derivative) <span class="math display">
+L_k(x) = \frac{L(x)}{(x - x_k)L'(x_k)}
+</span> where <span class="math display">
+L_k(k) = \frac{\prod_{j=0, j\neq k}^{n-1} (x - x_j)}{\prod_{j=0, j\neq k}^{n-1} (x_k - x_j)}
+</span> and <span class="math display">
+L(x) = \prod_{j=0}^{n-1} (x - x_j).
+</span></li>
+<li></li>
+</ol>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
