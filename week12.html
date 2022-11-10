@@ -136,8 +136,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#making-d_k-vanish" id="toc-making-d_k-vanish" class="nav-link" data-scroll-target="#making-d_k-vanish"><span class="toc-section-number">2.4</span>  Making <span class="math inline">d_k</span> vanish</a></li>
   <li><a href="#why-legendre" id="toc-why-legendre" class="nav-link" data-scroll-target="#why-legendre"><span class="toc-section-number">2.5</span>  Why “Legendre”</a></li>
   <li><a href="#weight-computation" id="toc-weight-computation" class="nav-link" data-scroll-target="#weight-computation"><span class="toc-section-number">2.6</span>  Weight Computation</a></li>
-  <li><a href="#integrating-from-a-to-b" id="toc-integrating-from-a-to-b" class="nav-link" data-scroll-target="#integrating-from-a-to-b"><span class="toc-section-number">2.7</span>  Integrating from <span class="math inline">a</span> to <span class="math inline">b</span></a></li>
-  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation"><span class="toc-section-number">2.8</span>  Implementation</a></li>
+  <li><a href="#error-scaling" id="toc-error-scaling" class="nav-link" data-scroll-target="#error-scaling"><span class="toc-section-number">2.7</span>  Error scaling</a></li>
+  <li><a href="#integrating-from-a-to-b" id="toc-integrating-from-a-to-b" class="nav-link" data-scroll-target="#integrating-from-a-to-b"><span class="toc-section-number">2.8</span>  Integrating from <span class="math inline">a</span> to <span class="math inline">b</span></a></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation"><span class="toc-section-number">2.9</span>  Implementation</a></li>
   </ul></li>
   <li><a href="#other-gaussian-quadratures" id="toc-other-gaussian-quadratures" class="nav-link" data-scroll-target="#other-gaussian-quadratures"><span class="toc-section-number">3</span>  Other Gaussian Quadratures</a></li>
   <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework"><span class="toc-section-number">4</span>  Homework</a></li>
@@ -189,9 +190,9 @@ x^3
 </span> and assume that for all these cases <a href="#eq-gaussian-legendre">Equation&nbsp;2</a> holds. This leads to the following four equations in four unknowns: <span class="math display">
 \begin{gather}
 \int_{-1}^{1} 1 dx = 2 = c_0 + c_1, \tag{a} \\
-\int_{-1}^{x} 1 dx = 0 = c_0x_0 + c_1 x_1, \tag{b} \\
-\int_{-1}^{x^2} 1 dx = \frac{2}{3} = c_0 x_0^2 + c_1 x_1^2, \tag{c} \\
-\int_{-1}^{x^3} 1 dx = 0 = c_0 x_0^3 + c_1 x_1^3 \tag{d}.
+\int_{-1}^{1} x dx = 0 = c_0x_0 + c_1 x_1, \tag{b} \\
+\int_{-1}^{1} x^2 dx = \frac{2}{3} = c_0 x_0^2 + c_1 x_1^2, \tag{c} \\
+\int_{-1}^{1} x^3 dx = 0 = c_0 x_0^3 + c_1 x_1^3 \tag{d}.
 \end{gather}
 </span> Using Eq. (b), we have <span class="math inline">c_0 x_0 = -c_1 x_1</span>. Inserting this into Eq. (d), we have <span class="math display">
 c_0 x_0(x_0^2 - x_1^2) = 0.
@@ -210,7 +211,7 @@ c_0 x_0(x_0^2 - x_1^2) = 0.
 <p>There are many ways to introduce the general case of Gauss-Legendre method. For example, you can repeat the previous section by considering a larger <span class="math inline">n</span> manually. But this can become very complicated as you can imagine for larger and larger <span class="math inline">n</span>.</p>
 <p>Instead, in this section, we tackle Gaussian quadrature using Hermite interpolation, which will be introduced in the following. This approach will allow us to explain in a unified manner:</p>
 <ul>
-<li>how to pick the nodes xk, thereby justifying the presence of the name “Legendre” in Gauss–Legendre,</li>
+<li>how to pick the nodes <span class="math inline">x_k</span>, thereby justifying the presence of the name “Legendre” in Gauss–Legendre,</li>
 <li>how to compute the weights <span class="math inline">c_k</span>,</li>
 <li>the overall error scaling of Gauss–Legendre quadrature.</li>
 </ul>
@@ -243,7 +244,7 @@ L_k^2(x_j)=(\delta_{kj})^2 = \delta_{kj} \\
 </span> implying <span class="math inline">u_k(x_k)=1</span>.</p>
 <p>Similarly, we have <span class="math display">
 0 = \alpha_k'(x_j) = u_k'(x_j)L_k^2(x_j) + u_k(x_j)(L_k^2(x_j))' = u_k'(x_j)\delta_{kj} + 2u_k(x_j) \delta_{kj} L_k'(x_j),
-</span> which implies (<span class="math inline">taking j = k</span>): <span class="math display">
+</span> which implies (taking <span class="math inline">j = k</span>): <span class="math display">
 u_k'(x_k) + 2 u_k(x_k) L_k'(x_k) = 0.
 </span></p>
 <p>Since <span class="math inline">u_k(x)</span> is linear and we can write <span class="math inline">u_k(x) = \gamma x + \delta</span>. This means <span class="math display">
@@ -286,7 +287,7 @@ d_k = \frac{1}{L'(x_k)}\int_{-1}^1 L(x)L_k(x) dx.
 <section id="orthogonal-polynomials" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="orthogonal-polynomials"><span class="header-section-number">2.3</span> Orthogonal polynomials</h2>
 <p>Here we will generalize the <em>Gram–Schmidt orthonormalization</em> process to work with functions. We realize that we are lacking the concept of the “length” of a function (which would correspond to the norm used in the denominator to normalize) as well as the concept of the “inner product” of two functions (which would be needed to subtract out any component that’s not orthogonal).</p>
-<p>Let’s introduce the latter, namely the inner product of the function <span class="math inline">f(x)</span> with the function <span class="math inline">g(x)</span>. We choose to work with the symmetrical interval <span class="math inline">-1 \leq x leq 1</span> and define: <span class="math display">
+<p>Let’s introduce the latter, namely the inner product of the function <span class="math inline">f(x)</span> with the function <span class="math inline">g(x)</span>. We choose to work with the symmetrical interval <span class="math inline">-1 \leq x \leq 1</span> and define: <span class="math display">
 (f,g) \equiv \int_{-1}^{1} f(x)g(x) dx
 </span> assuming these are real functions. It is then straighforward to define the length of a function as simply <span class="math inline">\|f\| = \sqrt{(f,f)}</span>.</p>
 <p>We are now in a position to start following the Gram-Schmidt steps. We will call <span class="math inline">q_j</span> the result of orthonormalizing the monomials <span class="math inline">a_0 = 1</span>, <span class="math inline">a_1 = x</span>, <span class="math inline">a_2 = x^2</span>, <span class="math inline">a_3 = x^3</span>, <span class="math inline">\dots</span>. Taking them in order we have <span class="math display">
@@ -345,8 +346,15 @@ c_j = \int_{-1}^{1} \frac{L(x)}{(x - x_j)L'(x_j)}dx = \frac{1}{P_n'(x_j)}\int_{-
 c_j = \frac{2}{(1-x_j^2)[P_n'(x_j)]^2}.
 </span> Thus, this requires the value of the Legendre polynomial derivatives at the abscissas.</p>
 </section>
-<section id="integrating-from-a-to-b" class="level2" data-number="2.7">
-<h2 data-number="2.7" class="anchored" data-anchor-id="integrating-from-a-to-b"><span class="header-section-number">2.7</span> Integrating from <span class="math inline">a</span> to <span class="math inline">b</span></h2>
+<section id="error-scaling" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="error-scaling"><span class="header-section-number">2.7</span> Error scaling</h2>
+<p>Without an explicit error scaling, I will simply state the <em>error scaling for Gauss–Legendre quadrature:</em> <span class="math display">
+\mathcal{E}\simeq \frac{\pi}{4^n}\frac{f^{(2n)}(\xi)}{(2n)!}
+</span></p>
+<p>Recall that for the simpson rule, the error <span class="math inline">\mathcal{E}\sim h^4 \sim 1/n^4</span> has a power law scaling, whereas for the Gauss-Legendre quadrature <span class="math inline">\mathcal{E}\sim 4^n</span> is exponentially scaling. Thus, it should come as no surprise that Gaussian quadrature does a great job for many well-behaved functions.</p>
+</section>
+<section id="integrating-from-a-to-b" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="integrating-from-a-to-b"><span class="header-section-number">2.8</span> Integrating from <span class="math inline">a</span> to <span class="math inline">b</span></h2>
 <p>In general we need to integrate from <span class="math inline">a</span> to <span class="math inline">b</span> instead of from <span class="math inline">-1</span> to <span class="math inline">1</span>. The solution is simply to carry out a change of variables <span class="math display">
 t = \frac{b+a}{2} + \frac{b-a}{2}x, \quad dt = \frac{b-a}{2}dx.
 </span></p>
@@ -354,8 +362,8 @@ t = \frac{b+a}{2} + \frac{b-a}{2}x, \quad dt = \frac{b-a}{2}dx.
 \int_{a}^{b} f(t)dt = \frac{b-a}{2}\int_{-1}^{1} f\left(\frac{b+a}{2}+\frac{b-a}{2}x\right) \simeq \frac{b-a}{2}\sum_{i=0}^{n-1}c_k f(\frac{b+a}{2}+\frac{b-a}{2}x_k).
 </span></p>
 </section>
-<section id="implementation" class="level2" data-number="2.8">
-<h2 data-number="2.8" class="anchored" data-anchor-id="implementation"><span class="header-section-number">2.8</span> Implementation</h2>
+<section id="implementation" class="level2" data-number="2.9">
+<h2 data-number="2.9" class="anchored" data-anchor-id="implementation"><span class="header-section-number">2.9</span> Implementation</h2>
 <p>In the following implementation, we called a <code>Scipy</code> function <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.roots_legendre.html#scipy.special.roots_legendre"><code>scipy.special.roots_legendre()</code></a>. This takes an input integer corresponding to the order of the quadrature (the degree of the Legendre polynomial), and output two arrays:</p>
 <ul>
 <li>a 1Darray for the zeros of the polynomial (abscissas)</li>
@@ -429,7 +437,9 @@ L_k(k) = \frac{\prod_{j=0, j\neq k}^{n-1} (x - x_j)}{\prod_{j=0, j\neq k}^{n-1} 
 </span> and <span class="math display">
 L(x) = \prod_{j=0}^{n-1} (x - x_j).
 </span></li>
-<li></li>
+<li>Please derive in the Hermite interpolation (using <a href="#eq-hermite">Equation&nbsp;3</a>) <span class="math display">
+\beta_k(x) = (x - x_k)L_k^2(x).
+</span></li>
 </ol>
 </section>
 
