@@ -133,8 +133,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#probability-summary" id="toc-probability-summary" class="nav-link" data-scroll-target="#probability-summary">Probability Summary</a></li>
   <li><a href="#population-mean-and-population-variance" id="toc-population-mean-and-population-variance" class="nav-link" data-scroll-target="#population-mean-and-population-variance">Population Mean and Population Variance</a></li>
   <li><a href="#sample-mean-and-its-variance" id="toc-sample-mean-and-its-variance" class="nav-link" data-scroll-target="#sample-mean-and-its-variance">Sample Mean and Its Variance</a></li>
+  <li><a href="#practical-prescription" id="toc-practical-prescription" class="nav-link" data-scroll-target="#practical-prescription">Practical Prescription</a></li>
+  </ul></li>
+  <li><a href="#monte-carlo-beyond-the-uniform-distribution" id="toc-monte-carlo-beyond-the-uniform-distribution" class="nav-link" data-scroll-target="#monte-carlo-beyond-the-uniform-distribution"><span class="toc-section-number">1.4</span>  Monte Carlo beyond the Uniform Distribution</a>
+  <ul class="collapse">
+  <li><a href="#generalizing-to-weight-functions" id="toc-generalizing-to-weight-functions" class="nav-link" data-scroll-target="#generalizing-to-weight-functions">Generalizing to Weight Functions</a></li>
+  <li><a href="#inverse-transform-sampling" id="toc-inverse-transform-sampling" class="nav-link" data-scroll-target="#inverse-transform-sampling">Inverse Transform Sampling</a></li>
+  <li><a href="#importance-sampling" id="toc-importance-sampling" class="nav-link" data-scroll-target="#importance-sampling">Importance Sampling</a></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">Implementation</a></li>
+  </ul></li>
+  <li><a href="#monte-carlo-in-many-dimensions" id="toc-monte-carlo-in-many-dimensions" class="nav-link" data-scroll-target="#monte-carlo-in-many-dimensions"><span class="toc-section-number">1.5</span>  Monte Carlo in Many Dimensions</a>
+  <ul class="collapse">
+  <li><a href="#uniform-sampling" id="toc-uniform-sampling" class="nav-link" data-scroll-target="#uniform-sampling">Uniform Sampling</a></li>
+  <li><a href="#weighted-sampling-via-the-metropolishastings-algorithm" id="toc-weighted-sampling-via-the-metropolishastings-algorithm" class="nav-link" data-scroll-target="#weighted-sampling-via-the-metropolishastings-algorithm">Weighted Sampling via the Metropolis–Hastings Algorithm</a></li>
   </ul></li>
   </ul></li>
+  <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework"><span class="toc-section-number">2</span>  Homework</a></li>
   </ul>
 </nav>
 </div>
@@ -201,7 +215,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 class="anchored" data-anchor-id="probability-summary">Probability Summary</h3>
 <section id="discrete-random-variables" class="level4">
 <h4 class="anchored" data-anchor-id="discrete-random-variables">Discrete Random Variables</h4>
-<p>Consider a discrete random variable <span class="math inline">X</span>: its possible values are xi, each one appearing with the corresponding probability <span class="math inline">p_i^X</span> i . Observe that we are using an upper-case symbol for the random variable and a lower-case symbol for its possible values.</p>
+<p>Consider a discrete random variable <span class="math inline">X</span>: its possible values are <span class="math inline">x_i</span>, each one appearing with the corresponding probability <span class="math inline">p_i^X</span>. Observe that we are using an upper-case symbol for the random variable and a lower-case symbol for its possible values.</p>
 <p><strong>Mean and variance</strong> The <em>expectation</em> of this random variable (also known as the mean value or expected value) is simply: <span class="math display">
 \braket{X} = \sum_{i}p_i^X x_i.
 </span> One can take the expected value of other quantities, for example the random variable <span class="math inline">X^2</span>. This is called the second moment of <span class="math inline">X</span> and is simply: <span class="math display">
@@ -255,7 +269,7 @@ f(X) = \int_{-\infty}^{\infty}p(x) f(x)dx.
 <p>Similarly, we introduce the <em>variance</em> of a function of a random variable, in terms of an integral: <span class="math display">
 \mathrm{var}[f(X)] = \braket{[f(X) - \braket{f(X)}]^2}
 </span> and specialize to the case where <span class="math inline">p(x) = 1/(b - a)</span>, to find <span class="math display">
-\mathrm{var}[f(x)] = \frac{1}{b-a}\int_{a}^b f^2(x)dx
+\mathrm{var}[f(X)] = \frac{1}{b-a}\int_{a}^b f^2(x)dx
 - \left(\frac{1}{b-a}\int_a^b f(x) dx \right)^2
 </span> We call this the <em>population variance</em>, and its square root the <em>population standard deviation</em>,<span class="math inline">\mathrm{var}[f(X)]</span>.</p>
 <p>Crucially, both the population mean and the population variance, <span class="math inline">\braket{f(X)}</span> and <span class="math inline">\mathrm{var}[f(X)]</span>, are unknown, i.e., we don’t know the value of either <span class="math inline">\int_a^b f(x)dx</span> or <span class="math inline">\int_a^b f^2(x)dx</span>; this is precisely why we wish to employ Monte Carlo integration. In what follows, we will learn how to estimate both <span class="math inline">\braket{f(X)}</span> and <span class="math inline">\mathrm{var}[f(X)]</span>.</p>
@@ -270,9 +284,9 @@ f(X) = \int_{-\infty}^{\infty}p(x) f(x)dx.
 \braket{\overline{f}} = \braket{\frac{1}{n} \sum_{i=0}^{n-1} f(X_i)} = \frac{1}{n}\sum_{i=0}^{n-1}\braket{f(X)} = \braket{f(X)}.
 </span></p>
 <p>In words, our result is that the <em>expectation of the sample mean is equal to the population mean</em>. This motivates our choice to use <span class="math inline">\overline{f}</span> as an estimator of <span class="math inline">f(X)</span>; for us an estimator is a useful approximation of a given quantity. It can be shown that as <span class="math inline">n\to\infty</span>, <span class="math inline">\overline{f}\to\braket{f(X)}</span>.</p>
-<p>In order to quantify how fast the sample mean approaches the population mean, we turn to the <em>variance of the sample mean</em>: <span class="math display">
+<p>In order to quantify how fast the sample mean approaches the population mean, we turn to the <em>variance of the sample mean</em>: <span id="eq-var-f"><span class="math display">
 \mathrm{var}(\overline{f}) = \mathrm{var}\left(\frac{1}{n}\sum_{i=0}^{n-1}f(X_i)\right) = \frac{1}{n^2} \sum_{i=0}^{n-1} \mathrm{var}[f(X)] = \frac{1}{n}\mathrm{var}[f(X)],
-</span> where we have used the property of variance <span class="math display">
+\tag{1}</span></span> where we have used the property of variance <span class="math display">
 \mathrm{var}(\lambda_1 X_1 + \lambda_2 X_2)  = \lambda_1^2 \mathrm{var}(X_1)
 + \lambda_2^2 \mathrm{var}(X_2).
 </span></p>
@@ -281,9 +295,312 @@ f(X) = \int_{-\infty}^{\infty}p(x) f(x)dx.
 </span></p>
 <p>Notice that on the right hand side the quantity <span class="math inline">\mathrm{var}[f(x)]</span> is not known, we need to come up with an estimator for <span class="math inline">\mathrm{var}[f(X)]</span>. We propose an estimator <span class="math display">
 e_{var} = \overline{f^2} - \overline{f}^2 = \frac{1}{n}\sum_{i=0}^{n-1}f^2(X_i) - \left[\frac{1}{n}\sum_{i=0}^{n-1} f(X_i)\right]^2
+</span> It is important to note that this expression makes use of the already observed values of <span class="math inline">f(X_i)</span>; this means that it can readily be evaluated.</p>
+<p>One can expect its expectation, <span class="math display">
+\begin{align*}
+\braket{e_{var}}  &amp;= \frac{1}{n}\sum_{i=0}^{n-1} \braket{f^2(X_i)} - \frac{1}{n^2}\sum_{i,j=0}^{n-1}\braket{f(X_i)f(X_j)} \\
+&amp;= \frac{1}{n}\sum_{i=0}^{n-1} \braket{f^2(X_i)} - \frac{1}{n^2}\left[\sum_{i=0}^{n-1} \braket{f^2(X_i)} + \sum_{i\neq j}\braket{f(X_i)}\braket{f(X_j)}\right] \\
+&amp;=\frac{n-1}{n^2}n\braket{f^2(X)} - \frac{1}{n^2}n(n-1)\braket{f(X)}^2\\
+&amp;=\frac{n-1}{n}\left[\braket{f^2(X) - \braket{f(X)}^2}\right] = \frac{n-1}{n}\mathrm{var}[f(X)].
+\end{align*}
+</span></p>
+<p>You see that this estimator <span class="math inline">e_{var}</span> is close to, but not quite the same as the population variance <span class="math inline">\mathrm{var}[f(X)]</span>. This implies that it is not an <em>unbiased estimator</em> (i.e., it is a <em>biased estimator</em>). . An unbiased estimator <span class="math inline">g</span> of a quantity <span class="math inline">G</span> is one for which the mean is equal to the quantity you’re trying to estimate, <span class="math inline">\braket{g} = G</span>. But one can trivially define an unbiased estimator <span class="math inline">n e_{var}/(n-1)</span>, since <span class="math display">
+\braket{\frac{n}{n-1}e_{var}} = \mathrm{var}[f(X)].
+</span></p>
+<p>With this, we can write <a href="#eq-var-f">Equation&nbsp;1</a> as <span class="math display">
+\mathrm{var}(\overline{f}) = \frac{1}{n}\mathrm{var}[f(X)] \simeq \frac{1}{n} \frac{n}{n-1} e_{var} = \frac{1}{n-1}(\overline{f^2} - \overline{f}^2).
 </span></p>
 </section>
+<section id="practical-prescription" class="level3">
+<h3 class="anchored" data-anchor-id="practical-prescription">Practical Prescription</h3>
+<p>Let us recall that our goal is to approximate the integral <span class="math display">
+\int_{a}^b f(x) dx = (b-a)\braket{f(X)}.
+</span> Using the estimation described in the previous section, we can write <span class="math display">
+\begin{align*}
+\int_{a}^b f(x) dx &amp;\simeq (b - a)\overline{f} \pm (b-a)\sqrt{\mathrm{var}(\overline{f})} \\
+&amp;= (b - a)\overline{f} \pm (b-a)\sqrt{\frac{\overline{f^2} - \overline{f}^2}{n-1}}
+\end{align*}
+</span></p>
+<p>We took the square root of the variance of the sample mean here to produce the standard deviation of the sample mean; in order to interpret that in the usual (Gaussian) sense of <span class="math inline">\pm</span>, one also needs to make the assumption of a finite variance, which will always be true for us. In other words, we employed the <em>central limit theorem</em> which tells us that asymptotically the <span class="math inline">\overline{f}</span> obeys a normal/Gaussian distribution regardless of which <span class="math inline">p(x)</span> was employed to draw the samples (e.g., a uniform one in our case).</p>
+<p>We thus have the formula for the <em>Monte Carlo integration</em> <span class="math display">
+\int_a^b f(x) dx \simeq \frac{b - a}{n} \sum_{i=0}^{n-1} f(X_i) \pm \frac{b-a}{\sqrt{n-1}}\sqrt{\frac{1}{n}\sum_{i=0}^{n-1}f^2(X_i) - \left[\frac{1}{n}\sum_{i=0}^{n-1}f(X_i)\right]^2}.
+</span></p>
+<p>Note that the <span class="math inline">\sqrt{n-1}</span> i the denominator decreases the standard deviation of the sample mean. The first term <span class="math inline">(b-a) f(X_i)</span> is similar to the rectangle or midpoint methods.</p>
 </section>
+</section>
+<section id="monte-carlo-beyond-the-uniform-distribution" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="monte-carlo-beyond-the-uniform-distribution"><span class="header-section-number">1.4</span> Monte Carlo beyond the Uniform Distribution</h2>
+<p>Having understood how and why Monte Carlo quadrature works, we now see if we can solve harder problems, or solve the same problems better. To give the punchline ahead of time, this will involve non-uniformly distributed random number.</p>
+<section id="generalizing-to-weight-functions" class="level3">
+<h3 class="anchored" data-anchor-id="generalizing-to-weight-functions">Generalizing to Weight Functions</h3>
+<p>In our previous discussion we see that the expectation of a function of a continuous random variable: <span class="math display">
+\braket{f(X)} = \int_{-\infty}^\infty p(x)f(x) dx.
+</span></p>
+<p>This time, we take the probability density function to be <span class="math inline">w(x)/(b-a)</span> from <span class="math inline">a</span> to <span class="math inline">b</span> and zero elsewhere. This <span class="math inline">w(x)</span> is known as the <em>weight function</em>, which is positive but general. This leads to <span class="math display">
+\braket{f(X)} = \frac{1}{b-a} \int_a^b w(x) f(x) dx.
+</span></p>
+<p>Notice that the right hand side is precisely of the form we encounted last week in our discussion of general Gaussian quadrature. For this new population mean, we can write down the corresponding population variance.</p>
+<p>We could now introduce a new sample mean, <span class="math display">
+\overline{f} = \frac{1}{n} \sum_{i=0}^{n-1} f(X_i)
+</span> where crucially this time the <span class="math inline">X_0, X_1, \dots, X_{n-1}</span> are drawn randomly from the probability density function <span class="math inline">p(x) = w(x)/(b-a)</span>, i.e.&nbsp;<em>not</em> from a uniform distribution.</p>
+<p>We can follow the derivation in the previous section, and obtain the formula for <em>Monte Carlo integration with a general weight function</em>: <span class="math display">
+\int_a^b w(x)f(x) dx \simeq \frac{b - a}{n} \sum_{i=0}^{n-1} f(X_i) \pm \frac{b-a}{\sqrt{n-1}}\sqrt{\frac{1}{n}\sum_{i=0}^{n-1}f^2(X_i) - \left[\frac{1}{n}\sum_{i=0}^{n-1}f(X_i)\right]^2}.
+</span> Here the formula looks exactly the same as the previous one, except that <span class="math inline">X_i</span>s are drawn from a different distribution function.</p>
+</section>
+<section id="inverse-transform-sampling" class="level3">
+<h3 class="anchored" data-anchor-id="inverse-transform-sampling">Inverse Transform Sampling</h3>
+<p>You may wonder how to draw variables <span class="math inline">X_i</span>s from the probability density function <span class="math inline">w(x)/(b-a)</span>, as you only learned the generation of uniformly distributed random numbers. We now go over a specific technique that helps you accomplish this task, known as <em>inverse transform sampling</em> or, sometimes, simply <em>inverse sampling</em>.</p>
+<p>The main idea is to somehow manage to convert the integrand <span class="math inline">wf</span> to <span class="math inline">f</span>, via an appropriate change of variables. We make the following change of variables <span class="math display">
+du = w(x)dx,
+</span> which can be integrated <span class="math display">
+u(x) = \int_a^x w(x')dx'.
+</span> This <span class="math inline">u(x)</span> is known as <em>cumulative distribution function</em>.</p>
+<p>We now realize that when <span class="math inline">x</span> goes from <span class="math inline">a</span> to <span class="math inline">b</span>, <span class="math inline">u</span> goes from <span class="math inline">0</span> to <span class="math inline">b-a</span>, i.e., <span class="math inline">u(a) = 0</span> and <span class="math inline">u(b) = b-a</span>. We thus transform the original integral <span class="math display">
+\int_{a}^b w(x)f(x)dx = \int_0^{b-a} f(x(u)) du
+</span> where <span class="math inline">f(x(u))</span> means that we’ve expressed <span class="math inline">x</span> in terms of <span class="math inline">u</span>. Note that the right hand side is in the form of an <em>unweighted</em> integral over <span class="math inline">u</span>. Thus, we can write <span class="math display">
+\int_a^b w(x)f(x) dx = \int_0^{b-a}f(x(u))du  \simeq  \frac{b-a}{n} \sum_{i=0}^{n-1} f(X(U_i)).
+</span></p>
+<p>To reiterate, the <span class="math inline">U_i</span>s are uniformly distributed from <span class="math inline">0</span> to <span class="math inline">b-a</span> and as a result the <span class="math inline">X_i</span>s (which are produced by <span class="math inline">x(u)</span> which is inverted from <span class="math inline">u(x)</span>) are distributed according to <span class="math inline">w(x)</span> from <span class="math inline">a</span> to <span class="math inline">b</span>. In summary, we’ve managed to employ uniform numbers, together with a transformation, to apply Monte Carlo to a weighted integral.</p>
+<p>Let us look at a specific example: <span class="math display">
+I = \int_0^1 e^{-x} \cos(x) dx.
+</span></p>
+<p>You can definitely choose <span class="math inline">f(x) = e^{-x}\cos(x)</span> and sample <span class="math inline">x</span> uniformly in the interval between <span class="math inline">0</span> and <span class="math inline">1</span>. However, since <span class="math inline">e^{-x}</span> makes the integrand <span class="math inline">f(x)</span> decrease as <span class="math inline">x</span> is increasing, you are not taking into the consideration the fact the most of the contribution to the integral comes from small values of <span class="math inline">x</span>.</p>
+<p>Instead, we can take the weight function <span class="math inline">w(x) = ce^{−x}</span>, where we normalize the weight function by choosing <span class="math inline">c = e/(e-1)</span>, namely <span class="math display">
+\int_0^1 w(x)dx = \int_0^1 \frac{1}{e-1} e^{-x}dx = 1.
+</span> We then choose the function <span class="math inline">f(x) = \cos(x)/c</span>, such that the normalization constant get canceled.</p>
+<p>The inverse transform method then tells you to evaluate <span class="math inline">u(x)</span> as <span class="math display">
+u(x) = c\int_0^x e^{-x'} dx' = c(1-e^{-x})
+</span> which leads to <span class="math display">
+x(u) = -\ln\left( 1 - \frac{u}{c}\right).
+</span></p>
+<p>Thus, we can write <span class="math display">
+\begin{align*}
+I &amp;= \int_0^1 c e^{-x} \frac{\cos x}{c} dx = \int_0^1 \frac{1}{c} \cos\left[-\ln \left( 1 - \frac{u}{c}\right) \right] \\
+&amp; \simeq \frac{1}{n} \sum_{i=0}^{n-1} \frac{1}{c}  \cos\left[-\ln \left( 1 - \frac{U_i}{c}\right) \right].
+\end{align*}
+</span> where <span class="math inline">U_i</span>s are sampled uniformly from <span class="math inline">0</span> to <span class="math inline">1</span>.</p>
+<p>You see that you have managed to sample from an exponential distribution, even though your input random-number generator was for a uniform distribution.</p>
+</section>
+<section id="importance-sampling" class="level3">
+<h3 class="anchored" data-anchor-id="importance-sampling">Importance Sampling</h3>
+<p>In this section, we will show that we can even introduce weight functions by hand even the integrand appears to be a single (i.e.&nbsp;unweighted) function: <span class="math display">
+\int_a^b f(x) dx = \int_a^b w(x) \frac{f(x)}{w(x)} dx = \int_0^{b-a} \frac{f(x(u))}{w(x(u))}du \simeq \frac{b-a}{n}\sum_{i=0}^{n-1} \frac{f(X(U_i))}{w(X(U_i))}.
+</span></p>
+<ul>
+<li>In the first equality we multiplied and divided with a positive weight function of our choosing.</li>
+<li>In the second equality we used the change of variables as we did previously.</li>
+<li>In the thrid equality we treated <span class="math inline">f/w</span> as our (“unweighted”) integrand and therefore used <span class="math inline">U_i</span>s which are uniformly distributed from <span class="math inline">0</span> to <span class="math inline">b-a</span>.</li>
+</ul>
+<p>The entire process is known as <em>importance sampling</em>.</p>
+<p>You may be wondering why we went through the trouble of doing this. The answer is as follows: if you choose a <span class="math inline">w(x)</span> that behaves approximately the same way that <span class="math inline">f(x)</span> does,then your random numbers will be distributed in the most “important” regions, instead of uniformly. To put the same idea differently: since our (unweighted) integrand is <span class="math inline">f/w</span>, the variance will be computed with <span class="math inline">f/w</span> in the place of <span class="math inline">f</span>. Since <span class="math inline">w(x)</span> is chosen to be similar to <span class="math inline">f(x)</span>, we see that <span class="math inline">f/w</span> will be less varying than f itself was; this will lead to a reduction of the variance, i.e., a better overall estimate of the integral we are trying to compute.</p>
+<p>To see this in action, we turn to the example we’ve been revisiting throughout numerical integration, namely we integrate the following function <span class="math display">
+f(x) = \frac{1}{\sqrt{x^2 + 1}}
+</span> from 0 to 1. We can plot it in the following (blue solid curve).</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">50</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>fx <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>np.sqrt(x<span class="op">**</span><span class="dv">2</span><span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>c0 <span class="op">=</span> <span class="dv">4</span><span class="op">-</span><span class="dv">2</span><span class="op">*</span>np.sqrt(<span class="dv">2</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>c1 <span class="op">=</span> <span class="op">-</span><span class="dv">6</span><span class="op">+</span><span class="dv">4</span><span class="op">*</span>np.sqrt(<span class="dv">2</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>wx <span class="op">=</span> c0 <span class="op">+</span> c1<span class="op">*</span>x</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>plt.plot(x, fx,<span class="st">'b-'</span>, label<span class="op">=</span><span class="vs">r'$\frac</span><span class="sc">{1}</span><span class="vs">{\sqrt{x^2 + 1</span><span class="sc">}}</span><span class="vs">$'</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>plt.plot(x, fx<span class="op">/</span>wx,<span class="st">'r--'</span>, label<span class="op">=</span><span class="vs">r'$\frac</span><span class="sc">{1}</span><span class="vs">{w(x)\sqrt{x^2 + 1</span><span class="sc">}}</span><span class="vs">$'</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'x'</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Function'</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="week13_files/figure-html/cell-4-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>We see that <span class="math inline">f(x)</span> is decreasing from 1 to 0.7 in our interval; with that in mind, we decide to employ a linear weight function: <span class="math display">
+w(x) = c_0 + c_1 x.
+</span> We wish <span class="math inline">w(x)</span> to roughly track the behavior of <span class="math inline">f(x)</span> in our interval; one way to do this is to ensure that <span class="math inline">f(0)/w(0) = f(1)/w(1)</span>. This gives one equation relating <span class="math inline">c_0</span> and <span class="math inline">c_1</span>. If we then also impose the normalization condition <span class="math display">
+\int_0^1 w(x)dx = 1
+</span> we get another relation. Thus, we are able to determine both parameters: <span class="math display">
+c_0 = 4 - 2\sqrt{2}, \quad c_1 = -6 + 4\sqrt{2}.
+</span></p>
+<p>In the above figure, the red dashed line corresponds to the value of <span class="math inline">f(x)/w(x)</span>, which varies between 0.85 and 0.9, which is considerably smaller than the variation of our original integrand.</p>
+<p>Now, we apply the importance-sampling prescription. We first compute <span class="math display">
+u(x) = \int_{0}^x (c_0 + c_1x') dx' = c_0 x + \frac{1}{2}c_1x^2,
+</span> which can be inverted to obtain <span class="math display">
+x(u) = \frac{-c_0 + \sqrt{2c_1 u + c_0^2}}{c_1}.
+</span></p>
+<p>Note that we picked the root which leads to <span class="math inline">x</span> from 0 to 1 for <span class="math inline">u</span> in <span class="math inline">[0,1]</span>. We can now compute the integral as <span class="math display">
+\int_0^1 \frac{1}{\sqrt{x^2+1}}dx  \simeq \frac{1}{n} \sum_{i=0}^{n-1} \frac{1}{\sqrt{X(U_i)^2 + 1}(c_0 + c_1 X(U_i))}
+</span> in which <span class="math inline">U_i</span> are uniformly distributed.</p>
+</section>
+<section id="implementation" class="level3">
+<h3 class="anchored" data-anchor-id="implementation">Implementation</h3>
+<p>We now implement Monte Carlo quadrature for the case of a one-dimensional integral. This is done in <code>montecarlo()</code>, which addresses both the case of uniform sampling and that of importance sampling. Crucially, uniform sampling is the default parameter value, which means that you can call this function with <code>montecarlo(f,a,b,n)</code>, i.e., with precisely the same interface as our three integrators in the Newton-Cotes integration and Gauss-Legendre integration.</p>
+<p>Also, we wrote a different function <code>stats(fs)</code>, which compute the mean and standard deviation for a given array.</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">1</span><span class="op">/</span>np.sqrt(x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> montecarlo(f,a,b,n,option<span class="op">=</span><span class="st">"uniform"</span>):</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    np.random.seed(<span class="dv">314159</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    us <span class="op">=</span> np.random.uniform(a, b, n)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> option<span class="op">==</span><span class="st">"uniform"</span>:</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        fs <span class="op">=</span> f(us)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        c0 <span class="op">=</span> <span class="dv">4</span> <span class="op">-</span> <span class="dv">2</span><span class="op">*</span>np.sqrt(<span class="dv">2</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        c1 <span class="op">=</span> <span class="op">-</span><span class="dv">6</span> <span class="op">+</span> <span class="dv">4</span><span class="op">*</span>np.sqrt(<span class="dv">2</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        xs <span class="op">=</span> (<span class="op">-</span>c0 <span class="op">+</span> np.sqrt(<span class="dv">2</span><span class="op">*</span>c1<span class="op">*</span>us <span class="op">+</span> c0<span class="op">**</span><span class="dv">2</span>))<span class="op">/</span>c1</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        fs <span class="op">=</span> f(xs)<span class="op">/</span>(c0 <span class="op">+</span> c1<span class="op">*</span>xs)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    fbar, err <span class="op">=</span> stats(fs)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (b<span class="op">-</span>a)<span class="op">*</span>fbar, (b<span class="op">-</span>a)<span class="op">*</span>err</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> stats(fs):</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> fs.size</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    fbar <span class="op">=</span> np.<span class="bu">sum</span>(fs)<span class="op">/</span>n</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    fsq <span class="op">=</span> np.<span class="bu">sum</span>(fs<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span>n</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    varfbar <span class="op">=</span> (fsq <span class="op">-</span> fbar<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span>(n <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fbar, np.sqrt(varfbar)</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> n <span class="kw">in</span> <span class="dv">10</span><span class="op">**</span>np.arange(<span class="dv">2</span>,<span class="dv">7</span>):</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>        avu, erru <span class="op">=</span> montecarlo(f, <span class="fl">0.</span>, <span class="fl">1.</span>, n)</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>        avi, erri <span class="op">=</span> montecarlo(f, <span class="fl">0.</span>, <span class="fl">1.</span>, n, option<span class="op">=</span><span class="st">"is"</span>)</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>        rowf <span class="op">=</span> <span class="st">"</span><span class="sc">{0:7d}</span><span class="st">   </span><span class="sc">{1:1.9f}</span><span class="st"> </span><span class="sc">{2:1.9f}</span><span class="st">   </span><span class="sc">{3:1.9f}</span><span class="st"> </span><span class="sc">{4:1.9f}</span><span class="st">"</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(rowf.<span class="bu">format</span>(n, avu, erru, avi, erri))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    100   0.873135430 0.009827018   0.880184046 0.001397861
+   1000   0.878313494 0.003014040   0.880653976 0.000439206
+  10000   0.879343920 0.000933506   0.881029489 0.000139055
+ 100000   0.881289768 0.000292906   0.881400087 0.000043577
+1000000   0.881433836 0.000092589   0.881389786 0.000013775</code></pre>
+</div>
+</div>
+<p>We see that importance sampling consistently helps us reduce the standard deviation by an order of magnitude.</p>
+</section>
+</section>
+<section id="monte-carlo-in-many-dimensions" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="monte-carlo-in-many-dimensions"><span class="header-section-number">1.5</span> Monte Carlo in Many Dimensions</h2>
+<p>We now turn to a truly relevant application of the Monte Carlo approach: multidimensional integration. As in the one-dimensional case, we start from uniform sampling, but then try to do a better job: we explain how to carry out weighted sampling via the <em>Metropolis-Hastings</em> algorithm, which is one of the most successful methods ever.</p>
+<section id="uniform-sampling" class="level3">
+<h3 class="anchored" data-anchor-id="uniform-sampling">Uniform Sampling</h3>
+<p>Notations: we bundle together the variables <span class="math inline">x_0, x_1, \dots, x_{d-1}</span> into <span class="math inline">\boldsymbol{x}</span>. We will be dealing with a scalar function of many variables, <span class="math inline">f(\boldsymbol{x})</span>. We define the <em>population mean</em> <span class="math display">
+\braket{f(\boldsymbol{X})} = \frac{1}{V}\int f(\boldsymbol{x}) d^dx
+</span> where the left hand side is of a function of a multidimensional random variable <span class="math inline">\boldsymbol{X}</span>. The volume <span class="math inline">V</span> is the generalization of the interval length <span class="math inline">b-a</span>.</p>
+<p>The practical formula for <em>multidimensional Monte Carlo integration</em> is <span class="math display">
+\int f(\boldsymbol{x})d^d x \simeq \frac{V}{\mathcal{N}}\sum_{i=0}^{\mathcal{N} - 1} f(\boldsymbol{X}_i) \pm
+\frac{V}{\mathcal{N} - 1} \sqrt{\frac{1}{\mathcal{N}}\sum_{i=0}^{\mathcal{N}-1}f^{2}(\boldsymbol{X}_i) - \left[\frac{1}{\mathcal{N}} \sum_{i=0}^{\mathcal{N}-1}
+f(\boldsymbol{X}_i)\right]^2}
+</span> where <span class="math inline">\mathcal{N}</span> is the number of samples, and <span class="math inline">\boldsymbol{X}_i</span> are sampled uniformly.</p>
+</section>
+<section id="weighted-sampling-via-the-metropolishastings-algorithm" class="level3">
+<h3 class="anchored" data-anchor-id="weighted-sampling-via-the-metropolishastings-algorithm">Weighted Sampling via the Metropolis–Hastings Algorithm</h3>
+<p>We can also introduce a weight for the multidimensional problem, and obtain <span class="math display">
+\int w(\boldsymbol{x}) f(\boldsymbol{x})d^d x \simeq \frac{V}{\mathcal{N}}\sum_{i=0}^{\mathcal{N} - 1} f(\boldsymbol{X}_i) \pm
+\frac{V}{\mathcal{N} - 1} \sqrt{\frac{1}{\mathcal{N}}\sum_{i=0}^{\mathcal{N}-1}f^{2}(\boldsymbol{X}_i) - \left[\frac{1}{\mathcal{N}} \sum_{i=0}^{\mathcal{N}-1}
+f(\boldsymbol{X}_i)\right]^2}
+</span> where <span class="math inline">\boldsymbol{X}_i</span> are drawn from the distribution <span class="math inline">w(\boldsymbol{x})</span>.</p>
+<p>We can in principle derive formulas for inverse sampling, however, the multidimensional case would be much more complicated and practically this is very difficult to perform. In the following, we will construct a way to sample <span class="math inline">\boldsymbol{X}_i</span> directly from distribution <span class="math inline">w(\boldsymbol{x})</span>.</p>
+<section id="markov-chains" class="level4">
+<h4 class="anchored" data-anchor-id="markov-chains">Markov Chains</h4>
+<p>We shall introduce the so-called <em>Markov chain Monte Carlo (MCMC)</em>. The main new concept involved here is that of a <em>Markov chain</em>: imagine you have a sequence of random samples <span class="math inline">\boldsymbol{X}_0,\boldsymbol{X}_1,\dots,\boldsymbol{X}_{\mathcal{N}-1}</span> for which a given sample <span class="math inline">\boldsymbol{X}_i</span> depends only on the previous one <span class="math inline">\boldsymbol{X}_{i-1}</span>, but not on any of the earlier ones. In other words, one starts from a random sample <span class="math inline">\boldsymbol{X}_0</span>, uses that to produce sample <span class="math inline">\boldsymbol{X}_1</span>, then uses that in its turn to produce sample <span class="math inline">\boldsymbol{X}_2</span>, and so on. This sequence of samples <span class="math inline">\boldsymbol{X}_0\boldsymbol{X}_1\boldsymbol{X}_{\mathcal{N}-1}</span> is known as a <em>random walk</em>.</p>
+<p>Note that this is quite different from what we were doing in earlier sections: there the <span class="math inline">X_i</span> were independent from one another, whereas now we use a given <span class="math inline">\boldsymbol{X}_{i-1}</span> to produce the next one <span class="math inline">\boldsymbol{X}_{i}</span>. The reason Markov chains are so useful is that they can be produced such that they asymptotically (i.e., as <span class="math inline">\mathcal{N}\to \infty</span>) have the distribution we would like them to, which in our case would be <span class="math inline">w(\boldsymbol{x})</span>. One could therefore do an increasingly better job at computing a <span class="math inline">d</span>-dimensional integral by continuing the Markov chain for larger values of <span class="math inline">\mathcal{N}</span>.</p>
+</section>
+<section id="detailed-balance" class="level4">
+<h4 class="anchored" data-anchor-id="detailed-balance">Detailed Balance</h4>
+<p>We wish to produce a Markov chain with an asymptotic distribution of our choosing, which would therefore be the stationary distribution of the chain. Thus, we can borrow ideas from the statistical mechanics of systems in equilibrium. A sufficient (but not necessary) condition of evolving toward equilibrium and staying there is the <em>principle of detailed balance</em>: <span class="math display">
+w(\boldsymbol{X}) T(\boldsymbol{X} \to \boldsymbol{Y}) = w(\boldsymbol{Y}) T(\boldsymbol{Y} \to \boldsymbol{X}).
+</span> Here <span class="math inline">T(\boldsymbol{X}\to \boldsymbol{Y})</span> is the (conditional) probability density that you will move to <span class="math inline">\boldsymbol{Y}</span> if you start at <span class="math inline">\boldsymbol{X}</span>; it is often called the <em>transition probability</em>.</p>
+<p>Since we’re dealing with a Markov chain, we need to know how to go from one sample to the next; this is precisely what the transition probability will allow us to do. Since <span class="math inline">w(\boldsymbol{X})</span> is the probability density of being near <span class="math inline">\boldsymbol{X}</span>, <span class="math inline">w(\boldsymbol{X})T(\boldsymbol{X}\to\boldsymbol{Y})</span> quantifies how likely it is to start at <span class="math inline">\boldsymbol{X}</span> and move to <span class="math inline">\boldsymbol{Y}</span>. Similarly, <span class="math inline">W(\boldsymbol{Y})T(\boldsymbol{Y}\to\boldsymbol{X})</span> tells us how likely it is to start at <span class="math inline">\boldsymbol{Y}</span> and move to <span class="math inline">\boldsymbol{X}</span>.</p>
+<p>In words, the principle of detailed balence says that it is equally likely that we will go in one direction as in the reverse direction. The principle of detailed balance is sometimes known as the reversibility condition, due to the fact that the reverse process would result if everything went backward in time. Intuitively, detailed balance tells us that if you’re in equilibrium then effectively not much is changing: you could go somewhere, but you’re just as likely to come back.</p>
+<p>At this stage, detailed balance is just a condition: we haven’t shown how to actually produce a Markov chain that obeys it. Even so, we will now spend some time seeing exactly how the detailed-balance condition can help us accomplish our goal. Instead of thinking about moving from an individual sample to another one, it can be helpful to think in terms of going from one probability density function to another.</p>
+<p>Assume that <span class="math inline">p_{i-1}(\boldsymbol{X})</span> is the distribution of values of the random variable <span class="math inline">\boldsymbol{X}_{i-1}</span> and, similarly, <span class="math inline">p_i(\boldsymbol{X})</span> is the distribution of <span class="math inline">\boldsymbol{X}_i</span>. We can straightforwardly relate <span class="math inline">p_i(\boldsymbol{X})</span> to <span class="math inline">p_{i-1}(\boldsymbol{X})</span> as follows: <span class="math display">
+p_i(\boldsymbol{X}) = p_{i-1}(\boldsymbol{X}) + \int [p_{i-1}(\boldsymbol{Y})T(\boldsymbol{Y}\to \boldsymbol{X}) - p_{i-1}(\boldsymbol{X})T(\boldsymbol{X}\to\boldsymbol{Y})]d^d Y.
+</span> In words, what this is saying is that the probability of being near <span class="math inline">\boldsymbol{X}</span> at step <span class="math inline">i</span> is equal to the probability of being near <span class="math inline">\boldsymbol{X}</span> at step <span class="math inline">i-1</span>, plus the probability of leaving all other configurations <span class="math inline">\boldsymbol{Y}</span> and coming to <span class="math inline">\boldsymbol{X}</span>, minus the probability of leaving <span class="math inline">\boldsymbol{X}</span> and going to any other configurations <span class="math inline">\boldsymbol{Y}</span>.</p>
+<p>We can first show that <span class="math inline">w(\boldsymbol{X})</span> is a fixed point of the iteration: for <span class="math inline">p_{i-1}(\boldsymbol{X})=w(\boldsymbol{X})</span>, we have <span class="math display">
+p_i(\boldsymbol{X})  = w(\boldsymbol{X}) + \int [w(\boldsymbol{Y})T(\boldsymbol{Y}\to\boldsymbol{X}) - w(\boldsymbol{X})T(\boldsymbol{X}\to\boldsymbol{Y})]d^d Y = w(\boldsymbol{X}),
+</span> where in the last step we have used th detailed-balence condition.</p>
+<p>Second, we would like to know that we are actually approaching that stationary distribution: it wouldn’t do us much good if a fixed point existed but we could never reach it. To see this, we can write <span class="math display">
+\frac{p_i(\boldsymbol{X})}{w(\boldsymbol{X})} = \frac{p_{i-1}(\boldsymbol{X})}{w(\boldsymbol{X})} + \int [p_{i-1}(\boldsymbol{Y})\frac{T(\boldsymbol{Y}\to \boldsymbol{X})}{w(\boldsymbol{X})} - p_{i-1}(\boldsymbol{X})\frac{T(\boldsymbol{X}\to\boldsymbol{Y})}{w(\boldsymbol{X})}]d^d Y.
+</span> Using the detailed-balence condition in this form: <span class="math display">
+\frac{T(\boldsymbol{X} \to \boldsymbol{Y})}{w(\boldsymbol{Y})}  = \frac{T(\boldsymbol{Y}\to\boldsymbol{X})}{w(\boldsymbol{X})},
+</span> we have <span class="math display">
+\frac{p_i(\boldsymbol{X})}{w(\boldsymbol{X})} = \frac{p_{i-1}(\boldsymbol{X})}{w(\boldsymbol{X})} + \int T(\boldsymbol{X}\to \boldsymbol{Y})\left[\frac{p_{i-1}(\boldsymbol{Y})}{w(\boldsymbol{Y})} - \frac{p_{i-1}(\boldsymbol{X})}{w(\boldsymbol{X})}\right]d^d Y.
+</span></p>
+<p>Note that here <span class="math inline">T(\boldsymbol{X}\to \boldsymbol{Y})</span> is the transition probability and thus is positive. To understand the above expression:</p>
+<ul>
+<li>Let’s say a <span class="math inline">\frac{p_{i-1}(\boldsymbol{X})}{w(\boldsymbol{X})}</span> is near a maximum, i.e., is larger than other ratios, <span class="math inline">\frac{p_{i-1}(\boldsymbol{Y})}{w(\boldsymbol{Y})}</span>. Then, the integral will become nagative and thus <span class="math inline">\frac{p_{i}(\boldsymbol{X})}{w(\boldsymbol{X})}</span> will become smaller.</li>
+<li>Let’s say a <span class="math inline">\frac{p_{i-1}(\boldsymbol{X})}{w(\boldsymbol{X})}</span> is near a minimum, i.e., is smaller than other ratios, <span class="math inline">\frac{p_{i-1}(\boldsymbol{Y})}{w(\boldsymbol{Y})}</span>. Then, the integral will become positive and thus <span class="math inline">\frac{p_{i}(\boldsymbol{X})}{w(\boldsymbol{X})}</span> will become larger.</li>
+</ul>
+<p>In both cases, the ratio <span class="math inline">\frac{p_{i}(\boldsymbol{X})}{w(\boldsymbol{X})}</span> will be closer to 1 than <span class="math inline">\frac{p_{i-1}(\boldsymbol{X})}{w(\boldsymbol{X})}</span> was.</p>
+<p>While we still haven’t shown how to produce a Markov chain that obeys detailed balance, our two results are that if you have a Markov chain that obeys detailed balance then:</p>
+<ol type="a">
+<li><span class="math inline">w(\boldsymbol{X})</span> is a <em>stationary distribution</em>,</li>
+<li><span class="math inline">p_i(\boldsymbol{X})</span> <em>asymptotically approaches that stationary distribution</em>.</li>
+</ol>
+<p>In other words, our Markov chain will approach a <span class="math inline">d</span>-dimensional equilibrium distribution of our choosing. We will now introduce an elegant trick that is able to produce a Markov chain obeying detailed balance.</p>
+</section>
+<section id="metropolishastings-algorithm" class="level4">
+<h4 class="anchored" data-anchor-id="metropolishastings-algorithm">Metropolis–Hastings Algorithm</h4>
+<p>The <em>Metropolis–Hastings algorithm</em> starts by splitting the transition probability: <span class="math display">
+T(\boldsymbol{X}\to\boldsymbol{Y}) = \pi(\boldsymbol{X}\to\boldsymbol{Y})\alpha(\boldsymbol{X}\to\boldsymbol{Y})
+</span> where <span class="math inline">\pi(\boldsymbol{X}\to\boldsymbol{Y})</span> is the probability of making a <em>proposed</em> step from <span class="math inline">\boldsymbol{X}</span> to <span class="math inline">\boldsymbol{Y}</span> and <span class="math inline">\alpha(\boldsymbol{X}\to\boldsymbol{Y})</span> is the probability of <em>accepting</em> that move.</p>
+<p>Note that since we are dealing with an <em>acceptance</em> probability <span class="math inline">\alpha(\boldsymbol{X}\to\boldsymbol{Y})</span>, this means that some moves will be accepted (i.e., the system moves from <span class="math inline">\boldsymbol{X}</span> to <span class="math inline">\boldsymbol{Y}</span>) and some moves will be rejected (i.e., the system will stay at <span class="math inline">\boldsymbol{X}</span>). The proposal probability <span class="math inline">\pi(\boldsymbol{X}\to\boldsymbol{Y})</span> is not unique, and several choices are discussed in the literature. The acceptance probability will be chosen in such a way that detailed balance is obeyed.</p>
+<p>The Metropolis–Hastings algorithm proceeds by evaluating the following quantity <span class="math display">
+R(\boldsymbol{X}\to\boldsymbol{Y}) = \frac{w(\boldsymbol{Y})\pi(\boldsymbol{Y}\to\boldsymbol{X})}{w(\boldsymbol{X})\pi(\boldsymbol{X}\to\boldsymbol{Y})}
+</span> known as the <em>Metropolis-Hasting ratio</em>. Here everything on the right-hand side is known: the desired distribution <span class="math inline">w</span> is of our choosing, as is also true of the proposal distribution <span class="math inline">\pi</span>. As a matter of fact, a simpler version of the Metropolis-Hastings algorithm, known as the <em>Metropolis algorithm</em> since that’s how it was originally put forward, employs a symmetric proposal distribution; when <span class="math inline">\pi(\boldsymbol{X}\to\boldsymbol{Y})=\pi(\boldsymbol{Y}\to\boldsymbol{X})</span> you can see that the ratio is simply <span class="math inline">R(\boldsymbol{X}\to\boldsymbol{Y}) = w(\boldsymbol{Y})/w(\boldsymbol{X})</span>, namely the ratio of the (analytical known) desired weight at the configuration <span class="math inline">\boldsymbol{Y}</span> and at the configuration <span class="math inline">\boldsymbol{X}</span>.</p>
+<p>The next part of the Metropolis-Hastings algorithm is to use the ratio <span class="math inline">R(\boldsymbol{X}\to\boldsymbol{Y})</span> to determine the acceptance probability as follows: <span class="math display">
+\alpha(\boldsymbol{X}\to\boldsymbol{Y}) = \min[1, R(\boldsymbol{X}\to\boldsymbol{Y})].
+</span></p>
+<p>We already know that <span class="math inline">R(\boldsymbol{X}\to\boldsymbol{Y})</span> is non-negative. What the above equation does is to account for the possibility that the ratio <span class="math inline">R(\boldsymbol{X}\to\boldsymbol{Y})</span> is larger than 1: in that case, the acceptance probability is taken to be 1. If <span class="math inline">R</span> is less than 1, then the proposed step is taken with probability <span class="math inline">R</span>.</p>
+<p>We can show that with this choice of <span class="math inline">\alpha(\boldsymbol{X}\to\boldsymbol{Y})</span>, detailed balance is satisfied. Let us first assume <span class="math inline">R(\boldsymbol{X}\to\boldsymbol{Y})&lt;1</span>, then <span class="math display">
+\begin{align*}
+w(\boldsymbol{X})T(\boldsymbol{X}\to\boldsymbol{Y}) &amp;= w(\boldsymbol{X})\pi(\boldsymbol{X}\to\boldsymbol{Y})R(\boldsymbol{X}\to\boldsymbol{Y})
+= w(\boldsymbol{X})\pi(\boldsymbol{X}\to\boldsymbol{Y})\frac{w(\boldsymbol{Y})\pi(\boldsymbol{Y}\to\boldsymbol{X})}{w(\boldsymbol{X})\pi(\boldsymbol{X}\to\boldsymbol{Y})} \\
+&amp;=w(\boldsymbol{Y})\pi(\boldsymbol{Y}\to\boldsymbol{X})
+\end{align*}
+</span> Since <span class="math inline">R(\boldsymbol{X}\to\boldsymbol{Y})R(\boldsymbol{Y}\to\boldsymbol{X})=1</span>, we have <span class="math inline">R(\boldsymbol{Y}\to\boldsymbol{X})&gt;1</span> if <span class="math inline">R(\boldsymbol{X}\to\boldsymbol{Y})&lt;1</span>. Thus, we have <span class="math inline">\alpha(\boldsymbol{Y}\to\boldsymbol{X}) = 1</span>. We can thus write <span class="math display">
+w(\boldsymbol{X})T(\boldsymbol{X}\to\boldsymbol{Y}) = w(\boldsymbol{Y})\pi(\boldsymbol{Y}\to\boldsymbol{X})\alpha(\boldsymbol{Y}\to\boldsymbol{X}) = w(\boldsymbol{Y})T(\boldsymbol{Y}\to\boldsymbol{X}).
+</span> This proves the detailed balance condition when <span class="math inline">R(\boldsymbol{X}\to\boldsymbol{Y})&lt;1</span>. In your homework, you will show the detailed balance condition if <span class="math inline">R(\boldsymbol{X}\to\boldsymbol{Y})&gt; 1</span>.</p>
+<p>In summary, we have shown that <em>the Metropolis–Hastings algorithm</em> satisfies detailed balance. As we discussed, detailed balance means that <span class="math inline">w(\boldsymbol{X})</span> is a stationary distribution and our random walk will be asymptotically approaching that stationary distribution. Thus, we have managed to draw random samples from a <span class="math inline">d</span>-dimensional distribution, which was our goal all along.</p>
+<p>It is important to emphasize that the Metropolis–Hastings algorithm has allowed us to draw random samples from a <span class="math inline">d</span>-dimensional <span class="math inline">w(\boldsymbol{X})</span> simply by calculating ratios of <span class="math inline">w</span> (and perhaps also of <span class="math inline">\pi</span>) at two configurations each time. There was no need to worry about a change of variables, no numerical multidimensional inversion, and so on. Simply by evaluating known quantities at a given and a trial configuration, we managed to solve a complicated sampling problem. This is why the Metropolis–Hastings prescription is routinely listed among the most important algorithms of the twentieth century.</p>
+</section>
+<section id="how-to-implement-the-metropolis-algorithm" class="level4">
+<h4 class="anchored" data-anchor-id="how-to-implement-the-metropolis-algorithm">How to Implement the Metropolis Algorithm</h4>
+<p>We now give a practical step-by-step summary of the Metropolis algorithm, which allows us to sample from the <span class="math inline">d</span>-dimensional distribution <span class="math inline">w(\boldsymbol{X})</span>.</p>
+<ol type="1">
+<li>Start at a random location, <span class="math inline">\boldsymbol{X}_0</span>. It shouldn’t matter where you start, since the Markov chain will “equilibrate”, reaching the same stationary distribution, anyway. You could account for this “burn-in” time by discarding some early iterations or you could start from an <span class="math inline">\boldsymbol{X}_0</span> that is not highly unlikely, i.e., pick X0 such that <span class="math inline">w(\boldsymbol{X}_0)</span> is not too small.</li>
+<li>Take <span class="math inline">\boldsymbol{X}_{i−1}</span> as given (this is <span class="math inline">\boldsymbol{X}_{0}</span> the first time around) and produce a uniformly distributed proposed step according to: <span class="math display">
+\boldsymbol{Y}_i = \boldsymbol{X}_{i-1} + \theta \times \boldsymbol{U}_i
+</span> where <span class="math inline">\boldsymbol{U}_i</span> is a <span class="math inline">d</span>-dimensional sample of uniformly distributed random numbers from <span class="math inline">-1</span> to <span class="math inline">1</span>; here <span class="math inline">\theta</span> is a number that controls the “step size” and <span class="math inline">\boldsymbol{Y}_i</span> is the proposed walker configuration. This step, being uniformly distributed in a multidimensional cube of side <span class="math inline">2\theta</span>, is in fact employing a proposal distribution <span class="math inline">\pi</span> that is symmetric; this means that we are actually dealing with the simple Metropolis algorithm. The value of <span class="math inline">\theta</span> is chosen (by trying) such that roughly <span class="math inline">15\%</span> to <span class="math inline">50\%</span> of the proposed steps are accepted.</li>
+<li>For Metropolis algorithm, we can compute the acceptance rate <span class="math display">
+\alpha(\boldsymbol{X}_{i-1}\to\boldsymbol{Y}_i) = \min\left[1,\frac{w(\boldsymbol{Y}_i)}{w(\boldsymbol{X}_{i-1})}\right].
+</span> Here you see only the ratio <span class="math inline">\frac{w(\boldsymbol{Y}_i)}{w(\boldsymbol{X}_{i-1})}</span> matters and thus we do not need to normalize <span class="math inline">w(\boldsymbol{X})</span>.</li>
+<li>With probability <span class="math inline">\alpha(\boldsymbol{X}_{i-1}\to\boldsymbol{Y}_i)</span>, set <span class="math inline">\boldsymbol{X}_i=\boldsymbol{Y}_i</span> (the proposed step is accepted), otherwise set <span class="math inline">\boldsymbol{X}_i=\boldsymbol{X}_{i-1}</span> (the proposed step is rejected). In practice, this is done as follows: generate a random number <span class="math inline">\xi_i</span> uniformly distributed from 0 to 1. Then set <span class="math display">
+\boldsymbol{X}_{i}=
+\begin{cases}
+\boldsymbol{Y}_{i}, &amp; {\rm if\ }\alpha(\boldsymbol{X}_{i-1}\to\boldsymbol{Y}_{i})\geq\xi_{i}\\
+\boldsymbol{X}_{i}, &amp; {\rm if\ }\alpha(\boldsymbol{X}_{i-1}\to\boldsymbol{Y}_{i})&lt;\xi_{i}
+\end{cases}.
+</span> Note that random numbers appear in two distinct roles: first, they allow us to produce the proposed walker configuration, <span class="math inline">\boldsymbol{Y}_i</span>. Second, they help us decide whether to accept or reject the proposed step. Also, note that <span class="math inline">\theta</span> affects the overall acceptance rate, which we prefer to have it between 15% to 50%.</li>
+<li>Every <span class="math inline">n_m</span> steps, make a “measurement”, i.e., evaluate <span class="math inline">f(\boldsymbol{X}_i)</span>. Because the Markov chain samples are not statistically independent, we are computing the sample mean (and its variance) using not every single sample, but every <span class="math inline">n_m</span>-th one. This is done in order to eliminate the correlation between the samples.</li>
+<li>Increment <span class="math inline">i</span> by 1 and go back to step 1. Terminate the entire process when you’ve generated sufficiently many samples/measurements (<span class="math inline">\mathcal{N}</span>) that you are comfortable with the variance of the sample mean.</li>
+</ol>
+</section>
+</section>
+</section>
+</section>
+<section id="homework" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Homework</h1>
+<ol type="1">
+<li>In the lecture note, you have seen that the detailed balance is satisfied by taking <span class="math inline">R(\boldsymbol{X}\to\boldsymbol{Y})&lt;1</span>. Now, please show that the detailed balance condition is also satisfied if we have <span class="math inline">R(\boldsymbol{X}\to\boldsymbol{Y})&gt; 1</span>.</li>
+<li>Calculate the following two dimensional integration numerically using Monte Carlo method, with Metropolis algorithm. <span class="math display">
+I = \int_{x^2+y^2\leq 1} dxdy\, e^{-(x^2+y^2)^2}x^2
+</span> where you should take the weight function <span class="math display">
+w(x,y) = \exp(-(x^2 + y^2))
+</span> for <span class="math inline">x^2 + y^2 \leq 1</span> and zero otherwise. Please print out the estimate for the integral, the standard deviation, and the overall acceptance probability (steps accepted/total number of steps). Here you can siply choose <span class="math inline">n_m=1</span>.</li>
+</ol>
 </section>
 
 </main>
