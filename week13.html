@@ -594,12 +594,28 @@ w(\boldsymbol{X})T(\boldsymbol{X}\to\boldsymbol{Y}) = w(\boldsymbol{Y})\pi(\bold
 <section id="homework" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Homework</h1>
 <ol type="1">
-<li>In the lecture note, you have seen that the detailed balance is satisfied by taking <span class="math inline">R(\boldsymbol{X}\to\boldsymbol{Y})&lt;1</span>. Now, please show that the detailed balance condition is also satisfied if we have <span class="math inline">R(\boldsymbol{X}\to\boldsymbol{Y})&gt; 1</span>.</li>
-<li>Calculate the following two dimensional integration numerically using Monte Carlo method, with Metropolis algorithm. <span class="math display">
-I = \int_{x^2+y^2\leq 1} dxdy\, e^{-(x^2+y^2)^2}x^2
-</span> where you should take the weight function <span class="math display">
+<li><p>In the lecture note, you have seen that the detailed balance is satisfied by taking <span class="math inline">R(\boldsymbol{X}\to\boldsymbol{Y})&lt;1</span>. Now, please show that the detailed balance condition is also satisfied if we have <span class="math inline">R(\boldsymbol{X}\to\boldsymbol{Y})&gt; 1</span>.</p></li>
+<li><p>Calculate the following two dimensional integration numerically using Monte Carlo method, with Metropolis algorithm. <span class="math display">
+I = \frac{\int_{x^2+y^2\leq 1} dxdy\, e^{-(x^2+y^2)^2}x^2}{\int_{x^2+y^2\leq 1} dxdy\, e^{-(x^2 + y^2)}}
+</span> Please read the following instructions before implementation. Please take the weight function <span class="math display">
 w(x,y) = \exp(-(x^2 + y^2))
-</span> for <span class="math inline">x^2 + y^2 \leq 1</span> and zero otherwise. Please print out the estimate for the integral, the standard deviation, and the overall acceptance probability (steps accepted/total number of steps). Here you can siply choose <span class="math inline">n_m=1</span>.</li>
+</span> for <span class="math inline">x^2 + y^2 \leq 1</span> and zero otherwise. Thus, one can write <span class="math display">
+I = \frac{\int_{x^2+y^2\leq 1} dxdy\, w(x,y)f(x,y)}{\int_{x^2+y^2\leq 1} dxdy\, w(x,y)}, \quad f(x,y) = x^2.
+</span> We can introduce the (normalized) probability density function <span class="math display">
+p(x,y) = \frac{w(x,y)}{\int_{x^2+y^2\leq 1} dxdy\, w(x,y)},\quad \Rightarrow \int dxdy\, p(x,y)  = 1,
+</span> then <span class="math display">
+I = \int dx dy\, p(x,y)f(x,y) \equiv \braket{f(X,Y)}.
+</span> You see <span class="math inline">I</span> is simply the population mean of <span class="math inline">f(X,Y)</span>, where <span class="math inline">(X,Y)</span> is the 2D random variable with probability density function <span class="math inline">p(X,Y)</span>.</p>
+<p>In class, you learned that the population mean can be approximated using the sample mean, namely <span class="math display">
+I \simeq \frac{1}{\mathcal{N}}\sum_{i=0}^{\mathcal{N}-1}f(X_i,Y_i),
+</span> where <span class="math inline">(X_0,Y_0), (X_1, Y_1), \dots, (X_{\mathcal{N}-1},Y_{\mathcal{N}-1})</span> are 2D random variables drawn from <span class="math inline">p(X,Y)</span>.</p>
+<p>Thus, in your program, you should</p>
+<ul>
+<li>design a Markov chain which generates the sequence <span class="math inline">(X_0,Y_0), (X_1, Y_1), \dots, (X_{\mathcal{N}-1},Y_{\mathcal{N}-1})</span></li>
+<li>you evaluate the function <span class="math inline">f(x,y)</span> every time you generate <span class="math inline">(X_i,Y_i)</span></li>
+<li>Note that you should discard the first <span class="math inline">M</span> elements in the Markov chain, as they may not be drawn from stationary distribution of the chain.</li>
+</ul>
+<p>Concretely, let’s choose the number of sample <span class="math inline">\mathcal{N}=100000</span>, and discard the first <span class="math inline">M=2000</span> elements. In otherwords, you need the <span class="math inline">\mathcal{N}+M=102000</span> iterations for the Metropolis algorithm. Please also print out the overall acceptance probability, which should be in between 15% and 50%.</p></li>
 </ol>
 </section>
 
