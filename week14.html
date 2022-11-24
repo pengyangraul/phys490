@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.256">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Differential Equations I</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="week14_files/libs/clipboard/clipboard.min.js"></script>
+<script src="week14_files/libs/quarto-html/quarto.js"></script>
+<script src="week14_files/libs/quarto-html/popper.min.js"></script>
+<script src="week14_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="week14_files/libs/quarto-html/anchor.min.js"></script>
+<link href="week14_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="week14_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="week14_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="week14_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="week14_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#the-problems-to-be-solved" id="toc-the-problems-to-be-solved" class="nav-link active" data-scroll-target="#the-problems-to-be-solved"><span class="toc-section-number">1</span>  The problems to be solved</a></li>
+  <li><a href="#initial-value-problems" id="toc-initial-value-problems" class="nav-link" data-scroll-target="#initial-value-problems"><span class="toc-section-number">2</span>  Initial-Value Problems</a>
+  <ul class="collapse">
+  <li><a href="#eulers-method" id="toc-eulers-method" class="nav-link" data-scroll-target="#eulers-method"><span class="toc-section-number">2.1</span>  Euler’s Method</a>
+  <ul class="collapse">
+  <li><a href="#forward-euler" id="toc-forward-euler" class="nav-link" data-scroll-target="#forward-euler">Forward Euler</a></li>
+  <li><a href="#backward-euler" id="toc-backward-euler" class="nav-link" data-scroll-target="#backward-euler">Backward Euler</a></li>
+  <li><a href="#error" id="toc-error" class="nav-link" data-scroll-target="#error">Error</a></li>
+  </ul></li>
+  <li><a href="#second-order-rungekutta-methods" id="toc-second-order-rungekutta-methods" class="nav-link" data-scroll-target="#second-order-rungekutta-methods"><span class="toc-section-number">2.2</span>  Second-Order Runge–Kutta Methods</a>
+  <ul class="collapse">
+  <li><a href="#derivation" id="toc-derivation" class="nav-link" data-scroll-target="#derivation">Derivation</a></li>
+  <li><a href="#explicit-midpoint-and-trapezoid-methods" id="toc-explicit-midpoint-and-trapezoid-methods" class="nav-link" data-scroll-target="#explicit-midpoint-and-trapezoid-methods">Explicit Midpoint and Trapezoid Methods</a></li>
+  <li><a href="#two-implicit-methods" id="toc-two-implicit-methods" class="nav-link" data-scroll-target="#two-implicit-methods">Two implicit methods</a></li>
+  </ul></li>
+  <li><a href="#fourth-order-rungekutta-method" id="toc-fourth-order-rungekutta-method" class="nav-link" data-scroll-target="#fourth-order-rungekutta-method"><span class="toc-section-number">2.3</span>  Fourth-Order Runge–Kutta Method</a>
+  <ul class="collapse">
+  <li><a href="#first-case-quadrature" id="toc-first-case-quadrature" class="nav-link" data-scroll-target="#first-case-quadrature">First Case: Quadrature</a></li>
+  <li><a href="#second-case-autonomous" id="toc-second-case-autonomous" class="nav-link" data-scroll-target="#second-case-autonomous">Second Case: Autonomous</a></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">Implementation</a></li>
+  </ul></li>
+  <li><a href="#simultaneous-differential-equations" id="toc-simultaneous-differential-equations" class="nav-link" data-scroll-target="#simultaneous-differential-equations"><span class="toc-section-number">2.4</span>  Simultaneous Differential Equations</a>
+  <ul class="collapse">
+  <li><a href="#two-equations" id="toc-two-equations" class="nav-link" data-scroll-target="#two-equations">Two Equations</a></li>
+  <li><a href="#general-case" id="toc-general-case" class="nav-link" data-scroll-target="#general-case">General Case</a></li>
+  <li><a href="#implementation-1" id="toc-implementation-1" class="nav-link" data-scroll-target="#implementation-1">Implementation</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Differential Equations I</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="the-problems-to-be-solved" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> The problems to be solved</h1>
+<p>We will be tackling ordinary differential equations (ODEs). The simplest case is when we are trying to solve a single differential equation for a single function, <span class="math inline">y(x)</span>, where <span class="math inline">x</span> is known as the <em>independent variable</em> and <span class="math inline">y</span> is the <em>dependent variable</em>.</p>
+<p>The first class of equation we will tackle on ODE will be the following <em>initial-value problem (IVP)</em>: <span class="math display">
+y'(x) = f(x,y(x)), \quad y(a) = c,
+</span> where <span class="math inline">y' = dy/dx</span> and <span class="math inline">f(x,y)</span> is a known function (in general nonlinear) which could depend on both <span class="math inline">x</span> and <span class="math inline">y</span>. For example, <span class="math inline">f(x,y) = 3x^5 - y^3</span>. We wish to solve for <span class="math inline">y</span>. This is called an <em>initial-value</em> problem because we know the value of <span class="math inline">y(x)</span> at a certain point, <span class="math inline">a</span> (i.e., we know that <span class="math inline">y(a)=c</span>, where <span class="math inline">c</span> is given), so we start from there and try to integrate up to, say, the point <span class="math inline">x</span>, formally, as <span class="math display">
+y(x) = c + \int_a^x f(z,y(z)) dz.
+</span> As you can see, that the integration comes into play. So we will be using some techniques you learned in previous weeks.</p>
+<p>On the other hand, we are here interested in producing not a single number (the value of a definite integral) but a full function, <span class="math inline">y(x)</span>; also, in practice the function <span class="math inline">f</span> most often does depend on <span class="math inline">y</span>, so the problem we are faced with is more complicated than the ones you see in previous lectures.</p>
+<p>For a higher-order ODE, we would have to specify all necessary information at the starting point; for example, in an initial-value problem for a second-order ODE we would need to specify the values of both <span class="math inline">y</span> (the sought-after function) and <span class="math inline">y'</span> (its derivative) at <span class="math inline">a</span>: <span class="math display">
+y''(x)=f(x,y,y'),\quad y(a) = c,\quad y'(a) = d.
+</span></p>
+<p>In this, more general, case we see that f could also depend on <span class="math inline">y</span>; in other words, we have isolated the highest-order derivative on the left-hand side. Observe that both <span class="math inline">y(a)</span> and <span class="math inline">y'(a)</span> are given at the same point, so this is still an initial-value problem.</p>
+<p>A much harder problem, arises when you are given the values of the function at two distinct points, without being provided the starting value of <span class="math inline">y'</span>. . This is known as a <em>boundary-value problem (BVP)</em>, which we will tackle in its simplest possible form, namely that of a second-order ODE: <span class="math display">
+y''(x) = f(x,y,y'), \quad y(a) = c, \quad y(b) = d.
+</span> The input data, <span class="math inline">y(a) = c</span> and <span class="math inline">y(b) = d</span> are known as <em>boundary conditions</em>. BVP are in general more complicated: they can have no solutions or infinitely many solutions, but we will mainly focus on BVPs which have a single solution here.</p>
+<p>An even harder problem arises when <span class="math inline">f</span> generalized to depend not only on <span class="math inline">x</span>, <span class="math inline">y</span>, and <span class="math inline">y'</span>, but also on a parameter <span class="math inline">s</span>; this is an <em>eigenvalue problem (EVP)</em>: <span class="math display">
+y''(x) = f(x,y,y';s), \quad y(a) = c, \quad y(b) = d.  
+</span></p>
+<p>This equation only has non-trivial solutions for special values of <span class="math inline">s</span>. This means that we will need to computationally find the appropriate values of <span class="math inline">s</span>. Viewed from another perspective, instead of having a single equation to solve, the EVP describes a family of equations (and correspondingly more than one solutions). Unsurprisingly, such an eigenvalue problem has close connections both to the matrix eigenvalues we encountered and to the eigenvalues appearing in the Schrodinger equation (where the role played by <span class="math inline">s</span> here was played by the eigenenergy <span class="math inline">E</span>).</p>
+</section>
+<section id="initial-value-problems" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Initial-Value Problems</h1>
+<p>As mentioned above, we will write a general IVP in the form: <span class="math display">
+y'(x) = f(x,y(x)),\quad y(a) = c.
+</span></p>
+<p>We will employ a <em>discretization</em>, more specifically an equally spaced grid of points, as for Newton–Cotes quadrature. We will be trying to compute the function <span class="math inline">y(x)</span> at a set of <span class="math inline">n</span> grid points <span class="math inline">x_j</span>, from <span class="math inline">a</span> to <span class="math inline">b</span>: <span class="math display">
+x_j = a + jh
+</span> where as usual <span class="math inline">j = 0,1,\dots,n-1</span>. The step size <span class="math inline">h</span> is obviously given by: <span class="math display">
+h = \frac{b-a}{n-1}.
+</span></p>
+<p>Let us introduce some more notation. At a given grid point, <span class="math inline">x_j</span>, the exact solution of our ODE will be <span class="math inline">y(x_j)</span>; we will use the symbol <span class="math inline">y_j</span> to denote the approximate solution, i.e., the value that results from a given discretization scheme. We now turn to a discussion of specific methods that will help us make <span class="math inline">y_j</span> increasingly closer to <span class="math inline">y(x_j)</span>.</p>
+<section id="eulers-method" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="eulers-method"><span class="header-section-number">2.1</span> Euler’s Method</h2>
+<p>The simplest possible approach is known as Euler’s method. In what follows, we will motivate it, discuss its error behavior, as well a scenario where it gets in trouble (and then we’ll see what we can do about that).</p>
+<section id="forward-euler" class="level3">
+<h3 class="anchored" data-anchor-id="forward-euler">Forward Euler</h3>
+<p>We can motivate what is known as the <em>forward Euler method</em> starting from the forward difference formula. We will use the finite difference formula (derived from Taylor expansion and mid-value theorem) you saw before: <span class="math display">
+y'(x_j) = \frac{y(x_{j+1})-y(x_j)}{h} - \frac{h}{2}y''(\xi_j)
+</span> where <span class="math inline">\xi_j</span> is a point between <span class="math inline">x_j</span> and <span class="math inline">x_{j+1}</span>.</p>
+<p>It is assumed that we are starting at <span class="math inline">x_j</span> and trying to figure out how to make a step onto the next point, <span class="math inline">x_{j+1}</span>. Now, we know that <span class="math inline">y(x_j)</span> is the exact solution at the point <span class="math inline">x_j</span>, so it must satisfy our ODE <span class="math display">
+y'(x_j) = f(x_j, y(x_j)).
+</span> Using the above two equations, we have <span class="math display">
+f(x_j,y(x_j)) = \frac{y(x_{j+1})-y(x_j)}{h} - \frac{h}{2}y''(\xi_j),
+</span> which leads to <span class="math display">
+y(x_{j+1}) = y(x_j) + hf(x_j, y(x_j)) + \frac{h^2}{2}y''(\xi_j).
+</span></p>
+<p>It is now time to make an approximation. Assuming <span class="math inline">h</span> is small, the term proportional to <span class="math inline">h^2</span> will be less important, so we can drop it. This leads to the following prescription: <span class="math display">
+y_{j+1} = y_{j} + h f(x_j,y_j), \quad j = 0,1,\dots, n-2,\quad y_0 = c.
+</span> This is the <em>forward Euler method</em>. Note that this is an approximate formula, involving <span class="math inline">y_j</span> and <span class="math inline">y_{j+1}</span> instead of <span class="math inline">y(x_j)</span> and <span class="math inline">y(x_{j+1})</span>. As you have seen, higher-order terms in the Taylor expansion are ignored. We’ll see how to do (much) better later.</p>
+</section>
+<section id="backward-euler" class="level3">
+<h3 class="anchored" data-anchor-id="backward-euler">Backward Euler</h3>
+<p>Similarly, one can derive the <em>backward Euler method</em>: <span class="math display">
+y_{j+1} = y_j + hf(x_{j+1},y_{j+1}),\quad j = 0,1,\dots,n-2, \quad y_0 = c.
+</span></p>
+<p>Notice that at each step we have to solve for <span class="math inline">y_{j+1}</span>, which needs to be obtained by finding the root of <span class="math display">
+z = y_j + hf(x_{j+1},z).
+</span> Methods for which the evaluation of <span class="math inline">y_{j+1}</span> implicitly depends on <span class="math inline">y_{j+1}</span> itself are called <em>implicit</em>.</p>
+<p>Although backward Euler is more computationally costly, it is more <em>stable</em>. This happens to be a general feature: <em>implicit methods are often better from the perspective of stability</em>.</p>
+</section>
+<section id="error" class="level3">
+<h3 class="anchored" data-anchor-id="error">Error</h3>
+<p>The error in both Euler methods decrease linearly in <span class="math inline">h</span>.</p>
+</section>
+</section>
+<section id="second-order-rungekutta-methods" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="second-order-rungekutta-methods"><span class="header-section-number">2.2</span> Second-Order Runge–Kutta Methods</h2>
+<p>At a big-picture level, the Euler method (whether explicit or implicit) followed from truncating a Taylor expansion to very low order. Thus, a way to produce increasingly better methods would be to keep more terms in the Taylor expansion. Of course, higher-degree terms are associated with derivatives of higher order, which are generally difficult or expensive to compute.</p>
+<p>In this and the following section, we will investigate an alternative route: so-called <em>Runge–Kutta methods</em> employ function evaluations (i.e., not derivatives) at <span class="math inline">x_j</span> or <span class="math inline">x_{j+1}</span> (or at points in between), appropriately combined such that the prescription’s Taylor expansion matches the exact solution up to a given order. This may sound too abstract, so let’s explicitly carry out a derivation that will lead to a family of second-order methods.</p>
+<section id="derivation" class="level3">
+<h3 class="anchored" data-anchor-id="derivation">Derivation</h3>
+<p>Before considering the Runge–Kutta prescription (which will allow us to produce an approximate solution), let us examine the Taylor expansion of the exact solution. As advertised, we will explicitly evaluate higher-order terms this time. We have: <span id="eq-runge-kutta"><span class="math display">
+\begin{align}
+y(x_{j+1}) &amp;= y(x_j) + hy'(x_j) + \frac{h^2}{2}y''(x_j) + \frac{h^3}{6}y'''(x_j) + O(h^4) \nonumber \\
+&amp;= y(x_j) + hf(x_j,y(x_j)) + \frac{h^2}{2}f' + \frac{h^3}{6}f'' + O(h^4) \nonumber \\
+&amp;= y(x_j) + hf(x_j,y(x_j)) + \frac{h^2}{2}\left(\frac{\partial f}{\partial x} + f\frac{\partial f}{\partial y}\right)
++ \frac{h^3}{6}\left[\frac{\partial^2 f}{\partial x^2} + 2f\frac{\partial^2}{\partial x \partial y}+\frac{\partial f}{\partial x}\frac{\partial f }{\partial y}
++ f^2 \frac{\partial^2 f}{\partial y^2} + f\left(\frac{\partial f}{\partial y}\right)^2\right] + O(h^4).
+\end{align}
+\tag{1}</span></span></p>
+<p>We now turn to the <em>second-order Runge–Kutta</em> prescription; as its name implies, this will turn out to match <a href="#eq-runge-kutta">Equation&nbsp;1</a> up to order <span class="math inline">h^3</span>.</p>
+<p>Crucially, it will accomplish this without needing to evaluate any derivatives: <span id="eq-runge-kutta2"><span class="math display">
+y_{j+1} = y_j + c_0 h f(x_j, y_j) + c_1 hf\left(x_j + c_2 h, y_j + c_2h f(x_j, y_j)\right).
+\tag{2}</span></span></p>
+<p>The <span class="math inline">c_0</span>, <span class="math inline">c_1</span>, and <span class="math inline">c_2</span> will be determined below. This prescription requires two function evaluations in order to carry out a single step: it may look as if there are three function evaluations, but one of them is re-used.</p>
+<p>We expand <span class="math display">
+\begin{align*}
+f\left(x_j + c_2 h, y_j + c_2h f(x_j, y_j)\right) &amp;= f(x_j, y_j) + c_2 h\frac{\partial f}{\partial x} + c_2 h f(x_j, y_j) \frac{\partial f}{\partial y}
++ \frac{c_2^2 h^2}{2}\frac{\partial^2 f}{\partial x^2} \\
+&amp; + \frac{c_2^2 h^2}{2}2f(x_j,y_j) \frac{\partial^2 f}{\partial x \partial y}
++ \frac{c_2^2 h^2}{2}f^2(x_j,y_j) + O(h^3).
+\end{align*}
+</span> Now, we insert the above equation into <a href="#eq-runge-kutta2">Equation&nbsp;2</a>, we can obtain <span class="math display">
+\begin{align*}
+y_{j+1} &amp;= y_j + (c_0 + c_1)hf(x_j, y_j)
++ c_1 c_2 h^2\left[\frac{\partial f}{\partial x} + f(x_j, y_j)\frac{\partial f}{\partial y}\right]  \\
+&amp;+ \frac{c_1 c_2^2 h^3}{2}\left[\frac{\partial^2 f}{\partial x} + 2f(x_j,y_j)\frac{\partial^2 f}{\partial x \partial y} + f^2(x_j,y_j)\frac{\partial^2 f}{\partial y^2}\right] + O(h^4).
+\end{align*}
+</span></p>
+<p>Comparing this result with the expansion for the exact solution, <a href="#eq-runge-kutta">Equation&nbsp;1</a>, we realize that we can match the terms proportional to <span class="math inline">h</span> and to <span class="math inline">h^2</span> if we assume: <span id="eq-rk2-condition"><span class="math display">
+c_0 + c_1 = 1, \quad c_1 c_2 = \frac{1}{2}.
+\tag{3}</span></span></p>
+<p>Unfortunately, this does not help us with the term that is proportional to <span class="math inline">h^3</span>. We have agreement only up to order <span class="math inline">h^2</span>. The error of this Runge-Kutta method scales as <span class="math inline">O(h^2)</span>, that’s why the method is called <em>second-order Runge–Kutta</em>.</p>
+</section>
+<section id="explicit-midpoint-and-trapezoid-methods" class="level3">
+<h3 class="anchored" data-anchor-id="explicit-midpoint-and-trapezoid-methods">Explicit Midpoint and Trapezoid Methods</h3>
+<p>There is more than one way to satisfy <a href="#eq-rk2-condition">Equation&nbsp;3</a>. Here we examine two possible choices.</p>
+<p>First, we take <span class="math display">
+c_0 = 0, \quad c_1 = 1,  \quad c_2 = \frac{1}{2}.
+</span></p>
+<p>For this case, the prescription in <a href="#eq-runge-kutta2">Equation&nbsp;2</a> takes the form <span class="math display">
+y_{j+1} = y_j + hf\left(x_j + \frac{h}{2}, y_j + \frac{h}{2}f(x_j, y_j)\right).
+</span> Things may be more transparent if we break up the evaluations into two stages: <span class="math display">
+\begin{gather*}
+k_0 = hf(x_j, y_j) \\
+y_{j+1} = y_j + hf\left(x_j + \frac{h}{2}, y_j + \frac{k_0}{2}\right).
+\end{gather*}
+</span> This is an explicit method, as the terms on the right-hand side is known. This method is known as the <em>explicit midpoint method</em>, as it employs the midpoint between <span class="math inline">x_j</span> and <span class="math inline">x_{j+1}</span>.</p>
+<p>Second, we can take <span class="math display">
+c_0 = \frac{1}{2}, \quad c_1 = \frac{1}{2}, \quad c_2 = 1.
+</span> Inserting this into <a href="#eq-runge-kutta2">Equation&nbsp;2</a>, we have <span class="math display">
+y_{j+1} = y_j + \frac{h}{2}f(x_j, y_j) + \frac{h}{2}f\left(x_j+h, y_j+hf(x_j, y_j)\right).
+</span> We, once again, write it into two stages: <span class="math display">
+\begin{gather*}
+k_0 = hf(x_j, y_j) \\
+y_{j+1} = y_j + \frac{h}{2}\left[f(x_j, y_j) + f(x_{j+1}, y_j+k_0)\right].
+\end{gather*}
+</span> This is also an explicit method, known as the <em>explicit trapezoid method</em>.</p>
+</section>
+<section id="two-implicit-methods" class="level3">
+<h3 class="anchored" data-anchor-id="two-implicit-methods">Two implicit methods</h3>
+<p>We will also introduce two more (implicit) methods.</p>
+<p>The goal, as before, is to figure out how to make the step from <span class="math inline">x_j</span> to <span class="math inline">x_{j+1}</span>, i.e., how to produce <span class="math inline">y_{j+1}</span>. We have: <span id="eq-quadrature"><span class="math display">
+y(x_{j+1}) - y(x_j) = \int_{x_j}^{x_{j+1}} \frac{dy}{dx} dx = \int_{x_j}^{x_{j+1}} f(x,y(x))dx.
+\tag{4}</span></span></p>
+<p>You will then see that the different methods introduced earlier will now be seen to be a result of evaluating the integral in the last step of <a href="#eq-quadrature">Equation&nbsp;4</a> at varying levels of sophistication. Of course, it is important to note that the situation we are faced with here is not quite so clean: our <span class="math inline">f</span> depends on both <span class="math inline">x</span> and <span class="math inline">y</span> (which in its turn also depends on <span class="math inline">x</span>l).</p>
+<p>First, we approximate the integral using the left-hand rectangle rule and obtain <span class="math display">
+y_{j+1} = y_{j} + hf(x_j, y_j),
+</span> which is identical to the forward Euler method.</p>
+<p>You can verify yourself that if you apply the right-hand rectangle rule, you should obtain the implicit Euler method.</p>
+<p>Now, if we approximate the integral in <a href="#eq-quadrature">Equation&nbsp;4</a> using the midpoint rule, we simply get <span class="math display">
+y_{j+1} = y_j + hf\left(x_j+\frac{h}{2},y(x_j+\frac{h}{2})\right).
+</span> However, <span class="math inline">y(x_j + \frac{h}{2})</span> is off-grid. We don’t know the value of our dependent variable outside our grid points. Thus, we further approximate this off-grid value as the average of <span class="math inline">y_j</span> and <span class="math inline">y_{j+1}</span>, which leads to <span class="math display">
+y_{j+1} = y_j + hf\left(x_j + \frac{h}{2}, \frac{y_j + y_{j+1}}{2}\right).
+</span> This leads to an implicit method because it involves <span class="math inline">y_{j+1}</span> on both left-hand side and the right-hand side. It is known as the <em>implicit midpoint method</em>.</p>
+<p>We can also approximate the integral in <a href="#eq-quadrature">Equation&nbsp;4</a> using the trapzoid rule, which leads to <span class="math display">
+y_{j+1} = y_j + \frac{h}{2}\left[f(x_j, y_j) + f(x_{j+1}, y_{j+1})\right],
+</span> known as the <em>implicit trapezoid method</em>.</p>
+</section>
+</section>
+<section id="fourth-order-rungekutta-method" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="fourth-order-rungekutta-method"><span class="header-section-number">2.3</span> Fourth-Order Runge–Kutta Method</h2>
+<p>Up to this point, we’ve introduced six distinct methods: Euler, midpoint, and trapezoid, with each one appearing in an implicit or explicit version. Higher-order methods can be arrived at by applying higher-order quadrature rules. Alternatively, one can use the Taylor expansion technique in the derivation of the 2nd order Runge-Kutta method and matching terms order by order.</p>
+<p>Without providing a detailed (complicated but staightforward) derivation, the <em>fourth-order Runge-Kutta method</em> can be summarized in the following: <span class="math display">
+\begin{gather*}
+k_0 = hf(x_j, y_j) \\
+k_1 = hf(x_j + \frac{h}{2}, y_j + \frac{k_0}{2}) \\
+k_2 = hf(x_j + \frac{h}{2},y_j + \frac{k_1}{2}) \\
+k_3 = hf(x_j + h, y_j + k_2) \\
+y_{j+1} = y_j + \frac{1}{6}\left(k_0 + 2k_1 + 2k_2 + k_3\right).
+\end{gather*}
+</span></p>
+<p>This Ansatz is sufficiently widespread that it is also known as <em>classic Runge–Kutta</em> or <em>RK4</em> It requires four function evaluations in order to produce yj+1 starting from yj; the fact that it can accomplish this task tells us that this is an explicit method. This has an error <span class="math inline">O(h^4)</span></p>
+<p>In the following, we will examine two extreme cases for <span class="math inline">f(x,y)</span> to gain more insights of the RK4 method.</p>
+<ul>
+<li>The case where <span class="math inline">f</span> does not depend on <span class="math inline">y</span></li>
+<li>The case where <span class="math inline">f</span> does not depend on <span class="math inline">x</span> (an autonomous ODE).</li>
+</ul>
+<section id="first-case-quadrature" class="level3">
+<h3 class="anchored" data-anchor-id="first-case-quadrature">First Case: Quadrature</h3>
+<p>We first consider the case where <span class="math inline">f</span> depends only on our independent variable <span class="math inline">x</span>. We have <span class="math display">
+y(x_{j+1}) - y(x_j) = \int_{x_j}^{x_{j+1}} f(x) dx.
+</span> We now apply the Simpson’s rule to the integral, and obtain <span class="math display">
+y_{j+1} = y_j  + \frac{h}{6}\left[f(x_j) + 4f(x_j + \frac{h}{2}) + f(x_{j+1})\right].
+</span> This can be regarded as the RK4 prescription, because one can idenfity in the RK4 method <span class="math display">
+k_0 = hf(x_j),\quad k_1=k_2 = hf(x_j + \frac{h}{2}), \quad k_3 = hf(x_{j+1}).
+</span></p>
+</section>
+<section id="second-case-autonomous" class="level3">
+<h3 class="anchored" data-anchor-id="second-case-autonomous">Second Case: Autonomous</h3>
+<p>To be concrete, let us study the following ODE <span class="math display">
+y'(x) = \mu y(x),
+</span> namely <span class="math inline">f(x,y)= f(y) = \mu y(x)</span>. Note that this ODE can be solved analytically.</p>
+<p>We shall now compare the RK4 prescription with a Taylor expansion of the analytical solution.</p>
+<p>We start by explicitly applying the RK4 prescription <span class="math display">
+\begin{gather*}
+k_0 = \mu h y_j \\
+k_1 = \mu h (y_j + k_0/2)=\left[\mu h + \frac{(\mu h)^2}{2}\right] y_j \\
+k_2 = \mu h (y_j + k_1/2) =\left[\mu h + \frac{(\mu h)^2}{2} + \frac{(\mu h)^3}{4}\right] y_j \\
+k_4 = \mu h (y_j + k_2) = \left[\mu h + (\mu h)^2 \frac{(\mu h)^3}{2} + \frac{(\mu h)^4}{4}\right] y_j \\
+y_{j+1} = y_j + \frac{1}{6}(k_0 + 2k_1 + 2k_2 + k_3) = \left[1 + \mu h + \frac{(\mu h)^2}{2} + \frac{(\mu h)^3}{6} + \frac{(\mu h)^4}{24}\right]y_j
+\end{gather*}
+</span></p>
+<p>Now, we look at the analytical solution. For this ODE, the solution is <span class="math display">
+y(x) = ce^{\mu x},
+</span> with a undetermined constant <span class="math inline">c</span>.</p>
+<p>Thus, we have <span class="math display">
+\frac{y(x_{j+1})}{y(x_j)} = \frac{e^{\mu x_{j+1}}}{e^{\mu x_j}} = e^{\mu h} = 1 + \mu h + \frac{(\mu h)^2}{2} + \frac{(\mu h)^3}{6} + \frac{(\mu h)^4}{24}+ \frac{(\mu h)^5}{120} + O(h^6).
+</span></p>
+<p>Now, we can compare <span class="math inline">y_{j+1}/y_j</span> obtained from RK4 prescription and the analytical solution above, we see they agree up to order <span class="math inline">h^4</span>. This means locally the error is <span class="math inline">O(h^5)</span>, and it gives rise to an (global) error <span class="math inline">O(h^4)</span>.</p>
+</section>
+<section id="implementation" class="level3">
+<h3 class="anchored" data-anchor-id="implementation">Implementation</h3>
+<p>We will work on a concrete problem, the <em>Riccati equation</em> <span id="eq-riccati"><span class="math display">
+y'(x) = -\frac{30}{1-x^2} + \frac{2x}{1-x^2}y(x) - y^2(x), \quad y(0.05) = 19.53.
+\tag{5}</span></span> You see that the right hand side is nonlinear in <span class="math inline">y</span>.</p>
+<p>In the following, we implement numerical solutions based on forward Euler and RK4 methods. We also compare these numerical results to the analytical solution (obtained from <code>Mathematica</code> using its <code>DSolve[]</code>).</p>
+<div class="cell" data-execution_count="57">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x,y):</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span> (<span class="dv">30</span><span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>x<span class="op">**</span><span class="dv">2</span>)) <span class="op">+</span> ((<span class="dv">2</span><span class="op">*</span>x)<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>x<span class="op">**</span><span class="dv">2</span>))<span class="op">*</span>y <span class="op">-</span> y<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> y_analytical(x):</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">    The analytical expression is obtained from Mathematica using DSolve[]</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    yx <span class="op">=</span> (((<span class="fl">1.4591566243681633e6</span> <span class="op">+</span> x <span class="op">*</span> (<span class="fl">3.5873015873015874</span> <span class="op">+</span> x <span class="op">*</span> (<span class="op">-</span><span class="fl">2.1887349365522448e7</span> <span class="op">+</span> x <span class="op">*</span> (<span class="op">-</span><span class="fl">13.333333333333332</span> <span class="op">+</span> x <span class="op">*</span> (<span class="fl">5.107048185288571e7</span> <span class="op">+</span> (<span class="fl">10.</span> <span class="op">+</span> <span class="op">-</span><span class="fl">3.0642289111731425e7</span> <span class="op">*</span> x) <span class="op">*</span> x)))) <span class="op">+</span> (<span class="op">-</span><span class="fl">0.23809523809523808</span> <span class="op">+</span> <span class="fl">3.5714285714285716</span> <span class="op">*</span> (x <span class="op">**</span> <span class="dv">2</span>) <span class="op">+</span> <span class="op">-</span><span class="fl">8.333333333333334</span> <span class="op">*</span> (x <span class="op">**</span> <span class="dv">4</span>) <span class="op">+</span> <span class="fl">5.</span> <span class="op">*</span> (x <span class="op">**</span> <span class="dv">6</span>)) <span class="op">*</span> np.log(<span class="fl">1.</span> <span class="op">+</span> <span class="op">-</span><span class="fl">1.</span> <span class="op">*</span> x) <span class="op">+</span> (<span class="fl">0.23809523809523808</span> <span class="op">+</span> <span class="op">-</span><span class="fl">3.5714285714285716</span> <span class="op">*</span> (x <span class="op">**</span> <span class="dv">2</span>) <span class="op">+</span> <span class="fl">8.333333333333334</span> <span class="op">*</span> (x <span class="op">**</span> <span class="dv">4</span>) <span class="op">+</span> <span class="op">-</span><span class="fl">5.</span> <span class="op">*</span> (x <span class="op">**</span> <span class="dv">6</span>)) <span class="op">*</span> np.log(<span class="fl">1.</span> <span class="op">+</span> x)) <span class="op">/</span> (<span class="fl">0.13544973544973546</span> <span class="op">+</span> x <span class="op">*</span> (<span class="op">-</span><span class="fl">1.459156624368163e6</span> <span class="op">+</span> x <span class="op">*</span> (<span class="op">-</span><span class="fl">1.5555555555555556</span> <span class="op">+</span> x <span class="op">*</span> (<span class="fl">6.809397580384762e6</span> <span class="op">+</span> (<span class="fl">2.</span> <span class="op">+</span> <span class="op">-</span><span class="fl">6.128457822346285e6</span> <span class="op">*</span> x) <span class="op">*</span> x))) <span class="op">+</span> x <span class="op">*</span> (<span class="fl">0.23809523809523808</span> <span class="op">+</span> <span class="op">-</span><span class="fl">1.1111111111111112</span> <span class="op">*</span> (x <span class="op">**</span> <span class="dv">2</span>) <span class="op">+</span> x <span class="op">**</span> <span class="dv">4</span>) <span class="op">*</span> np.log(<span class="fl">1.</span> <span class="op">+</span> <span class="op">-</span><span class="fl">1.</span> <span class="op">*</span> x) <span class="op">+</span> x <span class="op">*</span> (<span class="op">-</span><span class="fl">0.23809523809523808</span> <span class="op">+</span> <span class="fl">1.1111111111111112</span> <span class="op">*</span> (x <span class="op">**</span> <span class="dv">2</span>) <span class="op">+</span> <span class="op">-</span><span class="fl">1.</span> <span class="op">*</span> (x <span class="op">**</span> <span class="dv">4</span>)) <span class="op">*</span> np.log(<span class="fl">1.</span> <span class="op">+</span> x))) <span class="op">/</span> (<span class="fl">1.</span> <span class="op">+</span> x)) <span class="op">/</span> (<span class="op">-</span><span class="fl">1.</span> <span class="op">+</span> x)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> yx</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> euler(f,a,b,n,yinit):</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    h <span class="op">=</span> (b<span class="op">-</span>a)<span class="op">/</span>(n<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.linspace(a,b,n)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    ys <span class="op">=</span> np.zeros(n)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> yinit</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j,x <span class="kw">in</span> <span class="bu">enumerate</span>(xs):</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        ys[j] <span class="op">=</span> y</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        y <span class="op">+=</span> h<span class="op">*</span>f(x, y)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xs, ys</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rk4(f,a,b,n,yinit):</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    h <span class="op">=</span> (b<span class="op">-</span>a)<span class="op">/</span>(n<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.linspace(a,b,n)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    ys <span class="op">=</span> np.zeros(n)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> yinit</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j,x <span class="kw">in</span> <span class="bu">enumerate</span>(xs):</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>        ys[j] <span class="op">=</span> y</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>        k0 <span class="op">=</span> h<span class="op">*</span>f(x, y)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>        k1 <span class="op">=</span> h<span class="op">*</span>f(x<span class="op">+</span>h<span class="op">/</span><span class="dv">2</span>, y<span class="op">+</span>k0<span class="op">/</span><span class="dv">2</span>)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        k2 <span class="op">=</span> h<span class="op">*</span>f(x<span class="op">+</span>h<span class="op">/</span><span class="dv">2</span>, y<span class="op">+</span>k1<span class="op">/</span><span class="dv">2</span>)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>        k3 <span class="op">=</span> h<span class="op">*</span>f(x<span class="op">+</span>h, y<span class="op">+</span>k2)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>        y <span class="op">+=</span> (k0 <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>k1 <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>k2 <span class="op">+</span> k3)<span class="op">/</span><span class="dv">6</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xs, ys</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    a, b, n, yinit <span class="op">=</span> <span class="fl">0.05</span>, <span class="fl">0.49</span>, <span class="dv">12</span>, <span class="fl">19.53</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    xs, ys_euler <span class="op">=</span> euler(f,a,b,n,yinit)</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    xs, ys_rk4 <span class="op">=</span> rk4(f,a,b,n,yinit)</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    x_ana <span class="op">=</span> np.linspace(a,b,<span class="dv">100</span>)</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>    y_ana <span class="op">=</span> y_analytical(x_ana)</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>    plt.plot(xs,ys_euler,<span class="st">'bo'</span>,label<span class="op">=</span><span class="st">'euler'</span>)</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    plt.plot(xs,ys_rk4,<span class="st">'gs'</span>,label<span class="op">=</span><span class="st">'rk4'</span>)</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>    plt.plot(x_ana,y_ana,<span class="st">'r--'</span>,label<span class="op">=</span><span class="st">'analytical'</span>)</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">'x'</span>)</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">'y(x)'</span>)</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="week14_files/figure-html/cell-2-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>The fourth-order Runge–Kutta method is fairly robust and should usually be your go-to solution.</p>
+</section>
+</section>
+<section id="simultaneous-differential-equations" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="simultaneous-differential-equations"><span class="header-section-number">2.4</span> Simultaneous Differential Equations</h2>
+<section id="two-equations" class="level3">
+<h3 class="anchored" data-anchor-id="two-equations">Two Equations</h3>
+<p>In physical problems, it is quite common that one has to solve two ordinary differential equations together: take the independent variable to be <span class="math inline">x</span> (as before) and the two dependent variables to be <span class="math inline">y_0(x)</span> and <span class="math inline">y_1(x)</span>; note that there is nothing discretized going on here: <span class="math inline">y_0(x)</span> and <span class="math inline">y_1(x)</span> are functions of <span class="math inline">x</span> which we must solve for. In the general case, the two ODEs we need to solve are: <span class="math display">
+\begin{gather*}
+y'_0(x) = f_0(x, y_0(x), y_1(x))
+y'_1(x) = f_1(x, y_0(x), y_1(x))
+y_0(a) = c_0, y_1(a) = c_1.
+\end{gather*}
+</span></p>
+<p>Crucially, the prototypical problem of a (single) second-order IVP, <span class="math display">
+w''(x) = f(x, w, w'),\quad w(a) = c, \quad w'(a) = d
+</span> can be re-cast as a set of two simultaneous first-order ODEs. To see that, examine the following two definitions: <span class="math display">
+\begin{gather*}
+y_0(x)  = w(x) \\
+y_1(x) = w'(x) = y_0'(x).
+\end{gather*}
+</span></p>
+<p>We can now combine these two equations to get <span class="math display">
+\begin{gather*}
+y_0'(x) = y_1(x) \\
+y_1'(x) = f(x, y_0(x), y_1(x)) \\
+y_0(a) = c, \quad y_1(a) = d.
+\end{gather*}
+</span></p>
+<p>Thus, we have validated our earlier claim that second-order equations can be seen as simultaneous first-order ones.</p>
+</section>
+<section id="general-case" class="level3">
+<h3 class="anchored" data-anchor-id="general-case">General Case</h3>
+<p>In general, the problem is to solve <span class="math inline">v</span> coupled 1st order ODEs (or a single <span class="math inline">v</span>th order ODE). Specifically, <span class="math display">
+\begin{gather*}
+y_i'(x) = f_i(x, y_0(x), y_1(x), \dots, y_{v-1}(x)) \\
+y_i(a) = c_i, \quad i = 0,1,\dots,v-1.
+\end{gather*}
+</span></p>
+<p>We can use the vector notation to rewrite the above equations as <span class="math display">
+\begin{gather*}
+\boldsymbol{y}'(x) = \boldsymbol{f}(x,\boldsymbol{y}(x)) \\
+\boldsymbol{y}(a) =  \boldsymbol{c}.
+\end{gather*}
+</span></p>
+<p>After with our vector notation, we are now in a position to start discretizing. The forward Euler method now becomes <span class="math display">
+\begin{gather*}
+\boldsymbol{y}_{j+1} = \boldsymbol{y}_j + h\boldsymbol{f}(x_j,\boldsymbol{y}_j), \quad j = 0,1,\dots,n-2 \\
+\boldsymbol{y}_0 =  \boldsymbol{c}.
+\end{gather*}
+</span></p>
+<p>The RK4 prescription turns into <span class="math display">
+\begin{gather*}
+\boldsymbol{k}_0 = h\boldsymbol{f}(x_j, \boldsymbol{y}_j) \\
+\boldsymbol{k}_1 = h\boldsymbol{f}(x_j + \frac{h}{2}, \boldsymbol{y}_j + \frac{\boldsymbol{k}_0}{2}) \\
+\boldsymbol{k}_2 = h\boldsymbol{f}(x_j + \frac{h}{2},\boldsymbol{y}_j + \frac{\boldsymbol{k}_1}{2}) \\
+\boldsymbol{k}_3 = h\boldsymbol{f}(x_j + h, \boldsymbol{y}_j + \boldsymbol{k}_2) \\
+\boldsymbol{y}_{j+1} = \boldsymbol{y}_j + \frac{1}{6}\left(\boldsymbol{k}_0 + 2\boldsymbol{k}_1 + 2\boldsymbol{k}_2 + \boldsymbol{k}_3\right).
+\end{gather*}
+</span></p>
+</section>
+<section id="implementation-1" class="level3">
+<h3 class="anchored" data-anchor-id="implementation-1">Implementation</h3>
+<p>The Riccati equation you saw previously can be recast if one makes the following Riccati transformation: <span class="math inline">y(x) = w'(x)/w(x)</span>, where <span class="math inline">w(x)</span> is a new function. Using this transformation, <a href="#eq-riccati">Equation&nbsp;5</a> turns into <span class="math display">
+\begin{gather*}
+w''(x) = -\frac{30}{1-x^2}w(x) + \frac{2x}{1-x^2}w'(x) \\
+y(0.05) = w'(0.05)/w(0.05) =19.53.
+\end{gather*}
+</span></p>
+<p>Note that in the transformed ODE for <span class="math inline">w(x)</span>, the initial condition is <span class="math inline">w'(0.05)/w(0.05) = 19.53</span>, namely we the values for <span class="math inline">w(0.05)</span> can be chosen arbitrarily. For example, we can simply take <span class="math inline">w(0.05) = 1</span>, then <span class="math inline">w'(0.05) = 19.53</span>.</p>
+<p>We can rewrite the above 2nd order ODE as two coupled 1st order ODEs: <span class="math display">
+\begin{gather*}
+y_0'(x) = y_1(x) \\
+y_1'(x) = -\frac{30}{1-x^2} y_0(x) + \frac{2x}{1-x^2}y_1(x) \\
+y_0(0.05) = 1, \quad y_1(0.05) = 19.53.
+\end{gather*}
+</span></p>
+<p>After solving this differential equation, the solution will be denoted as <span class="math inline">y_0(x), y_1(x)</span>. Then the solution to the original Riccati equation will be obtained as <span class="math display">
+y(x) = y_1(x)/y_0(x).
+</span></p>
+<p>See the following code.</p>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fs(x,yvals):</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    y0, y1 <span class="op">=</span> yvals</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    f0 <span class="op">=</span> y1</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    f1 <span class="op">=</span> <span class="op">-</span> (<span class="dv">30</span><span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>x<span class="op">**</span><span class="dv">2</span>))<span class="op">*</span>y0 <span class="op">+</span> ((<span class="dv">2</span><span class="op">*</span>x)<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>x<span class="op">**</span><span class="dv">2</span>))<span class="op">*</span>y1 </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array([f0, f1])</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rk4_gen(fs,a,b,n,yinits):</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    h <span class="op">=</span> (b<span class="op">-</span>a)<span class="op">/</span>(n<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.linspace(a,b,n)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    ys <span class="op">=</span> np.zeros((n, yinits.size))</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    yvals <span class="op">=</span> np.copy(yinits)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j,x <span class="kw">in</span> <span class="bu">enumerate</span>(xs):</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        ys[j,:] <span class="op">=</span> yvals</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        k0 <span class="op">=</span> h<span class="op">*</span>fs(x, yvals)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        k1 <span class="op">=</span> h<span class="op">*</span>fs(x<span class="op">+</span>h<span class="op">/</span><span class="dv">2</span>, yvals<span class="op">+</span>k0<span class="op">/</span><span class="dv">2</span>)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        k2 <span class="op">=</span> h<span class="op">*</span>fs(x<span class="op">+</span>h<span class="op">/</span><span class="dv">2</span>, yvals<span class="op">+</span>k1<span class="op">/</span><span class="dv">2</span>)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        k3 <span class="op">=</span> h<span class="op">*</span>fs(x<span class="op">+</span>h, yvals<span class="op">+</span>k2)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        yvals <span class="op">+=</span> (k0 <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>k1 <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>k2 <span class="op">+</span> k3)<span class="op">/</span><span class="dv">6</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xs, ys</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    a, b, n <span class="op">=</span> <span class="fl">0.05</span>, <span class="fl">0.49</span>, <span class="dv">12</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    w_init <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    w_init_random <span class="op">=</span> np.random.uniform(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    yinits <span class="op">=</span> np.array([w_init, <span class="fl">19.53</span><span class="op">*</span>w_init])</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    yinits_random <span class="op">=</span> np.array([w_init_random,<span class="fl">19.53</span><span class="op">*</span>w_init_random])</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    xs, ys <span class="op">=</span> rk4_gen(fs,a,b,n,yinits)</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    xs, ys_random <span class="op">=</span> rk4_gen(fs,a,b,n,yinits_random) </span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    plt.plot(xs,ys[:,<span class="dv">1</span>]<span class="op">/</span>ys[:,<span class="dv">0</span>],<span class="st">'bo'</span>,label<span class="op">=</span><span class="st">'w(0.05)=1'</span>)</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    plt.plot(xs,ys_random[:,<span class="dv">1</span>]<span class="op">/</span>ys_random[:,<span class="dv">0</span>],<span class="st">'rx'</span>,label<span class="op">=</span><span class="st">'w(0.05)=random'</span>)</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">'x'</span>)</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">'y'</span>)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print(ys)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="week14_files/figure-html/cell-3-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -362,8 +362,8 @@ w_{i+1} = \int_{x_i}^{x_{i+1}} L_{i+1}(x) dx = \frac{1}{h}\int_{x_i}^{x_{i+1}}(x
 <p>We are dealing with three points <span class="math inline">(x_i, f(x_i))</span>, <span class="math inline">(x_{i+1}, f(x_{i+1}))</span>, and <span class="math inline">(x_{i+2}, f(x_{i+2}))</span>, and three cardinal polynomials <span class="math display">
 \begin{gather*}
 L_i(x) = \frac{(x - x_{i+1})(x - x_{i+2})}{(x_i - x_{i+1})(x_{i} - x_{i+2})} \\
-L_{i+1}(x) = \frac{(x - x_{i})(x - x_{i+2})}{(x_i - x_{i})(x_{i} - x_{i+2})} \\
-L_{i+2}(x) = \frac{(x - x_{i})(x - x_{i+1})}{(x_i - x_{i})(x_{i} - x_{i+1})}.
+L_{i+1}(x) = \frac{(x - x_{i})(x - x_{i+2})}{(x_{i+1} - x_{i})(x_{i+1} - x_{i+2})} \\
+L_{i+2}(x) = \frac{(x - x_{i})(x - x_{i+1})}{(x_{i+2} - x_{i})(x_{i+2} - x_{i+1})}.
 \end{gather*}
 </span> Each of these is a quadratic polynomial. We would now like to compute the three elementary weights, which requires integration from <span class="math inline">x_i</span> to <span class="math inline">x_{i+2}</span>. It can be shown that (left as homework) <span class="math display">
 \begin{gather*}
