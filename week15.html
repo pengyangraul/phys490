@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.256">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Differential Equations II</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="week15_files/libs/clipboard/clipboard.min.js"></script>
+<script src="week15_files/libs/quarto-html/quarto.js"></script>
+<script src="week15_files/libs/quarto-html/popper.min.js"></script>
+<script src="week15_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="week15_files/libs/quarto-html/anchor.min.js"></script>
+<link href="week15_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="week15_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="week15_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="week15_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="week15_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#boundary-value-problems" id="toc-boundary-value-problems" class="nav-link active" data-scroll-target="#boundary-value-problems"><span class="toc-section-number">1</span>  Boundary-Value Problems</a>
+  <ul class="collapse">
+  <li><a href="#shooting-method" id="toc-shooting-method" class="nav-link" data-scroll-target="#shooting-method"><span class="toc-section-number">1.1</span>  Shooting Method</a>
+  <ul class="collapse">
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">Implementation</a></li>
+  </ul></li>
+  <li><a href="#matrix-approach" id="toc-matrix-approach" class="nav-link" data-scroll-target="#matrix-approach"><span class="toc-section-number">1.2</span>  Matrix Approach</a>
+  <ul class="collapse">
+  <li><a href="#matrix-method-applied-to-our-equation" id="toc-matrix-method-applied-to-our-equation" class="nav-link" data-scroll-target="#matrix-method-applied-to-our-equation">Matrix Method Applied to Our Equation</a></li>
+  <li><a href="#implementation-1" id="toc-implementation-1" class="nav-link" data-scroll-target="#implementation-1">Implementation</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#eigenvalue-problems" id="toc-eigenvalue-problems" class="nav-link" data-scroll-target="#eigenvalue-problems"><span class="toc-section-number">2</span>  Eigenvalue Problems</a>
+  <ul class="collapse">
+  <li><a href="#shooting-method-1" id="toc-shooting-method-1" class="nav-link" data-scroll-target="#shooting-method-1"><span class="toc-section-number">2.1</span>  Shooting method</a>
+  <ul class="collapse">
+  <li><a href="#implementation-2" id="toc-implementation-2" class="nav-link" data-scroll-target="#implementation-2">Implementation</a></li>
+  </ul></li>
+  <li><a href="#matrix-approach-1" id="toc-matrix-approach-1" class="nav-link" data-scroll-target="#matrix-approach-1"><span class="toc-section-number">2.2</span>  Matrix Approach</a>
+  <ul class="collapse">
+  <li><a href="#implementation-3" id="toc-implementation-3" class="nav-link" data-scroll-target="#implementation-3">Implementation</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Differential Equations II</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="boundary-value-problems" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Boundary-Value Problems</h1>
+<p>Our prototypical <em>boundary-value problem (BVP)</em> will be a second-order ODE: <span class="math display">
+w''(x) = f(x,w,w'),\quad w(a) = c, \quad w(b) = d.
+</span> Since <span class="math inline">w'(a)</span> is not given, this is not an initial value problem. Here, the function value at the other end <span class="math inline">w(b)</span> is given. This is known as the <em>Dirichlet boundary condition</em>. On the other hand, if <span class="math inline">w'(b)</span> is given instead, then we have the <em>Neumann boundary condition</em>.</p>
+<p>Below, we will discuss two general approaches to solving this BVP: (a) treat it as a more complicated version of an initial-value problem, or (b) use the fact that we know two boundary conditions and set up a method accordingly. We discuss these two approaches in turn.</p>
+<section id="shooting-method" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="shooting-method"><span class="header-section-number">1.1</span> Shooting Method</h2>
+<p>In the BVP, we don’t have the value <span class="math inline">w'(a)</span>. But what if we simply guess the value <span class="math inline">w'(a)</span>, and try to integrate it from <span class="math inline">a</span> to <span class="math inline">b</span>?</p>
+<div id="fig-shooting" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="week15_files/1.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: Illustration of the shooting method for a boundary-value problem</figcaption><p></p>
+</figure>
+</div>
+<p>Obviously, a random guess is extremely unlikely to be able to satisfy the boundary condition <span class="math inline">w(b)</span>; that’s OK, though, because we can try again. In the example of this figure, it’s easy to see that the value for <span class="math inline">w(a)</span> we first chose was too small; we can simply adjust that to be larger and try again. The second attempt doesn’t satisfy the boundary condition <span class="math inline">w(b)</span> either; we can keep playing this game, though. This time, we reduce the value of <span class="math inline">w(a)</span> and try again. Eventually, this process will lead to a value of <span class="math inline">w(a)</span> that is “just right”, allowing us to go through the point <span class="math inline">w(b)</span>, as desired. (The figure shows the, highly optimistic, scenario where it only took us three tries to get there.) This iterative procedure is obviously analogous to aiming at a target and, as a result, is known as the shooting method.</p>
+<p>Let us try to recast the above prescription in a more systematic way. Our input is <span class="math inline">w(a) = c</span> and <span class="math inline">w(b) = d</span>. In the language of our discretization scheme(s), these input conditions can be expressed as <span class="math inline">w_0 = c</span> and <span class="math inline">w_{n−1} = d</span>. What we do not know is <span class="math inline">w'(a)</span>, but let’s assume that its (unknown) value is <span class="math inline">\sigma</span>, i.e.&nbsp;<span class="math inline">w'(a)=\sigma</span>. You can take <span class="math inline">c</span> and <span class="math inline">\sigma</span>, plug them into a numerical integrator like you learned in the previous lecture, and determine the corresponding <span class="math inline">w_{n-1}</span> value that comes out. In other words, a method like RK4 for this problem transforms the input guess <span class="math inline">\sigma</span> into a specific output at the right endpoint, <span class="math inline">w_{n−1}</span>; mathematical we can say that our integration method is a function that takes us from <span class="math inline">\sigma</span> to <span class="math inline">w_{n−1}</span>, i.e., <span class="math inline">g(\sigma) = w_{n−1}</span>, where <span class="math inline">g</span> is a new function describing the effect of solving our ODE with a given <span class="math inline">\sigma</span>, from <span class="math inline">a</span> to <span class="math inline">b</span>. In this language, since our goal is that <span class="math inline">w_{n−1} = d</span>, we can demand that: <span class="math display">
+g(\sigma) = d.
+</span></p>
+<p>To reiterate, <span class="math inline">g</span> is not an analytically known function (like <span class="math inline">f</span>); instead, it is the result of carrying out a full initial-value problem solution from <span class="math inline">a</span> to <span class="math inline">b</span>. Then, what we are faced is a root-finding problem. The function <span class="math inline">g</span> may be linear or nonlinear, but this is irrelevant, since we know already how to solve a general algebraic equation; as a matter of fact, <span class="math inline">f</span> itself may be linear or nonlinear, but this doesn’t really change how the shooting method works. To summarize, the shooting method combines initial-value solvers like forward Euler with iterative solvers like Newton’s method: for each guess of <span class="math inline">\sigma</span> an IVP needs to be solved. This confirms our earlier claim that boundary-value problems are more complicated to solve than initial-value problems.</p>
+<section id="implementation" class="level3">
+<h3 class="anchored" data-anchor-id="implementation">Implementation</h3>
+<p>A code implementing the shooting method will fuse two elements: a numerical integrator and a root-finder. As already mentioned, this is a general feature, regardless of whether or not the ODE we are faced with is linear. For the sake of concreteness, we will here tackle the Legendre differential equation (again) that, in its latest incarnation, was used to illustrate the solution of two simultaneous differential equations. This time around, instead of providing <span class="math inline">w(a)</span> and <span class="math inline">w'(a)</span> like before, our input will be <span class="math inline">w(a)</span> and <span class="math inline">w(b)</span>: <span class="math display">
+\begin{gather*}
+w''(x) = -\frac{30}{1-x^2}w(x) + \frac{2x}{1-x^2}w'(x)\\
+w(0.05) = 1,\quad w(0.49) = 1.2063.
+\end{gather*}
+</span></p>
+<p>Note that we define a new function, <code>shoot()</code>, which plays the role <span class="math inline">g(\sigma)-d</span>. <code>shoot()</code> takes an input of <span class="math inline">w'(a)</span>, and returns <code>ws[-1,0] - wfinal</code>, where <code>ws[-1,0]</code> is actually <span class="math inline">w(b)</span> computed from the input <span class="math inline">w'(a)</span>, and <code>wfinal</code> is the desired <span class="math inline">w(b)</span>.</p>
+<p>We use the <code>secant()</code> function to find the root of <code>shoot()</code>. This would produce the solution to the BVP.</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> shoot(sig):</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    a, b, n <span class="op">=</span> <span class="fl">0.05</span>, <span class="fl">0.49</span>, <span class="dv">100</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    yinits <span class="op">=</span> np.array([<span class="fl">1.</span>, sig])</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    xs, ws <span class="op">=</span> rk4_gen(fs,a,b,n,yinits)  </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    wfinal <span class="op">=</span> <span class="fl">1.2063</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ws[<span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>] <span class="op">-</span> wfinal</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fs(x,yvals):</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    y0, y1 <span class="op">=</span> yvals</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    f0 <span class="op">=</span> y1</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    f1 <span class="op">=</span> <span class="op">-</span> (<span class="dv">30</span><span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>x<span class="op">**</span><span class="dv">2</span>))<span class="op">*</span>y0 <span class="op">+</span> ((<span class="dv">2</span><span class="op">*</span>x)<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>x<span class="op">**</span><span class="dv">2</span>))<span class="op">*</span>y1 </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array([f0, f1])</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rk4_gen(fs,a,b,n,yinits):</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    h <span class="op">=</span> (b<span class="op">-</span>a)<span class="op">/</span>(n<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> a <span class="op">+</span> np.arange(n)<span class="op">*</span>h</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    ys <span class="op">=</span> np.zeros((n, yinits.size))</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    yvals <span class="op">=</span> np.copy(yinits)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j,x <span class="kw">in</span> <span class="bu">enumerate</span>(xs):</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        ys[j,:] <span class="op">=</span> yvals</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        k0 <span class="op">=</span> h<span class="op">*</span>fs(x, yvals)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        k1 <span class="op">=</span> h<span class="op">*</span>fs(x<span class="op">+</span>h<span class="op">/</span><span class="dv">2</span>, yvals<span class="op">+</span>k0<span class="op">/</span><span class="dv">2</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        k2 <span class="op">=</span> h<span class="op">*</span>fs(x<span class="op">+</span>h<span class="op">/</span><span class="dv">2</span>, yvals<span class="op">+</span>k1<span class="op">/</span><span class="dv">2</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        k3 <span class="op">=</span> h<span class="op">*</span>fs(x<span class="op">+</span>h, yvals<span class="op">+</span>k2)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>        yvals <span class="op">+=</span> (k0 <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>k1 <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>k2 <span class="op">+</span> k3)<span class="op">/</span><span class="dv">6</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xs, ys</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> secant(f,x0,x1,kmax<span class="op">=</span><span class="dv">200</span>,tol<span class="op">=</span><span class="fl">1.e-8</span>):</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    f0 <span class="op">=</span> f(x0)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,kmax):</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>        f1 <span class="op">=</span> f(x1)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        ratio <span class="op">=</span> (x1 <span class="op">-</span> x0)<span class="op">/</span>(f1 <span class="op">-</span> f0)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>        x2 <span class="op">=</span> x1 <span class="op">-</span> f1<span class="op">*</span>ratio</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>        xdiff <span class="op">=</span> <span class="bu">abs</span>(x2<span class="op">-</span>x1)</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>        x0, x1 <span class="op">=</span> x1, x2</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>        f0 <span class="op">=</span> f1</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>        <span class="co"># rowf = "{0:2d} {1:1.16f} {2:1.16f} {3:1.16f}"</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>        <span class="co"># print(rowf.format(k,x2,xdiff,abs(f(x2))))</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">abs</span>(xdiff<span class="op">/</span>x2) <span class="op">&lt;</span> tol:</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>        x2 <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x2</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    wder <span class="op">=</span> secant(shoot,<span class="fl">0.</span>,<span class="fl">1.</span>) </span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>    <span class="co"># return the w'(a) that leads to the desired w(b).</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(wder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>19.530332700481605</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="matrix-approach" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="matrix-approach"><span class="header-section-number">1.2</span> Matrix Approach</h2>
+<p>The previous shooting method combines an IVP solver and a root-finder. We now turn to an alternative approach, which tackles our second-order ODE directly.</p>
+<p>To be explicit, we first repeat our problem <span class="math display">
+w'' = f(x,w,w'), \quad w(a) = c, \quad w(b) = d.
+</span> We now reach for the central-difference approximation to the first and second derivatives, for points on a grid. Then the above problem becomes <span class="math display">
+\begin{gather*}
+\frac{w_{j-1} - 2w_j + w_{j+1}}{h^2} = f\left(x_j, w_j, \frac{w_{j+1}-w_{j-1}}{2h}\right), \quad j = 1,2,\dots, n-2 \\
+c_0 = c, \quad w_{n-1} = d
+\end{gather*}
+</span></p>
+<p>Note that this set of equations involves only the <span class="math inline">w_j</span>, i.e., there are no derivatives left. Posing and solving these equations is a process that is completely different from what we were doing for IVPs above: we <em>cannot</em> start at the left endpoint and work our way to the right one; instead, we need to solve for <em>all</em> of these <span class="math inline">w_j</span> values at the same time. Another way of putting the same fact: <span class="math inline">w_{j-1}</span>, <span class="math inline">w_j</span> and <span class="math inline">w_{j+1}</span> appear on both the left-hand side and the right-hand side.</p>
+<p>The approach is known as the <em>finite-difference</em> method in literature. In order to avoid any confusion, and so as to emphasize its difference from the shooting method, we here keep things general and call it the <em>matrix approach</em> to BVPs.</p>
+<p>Observe that we haven’t said much about <span class="math inline">f</span> so far: if this is linear (as in our example below), then we get linear system of equations (with a single solution). We have learned how to solve this type of problems.</p>
+<p>If, on the other hand, <span class="math inline">f</span> is nonlinear, then we would be faced with a system of nonlinear equations which is a difficult problem.</p>
+<section id="matrix-method-applied-to-our-equation" class="level3">
+<h3 class="anchored" data-anchor-id="matrix-method-applied-to-our-equation">Matrix Method Applied to Our Equation</h3>
+<p>Let us consider our concrete problem <span class="math display">
+f(x,w,w') = -\frac{30}{1-x^2}w(x) + \frac{2x}{1-x^2}w'(x).
+</span> Using the matrix approach, we have <span class="math display">
+w_{j-1}-2w_j+w_{j+1} = -h^2\frac{30}{1-x_j^2} w_j + \frac{h x_j}{1-x_j^2}(w_{j+1} - w_{j-1}), \quad j = 1,2,\dots, n-2,
+</span> with boundary conditions <span class="math inline">w_0 = 1</span>, <span class="math inline">w_1 = 1.2063</span>.</p>
+<p>If we group terms appropriately, we can re-express this problem as: <span class="math display">
+\begin{gather*}
+w_0 = 1, \\
+\alpha_j w_{j-1} + \beta_j w_j + \gamma_j w_{j+1} = 0,\quad j = 1,2,\dots, n-2\\
+w_{n-1} = 1.2063
+\end{gather*}
+</span> where we’ve defined <span class="math display">
+\alpha_j = 1 + \frac{hx_j}{1-x_j^2},\quad \beta_j = -2 + \frac{30 h^2}{1-x_j^2}, \quad \gamma_j = 1 - \frac{hx_j}{1-x_j^2}.
+</span> Now, we have the matrix equation <span class="math display">
+\left(\begin{array}{ccccccc}
+1 &amp; 0 &amp; 0 &amp; \dots &amp; 0 &amp; 0 &amp; 0\\
+\alpha_{1} &amp; \beta_{1} &amp; \gamma_{1} &amp; \dots &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; \alpha_{2} &amp; \beta_{2} &amp; \dots &amp; 0 &amp; 0 &amp; 0\\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \vdots\\
+0 &amp; 0 &amp; 0 &amp; \dots &amp; \beta_{n-3} &amp; \gamma_{n-3} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; \dots &amp; \alpha_{n-2} &amp; \beta_{n-2} &amp; \gamma_{n-2}\\
+0 &amp; 0 &amp; 0 &amp; \dots &amp; 0 &amp; 0 &amp; 1
+\end{array}\right)\left(\begin{array}{c}
+w_{0}\\
+w_{1}\\
+w_{2}\\
+\vdots\\
+w_{n-3}\\
+w_{n-2}\\
+w_{n-1}
+\end{array}\right)=\left(\begin{array}{c}
+1\\
+0\\
+0\\
+0\\
+0\\
+0\\
+1.2063
+\end{array}\right),
+</span> which is of the form <span class="math inline">\boldsymbol{A}\boldsymbol{x}= \boldsymbol{b}</span>. The <span class="math inline">n</span> quantities <span class="math inline">w_j</span> are unknown and everything else in this equation is already known.</p>
+</section>
+<section id="implementation-1" class="level3">
+<h3 class="anchored" data-anchor-id="implementation-1">Implementation</h3>
+<p>The finite difference, or matrix-approach method is implemented in the following.</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> matsetup(a,b,n):</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    h <span class="op">=</span> (b<span class="op">-</span>a)<span class="op">/</span>(n<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> a <span class="op">+</span> np.arange(n)<span class="op">*</span>h</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.zeros((n,n))</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    np.fill_diagonal(A, <span class="op">-</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">30</span><span class="op">*</span>h<span class="op">**</span><span class="dv">2</span><span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>xs<span class="op">**</span><span class="dv">2</span>))</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    A[<span class="dv">0</span>,<span class="dv">0</span>] <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> A[<span class="op">-</span><span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    np.fill_diagonal(A[<span class="dv">1</span>:,:], <span class="dv">1</span> <span class="op">+</span> h<span class="op">*</span>xs[<span class="dv">1</span>:]<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>xs[<span class="dv">1</span>:]<span class="op">**</span><span class="dv">2</span>))   </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    A[<span class="op">-</span><span class="dv">1</span>,<span class="op">-</span><span class="dv">2</span>] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    np.fill_diagonal(A[:,<span class="dv">1</span>:], <span class="dv">1</span> <span class="op">-</span> h<span class="op">*</span>xs<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>xs<span class="op">**</span><span class="dv">2</span>))</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    A[<span class="dv">0</span>,<span class="dv">1</span>] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    bs <span class="op">=</span> np.zeros(n)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    bs[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    bs[<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> <span class="fl">1.2063</span> </span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> A, bs</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> riccati(a,b,n):</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    A, bs <span class="op">=</span> matsetup(a, b, n)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    ws <span class="op">=</span> gauelim_pivot(A, bs)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ws</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gauelim_pivot(inA,inbs):</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.copy(inA)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    bs <span class="op">=</span> np.copy(inbs)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> bs.size</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n<span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>        k <span class="op">=</span> np.argmax(np.<span class="bu">abs</span>(A[j:,j])) <span class="op">+</span> j</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> k <span class="op">!=</span> j:</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>            A[j,:], A[k,:] <span class="op">=</span> A[k,:], A[j,:].copy()</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>            bs[j], bs[k] <span class="op">=</span> bs[k], bs[j]</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(j<span class="op">+</span><span class="dv">1</span>,n):</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>            coeff <span class="op">=</span> A[i,j]<span class="op">/</span>A[j,j]</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>            A[i,j:] <span class="op">-=</span> coeff<span class="op">*</span>A[j,j:]</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>            bs[i] <span class="op">-=</span> coeff<span class="op">*</span>bs[j]</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> backsub(A,bs)</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xs</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> backsub(U,bs):</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> bs.size</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.zeros(n)</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">reversed</span>(<span class="bu">range</span>(n)):</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>        xs[i] <span class="op">=</span> (bs[i] <span class="op">-</span> U[i,i<span class="op">+</span><span class="dv">1</span>:]<span class="op">@</span>xs[i<span class="op">+</span><span class="dv">1</span>:])<span class="op">/</span>U[i,i]</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xs</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>    a, b, n <span class="op">=</span> <span class="fl">0.05</span>, <span class="fl">0.49</span>, <span class="dv">400</span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.linspace(a,b,n)</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>    ws <span class="op">=</span> riccati(a, b, n)<span class="op">;</span> <span class="bu">print</span>(ws)</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>    plt.plot(xs,ws)</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">'x'</span>)</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">'w(x)'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1.         1.02152014 1.04300535 1.06445488 1.08586799 1.10724395
+ 1.12858201 1.14988143 1.17114148 1.19236143 1.21354052 1.23467804
+ 1.25577325 1.2768254  1.29783378 1.31879765 1.33971628 1.36058895
+ 1.38141491 1.40219345 1.42292384 1.44360536 1.46423728 1.48481888
+ 1.50534943 1.52582822 1.54625453 1.56662764 1.58694684 1.60721139
+ 1.62742061 1.64757376 1.66767013 1.68770903 1.70768973 1.72761153
+ 1.74747372 1.7672756  1.78701646 1.8066956  1.82631232 1.84586591
+ 1.86535569 1.88478095 1.904141   1.92343513 1.94266267 1.96182292
+ 1.98091518 1.99993878 2.01889302 2.03777722 2.0565907  2.07533277
+ 2.09400275 2.11259997 2.13112375 2.14957341 2.16794828 2.18624768
+ 2.20447095 2.22261743 2.24068643 2.2586773  2.27658938 2.29442199
+ 2.3121745  2.32984622 2.34743652 2.36494473 2.38237021 2.3997123
+ 2.41697035 2.43414372 2.45123177 2.46823385 2.48514932 2.50197755
+ 2.51871789 2.53536972 2.55193239 2.56840529 2.58478777 2.60107923
+ 2.61727902 2.63338654 2.64940115 2.66532225 2.68114922 2.69688144
+ 2.71251831 2.72805921 2.74350354 2.75885069 2.77410007 2.78925107
+ 2.80430309 2.81925555 2.83410785 2.84885939 2.86350959 2.87805788
+ 2.89250365 2.90684633 2.92108535 2.93522013 2.94925009 2.96317467
+ 2.97699329 2.99070539 3.00431041 3.01780779 3.03119697 3.04447739
+ 3.0576485  3.07070976 3.0836606  3.0965005  3.10922891 3.12184528
+ 3.13434908 3.14673979 3.15901685 3.17117976 3.18322798 3.19516099
+ 3.20697827 3.2186793  3.23026357 3.24173056 3.25307978 3.26431071
+ 3.27542284 3.28641569 3.29728875 3.30804153 3.31867354 3.32918429
+ 3.3395733  3.34984008 3.35998416 3.37000505 3.3799023  3.38967542
+ 3.39932395 3.40884743 3.41824539 3.42751739 3.43666297 3.44568167
+ 3.45457305 3.46333666 3.47197207 3.48047884 3.48885653 3.4971047
+ 3.50522295 3.51321083 3.52106792 3.52879382 3.53638811 3.54385037
+ 3.55118019 3.55837718 3.56544094 3.57237106 3.57916715 3.58582882
+ 3.59235569 3.59874737 3.60500348 3.61112365 3.6171075  3.62295467
+ 3.62866479 3.63423749 3.63967243 3.64496925 3.65012759 3.65514711
+ 3.66002746 3.66476831 3.66936932 3.67383016 3.6781505  3.68233002
+ 3.68636839 3.6902653  3.69402044 3.6976335  3.70110416 3.70443214
+ 3.70761713 3.71065884 3.71355699 3.71631127 3.71892143 3.72138716
+ 3.72370822 3.72588431 3.72791518 3.72980057 3.73154022 3.73313388
+ 3.73458129 3.73588222 3.73703642 3.73804365 3.73890368 3.7396163
+ 3.74018126 3.74059835 3.74086736 3.74098807 3.74096028 3.74078378
+ 3.74045838 3.73998388 3.7393601  3.73858684 3.73766392 3.73659118
+ 3.73536844 3.73399552 3.73247227 3.73079853 3.72897414 3.72699896
+ 3.72487283 3.72259562 3.7201672  3.71758742 3.71485617 3.71197331
+ 3.70893874 3.70575234 3.702414   3.69892361 3.69528108 3.69148632
+ 3.68753922 3.68343972 3.67918772 3.67478315 3.67022595 3.66551604
+ 3.66065336 3.65563786 3.65046949 3.6451482  3.63967394 3.63404668
+ 3.62826639 3.62233305 3.61624662 3.61000709 3.60361446 3.5970687
+ 3.59036983 3.58351784 3.57651274 3.56935455 3.56204328 3.55457895
+ 3.5469616  3.53919125 3.53126795 3.52319174 3.51496267 3.50658079
+ 3.49804616 3.48935885 3.48051892 3.47152645 3.46238153 3.45308423
+ 3.44363465 3.43403288 3.42427902 3.41437319 3.4043155  3.39410605
+ 3.38374498 3.37323242 3.36256849 3.35175334 3.34078711 3.32966995
+ 3.31840202 3.30698349 3.29541451 3.28369525 3.27182591 3.25980666
+ 3.24763769 3.23531919 3.22285137 3.21023443 3.19746859 3.18455406
+ 3.17149106 3.15827983 3.1449206  3.1314136  3.1177591  3.10395733
+ 3.09000856 3.07591305 3.06167106 3.04728289 3.0327488  3.01806908
+ 3.00324403 2.98827395 2.97315914 2.95789991 2.94249658 2.92694948
+ 2.91125892 2.89542525 2.87944881 2.86332994 2.847069   2.83066635
+ 2.81412234 2.79743737 2.78061179 2.763646   2.74654038 2.72929534
+ 2.71191127 2.69438858 2.67672769 2.65892902 2.64099299 2.62292005
+ 2.60471062 2.58636516 2.56788412 2.54926796 2.53051713 2.51163213
+ 2.49261342 2.47346148 2.45417681 2.43475992 2.41521129 2.39553144
+ 2.37572089 2.35578016 2.33570978 2.31551029 2.29518223 2.27472616
+ 2.25414262 2.23343218 2.21259541 2.19163289 2.1705452  2.14933293
+ 2.12799668 2.10653704 2.08495463 2.06325007 2.04142398 2.01947699
+ 1.99740973 1.97522286 1.95291701 1.93049285 1.90795105 1.88529227
+ 1.86251719 1.8396265  1.81662089 1.79350106 1.77026771 1.74692157
+ 1.72346333 1.69989375 1.67621354 1.65242345 1.62852423 1.60451664
+ 1.58040143 1.55617938 1.53185125 1.50741785 1.48287995 1.45823836
+ 1.43349387 1.40864732 1.3836995  1.35865125 1.33350341 1.30825682
+ 1.28291232 1.25747078 1.23193304 1.2063    ]</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="week15_files/figure-html/cell-3-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="eigenvalue-problems" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Eigenvalue Problems</h1>
+<p>We now turn to a specific subclass of boundary-value problems, which is sufficiently distinct that it gets its own section. This is the case where the boundary-value problem’s equation involves (in addition to <span class="math inline">x</span>, <span class="math inline">w(x)</span>, <span class="math inline">w'(x)</span>, and <span class="math inline">w''(x)</span>) a parameter <span class="math inline">s</span>: this one parameter, known as the <em>eigenvalue</em>, will make a world of difference in how this problem is tackled. Our prototypical eigenvalue problem will be a second-order ODE: <span class="math display">
+w'' = f(x,w',w'';s), \quad w(a) = c, \quad w(b) = d.
+</span></p>
+<p>You see that we have an additional parameter <span class="math inline">s</span>. This means that we are not faced with a single differential equation, but a family of ODEs. For given values of <span class="math inline">s</span> there may be no solution to the corresponding ODE; thus, we will have to compute the “interesting” values of <span class="math inline">s</span> (i.e., the ones that lead to a solution) in addition to producing an approximation to <span class="math inline">w(x)</span>. The <span class="math inline">f</span> could be quite complicated, but then the EVP typically becomes intractable. We will here focus on the special case of a linear second-order differential equation such as: <span class="math display">
+w''(x) = \zeta(x)w'(x) + \eta(x)w(x) + \theta(x) s w(x),
+</span> where the functions <span class="math inline">\zeta(x)</span>, <span class="math inline">\eta(x)</span>, and <span class="math inline">\theta(x)</span> are known. If we also impose homogeneous boundary conditions, this is a <em>Sturm–Liouville form</em>.</p>
+<p>We will solve this problem by using the shooting method and the matrix approach. Our problem of choice will be the <em>Mathieu equation</em>, which appears in the study of string vibrations and a host of other topics in physics: <span class="math display">
+w''(x) = (2q\cos 2x - s) w(x), \quad w(0) = w(2\pi).
+</span></p>
+<p>We didn’t actually specify the values of the function at the two boundaries; we merely stated that the solution is periodic. You should not be surprised that the solution (can) be periodic: the equation contains a <span class="math inline">\cos 2x</span> term, so it is certainly plausible that the <span class="math inline">\cos 2x</span> “drives” a corresponding periodicity in <span class="math inline">w(x)</span>; we will see below that the solution to this ODE does not <em>have</em> to be periodic, in which case it is not a solution to our eigenvalue problem (since it doesn’t obey the boundary condition we have imposed).</p>
+<p>The <span class="math inline">s</span> parameter will be very important below: we will need to find the values of <span class="math inline">s</span> that lead to non-trivial (i.e., non-zero) solutions for <span class="math inline">w(x)</span>. The <span class="math inline">q</span> parameter determines the strength of the cosine term and will be held fixed (at a finite value) in what follows. Take a moment to appreciate that when <span class="math inline">q = 0</span> this ODE takes the form <span class="math inline">w''(x) + sw(x) = 0</span>, on which you have spent a good chunk of your undergraduate education. The mere fact that we are now exploring possible values of q and s shows that this problem is qualitatively different from what we were studying earlier in this chapter. Let us see how to solve the Mathieu equation in practice.</p>
+<section id="shooting-method-1" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="shooting-method-1"><span class="header-section-number">2.1</span> Shooting method</h2>
+<p>As you may recall, the shooting method amounts to guessing a value of <span class="math inline">w'(a)</span>, solving an IVP problem, and seeing if you managed to hit upon <span class="math inline">w(b)</span>. Obviously, this process can be systematized, as we saw earlier when we employed the secant root-finding method to produce a better guess for <span class="math inline">w'(a)</span>, by finding the root(s) of <span class="math inline">g(σ) = d</span>. Unfortunately, this approach doesn’t trivially generalize to the problem at hand. To see that, let’s look at the Mathieu equation again: <span class="math display">
+w''(x) = (2q\cos 2x - s) w(x),\quad w(0) =w(2\pi) = 0.
+</span> This time around we took <span class="math inline">w(0) = w(2\pi) = 0</span>.</p>
+<p>One problem with applying the shooting method as described above to this equation is that we don’t actually know the value of <span class="math inline">s</span>. But let’s assume you do. Even then, you will have trouble using the solution of the IVP to get the derivative at the first endpoint. Let’s see why. For this linear ODE, if <span class="math inline">w(x)</span> is a solution then so is <span class="math inline">\alpha w(x)</span>, where <span class="math inline">\alpha</span> is an arbitrary constant. Observe that if <span class="math inline">w(0) = w(2\pi)</span> then <span class="math inline">\alpha w(0) = \alpha w(2\pi)</span> also holds. But that means that trying out different values of <span class="math inline">w'(0)</span> won’t get us anywhere, since the first derivative of <span class="math inline">\alpha w(x)</span> at <span class="math inline">x = 0</span> is <span class="math inline">\alpha w'(0)</span> and <span class="math inline">\alpha</span> could be anything. As you may know from a course on quantum mechanics, determining the <span class="math inline">\alpha</span> in <span class="math inline">\alpha w(x)</span> is a process known as normalization, which has nothing to do with actually satisfying our boundary conditions (since those are satisfied regardless of the value of <span class="math inline">\alpha</span>).</p>
+<p>Our goal can be accomplished by slightly tweaking our earlier argument: instead of using a root-finder to determine <span class="math inline">w'(0)</span> (a hopeless task), arbitrarily pick <span class="math inline">w'(0)</span> and then use a root-finder to determine <span class="math inline">s</span>. Our input boundary conditions <span class="math inline">w(0) = w(2\pi) = 0</span> can, for our discretization scheme(s), be expressed as <span class="math inline">w_0 = w_{n−1} = 0</span>. As explained, we are free to randomly guess a value of <span class="math inline">w'(0) = \sigma</span>. What we do next is to take our starting <span class="math inline">w_0</span> and <span class="math inline">\sigma</span>, plug them into a numerical integrator, and determine the corresponding <span class="math inline">w_{n−1}</span> value that comes out. For a randomly picked value of <span class="math inline">s</span> this approach is fated to fail: for a given <span class="math inline">s</span>, a method like RK4 transforms the input <span class="math inline">s</span> into a specific output at the right endpoint, <span class="math inline">w_{n−1}</span>, without caring about the “desired” value of <span class="math inline">w_{n−1} = 0</span>; mathematically, we can say that our integration method is a function that takes us from <span class="math inline">s</span> to <span class="math inline">w_{n−1}</span>, i.e., <span class="math inline">g(s) = w_{n−1}</span>, where <span class="math inline">g</span> is a new function describing the effect of solving our ODE with a given <span class="math inline">s</span>, with <span class="math inline">x</span> going from <span class="math inline">0</span> to <span class="math inline">2\pi</span>. This <span class="math inline">g</span> is (analogous to, but) different from the one in the BVP problem, here <span class="math inline">g</span> is a function of the <span class="math inline">s</span> parameter in our Mathieu equation. In this language, since our goal is that <span class="math inline">w_{n−1} = 0</span>, we can demand that: <span class="math display">
+g(s) = 0.
+</span></p>
+<p>As before, <span class="math inline">g</span> is the result of carrying out a full initial-value problem solution from <span class="math inline">0</span> to <span class="math inline">2\pi</span>. Once again, we can apply a root-finding algorithm to solve this equation; the only difference is that this time we are not searching for a starting derivative value, but for the value of <span class="math inline">s</span> for which our boundary condition <span class="math inline">w(2\pi) = 0</span> can be met.</p>
+<section id="implementation-2" class="level3">
+<h3 class="anchored" data-anchor-id="implementation-2">Implementation</h3>
+<p>See the folllowing code.</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fs(x,yvals,s):</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    q <span class="op">=</span> <span class="fl">1.5</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    y0, y1 <span class="op">=</span> yvals</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    f0 <span class="op">=</span> y1</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    f1 <span class="op">=</span> (<span class="dv">2</span><span class="op">*</span>q<span class="op">*</span>np.cos(<span class="dv">2</span><span class="op">*</span>x) <span class="op">-</span> s)<span class="op">*</span>y0</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array([f0, f1])</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rk4_gen_eig(fs,a,b,n,yinits,s):</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    h <span class="op">=</span> (b<span class="op">-</span>a)<span class="op">/</span>(n<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.linspace(a,b,n)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    ys <span class="op">=</span> np.zeros((n, yinits.size))</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    yvals <span class="op">=</span> np.copy(yinits)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j,x <span class="kw">in</span> <span class="bu">enumerate</span>(xs):</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        ys[j,:] <span class="op">=</span> yvals</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        k0 <span class="op">=</span> h<span class="op">*</span>fs(x, yvals,s)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>        k1 <span class="op">=</span> h<span class="op">*</span>fs(x<span class="op">+</span>h<span class="op">/</span><span class="dv">2</span>, yvals<span class="op">+</span>k0<span class="op">/</span><span class="dv">2</span>,s)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        k2 <span class="op">=</span> h<span class="op">*</span>fs(x<span class="op">+</span>h<span class="op">/</span><span class="dv">2</span>, yvals<span class="op">+</span>k1<span class="op">/</span><span class="dv">2</span>,s)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>        k3 <span class="op">=</span> h<span class="op">*</span>fs(x<span class="op">+</span>h, yvals<span class="op">+</span>k2,s)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>        yvals <span class="op">+=</span> (k0 <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>k1 <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>k2 <span class="op">+</span> k3)<span class="op">/</span><span class="dv">6</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xs, ys</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> shoot(s):</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    a, b, n <span class="op">=</span> <span class="dv">0</span>, <span class="dv">2</span><span class="op">*</span>np.pi, <span class="dv">500</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    yinits <span class="op">=</span> np.array([<span class="fl">0.</span>, <span class="fl">5.</span>])</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    xs, ys <span class="op">=</span> rk4_gen_eig(fs,a,b,n,yinits,s)  </span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    wfinal <span class="op">=</span> <span class="fl">0.</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ys[<span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>] <span class="op">-</span> wfinal</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> secant(f,x0,x1,kmax<span class="op">=</span><span class="dv">200</span>,tol<span class="op">=</span><span class="fl">1.e-8</span>):</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>    f0 <span class="op">=</span> f(x0)</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,kmax):</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>        f1 <span class="op">=</span> f(x1)</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>        ratio <span class="op">=</span> (x1 <span class="op">-</span> x0)<span class="op">/</span>(f1 <span class="op">-</span> f0)</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>        x2 <span class="op">=</span> x1 <span class="op">-</span> f1<span class="op">*</span>ratio</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>        xdiff <span class="op">=</span> <span class="bu">abs</span>(x2<span class="op">-</span>x1)</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>        x0, x1 <span class="op">=</span> x1, x2</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>        f0 <span class="op">=</span> f1</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>        <span class="co"># rowf = "{0:2d} {1:1.16f} {2:1.16f} {3:1.16f}"</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>        <span class="co"># print(rowf.format(k,x2,xdiff,abs(f(x2))))</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">abs</span>(xdiff<span class="op">/</span>x2) <span class="op">&lt;</span> tol:</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>        x2 <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x2</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> sinit <span class="kw">in</span> (<span class="op">-</span><span class="fl">0.4</span>, <span class="fl">3.3</span>, <span class="fl">8.5</span>):</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>        sval <span class="op">=</span> secant(shoot,sinit,sinit<span class="op">+</span><span class="fl">0.5</span>) </span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(sval, end<span class="op">=</span><span class="st">" "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>-0.7332651490495555 3.814290916493851 9.092608767058467 </code></pre>
+</div>
+</div>
+<p>In the main program, we provide a few initial guesses and then print out the corresponding solutions (for the <span class="math inline">s</span>). Each eigenvalue (i.e., each value of <span class="math inline">s</span> for which we can satisfy the boundary conditions non-trivially) corresponds to a solution for <span class="math inline">w(x)</span>; unsurprisingly, these are known as <em>eigenfunctions</em>.</p>
+</section>
+</section>
+<section id="matrix-approach-1" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="matrix-approach-1"><span class="header-section-number">2.2</span> Matrix Approach</h2>
+<p>We can directly tackle the second-order ODE by replacing the second and first derivatives with the corresponding central-difference approximations. We will now apply such a discretization scheme to the Mathieu equation <span class="math display">
+w''(x) = (2q\cos 2x - s)w(x), \quad w(0) = w(2\pi).
+</span> This time around, we will <em>not</em> assume that <span class="math inline">w(0)=w(2\pi)=0</span> as we did for the shooting <em>method</em>. Rather, we will only enforce that the solution be periodic, thereby getting both the odd functions seen above, as well as some new (even) functions.</p>
+<p>We wish to build the periodicity in to our method. We set up a grid accordingly <span class="math display">
+x_j = \frac{2\pi j}{n},\quad j = 0,1,\dots, n-1.
+</span> Here we include the left endpoint but not the right endpoint: this is because we know our function is periodic, so we avoid storing needless information. Of course, as always, we are still dealing with <span class="math inline">n</span> points. In the present case, we will always satisfy the boundary condition <em>exactly</em>.</p>
+<p>The Mathieu equation involves <span class="math inline">w''(x)</span> and <span class="math inline">w(x)</span>, but not <span class="math inline">w'(x)</span>: this means we only need to use the central-difference approximation to the <em>second</em> derivative. This leads to <span class="math display">
+\frac{w_{j-1} - 2 w_j + w_{j+1}}{h^2} = \left(2q\cos 2x_j - s\right)w_j,\quad j = 0,1,\dots, n-1.
+</span> We can now group terms to get <span class="math display">
+w_{j-1} + \alpha_j w_j + w_{j+1} = -h^2 s w_j, \quad j = 0,1,\dots,n-1,
+</span> where we defined <span class="math display">
+\alpha_j = -2 - 2h^2 q \cos 2x_j.
+</span></p>
+<p>For the boundary condition, we simply define <span class="math inline">w_n = w_0</span>, <span class="math inline">w_{-1} = w_{0}</span>. With this, one can write down the following matrix equation: <span class="math display">
+\left(\begin{array}{ccccccc}
+\alpha_{0} &amp; 1 &amp; 0 &amp; \dots &amp; 0 &amp; 0 &amp; 1\\
+1 &amp; \alpha_{1} &amp; 1 &amp; \dots &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; \alpha_{2} &amp; \dots &amp; 0 &amp; 0 &amp; 0\\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \vdots\\
+0 &amp; 0 &amp; 0 &amp; \dots &amp; \alpha_{n-3} &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; \dots &amp; 1 &amp; \alpha_{n-2} &amp; 1\\
+1 &amp; 0 &amp; 0 &amp; \dots &amp; 0 &amp; 1 &amp; \alpha_{n-1}
+\end{array}\right)\left(\begin{array}{c}
+w_{0}\\
+w_{1}\\
+w_{2}\\
+\vdots\\
+w_{n-3}\\
+w_{n-2}\\
+w_{n-1}
+\end{array}\right)=-h^{2}s\left(\begin{array}{c}
+w_{0}\\
+w_{1}\\
+w_{2}\\
+\vdots\\
+w_{n-3}\\
+w_{n-2}\\
+w_{n-1}
+\end{array}\right).
+</span></p>
+<p>This is of the form <span class="math inline">\boldsymbol{A}\boldsymbol{v}=\lambda \boldsymbol{v}</span>, namely, a matrix eigenvalue problem you have learned before.</p>
+<section id="implementation-3" class="level3">
+<h3 class="anchored" data-anchor-id="implementation-3">Implementation</h3>
+<p>In the following code, we solve the eigenvalues of the Mathieu equation using the matrix approach.</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> matsetup(q,n):</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    h <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>np.pi<span class="op">/</span>n</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> np.arange(n)<span class="op">*</span>h</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.zeros((n,n))</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    np.fill_diagonal(A, <span class="op">-</span><span class="dv">2</span> <span class="op">-</span> <span class="dv">2</span><span class="op">*</span>h<span class="op">**</span><span class="dv">2</span><span class="op">*</span>q<span class="op">*</span>np.cos(<span class="dv">2</span><span class="op">*</span>xs))</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    np.fill_diagonal(A[<span class="dv">1</span>:,:], <span class="dv">1</span>)   </span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    np.fill_diagonal(A[:,<span class="dv">1</span>:], <span class="dv">1</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    A[<span class="dv">0</span>,<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    A[<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> A</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mathieu(q,n):</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> matsetup(q, n)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    qreigvals <span class="op">=</span> qrmet(A,<span class="dv">200</span>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    h <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>np.pi<span class="op">/</span>n</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    qreigvals <span class="op">=</span> np.sort(<span class="op">-</span>qreigvals<span class="op">/</span>h<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> qreigvals</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> qrmet(inA,kmax<span class="op">=</span><span class="dv">100</span>):</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.copy(inA)</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,kmax):</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>        Q, R <span class="op">=</span> qrdec(A)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>        A <span class="op">=</span> R<span class="op">@</span>Q</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>        <span class="co"># print(k, np.diag(A))</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    qreigvals <span class="op">=</span> np.diag(A)</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> qreigvals</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> qrdec(A):</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> A.shape[<span class="dv">0</span>]</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    Ap <span class="op">=</span> np.copy(A)</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    Q <span class="op">=</span> np.zeros((n,n))</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    R <span class="op">=</span> np.zeros((n,n))</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(j):</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>            R[i,j] <span class="op">=</span> Q[:,i]<span class="op">@</span>A[:,j]</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>            Ap[:,j] <span class="op">-=</span> R[i,j]<span class="op">*</span>Q[:,i]</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>        R[j,j] <span class="op">=</span> mag(Ap[:,j])</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>        Q[:,j] <span class="op">=</span> Ap[:,j]<span class="op">/</span>R[j,j]</span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Q, R</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mag(xs):</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt(np.<span class="bu">sum</span>(xs<span class="op">*</span>xs))</span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>    q, n <span class="op">=</span> <span class="fl">1.5</span>, <span class="dv">200</span></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>    qreigvals <span class="op">=</span> mathieu(q, n)</span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(qreigvals[:<span class="dv">6</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[-0.93706036 -0.73350696  2.16553604  3.81267332  4.74538385  9.08581402]</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
