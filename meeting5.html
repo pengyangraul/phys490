@@ -211,7 +211,7 @@ w_{i+2}=\int_{x_{i}}^{x_{i+2}}dxL_{i+2}(x)=h\int_{-1}^{1}du\,\frac{u(u+1)}{2}=\f
 <section id="problem-2" class="level2">
 <h2 class="anchored" data-anchor-id="problem-2">Problem 2</h2>
 <p><strong>Calculating the following integral using Monte Carlo method</strong>: <span class="math display">
-I =  \int_{x^2+y^2\leq 1} dxdy\, e^{-(x^2+y^2)}x^2
+I =  \frac{\int_{x^2+y^2\leq 1} dxdy\, e^{-(x^2+y^2)}x^2}{\int_{x^{2}+y^{2}\leq1}dxdy\,\exp(-(x^{2}+y^{2}))}
 </span></p>
 <p>Let us first work out it analytically. <span class="math display">
 \begin{align*}
@@ -223,7 +223,7 @@ I =  \int_{x^2+y^2\leq 1} dxdy\, e^{-(x^2+y^2)}x^2
 &amp; \simeq 0.21
 \end{align*}
 </span></p>
-<div class="cell" data-execution_count="79">
+<div class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> w(x):</span>
@@ -264,7 +264,7 @@ I =  \int_{x^2+y^2\leq 1} dxdy\, e^{-(x^2+y^2)}x^2
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>        fs.append(f(x))</span>
 <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    accept_prob <span class="op">=</span> accept_num<span class="op">/</span>n_sample<span class="op">/</span>nm</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    accept_prob <span class="op">=</span> accept_num<span class="op">/</span>n_sample</span>
 <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    fs <span class="op">=</span> np.array(fs)</span>
 <span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    fs <span class="op">=</span> fs[discard_m:]</span>
 <span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(fs)<span class="op">/</span>n_sample, accept_prob</span>
@@ -277,8 +277,8 @@ I =  \int_{x^2+y^2\leq 1} dxdy\, e^{-(x^2+y^2)}x^2
 <span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Integration = "</span>, integral)</span>
 <span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Acceptance probability is"</span>, accept_prob)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Integration =  0.2109238240290859
-Acceptance probability is 0.39084</code></pre>
+<pre><code>Integration =  0.20977512319500344
+Acceptance probability is 0.39398</code></pre>
 </div>
 </div>
 </section>
